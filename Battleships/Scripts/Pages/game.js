@@ -52,6 +52,9 @@ function initPlaceShips(index) {
         $("#boardPlayer td").off("mouseenter");
         $(window).off("keydown");
         $("#boardPlayer td.hover").removeClass("hover");
+        $("#gameMessage").html("");
+
+        gameReady();
         return;
     }
 
@@ -87,16 +90,24 @@ function initPlaceShips(index) {
 
 function boardPlaceHover($e, size, orientation) {
     $("#boardPlayer td.hover").removeClass("hover");
-
+    
     var col = $e.index();
     var $tr = $e.closest('tr');
     var row = $tr.index();
+    var failed = false;
 
     if (orientation == "H") {
         if (col + size <= boardSize) {
             for (i = 0; i < size; i++) {
-                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').addClass("hover");
-                col++;
+                var $cell = $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')');
+                
+                if ($cell.data("ship") == undefined) {
+                    $cell.addClass("hover");
+                    col++;
+                } else {
+                    failed = true;
+                    break;
+                }
             }
         }
     }
@@ -104,10 +115,21 @@ function boardPlaceHover($e, size, orientation) {
     if (orientation == "V") {
         if (row + size <= boardSize) {
             for (i = 0; i < size; i++) {
-                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').addClass("hover");
-                row++;
+                var $cell = $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')');
+                
+                if ($cell.data("ship") == undefined) {
+                    $cell.addClass("hover");
+                    row++;
+                } else {
+                    failed = true;
+                    break;
+                }
             }
         }
+    }
+
+    if (failed) {
+        $("#boardPlayer td.hover").removeClass("hover");
     }
 }
 
@@ -120,7 +142,7 @@ function boardPlaceShip($cell, shipToPlace, orientation) {
     if (orientation == "H") {
         if (col + shipToPlace.size <= boardSize) {
             for (i = 0; i < shipToPlace.size; i++) {
-                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').html(shipToPlace.name);
+                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').html(shipToPlace.name).attr("data-ship", shipToPlace.size);
                 col++;
             }
         }
@@ -129,9 +151,13 @@ function boardPlaceShip($cell, shipToPlace, orientation) {
     if (orientation == "V") {
         if (row + shipToPlace.size <= boardSize) {
             for (i = 0; i < shipToPlace.size; i++) {
-                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').html(shipToPlace.name);
+                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').html(shipToPlace.name).attr("data-ship", shipToPlace.size);
                 row++;
             }
         }
     }
+}
+
+function gameReady() {
+    $("#startGame").fadeIn(500);
 }

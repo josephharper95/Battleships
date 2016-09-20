@@ -21,6 +21,14 @@ $class = "small";
                 <?php echo createBoard(); ?>
             </table>
 
+            <div style="width: 100%;text-align: center;margin-top:7px;">
+                <div class="button" 
+                style="display:none"
+                id="startGame" >Start!</div>
+
+                <h3 id="gameMessage"></h3>
+            </div>
+
         </div>
 
         <div class="boardContainer">
@@ -32,8 +40,6 @@ $class = "small";
             </table>
             
         </div>
-
-        <h3 id="gameMessage"></h3>
 
     </div>
 

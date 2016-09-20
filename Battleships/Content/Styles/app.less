@@ -47,6 +47,24 @@ html {
         .body {
             margin-top: 125px;
 
+            .button {
+                min-width: 100px;
+                color: #fff;
+                border: 1px solid #fff;
+                background-color: orange;
+                padding: 5px 7px;
+                display: inline-block;
+                text-align: center;
+                border-radius: 3px;
+                cursor: pointer;
+
+                &:hover {
+                    color: orange;
+                    border-color: orange;
+                    background-color: white;
+                }
+            }
+
             .standardWidth {
                 width: 810px;
                 margin: auto;
@@ -56,10 +74,16 @@ html {
                 .boardContainer {
                     display: inline-block;
                     width: 400px;
+                    vertical-align: top;
 
                     h3 {
                         font-weight: 200;
+                        margin: 0;
                     }
+                }
+
+                #startGame {
+
                 }
             }
 
