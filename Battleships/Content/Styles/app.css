@@ -1,0 +1,63 @@
+html body {
+  font-family: "Helvetica";
+  /**************
+            HEADER
+        **************/
+  /***********
+            BODY
+        ***********/
+  /*****************
+            Responsive
+        *****************/
+}
+html body #header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 80px;
+  background-color: orange;
+}
+html body #header #headerBar {
+  width: 810px;
+  margin: auto;
+}
+html body #header #headerBar #headerTitle {
+  color: #fff;
+  font-weight: 100;
+  float: left;
+}
+html body #header #headerBar #userDetails {
+  float: right;
+  margin-top: 15px;
+  color: #fff;
+  text-align: right;
+}
+html body #header #headerBar #userDetails #firstName {
+  font-size: 150%;
+}
+html body #header #headerBar #userDetails #lastName {
+  font-size: 90%;
+}
+html body .body {
+  margin-top: 125px;
+}
+html body .body .standardWidth {
+  width: 810px;
+  margin: auto;
+}
+html body .body #pageGame .boardContainer {
+  display: inline-block;
+  width: 400px;
+}
+html body .body #pageGame .boardContainer h3 {
+  font-weight: 200;
+}
+html body .body .board td {
+  width: 30px;
+  height: 30px;
+  background-color: orange;
+}
+html body .body .board#boardPlayer td.hover {
+  background-color: #cc8400;
+}

@@ -1,0 +1,88 @@
+html {
+    body {
+        // Standards
+        font-family: "Helvetica";
+
+        /**************
+            HEADER
+        **************/
+        #header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            height: 80px;
+            background-color: orange;
+
+            #headerBar {
+                width: 810px;
+                margin: auto;
+
+                #headerTitle {
+                    color: #fff;
+                    font-weight: 100;
+                    float: left;
+                }
+
+                #userDetails {
+                    float: right;
+                    margin-top: 15px;
+                    color: #fff;
+                    text-align: right;
+
+                    #firstName {
+                        font-size: 150%;
+                    }
+
+                    #lastName {
+                        font-size: 90%;
+                    }
+                }
+            }
+        }
+
+        /***********
+            BODY
+        ***********/
+        .body {
+            margin-top: 125px;
+
+            .standardWidth {
+                width: 810px;
+                margin: auto;
+            }
+
+            #pageGame {
+                .boardContainer {
+                    display: inline-block;
+                    width: 400px;
+
+                    h3 {
+                        font-weight: 200;
+                    }
+                }
+            }
+
+            .board {
+                td {
+                    width: 30px;
+                    height: 30px;
+                    background-color: orange;
+                }
+
+                &#boardPlayer {
+                    td.hover {
+                        background-color: #cc8400;
+                    }
+                }
+            }
+        }
+
+        /*****************
+            Responsive
+        *****************/
+        @media screen and (min-width: 810px) {
+            
+        }
+    }
+}
