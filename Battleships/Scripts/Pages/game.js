@@ -1,9 +1,31 @@
 // Global Variables
 var boardSize;
+var shipsToPlace = [
+    {
+        name: "Ship 1",
+        size: 2
+    },
+    {
+        name: "Ship 2",
+        size: 3
+    },
+    {
+        name: "Ship 3",
+        size: 3
+    },
+    {
+        name: "Ship 4",
+        size: 4
+    },
+    {
+        name: "Ship 5",
+        size: 5
+    }
+];
 
 $(document).ready(function () {
 
-    initPlaceShips();
+    initPlaceShips(0);
 
     switch ($("#boardPlayer").data("size")) {
         case "small":
@@ -19,23 +41,41 @@ $(document).ready(function () {
 
 });
 
-function initPlaceShips() {
+function initPlaceShips(index) {
 
-    $("#gameMessage").html("Place your small ship (2x1)");
-
-    var shipSize = 2;
     var cell;
     var orientation = "H";
+    var ship = shipsToPlace[index];
 
-    $("#boardPlayer td").hover(function () {
+    if (ship == undefined) {
+        // cleanups
+        $("#boardPlayer td").off("mouseenter");
+        $(window).off("keydown");
+        $("#boardPlayer td.hover").removeClass("hover");
+        return;
+    }
+
+    $("#gameMessage").html("Place your " + ship.name);
+
+    $("#boardPlayer td").on("mouseenter ", function () {
         cell = $(this);
-        boardPlaceHover(cell, shipSize, orientation);        
+        boardPlaceHover(cell, ship.size, orientation);    
+
+        $(this).off("click").one("click", function () {
+            boardPlaceShip(cell, ship, orientation);
+
+            // cleanups
+            $("#boardPlayer td").off("hover");
+            $(window).off("keydown");
+
+            initPlaceShips(index + 1);
+        });    
     });
 
     $(window).keydown(function (e) {
         if (e.which == 82) {
             orientation = orientation == "H" ? "V" : "H";
-            boardPlaceHover(cell, shipSize, orientation);
+            boardPlaceHover(cell, ship.size, orientation);
         }
     });
 
@@ -65,6 +105,31 @@ function boardPlaceHover($e, size, orientation) {
         if (row + size <= boardSize) {
             for (i = 0; i < size; i++) {
                 $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').addClass("hover");
+                row++;
+            }
+        }
+    }
+}
+
+function boardPlaceShip($cell, shipToPlace, orientation) {
+    
+    var col = $cell.index();
+    var $tr = $cell.closest('tr');
+    var row = $tr.index();
+
+    if (orientation == "H") {
+        if (col + shipToPlace.size <= boardSize) {
+            for (i = 0; i < shipToPlace.size; i++) {
+                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').html(shipToPlace.name);
+                col++;
+            }
+        }
+    }
+
+    if (orientation == "V") {
+        if (row + shipToPlace.size <= boardSize) {
+            for (i = 0; i < shipToPlace.size; i++) {
+                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').html(shipToPlace.name);
                 row++;
             }
         }
