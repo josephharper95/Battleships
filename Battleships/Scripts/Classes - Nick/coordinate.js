@@ -38,10 +38,12 @@ function Coordinate(x, y) {
         return _isHit;
     }
 
-    this.fire = function() {
+    this.recordHit = function() {
         if (!_isHit) {
             _isHit = true;
-            ship.fire();
+            if(_containsShip){
+                _ship.recordHit();
+            }
         }
     }
 }

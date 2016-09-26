@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script src="../../Scripts/jquery.min.js" type="text/javascript" ></script>
+        <script src="../../Scripts/Classes - Nick/Ship.js" type="text/javascript" ></script>
+        <script src="../../Scripts/Classes - Nick/Board.js" type="text/javascript" ></script>
+        <script src="../../Scripts/Classes - Nick/Coordinate.js" type="text/javascript" ></script>
+    </head>
+
+    <body>
+        <script type="text/javascript">
+           var destroyer = new Ship("Destroyer", 4);
+            var carier = new Ship("Carier", 5);
+            var patrol = new Ship("Patrol", 2);
+            var sub = new Ship("Submarine",3);
+            var battleship = new Ship("BattleShip", 3);
+            var board = new Board(10);
+
+            $(document).ready(function () { 
+                board.placeShip(patrol,0,0);
+                console.log(patrol.getOrientation());
+                battleship.changeOrientation();
+                board.placeShip(battleship,7,7);
+              //  console.log(board.getObjectAt(9,9).containsShip());
+                board.placeShip(sub,7,1);
+                board.placeShip(destroyer, 4,4);
+                carier.changeOrientation();
+                board.placeShip(carier,1,5);
+                document.write("before......");
+                board.toString();
+
+
+                console.log(patrol.toString());
+                console.log("fire at [0,0]");
+                board.fire(0,0);
+                console.log(patrol.toString());
+                console.log("fire at [1,0]");
+                board.fire(1,0);
+                console.log(patrol.toString());
+
+                document.write("after....");
+                board.toString();
+            });
+        </script>
+    </body>
+</html>

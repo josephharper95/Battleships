@@ -1,9 +1,9 @@
-function Ship(size, name) {
+function Ship(name, size) {
     // set when class is initialised and can't be overriden
     var _size = size;
     var _name = name;
-    var _lives = size;
-    var _sunk = false;
+    var _numberOfHits = 0;
+    var _isDestroyed = false;
 
     // set when ship is placed on board
     var _coordinates;
@@ -35,15 +35,20 @@ function Ship(size, name) {
         _coordinates = coordinates;
     }
 
-    this.fire = function () {
-        _lives--;
+    this.recordHit = function () {
+        _numberOfHits++;
 
-        if (_lives <= 0) {
-            _sunk = true;
+        if (_numberOfHits == _size) {
+            _isDestroyed = true;
         }
     }
 
-    this.isSunk = function () {
-        return _sunk;
+    this.isDestroyed = function () {
+        return _isDestroyed;
+    }
+
+    this.toString = function(){
+        return _name +", Size: "+ _size +", Orientation: " +_orientation + 
+        ", No. of hits: " +_numberOfHits+", Is destroyed: " + _isDestroyed;
     }
 };
