@@ -1,7 +1,6 @@
 <?php
     session_start();
 
-    $_SESSION["userID"] = "dummy";
     if(!$_SESSION["userID"])
     {
        header("location: index.php");#
