@@ -2,14 +2,11 @@ function Ship(name, size) {
     // set when class is initialised and can't be overriden
     var _size = size;
     var _name = name;
-<<<<<<< HEAD
     var _lives = size;
     var _sunk = false;
     var _isPlaced = false;
-=======
     var _numberOfHits = 0;
     var _isDestroyed = false;
->>>>>>> e872d742c333251157ca5e38bd6cec86f46b4604
 
     // set when ship is placed on board
     var _coordinates;
