@@ -1,35 +1,41 @@
 function Board(size) {
     var _ships = new Array();
-    var _coordinates = new Array();
+    var _coordinates = new Array(_height);
+    var _size = size;
     var _height = size;
     var _width = size;
+    const MAX_SHIPS = 5;
 
     // initialise board functions
 
-    for (h = 0; h < _height; h++) {
-        _coordinates[h] = new Array();
+    for (var h = 0; h < _height; h++) {
+        _coordinates[h] = new Array(_width);
 
-        for (w = 0; w < _width; w++) {
+        for (var w = 0; w < _width; w++) {
             _coordinates[h][w] = new Coordinate(h, w);
         }
     }
     // end initialise
 
-    this.placeShip = function(x, y, ship) {
-        if (this.canPlaceShip(x, y, ship)) {
-
+    this.placeShip = function(ship, x, y) {
+        if (this.canPlaceShip(ship, x, y)) {
+            var x = x;
+            var y = y;
             var orientation = ship.getOrientation();
-            var size = ship.getSize();
+            var shipSize = ship.getSize();
             var shipCoordinates = new Array();
 
-            for (i = 0; i < size; i++) {
+            for (i = 0; i < shipSize; i++) {
                 var coordinate = _coordinates[x][y];
                 coordinate.placeShip(ship);
 
                 shipCoordinates.push(coordinate);
 
-                y = orientation == 0 ? y + 1 : y;
-                x = orientation == 1 ? x + 1 : x;
+                if(orientation == 0){
+                    y++;
+                } else{
+                    x++;
+                }
             }
 
             ship.place(shipCoordinates);
@@ -40,15 +46,22 @@ function Board(size) {
         }
     }
 
+<<<<<<< HEAD
     this.canPlaceShip = function(x, y, ship) {
 
         if (ship.isPlaced()) {
             return false;
         }
 
+=======
+    this.canPlaceShip = function(ship, x, y) {
+>>>>>>> e872d742c333251157ca5e38bd6cec86f46b4604
         var orientation = ship.getOrientation();
-        var size = ship.getSize();
+        var shipSize = ship.getSize();
+        var x = x;
+        var y = y;
 
+<<<<<<< HEAD
         for (i = 0; i < size; i++) {
             if (x > _width - 1 || x <= 0 || y > _height - 1 || y <= 0) {
                 return false
@@ -57,12 +70,24 @@ function Board(size) {
             var coordinate = _coordinates[x][y];
 
             if (coordinate.containsShip()) {
+=======
+        // var x = coordinate.getX();
+        // var y = coordinate.getY();
+        for (i = 0; i < shipSize; i++) {
+            if(x >= _size || y >= _size){
+                console.log("cannot fit ship here");
+>>>>>>> e872d742c333251157ca5e38bd6cec86f46b4604
                 return false;
             }
-
-            y = orientation == 0 ? y + 1 : y;
-            x = orientation == 1 ? x + 1 : x;
-        }
+            if (this.getObjectAt(x,y).containsShip()) {
+                return false;
+            }
+                if(orientation == 0){
+                    y++;
+                } else{
+                    x++;
+                }
+            }
 
         return true;
     }
@@ -76,7 +101,7 @@ function Board(size) {
 
             var coordinate = _coordinates[x][y];
 
-            coordinate.fire();
+            coordinate.recordHit();
 
         } else {
             return false;
@@ -90,13 +115,38 @@ function Board(size) {
     }
 
     this.remainingShips = function() {
-        var num = 0;
-
-        for (i = 0; i < _ships.length; i++) {
-            num = _ships[i].isSunk() ? num : num + 1;
+         if(_ships.length > 0){
+            var result = "";
+                for(var i = 0; i < _ships.length; i++){
+                    result+= "["+_ships[i].getName() + "]";
+                }
+            return result;
         }
+        else return "No ships remaining";
+    }
 
-        return num;
+    this.toString = function(){
+        document.write("<table border='1' width='400' height='400' style='table-layout: fixed'>");
+        for(var i = 0; i < _coordinates.length; i++){
+                document.write("<tr>");
+            for(var j=0; j<_coordinates[i].length; j++){
+                if(_coordinates[i][j].isHit()){
+                    document.write("<td bgcolor='#FF0000'>");
+                } else{
+                    document.write("<td>");
+                }
+                if(_coordinates[i][j].containsShip()){
+                    var temp = _coordinates[i][j].getShip().getName();
+                    document.write(temp.substring(0,1));
+                }
+                else{
+                    document.write(".");
+                }
+                document.write("</td>");
+            }
+            document.write("</tr>");
+        }
+        document.write("</table>");
     }
 
     this.getAdjacentLocations = function(x, y) {
