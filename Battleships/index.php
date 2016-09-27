@@ -1,7 +1,7 @@
 <?php
     session_start(); // Indicates we are using a session
     
-    if($_SESSION["user"])
+    if($_SESSION["userID"])
     {
         header("Location: Content/Pages/game.php");
         exit();
