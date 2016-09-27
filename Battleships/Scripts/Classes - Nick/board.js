@@ -46,22 +46,19 @@ function Board(size) {
         }
     }
 
-<<<<<<< HEAD
     this.canPlaceShip = function(x, y, ship) {
 
         if (ship.isPlaced()) {
             return false;
         }
+    }
 
-=======
     this.canPlaceShip = function(ship, x, y) {
->>>>>>> e872d742c333251157ca5e38bd6cec86f46b4604
         var orientation = ship.getOrientation();
         var shipSize = ship.getSize();
         var x = x;
         var y = y;
 
-<<<<<<< HEAD
         for (i = 0; i < size; i++) {
             if (x > _width - 1 || x <= 0 || y > _height - 1 || y <= 0) {
                 return false
@@ -70,24 +67,24 @@ function Board(size) {
             var coordinate = _coordinates[x][y];
 
             if (coordinate.containsShip()) {
-=======
-        // var x = coordinate.getX();
-        // var y = coordinate.getY();
-        for (i = 0; i < shipSize; i++) {
-            if(x >= _size || y >= _size){
-                console.log("cannot fit ship here");
->>>>>>> e872d742c333251157ca5e38bd6cec86f46b4604
-                return false;
-            }
-            if (this.getObjectAt(x,y).containsShip()) {
-                return false;
-            }
-                if(orientation == 0){
-                    y++;
-                } else{
-                    x++;
+                // var x = coordinate.getX();
+                // var y = coordinate.getY();
+                for (i = 0; i < shipSize; i++) {
+                    if(x >= _size || y >= _size){
+                        return false;
+                    }
+                    if (this.getObjectAt(x,y).containsShip()) {
+                        return false;
+                    }
+                    
+                    if(orientation == 0){
+                        y++;
+                    } else {
+                        x++;
+                    }
                 }
             }
+        }
 
         return true;
     }
