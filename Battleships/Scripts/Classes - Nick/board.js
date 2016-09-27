@@ -41,14 +41,21 @@ function Board(size) {
     }
 
     this.canPlaceShip = function(x, y, ship) {
+
+        if (ship.isPlaced()) {
+            return false;
+        }
+
         var orientation = ship.getOrientation();
         var size = ship.getSize();
 
-        // var x = coordinate.getX();
-        // var y = coordinate.getY();
-        var coordinate = _coordinates[x][y];
-
         for (i = 0; i < size; i++) {
+            if (x > _width - 1 || x <= 0 || y > _height - 1 || y <= 0) {
+                return false
+            }
+
+            var coordinate = _coordinates[x][y];
+
             if (coordinate.containsShip()) {
                 return false;
             }
@@ -92,11 +99,51 @@ function Board(size) {
         return num;
     }
 
-    this.getAdjacentLocations = function(coordinate) {
+    this.getAdjacentLocations = function(x, y) {
+        var locations = new Array();
 
+        // O X O
+        // X X X
+        // O X O
+
+        // x-1  y-1 diag
+        // x    y-1
+        // x+1  y-1 diag
+        // x-1  y
+        // x+1  y
+        // x-1  y+1 diag
+        // x    y+1
+        // x+1  y+1 diag
+
+        if (y - 1 >= 0) {
+            locations.push(this.getObjectAt(x, y-1));
+        }
+
+        if (y + 1 <= _height - 1) {
+            locations.push(this.getObjectAt(x, y+1));
+        }
+
+        if (x - 1 >= 0) {
+            locations.push(this.getObjectAt(x-1, y));
+        }
+
+        if (x + 1 >= _width) {
+            locations.push(this.getObjectAt(x+1, y));
+        }
+
+        return locations;   
     }
 
-    this.getMovesAtAdjacentLocations = function(coordinate) {
+    this.getMovesAtAdjacentLocations = function(x, y) {
+        var locations = this.getAdjacentLocations(x, y);
+        var availMoveLocations = new Array();
 
+        for (i = 0; i < locations.length; i++) {
+            if (!locations[i].isHit()) {
+                availMoveLocations.push(locations[i]);
+            }
+        }
+
+        return availMoveLocations;
     }
 }

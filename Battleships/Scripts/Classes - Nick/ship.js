@@ -4,6 +4,7 @@ function Ship(size, name) {
     var _name = name;
     var _lives = size;
     var _sunk = false;
+    var _isPlaced = false;
 
     // set when ship is placed on board
     var _coordinates;
@@ -26,6 +27,10 @@ function Ship(size, name) {
     };
 
     this.changeOrientation = function() {
+        if (_isPlaced) {
+            return false;
+        }
+
         // 1 = vertical
         // 0 = horizontal
         _orientation = _orientation == 1 ? 0 : 1;
@@ -33,6 +38,7 @@ function Ship(size, name) {
 
     this.place = function (coordinates) {
         _coordinates = coordinates;
+        _isPlaced = true;
     }
 
     this.fire = function () {
@@ -45,5 +51,9 @@ function Ship(size, name) {
 
     this.isSunk = function () {
         return _sunk;
+    }
+
+    this.isPlaced = function () {
+        return _isPlaced;
     }
 };

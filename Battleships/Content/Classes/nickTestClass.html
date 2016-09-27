@@ -10,10 +10,19 @@
         <script type="text/javascript">
             var ship = new Ship(3, "Pussy Ship");
             var ship2 = new Ship(4, "Dope Fuck Ship");
+            var ship3 = new Ship(5, "Destroyer");
             var board = new Board(10);
 
             $(document).ready(function () { 
                 document.write("Ship has size: " + ship.getSize());
+
+                document.write("<br />");
+
+                document.write("Ship 2 has size: " + ship2.getSize());
+
+                document.write("<br />");
+
+                document.write("Ship 3 has size: " + ship3.getSize());
 
                 document.write("<br />");
                 document.write("<br />");
@@ -103,7 +112,46 @@
 
                 document.write("Change Ship 2 oritentation... ");
 
-                ship.changeOrientation();
+                ship2.changeOrientation();
+
+                document.write("<br />");
+                document.write("<br />");
+
+                document.write("Can place ship 2 at (3,1)? : " + board.canPlaceShip(3, 1, ship2));
+
+                document.write("<br />");
+                document.write("<br />");
+
+                document.write("Can place ship 2 at (2,1)? : " + board.canPlaceShip(2, 1, ship2));
+
+                document.write("<br />");
+                document.write("<br />");
+
+                document.write("Placing ship 2 at (2,1)");
+
+                board.placeShip(2, 1, ship2);
+
+                document.write("<br />");
+                document.write("<br />");
+
+                document.write("Can place ship 3 at (9,9)? : " + board.canPlaceShip(9, 9, ship3));
+
+                document.write("<br />");
+                document.write("<br />");
+
+                document.write("Can place ship 3 at (5,5)? : " + board.canPlaceShip(5, 5, ship3));
+
+                document.write("<br />");
+                document.write("<br />");
+
+                document.write("Placing ship 3 at (5,5)");
+
+                board.placeShip(5, 5, ship3);
+
+                document.write("<br />");
+                document.write("<br />");
+
+                document.write("Remaining ships : " + board.remainingShips());
             });
         </script>
     </body>
