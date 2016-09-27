@@ -174,7 +174,7 @@ function Board(size) {
             locations.push(this.getObjectAt(x-1, y));
         }
 
-        if (x + 1 >= _width) {
+        if (x + 1 <= _width) {
             locations.push(this.getObjectAt(x+1, y));
         }
 
@@ -192,5 +192,15 @@ function Board(size) {
         }
 
         return availMoveLocations;
+    }
+
+    //testing
+    this.printAdjLocations = function(x,y){
+        var arr = this.getAdjacentLocations(x,y);
+        var result = "";
+                for(var i = 0; i < arr.length; i++){
+                    result+= "["+arr[i].getCoordinates() + "]";
+                }
+            return result;
     }
 }
