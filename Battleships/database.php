@@ -12,7 +12,7 @@ class Database{
    //Private constructor to stop more instances being created         
    private function __construct(){
        try {
-           $this->pdo = new PDO("mysql:host=localhost;dbname=book_store;", "root", "root");
+           $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", "");
        } catch(PDOException $e){
            die("Error connecting to database");
        }
