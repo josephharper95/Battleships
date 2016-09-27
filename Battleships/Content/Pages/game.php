@@ -8,6 +8,10 @@ $class = "small";
 ?>
 
 <script type="text/javascript" src="../../Scripts/Pages/game.js"></script>
+<script type="text/javascript" src="../../Scripts/Classes/game.js"></script>
+<script type="text/javascript" src="../../Scripts/Classes/board.js"></script>
+<script type="text/javascript" src="../../Scripts/Classes/coordinate.js"></script>
+<script type="text/javascript" src="../../Scripts/Classes/ship.js"></script>
 
 <body>
 

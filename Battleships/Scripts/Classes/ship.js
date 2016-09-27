@@ -32,7 +32,7 @@ function Ship(name, size) {
         if (_isPlaced) {
             return false;
         }
-
+        
         // 1 = vertical
         // 0 = horizontal
         _orientation = _orientation == 1 ? 0 : 1;

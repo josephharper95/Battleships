@@ -1,24 +1,27 @@
 // Global Variables
-var boardSize;
+var game;
+var playerBoard;
+var computerBoard;
+
 var shipsToPlace = [
     {
-        name: "Ship 1",
+        name: "Destroyer",
         size: 2
     },
     {
-        name: "Ship 2",
+        name: "Submarine",
         size: 3
     },
     {
-        name: "Ship 3",
+        name: "Cruiser",
         size: 3
     },
     {
-        name: "Ship 4",
+        name: "Battleship",
         size: 4
     },
     {
-        name: "Ship 5",
+        name: "Carrier",
         size: 5
     }
 ];
@@ -26,6 +29,8 @@ var shipsToPlace = [
 $(document).ready(function () {
 
     initPlaceShips(0);
+
+    var boardSize;
 
     switch ($("#boardPlayer").data("size")) {
         case "small":
@@ -39,15 +44,17 @@ $(document).ready(function () {
             break;
     }
 
+    game = new Game(boardSize);
+    playerBoard = game.getPlayerBoard();
+    computerBoard = game.getComputerBoard();
 });
 
 function initPlaceShips(index) {
 
     var cell;
-    var orientation = "H";
-    var ship = shipsToPlace[index];
+    var shipToPlace = shipsToPlace[index];
 
-    if (ship == undefined) {
+    if (shipToPlace == undefined) {
         // cleanups
         $("#boardPlayer td").off("mouseenter");
         $(window).off("keydown");
@@ -58,27 +65,30 @@ function initPlaceShips(index) {
         return;
     }
 
-    $("#gameMessage").html("Place your " + ship.name);
+    var ship = new Ship(shipToPlace.name, shipToPlace.size);
+
+    $("#gameMessage").html("Place your " + ship.getName());
 
     $("#boardPlayer td").on("mouseenter ", function () {
         cell = $(this);
-        boardPlaceHover(cell, ship.size, orientation);    
+        boardPlaceHover(cell, ship);    
 
         $(this).off("click").one("click", function () {
-            boardPlaceShip(cell, ship, orientation);
+            boardPlaceShip(cell, ship);
 
             // cleanups
             $("#boardPlayer td").off("hover");
+            $("#boardPlayer td.hover").removeClass("hover");
             $(window).off("keydown");
 
             initPlaceShips(index + 1);
         });    
     });
-
+    
     $(window).keydown(function (e) {
         if (e.which == 82) {
-            orientation = orientation == "H" ? "V" : "H";
-            boardPlaceHover(cell, ship.size, orientation);
+            ship.changeOrientation();
+            boardPlaceHover(cell, ship);
         }
     });
 
@@ -88,74 +98,42 @@ function initPlaceShips(index) {
 
 }
 
-function boardPlaceHover($e, size, orientation) {
-    $("#boardPlayer td.hover").removeClass("hover");
-    
-    var col = $e.index();
-    var $tr = $e.closest('tr');
-    var row = $tr.index();
-    var failed = false;
-
-    if (orientation == "H") {
-        if (col + size <= boardSize) {
-            for (i = 0; i < size; i++) {
-                var $cell = $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')');
-                
-                if ($cell.data("ship") == undefined) {
-                    $cell.addClass("hover");
-                    col++;
-                } else {
-                    failed = true;
-                    break;
-                }
-            }
-        }
-    }
-
-    if (orientation == "V") {
-        if (row + size <= boardSize) {
-            for (i = 0; i < size; i++) {
-                var $cell = $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')');
-                
-                if ($cell.data("ship") == undefined) {
-                    $cell.addClass("hover");
-                    row++;
-                } else {
-                    failed = true;
-                    break;
-                }
-            }
-        }
-    }
-
-    if (failed) {
+function boardPlaceHover($e, ship) {
+    if ($e) {
         $("#boardPlayer td.hover").removeClass("hover");
+        
+        var x = $e.index();
+        var $tr = $e.closest('tr');
+        var y = $tr.index();
+
+        var coords = playerBoard.canPlaceShip(ship, x, y);
+
+        if (coords) {
+            
+            for (i = 0; i < coords.length; i++) {
+                var c = coords[i];
+                $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').addClass("hover");
+            }
+        } else {
+            $("#boardPlayer td.hover").removeClass("hover");
+        }
     }
 }
 
-function boardPlaceShip($cell, shipToPlace, orientation) {
+function boardPlaceShip($cell, ship) {
     
-    var col = $cell.index();
+    var x = $cell.index();
     var $tr = $cell.closest('tr');
-    var row = $tr.index();
+    var y = $tr.index();
 
-    if (orientation == "H") {
-        if (col + shipToPlace.size <= boardSize) {
-            for (i = 0; i < shipToPlace.size; i++) {
-                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').html(shipToPlace.name).attr("data-ship", shipToPlace.size);
-                col++;
-            }
-        }
+    var coords = playerBoard.canPlaceShip(ship, x, y);
+
+    for (i = 0; i < coords.length; i++) {
+        var c = coords[i];
+        $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').html(ship.name).attr("data-ship", ship.name).css("background-color", "red");
     }
 
-    if (orientation == "V") {
-        if (row + shipToPlace.size <= boardSize) {
-            for (i = 0; i < shipToPlace.size; i++) {
-                $('#boardPlayer tr:eq(' + row + ') > td:eq(' + col + ')').html(shipToPlace.name).attr("data-ship", shipToPlace.size);
-                row++;
-            }
-        }
-    }
+    playerBoard.placeShip(ship, x, y);
 }
 
 function gameReady() {
