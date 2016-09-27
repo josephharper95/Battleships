@@ -1,5 +1,3 @@
-
-
 <?php
 //singleton pattern 
 class Database{
