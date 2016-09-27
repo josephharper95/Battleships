@@ -46,8 +46,7 @@ function Board(size) {
         }
     }
 
-    this.canPlaceShip = function(x, y, ship) {
-
+    this.canPlaceShip = function(ship, x, y) {
         if (ship.isPlaced()) {
             return false;
         }
@@ -60,7 +59,8 @@ function Board(size) {
         var y = y;
 
         for (i = 0; i < size; i++) {
-            if (x > _width - 1 || x <= 0 || y > _height - 1 || y <= 0) {
+            if (x > _width - 1 || x < 0 || y > _height - 1 || y < 0) {
+                console.log('patrol');
                 return false
             }
 
