@@ -1,4 +1,11 @@
 <?php
+    session_start();
+
+    if(!$_SESSION["userID"])
+    {
+       header("location: index.php");#
+       die();
+    }
 
 require_once("header.php");
 

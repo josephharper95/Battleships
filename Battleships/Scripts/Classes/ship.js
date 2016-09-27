@@ -2,8 +2,6 @@ function Ship(name, size) {
     // set when class is initialised and can't be overriden
     var _size = size;
     var _name = name;
-    var _lives = size;
-    var _sunk = false;
     var _isPlaced = false;
     var _numberOfHits = 0;
     var _isDestroyed = false;
