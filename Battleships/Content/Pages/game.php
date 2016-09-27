@@ -1,4 +1,12 @@
 <?php
+    session_start();
+
+    $_SESSION["userID"] = "dummy";
+    if(!$_SESSION["userID"])
+    {
+       header("location: index.php");#
+       die();
+    }
 
 require_once("header.php");
 
