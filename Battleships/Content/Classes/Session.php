@@ -12,7 +12,7 @@ class Session{
             return $_SESSION[$name];
         }
         else{
-            echo 'Session variable not set';
+            return false;
         }
     }
     

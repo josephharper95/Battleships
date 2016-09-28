@@ -1,7 +1,7 @@
 <?php
-    require("session.php");
+    require("..\Classes\setup.php");
     
-    $_SESSION["userID"] = "dummy";
+    Session::set("userID", "dummy");
     
     if($_SESSION["userID"])
     {
