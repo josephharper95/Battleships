@@ -1,6 +1,7 @@
 <?php
-//Start the current session
-session_start();
+//Start the current session by including session.php
+//session_start();
+require("session.php");
 
 //Autoloads the classes so that they can be instantiated easily in other pages.
 spl_autoload_register(function($className) {

@@ -1,5 +1,6 @@
 <?php
-    session_start(); // Indicates we are using a session
+    require("session.php");
+    
     $_SESSION["userID"] = "dummy";
     
     if($_SESSION["userID"])

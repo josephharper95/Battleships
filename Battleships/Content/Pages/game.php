@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    require("../../setup.php");
 
     if(!$_SESSION["userID"])
     {
