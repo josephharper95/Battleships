@@ -40,8 +40,10 @@ function Board(size) {
 
             ship.place(shipCoordinates);
             _ships.push(ship);
+            return true;
 
         } else {
+            console.log("Cannot place ship here");
             return false;
         }
     }
