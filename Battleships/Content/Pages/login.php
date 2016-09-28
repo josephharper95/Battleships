@@ -3,7 +3,7 @@
     
     Session::set("userID", "dummy");
     
-    if($_SESSION["userID"])
+    if(Session::get("userID"))
     {
         header("Location: Content/Pages/game.php");
         exit();

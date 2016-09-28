@@ -1,10 +1,10 @@
 <?php
-    require("../../setup.php");
+    require("..\Classes\setup.php");
 
-    if(!$_SESSION["userID"])
+    if(!Session::get("userID"))
     {
-       header("location: index.php");#
-       die();
+       header("location: login.php");#
+       exit();
     }
 
 require_once("header.php");
