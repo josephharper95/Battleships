@@ -50,43 +50,34 @@ function Board(size) {
         if (ship.isPlaced()) {
             return false;
         }
-    }
 
-    this.canPlaceShip = function(ship, x, y) {
         var orientation = ship.getOrientation();
         var shipSize = ship.getSize();
         var x = x;
         var y = y;
+        var coordinates = new Array(shipSize);
 
-        for (i = 0; i < size; i++) {
+        for (i = 0; i < shipSize; i++) {
+            
             if (x > _width - 1 || x < 0 || y > _height - 1 || y < 0) {
-                console.log('patrol');
                 return false
             }
 
             var coordinate = _coordinates[x][y];
+            coordinates[i] = coordinate;
 
             if (coordinate.containsShip()) {
-                // var x = coordinate.getX();
-                // var y = coordinate.getY();
-                for (i = 0; i < shipSize; i++) {
-                    if(x >= _size || y >= _size){
-                        return false;
-                    }
-                    if (this.getObjectAt(x,y).containsShip()) {
-                        return false;
-                    }
-                    
-                    if(orientation == 0){
-                        y++;
-                    } else {
-                        x++;
-                    }
-                }
+                return false;
+            }
+
+            if (orientation == 0){
+                y++;
+            } else {
+                x++;
             }
         }
-
-        return true;
+        
+        return coordinates;
     }
 
     this.getObjectAt = function(x, y) {
@@ -174,7 +165,7 @@ function Board(size) {
             locations.push(this.getObjectAt(x-1, y));
         }
 
-        if (x + 1 >= _width) {
+        if (x + 1 <= _width) {
             locations.push(this.getObjectAt(x+1, y));
         }
 
@@ -192,5 +183,15 @@ function Board(size) {
         }
 
         return availMoveLocations;
+    }
+
+    //testing
+    this.printAdjLocations = function(x,y){
+        var arr = this.getAdjacentLocations(x,y);
+        var result = "";
+                for(var i = 0; i < arr.length; i++){
+                    result+= "["+arr[i].getCoordinates() + "]";
+                }
+            return result;
     }
 }
