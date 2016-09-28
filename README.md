@@ -1,3 +1,1 @@
-Test 
-hello
-Joe2
+Welcome to the Battleships git repository.
