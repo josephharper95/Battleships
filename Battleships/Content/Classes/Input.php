@@ -11,8 +11,8 @@ class Input{
         return(isset($_POST[$item]));
     }
     
-    //Gets the submitted item if it exists
-    public static function get($item){
+    //Gets the submitted item from post if it exists
+    public static function post($item){
         if(Input::itemExists($item)){
             return $_POST[$item];
         }

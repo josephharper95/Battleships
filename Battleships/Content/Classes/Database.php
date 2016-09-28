@@ -53,6 +53,17 @@ class Database{
    public function getRowCount(){
        return $this->rowCount;
    }        
+
+   public function checkForUserAndPassword($userID, $hashedPassword)
+   {
+       $sql = "SELECT userID, password, type, balance
+               FROM user
+			   WHERE userID = ? && password = ?
+			   LIMIT 1";
+       $values = array($userID, $hashedPassword)
+       
+       $this->query($sql, $values);
+   }
 }
 
 ?>
