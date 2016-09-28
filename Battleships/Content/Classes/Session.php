@@ -25,7 +25,7 @@ class Session{
     
     //Checks if a session variable exists for the given name.
     public static function exists($name){
-        return (isset($_SESSION[$name])) ? true : false;
+        return (isset($_SESSION[$name]));
     }
 }
 

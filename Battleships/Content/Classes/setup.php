@@ -7,9 +7,6 @@ spl_autoload_register(function($className) {
     require('classes/' .$className . '.php');
 });
 
-//include functions
-require_once 'require/functions.php';
-
 //include errors for now
 error_reporting(E_ALL); 
 ini_set('display_errors', 1);
