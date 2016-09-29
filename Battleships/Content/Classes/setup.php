@@ -4,7 +4,7 @@ session_start();
 
 //Autoloads the classes so that they can be instantiated easily in other pages.
 spl_autoload_register(function($className) {
-    require('$className' . '.php');
+    require($className . '.php');
 });
 
 //include errors for now

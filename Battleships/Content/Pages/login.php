@@ -1,23 +1,27 @@
 <?php
+    //http://www.datagenetics.com/blog/december32011/
     require("..\Classes\setup.php");
-    
-    Session::set("userID", "dummy"); // Using false credentials to get into system prior to login implementation.
     
     if(Session::get("userID")) // If user is already logged in on a session... go to game!
     {
-        header("Location: Content/Pages/game.php");
+        header("Location: game.php");
         exit();
     }
     
-    if(Input::post("userID") && Input::post("password")) // If user has entered a username and password
+    if(Input::itemExists("register"))
+    {
+        header("Location: registration.php");
+        exit();
+    }
+
+    if(Input::itemExists("userID") && Input::itemExists("password") && Input::itemExists("login")) // If user has entered a username and password
     {
         $userID = Input::post("userID");
-
         $hashedPassword = hash("sha256", Input::post("password"));
         $db = Database::getInstance();
-        $db.checkForUserAndPassword($userID, $hashedPassword);
+        $db->checkForUserAndPassword($userID, $hashedPassword);
 
-        if($db.rowCount > 0) // If username + hashed password combination is found in the DB... go to game!
+        if($db->getRowCount() > 0) // If username + hashed password combination is found in the DB... go to game!
         {
             Session::set("userID", $userID);
             header("Location: game.php");
@@ -29,12 +33,25 @@
         exit();
         }
     }
-    else // If user has not entered both username and password... redirect back to login page.
+    else // If user has not entered both username and password... display login form
     {
-        header("Location: login.php");
-        exit();
+?>
+
+<form method='post' action=''>
+	<fieldset>
+	<legend>User Login</legend>
+	<div>
+		Username: <input type='text' name='userID'/><br/>
+		Password: <input type='password' name='password'/><br/>
+		<input type='submit' name='login' value='Login'/>
+	</div>
+	</fieldset>
+</form>
+<form method='post' action='registration.php'>
+	<div>
+		<input type='submit' name='register' value='Register New User'/><br/>
+	</div>
+</form>
+<?php
     }
-
-
-    //http://www.datagenetics.com/blog/december32011/
 ?>

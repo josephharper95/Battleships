@@ -60,7 +60,7 @@ $class = "small";
 
 <?php
 
-require_one("footer.php");
+require_once("footer.php");
 
 ?>
 
