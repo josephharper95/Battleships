@@ -45,10 +45,23 @@
                 playerBoard.toString();*/
 
                 //console.log("Adjacent locations at {5, 5}:" + playerBoard.printAdjLocations(5,5));
-
-                var cpu = new AI();
-                cpu.placeShips(playerBoard);
+                var enemyBoard = new Board(10);
+                var cpu1 = new AI("CPU1", playerBoard, enemyBoard);
+                var cpu2 = new AI("CPU2", enemyBoard, playerBoard);
+                cpu1.placeShips();
+                cpu2.placeShips();
                 playerBoard.toString();
+                enemyBoard.toString();
+
+                while(!playerBoard.gameFinished() || !playerBoard.gameFinished()){
+                cpu1.fire();
+                cpu2.fire();
+                playerBoard.toString();
+                enemyBoard.toString();
+                }
+                
+
+
             });
         </script>
     </body>

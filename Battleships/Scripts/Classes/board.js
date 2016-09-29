@@ -115,6 +115,19 @@ function Board(size) {
         else return "No ships remaining";
     }
 
+    this.gameFinished = function(){
+        var result = 0;
+        for(var i = 0; i < _ships.length; i++){
+            if(!_ships[i].isDestroyed()){
+                result += 1;
+            }
+        }
+        if(result == 0){
+            return true;
+        }
+        else return false;
+    }
+
     this.toString = function(){
         document.write("<table border='1' width='400' height='400' style='table-layout: fixed'>");
         for(var i = 0; i < _coordinates.length; i++){
@@ -185,6 +198,17 @@ function Board(size) {
         }
 
         return availMoveLocations;
+    }
+
+    this.getListOfCoordinates = function(){
+        var list = new Array();
+        for (var h = 0; h < _height; h++) {
+            for (var w = 0; w < _width; w++) {
+                list.push(_coordinates[h][w]);
+            }
+
+        }
+        return list;
     }
 
     //testing
