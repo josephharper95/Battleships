@@ -13,12 +13,12 @@
 		Username: <input type='text' name='username'/><br/>
 		Password: <input type='password' name='password'/><br/>
 		Confirm Password: <input type='password' name='passwordmatch'/><br/>
-		<input type='submit' name='submit' value='Register'/><br/>
+		<input type='submit' name='register' value='Register'/><br/>
 	</div>
 	</fieldset>
 </form> 
 		
-<form method='post' action='login.php'>
+<form method='post' action=''>
 	<div>
 		<input type='submit' name='return' value='Return to Login Screen'/><br/>
 	</div>

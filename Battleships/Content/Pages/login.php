@@ -30,7 +30,7 @@
         else // If username + hashed password combination not found in the DB... redirect back to login page.
         {
             header("Location: login.php");
-        exit();
+            exit();
         }
     }
     else // If user has not entered both username and password... display login form
