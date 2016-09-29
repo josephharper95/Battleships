@@ -5,6 +5,8 @@
         header("Location: login.php");
         exit();
     }
+    
+    require("header.php");
 ?>
 <form method='post' action=''>
 	<fieldset>
@@ -23,3 +25,7 @@
 		<input type='submit' name='return' value='Return to Login Screen'/><br/>
 	</div>
 </form>
+
+<?php
+    require("footer.php");
+?>

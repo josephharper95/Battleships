@@ -1,6 +1,7 @@
 <?php
     //http://www.datagenetics.com/blog/december32011/
     require("..\Classes\setup.php");
+    Session::set("userID", "user"); //dummy user for developers without DB setup.
     
     if(Session::get("userID")) // If user is already logged in on a session... go to game!
     {
@@ -33,8 +34,7 @@
             exit();
         }
     }
-    else // If user has not entered both username and password... display login form
-    {
+    require("header.php");
 ?>
 
 <form method='post' action=''>
@@ -52,6 +52,7 @@
 		<input type='submit' name='register' value='Register New User'/><br/>
 	</div>
 </form>
+
 <?php
-    }
+        require("footer.php");
 ?>
