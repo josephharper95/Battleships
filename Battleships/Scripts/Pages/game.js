@@ -91,6 +91,8 @@ function initPlaceShips(index) {
 function cleanupHoverClasses() {
     $("#boardPlayer td.hover").removeClass("hover");
     $("#boardPlayer td.noHover").removeClass("noHover");
+    $("#boardComputer td.hover").removeClass("hover");
+    $("#boardComputer td.hover").removeClass("noHover");
 }
 
 function boardPlaceHover($e, ship, index) {
