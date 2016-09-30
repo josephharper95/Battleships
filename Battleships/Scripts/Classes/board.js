@@ -49,27 +49,30 @@ function Board(size) {
     }
 
     this.canPlaceShip = function(ship, x, y) {
-        if (ship.isPlaced()) {
-            return false;
-        }
 
         var orientation = ship.getOrientation();
         var shipSize = ship.getSize();
         var x = x;
         var y = y;
         var coordinates = new Array(shipSize);
+        var passed = true;
+
+        if (ship.isPlaced()) {
+            return [false, new Array()];
+        }
 
         for (i = 0; i < shipSize; i++) {
             
             if (x > _width - 1 || x < 0 || y > _height - 1 || y < 0) {
-                return false
+                return [false, coordinates];
             }
 
             var coordinate = _coordinates[x][y];
             coordinates[i] = coordinate;
 
             if (coordinate.containsShip()) {
-                return false;
+                //return [false, coordinates];
+                passed = false;
             }
 
             if (orientation == 0){
@@ -79,7 +82,7 @@ function Board(size) {
             }
         }
         
-        return coordinates;
+        return [passed, coordinates];
     }
 
     this.getObjectAt = function(x, y) {

@@ -72,12 +72,7 @@ function initPlaceShips(index) {
 
     $("#boardPlayer td").on("mouseenter ", function () {
         cell = $(this);
-        boardPlaceHover(cell, ship);    
-
-        $("#boardPlayer td").off("click");
-        $("#boardPlayer td").one("click", function () {
-            boardPlaceShip(cell, ship, index);
-        });   
+        boardPlaceHover(cell, ship, index);  
     });
     
     $(window).keydown(function (e) {
@@ -98,7 +93,11 @@ function cleanupHoverClasses() {
     $("#boardPlayer td.noHover").removeClass("noHover");
 }
 
-function boardPlaceHover($e, ship) {
+function boardPlaceHover($e, ship, index) {
+    if (ship.isPlaced()) {
+        return;
+    }
+
     if ($e) {
         cleanupHoverClasses();
         
@@ -106,28 +105,59 @@ function boardPlaceHover($e, ship) {
         var $tr = $e.closest('tr');
         var y = $tr.index();
 
-        var coords = playerBoard.canPlaceShip(ship, x, y);
+        //var coords = playerBoard.canPlaceShip(ship, x, y);
 
-        if (coords) {
-            
-            for (i = 0; i < coords.length; i++) {
-                var c = coords[i];
-                $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').addClass("hover");
-            }
-        } else {
+        var canPlaceShip = playerBoard.canPlaceShip(ship, x, y);
 
-            $('#boardPlayer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("noHover");
+        if (!canPlaceShip) {
+            alert();
         }
+
+        var canHover = canPlaceShip[0];
+        var coords = canPlaceShip[1];
+
+        for (i = 0; i < coords.length; i++) {
+            var c = coords[i];
+            var hover = canHover ? "hover" : "noHover";
+
+            if (c) {
+                $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').addClass(hover);
+            }
+        }
+
+        if (canHover) {
+            $("#boardPlayer td").off("click");
+            $("#boardPlayer td").one("click", function () {
+                boardPlaceShip($e, ship, index);
+            }); 
+        }
+
+        // if (coords) {
+            
+        //     for (i = 0; i < coords.length; i++) {
+        //         var c = coords[i];
+        //         $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').addClass("hover");
+        //     }
+        // } else {
+
+        //     $('#boardPlayer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("noHover");
+        // }
     }
 }
 
 function boardPlaceShip($cell, ship, index) {
+
+    if (ship.isPlaced()) {
+        return;
+    }
     
     var x = $cell.index();
     var $tr = $cell.closest('tr');
     var y = $tr.index();
 
-    var coords = playerBoard.canPlaceShip(ship, x, y);
+    var canPlaceShip = playerBoard.canPlaceShip(ship, x, y);
+    var canHover = canPlaceShip[0];
+    var coords = canPlaceShip[1];
 
     if (coords) {
 
