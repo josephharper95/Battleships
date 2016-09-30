@@ -1,9 +1,14 @@
 <?php
 	require("..\Classes\setup.php");
-    if(Input::itemExists("return"))
+    if(Input::itemExists("return")) // If user selected "Return to Login Screen"
     {
         header("Location: login.php");
         exit();
+    }
+
+	if(Input::itemExists("register"))
+    {
+        if(Input::post(""))
     }
     
     require("header.php");

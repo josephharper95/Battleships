@@ -47,7 +47,7 @@
 	</div>
 	</fieldset>
 </form>
-<form method='post' action='registration.php'>
+<form method='post' action=''>
 	<div>
 		<input type='submit' name='register' value='Register New User'/><br/>
 	</div>
