@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2016 at 10:42 PM
+-- Generation Time: Sep 30, 2016 at 11:48 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.4
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `battleships`
 --
+CREATE DATABASE IF NOT EXISTS `battleships` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `battleships`;
 
 -- --------------------------------------------------------
 
