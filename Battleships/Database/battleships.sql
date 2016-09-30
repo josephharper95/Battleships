@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2016 at 02:11 PM
+-- Generation Time: Sep 30, 2016 at 10:42 PM
 -- Server version: 10.1.13-MariaDB
--- PHP Version: 7.0.6
+-- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -117,7 +117,6 @@ CREATE TABLE `shotsfired` (
 CREATE TABLE `users` (
   `userID` varchar(20) NOT NULL,
   `password` char(64) NOT NULL,
-  `score` int(11) NOT NULL,
   `saveGameID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -125,8 +124,32 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `password`, `score`, `saveGameID`) VALUES
-('user', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 0, 2);
+INSERT INTO `users` (`userID`, `password`, `saveGameID`) VALUES
+('test1', '1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014', NULL),
+('user', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userstatistics`
+--
+
+CREATE TABLE `userstatistics` (
+  `userID` varchar(20) NOT NULL,
+  `score` int(11) NOT NULL,
+  `wins` int(11) NOT NULL,
+  `losses` int(11) NOT NULL,
+  `gamesPlayed` int(11) NOT NULL,
+  `totalShotsFired` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userstatistics`
+--
+
+INSERT INTO `userstatistics` (`userID`, `score`, `wins`, `losses`, `gamesPlayed`, `totalShotsFired`) VALUES
+('test1', 0, 0, 0, 0, 0),
+('user', 0, 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -169,6 +192,13 @@ ALTER TABLE `users`
   ADD KEY `INDEX` (`saveGameID`);
 
 --
+-- Indexes for table `userstatistics`
+--
+ALTER TABLE `userstatistics`
+  ADD PRIMARY KEY (`userID`),
+  ADD UNIQUE KEY `userStatisticsID` (`userID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -176,7 +206,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `savegames`
 --
 ALTER TABLE `savegames`
-  MODIFY `saveGameID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `saveGameID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `savegameships`
 --
@@ -209,6 +239,12 @@ ALTER TABLE `shotsfired`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`saveGameID`) REFERENCES `savegames` (`saveGameID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `userstatistics`
+--
+ALTER TABLE `userstatistics`
+  ADD CONSTRAINT `userstatistics_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

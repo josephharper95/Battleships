@@ -83,7 +83,7 @@ class Database
    	function getUserByID($userID)
 	{
 
-        $sql = "SELECT userID, score
+        $sql = "SELECT userID
 				FROM users 
 				WHERE userID = ?
 				LIMIT 1";
@@ -94,9 +94,17 @@ class Database
 
     function insertNewUser($userID, $hashedPassword)
 	{
-		$sql = "INSERT INTO users (userID, password, score)
-				VALUES (?, ?, '0')";
+		$sql = "INSERT INTO users (userID, password)
+				VALUES (?, ?)";
         $values = array($userID, $hashedPassword);
+
+        $this->query($sql, $values);
+
+
+
+        $sql = "INSERT INTO userstatistics (userID, score, wins, losses, gamesPlayed, totalShotsFired)
+				VALUES (?, '0', '0', '0', '0', '0')";
+        $values = array($userID);
 
         $this->query($sql, $values);
 	}
