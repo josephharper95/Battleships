@@ -115,17 +115,18 @@ function Board(size) {
         else return "No ships remaining";
     }
 
-    this.gameFinished = function(){
+    this.isViable = function(){
         var result = 0;
         for(var i = 0; i < _ships.length; i++){
             if(!_ships[i].isDestroyed()){
                 result += 1;
             }
         }
-        if(result == 0){
+        if (result != 0){
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
 
     this.toString = function(){

@@ -1,6 +1,6 @@
 <?php
     //http://www.datagenetics.com/blog/december32011/
-    require("..\Classes\setup.php");
+    require("../Classes/setup.php");
     Session::set("userID", "user"); //dummy user for developers without DB setup.
     
     if(Session::get("userID")) // If user is already logged in on a session... go to game!

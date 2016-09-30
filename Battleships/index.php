@@ -1,3 +1,3 @@
 <?php
-    header("Location: Content\Pages\game.php");
+    header("Location: Content/Pages/game.php");
 ?>

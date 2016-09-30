@@ -1,9 +1,9 @@
 <?php
-    require("..\Classes\setup.php");
+    require("../Classes/setup.php");
 
     if(!Session::get("userID"))
     {
-       header("location: login.php");#
+       header("location: Login.php");#
        exit();
     }
 
