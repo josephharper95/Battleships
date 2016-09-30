@@ -3,7 +3,7 @@
 
     if(!Session::get("userID"))
     {
-       header("location: Login.php");#
+       header("location: login.php");#
        exit();
     }
 

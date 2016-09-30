@@ -79,6 +79,27 @@ class Database
        
        $this->query($sql, $values);
    }
+
+   	function getUserByID($userID)
+	{
+
+        $sql = "SELECT userID, score
+				FROM users 
+				WHERE userID = ?
+				LIMIT 1";
+        $values = array($userID);
+		
+		$this->query($sql, $values);
+	}
+
+    function insertNewUser($userID, $hashedPassword)
+	{
+		$sql = "INSERT INTO users (userID, password, score)
+				VALUES (?, ?, '0')";
+        $values = array($userID, $hashedPassword);
+
+        $this->query($sql, $values);
+	}
 }
 
 ?>
