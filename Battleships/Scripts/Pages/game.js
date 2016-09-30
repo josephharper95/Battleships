@@ -74,16 +74,10 @@ function initPlaceShips(index) {
         cell = $(this);
         boardPlaceHover(cell, ship);    
 
-        $(this).off("click").one("click", function () {
-            boardPlaceShip(cell, ship);
-
-            // cleanups
-            $("#boardPlayer td").off("hover");
-            $("#boardPlayer td.hover").removeClass("hover");
-            $(window).off("keydown");
-
-            initPlaceShips(index + 1);
-        });    
+        $("#boardPlayer td").off("click");
+        $("#boardPlayer td").one("click", function () {
+            boardPlaceShip(cell, ship, index);
+        });   
     });
     
     $(window).keydown(function (e) {
@@ -121,7 +115,7 @@ function boardPlaceHover($e, ship) {
     }
 }
 
-function boardPlaceShip($cell, ship) {
+function boardPlaceShip($cell, ship, index) {
     
     var x = $cell.index();
     var $tr = $cell.closest('tr');
@@ -129,12 +123,27 @@ function boardPlaceShip($cell, ship) {
 
     var coords = playerBoard.canPlaceShip(ship, x, y);
 
-    for (i = 0; i < coords.length; i++) {
-        var c = coords[i];
-        $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').html(ship.name).attr("data-ship", ship.name).addClass("containsShip");
-    }
+    if (coords) {
 
-    playerBoard.placeShip(ship, x, y);
+        for (i = 0; i < coords.length; i++) {
+            var c = coords[i];
+            $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').html(ship.name).attr("data-ship", ship.name).addClass("containsShip");
+        }
+
+        playerBoard.placeShip(ship, x, y);
+
+        // cleanups
+        $("#boardPlayer td").off("hover");
+        $("#boardPlayer td.hover").removeClass("hover");
+        $(window).off("keydown");
+
+        initPlaceShips(index + 1);
+    } else {
+        $("#boardPlayer td").off("click");
+        $("#boardPlayer td").one("click", function () {
+            boardPlaceShip(cell, ship, index);
+        });  
+    }
 }
 
 function boardFireHover($cell) {

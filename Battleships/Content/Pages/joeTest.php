@@ -1,5 +1,5 @@
 <?php
-    require("..\Classes\setup.php");
+    require("../Classes/setup.php");
 
     $userID = "user";
     $hashedPassword = hash("sha256", "password");
