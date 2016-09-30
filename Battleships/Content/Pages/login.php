@@ -30,11 +30,18 @@
         }
         else // If username + hashed password combination not found in the DB... redirect back to login page.
         {
+            Session::set("loginMessage", "The entered username and password combination could not be found.");
             header("Location: login.php");
             exit();
         }
     }
     require("header.php");
+
+    if(Session::exists("loginMessage"))
+	{
+		echo Session::get("loginMessage");
+		Session::delete("loginMessage");
+	}
 ?>
 
 <form method='post' action=''>
@@ -47,7 +54,7 @@
 	</div>
 	</fieldset>
 </form>
-<form method='post' action='registration.php'>
+<form method='post' action=''>
 	<div>
 		<input type='submit' name='register' value='Register New User'/><br/>
 	</div>
