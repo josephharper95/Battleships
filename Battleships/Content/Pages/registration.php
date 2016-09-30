@@ -1,5 +1,5 @@
 <?php
-	require("..\Classes\setup.php");
+	require("../Classes/setup.php");
     if(Input::itemExists("return")) // If user selected "Return to Login Screen"
     {
         header("Location: login.php");
