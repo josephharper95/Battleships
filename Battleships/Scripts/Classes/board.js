@@ -18,7 +18,7 @@ function Board(size) {
     // end initialise
 
     this.placeShip = function(ship, x, y) {
-        if (this.canPlaceShip(ship, x, y)) {
+        if (this.canPlaceShip(ship, x, y)[0]) {
             var x = x;
             var y = y;
             var orientation = ship.getOrientation();

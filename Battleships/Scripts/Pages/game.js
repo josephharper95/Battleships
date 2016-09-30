@@ -105,16 +105,16 @@ function boardPlaceHover($e, ship, index) {
         var $tr = $e.closest('tr');
         var y = $tr.index();
 
-        //var coords = playerBoard.canPlaceShip(ship, x, y);
+        //var canPlaceShip = playerBoard.canPlaceShip(ship, x, y);
 
-        var canPlaceShip = playerBoard.canPlaceShip(ship, x, y);
+        // var canHover = canPlaceShip[0];
+        // var coords = canPlaceShip[1];
 
-        if (!canPlaceShip) {
-            alert();
-        }
+        var canHover, coords;
+        [canHover, coords] = playerBoard.canPlaceShip(ship, x, y);
 
-        var canHover = canPlaceShip[0];
-        var coords = canPlaceShip[1];
+        console.log(canHover);
+        console.log(coords);
 
         for (i = 0; i < coords.length; i++) {
             var c = coords[i];
@@ -127,7 +127,7 @@ function boardPlaceHover($e, ship, index) {
 
         if (canHover) {
             $("#boardPlayer td").off("click");
-            $("#boardPlayer td").one("click", function () {
+            $("#boardPlayer td.hover").one("click", function () {
                 boardPlaceShip($e, ship, index);
             }); 
         }
@@ -155,11 +155,10 @@ function boardPlaceShip($cell, ship, index) {
     var $tr = $cell.closest('tr');
     var y = $tr.index();
 
-    var canPlaceShip = playerBoard.canPlaceShip(ship, x, y);
-    var canHover = canPlaceShip[0];
-    var coords = canPlaceShip[1];
+    var canHover, coords;
+    [canHover, coords] = playerBoard.canPlaceShip(ship, x, y);
 
-    if (coords) {
+    if (canHover) {
 
         for (i = 0; i < coords.length; i++) {
             var c = coords[i];
@@ -241,7 +240,7 @@ function playerMove() {
             cell = $(this);
             boardFireHover(cell);
 
-            $(this).off("click").one("click", function () {
+            $("#boardComputer td.hover").off("click").one("click", function () {
                 boardFireAtComputer(cell);
 
                 // cleanups
