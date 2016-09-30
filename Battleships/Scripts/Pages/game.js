@@ -59,7 +59,7 @@ function initPlaceShips(index) {
         // cleanups
         $("#boardPlayer td").off("mouseenter");
         $(window).off("keydown");
-        $("#boardPlayer td.hover").removeClass("hover");
+        cleanupHoverClasses();
         $("#gameMessage").html("");
 
         gameReady();
@@ -88,14 +88,19 @@ function initPlaceShips(index) {
     });
 
     $("#boardPlayer").on ("mouseleave", function () {
-        $("#boardPlayer td.hover").removeClass("hover");
+        cleanupHoverClasses();
     });
 
 }
 
+function cleanupHoverClasses() {
+    $("#boardPlayer td.hover").removeClass("hover");
+    $("#boardPlayer td.noHover").removeClass("noHover");
+}
+
 function boardPlaceHover($e, ship) {
     if ($e) {
-        $("#boardPlayer td.hover").removeClass("hover");
+        cleanupHoverClasses();
         
         var x = $e.index();
         var $tr = $e.closest('tr');
@@ -110,7 +115,8 @@ function boardPlaceHover($e, ship) {
                 $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').addClass("hover");
             }
         } else {
-            $("#boardPlayer td.hover").removeClass("hover");
+
+            $('#boardPlayer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("noHover");
         }
     }
 }
@@ -134,22 +140,17 @@ function boardPlaceShip($cell, ship, index) {
 
         // cleanups
         $("#boardPlayer td").off("hover");
-        $("#boardPlayer td.hover").removeClass("hover");
+        cleanupHoverClasses();
         $(window).off("keydown");
 
         initPlaceShips(index + 1);
-    } else {
-        $("#boardPlayer td").off("click");
-        $("#boardPlayer td").one("click", function () {
-            boardPlaceShip(cell, ship, index);
-        });  
     }
 }
 
 function boardFireHover($cell) {
 
     if ($cell) {
-        $("#boardComputer td.hover").removeClass("hover");
+        cleanupHoverClasses();
         
         var x = $cell.index();
         var $tr = $cell.closest('tr');
@@ -215,14 +216,14 @@ function playerMove() {
 
                 // cleanups
                 $("#boardPlayer td").off("hover");
-                $("#boardPlayer td.hover").removeClass("hover");
+                cleanupHoverClasses();
 
                 AIMove();
             });
         });
 
         $("#boardComputer").on ("mouseleave", function () {
-            $("#boardPlayer td.hover").removeClass("hover");
+            cleanupHoverClasses();
         });
     } else {
         endGame();
