@@ -10,4 +10,8 @@ function Game(size) {
     this.getComputerBoard = function () {
         return _computerBoard;
     }
+
+    this.isViable = function () {
+        return _playerBoard.isViable() && _computerBoard.isViable();
+    }
 }

@@ -2,6 +2,7 @@
 var game;
 var playerBoard;
 var computerBoard;
+var AI;
 
 var shipsToPlace = [
     {
@@ -92,7 +93,7 @@ function initPlaceShips(index) {
         }
     });
 
-    $("#boardPlayer").mouseleave(function () {
+    $("#boardPlayer").on ("mouseleave", function () {
         $("#boardPlayer td.hover").removeClass("hover");
     });
 
@@ -130,12 +131,111 @@ function boardPlaceShip($cell, ship) {
 
     for (i = 0; i < coords.length; i++) {
         var c = coords[i];
-        $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').html(ship.name).attr("data-ship", ship.name).css("background-color", "red");
+        $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').html(ship.name).attr("data-ship", ship.name).addClass("containsShip");
     }
 
     playerBoard.placeShip(ship, x, y);
 }
 
+function boardFireHover($cell) {
+
+    if ($cell) {
+        $("#boardComputer td.hover").removeClass("hover");
+        
+        var x = $cell.index();
+        var $tr = $cell.closest('tr');
+        var y = $tr.index();
+
+        var canFire = computerBoard.canFire(x, y);
+
+        if (canFire) {
+            $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("hover");
+        }
+    }
+}
+
+function boardFireAtComputer($cell) {
+    var x = $cell.index();
+    var $tr = $cell.closest('tr');
+    var y = $tr.index();
+
+    var hit = computerBoard.fire(x, y);
+
+    if (hit) {
+        $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("containsShip");
+    }
+    
+    $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("hit");
+}
+
 function gameReady() {
+    // cleanups
+    $("boardPlayer td").off("mouseenter");
+    $("boardPlayer td").off("mouseleave");
+    $(window).off("keydown");
+
     $("#startGame").fadeIn(500);
+    
+    $("#startGame").off("click").one("click", function () {
+        $("#startGame").fadeOut(500);
+        startGame();
+    });
+}
+
+function startGame() {
+    console.log("---- GAME STARTING ----");
+
+    placeUIShips();
+
+    playerMove();    
+}
+
+function placeUIShips() {
+    AI = new AI("AI", computerBoard, playerBoard);
+    AI.placeShips();
+}
+
+function playerMove() {
+    if (game.isViable()) {
+        $("#boardComputer td").on("mouseenter", function () {
+            cell = $(this);
+            boardFireHover(cell);
+
+            $(this).off("click").one("click", function () {
+                boardFireAtComputer(cell);
+
+                // cleanups
+                $("#boardPlayer td").off("hover");
+                $("#boardPlayer td.hover").removeClass("hover");
+
+                AIMove();
+            });
+        });
+
+        $("#boardComputer").on ("mouseleave", function () {
+            $("#boardPlayer td.hover").removeClass("hover");
+        });
+    } else {
+        endGame();
+    }
+}
+
+function AIMove() {
+    if (game.isViable()) {
+
+        $("#boardComputer td").off("mouseenter").off("mouseleave");
+        $("#boardComputer td").off("click");
+
+        var coords = AI.fire();
+
+        $('#boardPlayer tr:eq(' + coords.getY() + ') > td:eq(' + coords.getX() + ')').addClass("hit");
+
+        playerMove();
+    } else {
+        endGame();
+    }
+}
+
+function endGame() {
+    alert("Games over YOU MAG");
 }

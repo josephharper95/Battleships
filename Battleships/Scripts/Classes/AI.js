@@ -16,6 +16,7 @@ function AI(name, board, targetBoard){
     //Places ships randomly on the board, TODO: Perhaps make it so ships aren't placed too close together.
     this.placeShips = function(){
         var _shipsPlaced = 0;
+        
         for(var i=0; i<_ships.length;i++){
             //generate random coordinates
             var ori = Math.round((Math.random()));
@@ -24,12 +25,12 @@ function AI(name, board, targetBoard){
             }
             //try to place ship at random coordinates until successful
             while(_shipsPlaced <= i){
-            var x = Math.floor((Math.random() * 10));
-            var y = Math.floor((Math.random() * 10));
-           
-            if(_board.placeShip(_ships[i], x, y)){
-                _shipsPlaced ++;
-            }
+                var x = Math.floor((Math.random() * 10));
+                var y = Math.floor((Math.random() * 10));
+            
+                if(_board.placeShip(_ships[i], x, y)){
+                    _shipsPlaced++;
+                }
             }
         }
     }
@@ -42,7 +43,7 @@ function AI(name, board, targetBoard){
         _target.fire(temp.getX(), temp.getY());
         _cellsNotYetHit.splice(cell, 1);
 
-        return temp.getCoordinates(); //ADDED FOR YOU NICK ;)*
+        return temp; //ADDED FOR YOU NICK ;)* LYLT D :*
         }
         
     }

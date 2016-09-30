@@ -57,6 +57,7 @@ html {
                 text-align: center;
                 border-radius: 3px;
                 cursor: pointer;
+                font-size: 80%;
 
                 &:hover {
                     color: orange;
@@ -92,9 +93,24 @@ html {
                     text-align: center;
                 }
 
-                &#boardPlayer {
-                    td.hover {
-                        background-color: #cc8400;
+                &#boardPlayer,
+                &#boardComputer {
+                    td {
+                        &.hover {
+                            background-color: #cc8400;
+                        }
+
+                        &.containsShip {
+                            background-color: blue;
+                        }
+
+                        &.hit {
+                            background-color: grey;
+
+                            &.containsShip {
+                                background-color: red;
+                            }
+                        }
                     }
                 }
             }

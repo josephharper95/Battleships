@@ -52,6 +52,7 @@ html body .body .button {
   text-align: center;
   border-radius: 3px;
   cursor: pointer;
+  font-size: 80%;
 }
 html body .body .button:hover {
   color: orange;
@@ -78,6 +79,19 @@ html body .body .board td {
   font-size: 11px;
   text-align: center;
 }
-html body .body .board#boardPlayer td.hover {
+html body .body .board#boardPlayer td.hover,
+html body .body .board#boardComputer td.hover {
   background-color: #cc8400;
+}
+html body .body .board#boardPlayer td.containsShip,
+html body .body .board#boardComputer td.containsShip {
+  background-color: blue;
+}
+html body .body .board#boardPlayer td.hit,
+html body .body .board#boardComputer td.hit {
+  background-color: grey;
+}
+html body .body .board#boardPlayer td.hit.containsShip,
+html body .body .board#boardComputer td.hit.containsShip {
+  background-color: red;
 }
