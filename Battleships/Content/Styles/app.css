@@ -95,3 +95,7 @@ html body .body .board#boardPlayer td.hit.containsShip,
 html body .body .board#boardComputer td.hit.containsShip {
   background-color: red;
 }
+html body .body .board#boardPlayer td.noHover,
+html body .body .board#boardComputer td.noHover {
+  background-color: red;
+}

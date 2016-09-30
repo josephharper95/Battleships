@@ -13,7 +13,8 @@ class Database
    {
        try 
        {
-           $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", "");
+        //    $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", "");
+           $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", ""); // nick
        } 
        catch(PDOException $e)
        {
