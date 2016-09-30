@@ -91,11 +91,12 @@ function Board(size) {
 
             var coordinate = _coordinates[x][y];
 
-            coordinate.recordHit();
+            var hit = coordinate.recordHit();
 
-        } else {
-            return false;
+            return hit;
         }
+
+        return false;
     }
 
     this.canFire = function (x, y) {

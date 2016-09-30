@@ -3,7 +3,7 @@
 
     if(!Session::get("userID"))
     {
-       header("location: login.php");#
+       header("location: Login.php");
        exit();
     }
 
@@ -19,6 +19,7 @@ $class = "small";
 <script type="text/javascript" src="../../Scripts/Classes/board.js"></script>
 <script type="text/javascript" src="../../Scripts/Classes/coordinate.js"></script>
 <script type="text/javascript" src="../../Scripts/Classes/ship.js"></script>
+<script type="text/javascript" src="../../Scripts/Classes/AI.js"></script>
 
 <body>
 
@@ -33,9 +34,9 @@ $class = "small";
             </table>
 
             <div style="width: 100%;text-align: center;margin-top:7px;">
-                <div class="button" 
-                style="display:none"
-                id="startGame" >Start!</div>
+                <button class="button" 
+                style="display:none;"
+                id="startGame" >Start!</button>
 
                 <h3 id="gameMessage"></h3>
             </div>

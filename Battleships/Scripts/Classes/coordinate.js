@@ -43,7 +43,11 @@ function Coordinate(x, y) {
             _isHit = true;
             if(_containsShip){
                 _ship.recordHit();
+
+                return true;
             }
         }
+
+        return false;
     }
 }
