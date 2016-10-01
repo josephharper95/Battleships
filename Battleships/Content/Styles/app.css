@@ -137,22 +137,39 @@ html body .body input[type=text],
 html body .body input[type=password] {
   width: 250px;
 }
-html body .body #registrationForm {
+html body .body #registrationForm,
+html body .body #loginForm {
   width: 550px;
   margin: auto;
 }
-html body .body #registrationForm label {
+html body .body #registrationForm label,
+html body .body #loginForm label {
   width: 150px;
   display: inline-block;
 }
-html body .body #registrationForm fieldset .button {
+html body .body #registrationForm#loginForm,
+html body .body #loginForm#loginForm {
+  width: 500px;
+}
+html body .body #registrationForm#loginForm label,
+html body .body #loginForm#loginForm label {
+  width: 100px;
+}
+html body .body #registrationForm fieldset .button,
+html body .body #loginForm fieldset .button {
   float: right;
   margin-top: 20px;
 }
-html body .body #registrationForm #alreadyRegistered {
+html body .body #registrationForm .registrationExtra,
+html body .body #loginForm .registrationExtra {
   font-size: 70%;
   margin-top: 7px;
 }
-html body .body #registrationForm #alreadyRegistered .button {
+html body .body #registrationForm .registrationExtra i,
+html body .body #loginForm .registrationExtra i {
+  padding: 0 7px;
+}
+html body .body #registrationForm .registrationExtra .button,
+html body .body #loginForm .registrationExtra .button {
   padding: 0 5px;
 }

@@ -161,13 +161,22 @@ html {
                 width: 250px;
             }
 
-            #registrationForm {
+            #registrationForm,
+            #loginForm
+             {
                 width: 550px;
                 margin: auto;
 
                 label {
                     width: 150px;
                     display: inline-block;
+                }
+
+                &#loginForm {
+                    width: 500px;
+                    label {
+                        width: 100px;
+                    }
                 }
 
                 fieldset {
@@ -177,9 +186,13 @@ html {
                     }
                 }
 
-                #alreadyRegistered {
+                .registrationExtra {
                     font-size: 70%;
                     margin-top: 7px;
+
+                    i {
+                        padding: 0 7px;
+                    }
 
                     .button {
                         padding: 0 5px;

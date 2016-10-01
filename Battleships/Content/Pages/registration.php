@@ -88,7 +88,7 @@
 				   class="button"/>
 		</ul>
 	</fieldset>
-	<div id="alreadyRegistered">
+	<div class="registrationExtra">
 		<i>Already registered?</i>
 		<input type="submit" 
 			   name="return" 

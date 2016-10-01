@@ -3,11 +3,11 @@
     require("../Classes/setup.php");
     Session::set("userID", "user"); //dummy user for developers without DB setup.
     
-    if(Session::get("userID")) // If user is already logged in on a session... go to game!
-    {
-        header("Location: game.php");
-        exit();
-    }
+    // if(Session::get("userID")) // If user is already logged in on a session... go to game!
+    // {
+    //     header("Location: game.php");
+    //     exit();
+    // }
     
     if(Input::itemExists("register"))
     {
@@ -44,19 +44,37 @@
 	}
 ?>
 
-<form method='post' action=''>
+<form method="post" 
+      action=""
+      id="loginForm">
 	<fieldset>
-	<legend>User Login</legend>
-	<div>
-		Username: <input type='text' name='userID'/><br/>
-		Password: <input type='password' name='password'/><br/>
-		<input type='submit' name='login' value='Login'/>
-	</div>
+	    <legend>User Login</legend>
+	    <ul class="blank">
+            <li>
+				<label for="username">Username:</label> 
+				<input type="text" 
+					   name="userID"/>
+			</li>
+
+            <li>
+				<label for="password">Password:</label> 
+				<input type="password" 
+					   name="password"/>
+			</li>
+
+		    <input type="submit" 
+                   name="login" 
+                   value="Login"
+                   class="button"/>
+	    </ul>
 	</fieldset>
-</form>
-<form method='post' action=''>
-	<div>
-		<input type='submit' name='register' value='Register New User'/><br/>
+
+    <div class="registrationExtra">
+        <i>Need an account?</i>
+		<input type="submit" 
+               name="register" 
+               value="Register Now"
+               class="button" />
 	</div>
 </form>
 
