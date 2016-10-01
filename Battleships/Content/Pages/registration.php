@@ -1,61 +1,57 @@
 <?php
 	require("../Classes/setup.php");
-    if(Input::itemExists("return")) // If user selected "Return to Login Screen"
-    {
+
+    if (Input::itemExists("return")) { // If user selected "Return to Login Screen"
+
         header("Location: login.php");
         exit();
     }
 
-	if(Input::itemExists("register"))
-    {
-        if(Input::itemExists("username") && Input::post("password") && Input::itemExists("passwordMatch"))
-		{
+	if(Input::itemExists("register")) {
+
+        if(Input::itemExists("username") && Input::post("password") && Input::itemExists("passwordMatch")) {
+
 			$userID = trim(Input::post("username"));
-			if(preg_match('/^[a-zA-Z0-9]{1,12}$/', $userID)) // If username is alphanumeric and 1-12 characters long
-			{
-				if(Input::post("password") === Input::post("passwordMatch"))
-				{
+			if(preg_match("/^[a-zA-Z0-9]{1,12}$/", $userID)) { // If username is alphanumeric and 1-12 characters long
+			
+				if(Input::post("password") === Input::post("passwordMatch")) {
+
 					$hashedPassword = hash("sha256", Input::post("password"));
 
 					$db = Database::getInstance();
 					$db->getUserByID($userID);
-					if($db->getRowCount() > 0)
-					{
+					if($db->getRowCount() > 0) {
+
 						Session::set("registrationMessage", "That username is taken, please pick another.");
 						header("Location: registration.php");
 						exit();
-					}
-					else
-					{
+					} else {
+
 						$db->insertNewUser($userID, $hashedPassword);
 						header("Location: login.php");
 						exit();
 					}
-				}
-				else
-				{
+				} else {
+
 					Session::set("registrationMessage", "Please ensure both your password fields match.");
 					header("Location: registration.php");
 					exit();
 				}
-			}
-			else
-			{
+			} else {
+
 				Session::set("registrationMessage", "Please ensure your username is between 1 and 12 characters long.");
 				header("Location: registration.php");
 				exit();
 			}
+		} else {
 
-		}
-		else
-		{
 			Session::set("registrationMessage", "Please ensure every field has an input.");
 			header("Location: registration.php");
 			exit();
 		}
     }
     
-    require("header.php");
+    require_once("header.php");
 
 	if(Session::exists("registrationMessage"))
 	{
@@ -63,21 +59,44 @@
 		Session::delete("registrationMessage");
 	}
 ?>
-<form method='post' action=''>
+
+<form method="post" 
+	  action=""
+	  id="registrationForm">
 	<fieldset>
-	<legend>User Registration</legend>
-	<div>
-		Username: <input type='text' name='username'/><br/>
-		Password: <input type='password' name='password'/><br/>
-		Confirm Password: <input type='password' name='passwordMatch'/><br/>
-		<input type='submit' name='register' value='Register'/><br/>
-	</div>
+		<legend>User Registration</legend>
+		<ul class="blank">
+			<li>
+				<label for="username">Username:</label> 
+				<input type="text" 
+					   name="username"/>
+			</li>
+			<li>
+				<label for="password">Password:</label> 
+				<input type="password" 
+					   name="password"/>
+			</li>
+			<li>
+				<label for="passwordMatch">Confirm Password:</label>
+				<input type="password" 
+					   name="passwordMatch"/>
+			</li>
+			
+			<input type="submit" 
+				   name="register" 
+				   value="Register"
+				   class="button"/>
+		</ul>
 	</fieldset>
-	<div>
-		<input type='submit' name='return' value='Return to Login Screen'/><br/>
+	<div id="alreadyRegistered">
+		<i>Already registered?</i>
+		<input type="submit" 
+			   name="return" 
+			   value="Return to Login Screen"
+			   class="button"/>
 	</div>
 </form> 
 
 <?php
-    require("footer.php");
+    require_once("footer.php");
 ?>

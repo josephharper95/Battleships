@@ -1,5 +1,6 @@
 html body {
   font-family: "Helvetica";
+  font-weight: 100;
   /**************
             HEADER
         **************/
@@ -98,4 +99,60 @@ html body .body .board#boardComputer td.hit.containsShip {
 html body .body .board#boardPlayer td.noHover,
 html body .body .board#boardComputer td.noHover {
   background-color: red;
+}
+html body .body ul.blank {
+  list-style: none;
+}
+html body .body fieldset {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+html body .body fieldset legend {
+  background-color: orange;
+  padding: 4px 12px;
+  border-radius: 5px;
+  color: #fff;
+  border: 1px solid #fff;
+}
+html body .body input,
+html body .body select,
+html body .body textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 5px 7px;
+  line-height: 20px;
+  outline: 0;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+html body .body input:hover,
+html body .body select:hover,
+html body .body textarea:hover,
+html body .body input:focus,
+html body .body select:focus,
+html body .body textarea:focus {
+  border-color: orange;
+}
+html body .body input[type=text],
+html body .body input[type=password] {
+  width: 250px;
+}
+html body .body #registrationForm {
+  width: 550px;
+  margin: auto;
+}
+html body .body #registrationForm label {
+  width: 150px;
+  display: inline-block;
+}
+html body .body #registrationForm fieldset .button {
+  float: right;
+  margin-top: 20px;
+}
+html body .body #registrationForm #alreadyRegistered {
+  font-size: 70%;
+  margin-top: 7px;
+}
+html body .body #registrationForm #alreadyRegistered .button {
+  padding: 0 5px;
 }
