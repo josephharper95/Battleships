@@ -3,11 +3,11 @@
     require("../Classes/setup.php");
     Session::set("userID", "user"); //dummy user for developers without DB setup.
     
-    // if(Session::get("userID")) // If user is already logged in on a session... go to game!
-    // {
-    //     header("Location: game.php");
-    //     exit();
-    // }
+    if(Session::get("userID")) // If user is already logged in on a session... go to game!
+    {
+        header("Location: game.php");
+        exit();
+    }
     
     if(Input::itemExists("register"))
     {
