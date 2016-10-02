@@ -11,6 +11,10 @@ html body {
             Responsive
         *****************/
 }
+html body h3,
+html body h4 {
+  font-weight: 100;
+}
 html body #header {
   position: fixed;
   width: 100%;
@@ -64,44 +68,76 @@ html body .body .standardWidth {
   width: 810px;
   margin: auto;
 }
-html body .body #pageGame .boardContainer {
-  display: inline-block;
-  width: 400px;
-  vertical-align: top;
+html body .body .wideWidth {
+  width: 1200px;
+  margin: auto;
 }
-html body .body #pageGame .boardContainer h3 {
+html body .body #pageGame {
+  text-align: center;
+}
+html body .body #pageGame .sideContainer {
+  display: inline-block;
+  clear: both;
+  vertical-align: top;
+  text-align: left;
+}
+html body .body #pageGame .sideContainer#playerContainer .boardContainer {
+  float: right;
+}
+html body .body #pageGame .sideContainer#playerContainer .remainingShipsContainer {
+  float: left;
+  padding-right: 20px;
+}
+html body .body #pageGame .sideContainer#opponentContainer .boardContainer {
+  float: left;
+}
+html body .body #pageGame .sideContainer#opponentContainer .remainingShipsContainer {
+  float: right;
+  padding-left: 20px;
+}
+html body .body #pageGame .sideContainer .remainingShipsContainer ul li.destroyed {
+  text-decoration: line-through;
+}
+html body .body #pageGame .sideContainer .boardContainer {
+  width: 400px;
+}
+html body .body #pageGame .sideContainer .boardContainer h3 {
   font-weight: 200;
   margin: 0;
 }
-html body .body .board td {
+html body .body #pageGame .sideContainer .boardContainer .board td {
   width: 40px;
   height: 40px;
   background-color: orange;
   font-size: 11px;
   text-align: center;
 }
-html body .body .board#boardPlayer td.hover,
-html body .body .board#boardComputer td.hover {
+html body .body #pageGame .sideContainer .boardContainer .board#boardPlayer td.hover,
+html body .body #pageGame .sideContainer .boardContainer .board#boardComputer td.hover {
   background-color: #cc8400;
 }
-html body .body .board#boardPlayer td.containsShip,
-html body .body .board#boardComputer td.containsShip {
+html body .body #pageGame .sideContainer .boardContainer .board#boardPlayer td.containsShip,
+html body .body #pageGame .sideContainer .boardContainer .board#boardComputer td.containsShip {
   background-color: blue;
 }
-html body .body .board#boardPlayer td.hit,
-html body .body .board#boardComputer td.hit {
+html body .body #pageGame .sideContainer .boardContainer .board#boardPlayer td.hit,
+html body .body #pageGame .sideContainer .boardContainer .board#boardComputer td.hit {
   background-color: grey;
 }
-html body .body .board#boardPlayer td.hit.containsShip,
-html body .body .board#boardComputer td.hit.containsShip {
+html body .body #pageGame .sideContainer .boardContainer .board#boardPlayer td.hit.containsShip,
+html body .body #pageGame .sideContainer .boardContainer .board#boardComputer td.hit.containsShip {
   background-color: red;
 }
-html body .body .board#boardPlayer td.noHover,
-html body .body .board#boardComputer td.noHover {
+html body .body #pageGame .sideContainer .boardContainer .board#boardPlayer td.noHover,
+html body .body #pageGame .sideContainer .boardContainer .board#boardComputer td.noHover {
   background-color: red;
 }
 html body .body ul.blank {
   list-style: none;
+  padding: 0;
+}
+html body .body ul li {
+  margin-bottom: 7px;
 }
 html body .body fieldset {
   border: 1px solid #ccc;

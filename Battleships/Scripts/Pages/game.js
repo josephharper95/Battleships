@@ -18,7 +18,7 @@ var shipDetails = [
         size: 3
     },
     {
-        name: "Battleship",
+        name: "BattleShip",
         size: 4
     },
     {
@@ -55,10 +55,16 @@ $(document).ready(function () {
 
 function populateShips() {
 
+    var remainingShipsHtml = "";
+
     for (i = 0; i < shipDetails.length; i++) {
 
         shipsToPlace.push(new Ship(shipDetails[i].name, shipDetails[i].size));
+
+        remainingShipsHtml += "<li class='" + shipDetails[i].name + "'>" + shipDetails[i].name + "</li>";
     }
+
+    $(".remainingShipsContainer ul").html(remainingShipsHtml);
 }
 
 function initPlaceShips() {
@@ -205,6 +211,18 @@ function boardFireAtComputer($cell) {
 
     if (hit) {
         $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("containsShip");
+
+        var coord = computerBoard.getObjectAt(x, y);
+        var ship = coord.getShip();
+
+        if (ship) {
+            
+            if (ship.isDestroyed()) {
+                console.log("ship destroyed: " + ship.getName());
+                console.log($("#opponentContainer .remainingShipsContainer li." + ship.getName()));
+                $("#opponentContainer .remainingShipsContainer li." + ship.getName()).addClass("destroyed");
+            }
+        }
     }
     
     $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("hit");
@@ -268,6 +286,17 @@ function AIMove() {
         var coords = AI.fire();
 
         $('#boardPlayer tr:eq(' + coords.getY() + ') > td:eq(' + coords.getX() + ')').addClass("hit");
+
+        var coord = playerBoard.getObjectAt(coords.getX(), coords.getY());
+        var ship = coord.getShip();
+
+        if (ship) {
+            
+            if (ship.isDestroyed()) {
+
+                $("#playerContainer .remainingShipsContainer li." + ship.getName()).addClass("destroyed");
+            }
+        }
 
         playerMove();
     } else {

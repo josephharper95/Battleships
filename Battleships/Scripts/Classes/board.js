@@ -43,7 +43,7 @@ function Board(size) {
             return true;
 
         } else {
-            console.log("Cannot place ship here");
+            //console.log("Cannot place ship here");
             return false;
         }
     }

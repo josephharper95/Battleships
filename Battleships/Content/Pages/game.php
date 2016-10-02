@@ -23,34 +23,56 @@ $class = "small";
 
 <body>
 
-    <div id="pageGame" class="standardWidth">
+    <div id="pageGame" class="wideWidth">
 
-        <div class="boardContainer">
+        <div id="playerContainer" class="sideContainer">
 
-            <h3>Player</h3>
+            <div class="remainingShipsContainer">
 
-            <table id="boardPlayer" class="board" data-size="<?= $class ?>" >
-                <?php echo createBoard(); ?>
-            </table>
+                <h4>Ships Remaining</h4>
 
-            <div style="width: 100%;text-align: center;margin-top:7px;">
-                <button class="button" 
-                style="display:none;"
-                id="startGame" >Start!</button>
+                <ul class="blank"></ul>
+            </div>
 
-                <h3 id="gameMessage"></h3>
+            <div class="boardContainer">
+
+                <h3>Player</h3>
+
+                <table id="boardPlayer" class="board" data-size="<?= $class ?>" >
+                    <?php echo createBoard(); ?>
+                </table>
+
+                <div style="width: 100%;text-align: center;margin-top:7px;">
+                    <button class="button" 
+                    style="display:none;"
+                    id="startGame" >Start!</button>
+
+                    <h3 id="gameMessage"></h3>
+                </div>
+
             </div>
 
         </div>
 
-        <div class="boardContainer">
+        <div id="opponentContainer" class="sideContainer">
 
-            <h3>Computer</h3>
+            <div class="remainingShipsContainer">
 
-            <table id="boardComputer" class="board" >
-                <?php echo createBoard(); ?>
-            </table>
-            
+                <h4>Ships Remaining</h4>
+
+                <ul class="blank"></ul>
+            </div>
+
+            <div class="boardContainer">
+
+                <h3>Computer</h3>
+
+                <table id="boardComputer" class="board" >
+                    <?php echo createBoard(); ?>
+                </table>
+                
+            </div>
+
         </div>
 
     </div>

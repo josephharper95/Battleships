@@ -1,11 +1,12 @@
 function AI(name, board, targetBoard){
     //Create ships
-    var destroyer = new Ship("Destroyer", 4);
-    var carier = new Ship("Carier", 5);
-    var patrol = new Ship("Patrol", 2);
-    var sub = new Ship("Submarine",3);
+    var destroyer = new Ship("Destroyer", 2);
+    var submarine = new Ship("Submarine", 3);
+    var cruiser = new Ship("Cruiser", 3);
     var battleship = new Ship("BattleShip", 3);
-    var _ships = [destroyer, carier, patrol, sub, battleship];
+    var carrier = new Ship("Carrier", 5);
+
+    var _ships = [destroyer, submarine, cruiser, battleship, carrier];
     var _cellsNotYetHit = targetBoard.getListOfCoordinates();
 
     var _name = name;
@@ -39,7 +40,7 @@ function AI(name, board, targetBoard){
     this.fire = function(){
         var cell = Math.floor((Math.random() * _cellsNotYetHit.length));
         var temp = _cellsNotYetHit[cell];
-        console.log(_name +" fireing at: "+ temp.getCoordinates());
+        //console.log(_name +" fireing at: "+ temp.getCoordinates());
         _target.fire(temp.getX(), temp.getY());
         _cellsNotYetHit.splice(cell, 1);
 
