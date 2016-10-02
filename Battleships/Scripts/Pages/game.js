@@ -4,7 +4,7 @@ var playerBoard;
 var computerBoard;
 var AI;
 
-var shipsToPlace = [
+var shipDetails = [
     {
         name: "Destroyer",
         size: 2
@@ -27,9 +27,12 @@ var shipsToPlace = [
     }
 ];
 
+var shipsToPlace = new Array();
+
 $(document).ready(function () {
 
-    initPlaceShips(0);
+    populateShips();
+    initPlaceShips();
 
     var boardSize;
 
@@ -50,12 +53,28 @@ $(document).ready(function () {
     computerBoard = game.getComputerBoard();
 });
 
-function initPlaceShips(index) {
+function populateShips() {
+
+    for (i = 0; i < shipDetails.length; i++) {
+
+        shipsToPlace.push(new Ship(shipDetails[i].name, shipDetails[i].size));
+    }
+}
+
+function initPlaceShips() {
 
     var cell;
-    var shipToPlace = shipsToPlace[index];
+    var ship;
 
-    if (shipToPlace == undefined) {
+    for (i = 0; i < shipsToPlace.length; i++) {
+        
+        if (!shipsToPlace[i].isPlaced()) {
+            ship = shipsToPlace[i];
+            break;
+        }
+    }
+
+    if (ship == undefined) {
         // cleanups
         $("#boardPlayer td").off("mouseenter");
         $(window).off("keydown");
@@ -66,13 +85,11 @@ function initPlaceShips(index) {
         return;
     }
 
-    var ship = new Ship(shipToPlace.name, shipToPlace.size);
-
     $("#gameMessage").html("Place your " + ship.getName());
 
     $("#boardPlayer td").on("mouseenter ", function () {
         cell = $(this);
-        boardPlaceHover(cell, ship, index);  
+        boardPlaceHover(cell, ship);  
     });
     
     $(window).keydown(function (e) {
@@ -95,7 +112,7 @@ function cleanupHoverClasses() {
     $("#boardComputer td.hover").removeClass("noHover");
 }
 
-function boardPlaceHover($e, ship, index) {
+function boardPlaceHover($e, ship) {
     if (ship.isPlaced()) {
         return;
     }
@@ -123,13 +140,13 @@ function boardPlaceHover($e, ship, index) {
         if (canHover) {
             $("#boardPlayer td").off("click");
             $("#boardPlayer td.hover").one("click", function () {
-                boardPlaceShip($e, ship, index);
+                boardPlaceShip($e, ship);
             }); 
         }
     }
 }
 
-function boardPlaceShip($cell, ship, index) {
+function boardPlaceShip($cell, ship) {
 
     if (ship.isPlaced()) {
         return;
@@ -156,7 +173,9 @@ function boardPlaceShip($cell, ship, index) {
         cleanupHoverClasses();
         $(window).off("keydown");
 
-        initPlaceShips(index + 1);
+        initPlaceShips();
+
+        $cell.trigger("mouseenter");
     }
 }
 
