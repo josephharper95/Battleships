@@ -9,7 +9,7 @@
 -->
 
 <?php
-	require("../Classes/setup.php");
+	require_once("../Classes/setup.php");
 
     if (Input::itemExists("return")) { // If user selected "Return to Login Screen"
 
