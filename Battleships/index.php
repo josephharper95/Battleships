@@ -10,5 +10,5 @@
 <?php
     require_once("Content/Classes/setup.php");
 
-    Navigator::changePage("Content/Pages/game.php");
+    header("Location: Content/Pages/game.php");
 ?>

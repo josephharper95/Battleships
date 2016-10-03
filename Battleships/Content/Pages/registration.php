@@ -13,7 +13,7 @@
 
     if (Input::itemExists("return")) { // If user selected "Return to Login Screen"
 
-        Navigator::changePage("login.php");
+        header("Location: login.php");
         exit();
     }
 
@@ -35,30 +35,30 @@
 					if($db->getRowCount() > 0) {
 
 						Session::set("registrationMessage", "That username is taken, please pick another.");
-						Navigator::changePage("registration.php");
+						header("Location: registration.php");
 						exit();
 					} else {
 
 						$db->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
-						Navigator::changePage("login.php");
+						header("Location: login.php");
 						exit();
 					}
 				} else {
 
 					Session::set("registrationMessage", "Please ensure both your password fields match.");
-					Navigator::changePage("registration.php");
+					header("Location: registration.php");
 					exit();
 				}
 			} else {
 
 				Session::set("registrationMessage", "Please ensure your username is between 1 and 12 characters long.");
-				Navigator::changePage("registration.php");
+				header("Location: registration.php");
 				exit();
 			}
 		} else {
 
 			Session::set("registrationMessage", "Please ensure every field has an input.");
-			Navigator::changePage("registration.php");
+			header("Location: registration.php");
 			exit();
 		}
     }

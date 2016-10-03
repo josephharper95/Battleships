@@ -14,13 +14,13 @@
     
     if(Session::get("userID")) // If user is already logged in on a session... go to game!
     {
-        Navigator::changePage("game.php");
+        header("Location: game.php");
         exit();
     }
     
     if(Input::itemExists("register"))
     {
-        Navigator::changePage("registration.php");
+        header("Location: registration.php");
         exit();
     }
 
@@ -39,14 +39,14 @@
             Session::set("firstName", $user->firstName);
             Session::set("lastName", $user->lastName);
             
-            Navigator::changePage("game.php");
+            header("Location: game.php");
 
             exit();
         }
         else // If username + hashed password combination not found in the DB... redirect back to login page.
         {
             Session::set("loginMessage", "The entered username and password combination could not be found.");
-            Navigator::changePage("login.php");
+            header("Location: login.php");
             exit();
         }
     }

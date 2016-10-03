@@ -12,7 +12,7 @@
 
     if(!Session::get("userID"))
     {
-       Navigator::changePage("login.php");
+       header("Location: login.php");
        exit();
     }
 
