@@ -1,3 +1,12 @@
+<!--
+*
+* Last Modified By: Nick Holdsworth
+* Current Version: 0.1
+*
+* V0.1      Nick    01/10/16    initial creation
+*
+-->
+
 <?php
     require_once("../Classes/setup.php");
 
@@ -70,13 +79,9 @@ $class = "small";
                 <table id="boardComputer" class="board" >
                     <?php echo createBoard(); ?>
                 </table>
-                
             </div>
-
         </div>
-
     </div>
-
 </body>
 
 </html>

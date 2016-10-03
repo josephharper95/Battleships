@@ -1,3 +1,15 @@
+<!--
+*
+* Last Modified By: Nick Holdsworth
+* Last Modified On: 03/10/16
+* Current Version: 0.21
+*
+* V0.1      Dave    01/10/16    initial creation
+* V0.2      Joe     02/10/16    added user operations
+* V0.21     Nick    03/10/16    update user operations to include first name / last name
+*
+-->
+
 <?php
 //singleton pattern 
 class Database

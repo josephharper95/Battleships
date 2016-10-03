@@ -1,3 +1,12 @@
+<!--
+*
+* Last Modified By: Nick Holdsworth
+* Current Version: 0.1
+*
+* V0.1      Nick    01/10/16    initial creation
+*
+-->
+
 <?php require_once("../Classes/setup.php"); ?>
 
 <!DOCTYPE html>
@@ -28,11 +37,10 @@ if (Session::exists("userID")) {
                 <div id="firstName"><?= Session::get("firstName"); ?></div>
                 <div id="lastName"><?= Session::get("lastName"); ?></div>
                 
-                <!--<form method="post" action="logout.php">-->
+                <div class="logout">
                     <i>Not you?</i>
-                    <!--<button type="submit">Logout</button>-->
                     <a href="logout.php">Logout</a>
-                <!--</form>--> 
+                </div>
             </div>
 
 <?php

@@ -1,3 +1,13 @@
+<!--
+*
+* Last Modified By: Nick Holdsworth
+* Current Version: 0.2
+*
+* V0.1      Joe  	01/10/16    initial creation
+* V0.2 		Nick 	03/10/16 	added first / last name
+*
+-->
+
 <?php
 	require("../Classes/setup.php");
 

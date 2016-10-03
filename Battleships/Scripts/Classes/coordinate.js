@@ -1,3 +1,12 @@
+/**
+*
+* Last Modified By: Dave MacDonald
+* Current Version: 0.1
+*
+* V0.1      Dave / Nick / Joe    01/10/16    initial creation
+*
+**/
+
 function Coordinate(x, y) {
     var _x = x;
     var _y = y;

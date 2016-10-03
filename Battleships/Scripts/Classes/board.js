@@ -1,3 +1,12 @@
+/**
+*
+* Last Modified By: Dave MacDonald
+* Current Version: 0.1
+*
+* V0.1      Dave / Nick / Joe    01/10/16    initial creation
+*
+**/
+
 function Board(size) {
     var _ships = new Array();
     var _coordinates = new Array(_height);
