@@ -28,6 +28,15 @@
              
             <h1 id="headerTitle">BattleShips</h1>
 
+            <ul class="blank"
+            id="navigationHeader" >
+            
+                <li><a href="home.php">Home<a/></li>
+            
+                <li><a href="logout.php">Logout</a></li>
+            
+            </ul>
+
 <?php
 
 if (Session::exists("userID")) {
@@ -37,11 +46,6 @@ if (Session::exists("userID")) {
             <div id="userDetails">
                 <div id="firstName"><?= Session::get("firstName"); ?></div>
                 <div id="lastName"><?= Session::get("lastName"); ?></div>
-                
-                <div class="logout">
-                    <i>Not you?</i>
-                    <a href="logout.php">Logout</a>
-                </div>
             </div>
 
 <?php

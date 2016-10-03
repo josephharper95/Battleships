@@ -36,9 +36,11 @@ html {
                 margin: auto;
 
                 #headerTitle {
+                    text-align: center;
                     color: #fff;
+                    margin: 0;
+                    padding-top: 13px;
                     font-weight: 100;
-                    float: left;
                 }
 
                 #userDetails {
@@ -46,6 +48,8 @@ html {
                     margin-top: 15px;
                     color: #fff;
                     text-align: right;
+                    position: relative;
+                    top: -50px;
 
                     #firstName {
                         font-size: 150%;
@@ -67,6 +71,42 @@ html {
                             &:hover {
                                 color: #ccc;
                             }
+                        }
+                    }
+                }
+
+                ul#navigationHeader {
+                    margin: 0;
+                    padding-top: 4px;
+                    float: left;
+                    
+                    li {
+                        min-width: 90px;
+                        text-align: center;
+                        border-right: 1px solid #fff;
+                        border-left: 1px solid #fff;;
+                        display: inline-block;
+                        padding: 4px;
+                        cursor: pointer;
+                        
+                        &:hover {
+                            background-color: darkorange;
+                        }
+                        
+                        &:first-child {
+                            border-left: none;
+                        }
+                        &:last-child {
+                            border-right: none;
+                        }
+                        
+                        a {
+                            text-decoration: none;
+                            color: #fff;
+                        }
+                        
+                        &.large {
+                            min-width: 140px;
                         }
                     }
                 }

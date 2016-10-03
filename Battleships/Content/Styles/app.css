@@ -37,15 +37,19 @@ html body #header #headerBar {
   margin: auto;
 }
 html body #header #headerBar #headerTitle {
+  text-align: center;
   color: #fff;
+  margin: 0;
+  padding-top: 13px;
   font-weight: 100;
-  float: left;
 }
 html body #header #headerBar #userDetails {
   float: right;
   margin-top: 15px;
   color: #fff;
   text-align: right;
+  position: relative;
+  top: -50px;
 }
 html body #header #headerBar #userDetails #firstName {
   font-size: 150%;
@@ -64,6 +68,36 @@ html body #header #headerBar #userDetails .logout a {
 }
 html body #header #headerBar #userDetails .logout a:hover {
   color: #ccc;
+}
+html body #header #headerBar ul#navigationHeader {
+  margin: 0;
+  padding-top: 4px;
+  float: left;
+}
+html body #header #headerBar ul#navigationHeader li {
+  min-width: 90px;
+  text-align: center;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  display: inline-block;
+  padding: 4px;
+  cursor: pointer;
+}
+html body #header #headerBar ul#navigationHeader li:hover {
+  background-color: darkorange;
+}
+html body #header #headerBar ul#navigationHeader li:first-child {
+  border-left: none;
+}
+html body #header #headerBar ul#navigationHeader li:last-child {
+  border-right: none;
+}
+html body #header #headerBar ul#navigationHeader li a {
+  text-decoration: none;
+  color: #fff;
+}
+html body #header #headerBar ul#navigationHeader li.large {
+  min-width: 140px;
 }
 html body .body {
   margin-top: 125px;
