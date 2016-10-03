@@ -1,6 +1,6 @@
 <?php
     //http://www.datagenetics.com/blog/december32011/
-    require("../Classes/setup.php");
+    require_once("../Classes/setup.php");
     
     if(Session::get("userID")) // If user is already logged in on a session... go to game!
     {
@@ -85,5 +85,5 @@
 </form>
 
 <?php
-        require("footer.php");
+        require_once("footer.php");
 ?>
