@@ -1,5 +1,5 @@
 <?php
-    require("../Classes/setup.php");
+    require_once("../Classes/setup.php");
 
     if(!Session::get("userID"))
     {

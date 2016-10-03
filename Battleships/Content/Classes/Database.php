@@ -14,7 +14,7 @@ class Database
        try 
        {
         //    $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", "");
-           $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", ""); // nick
+           $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", "root"); // nick
        } 
        catch(PDOException $e)
        {
@@ -84,25 +84,26 @@ class Database
    	function getUserByID($userID)
 	{
 
-        $sql = "SELECT userID
+        $sql = "SELECT userID, firstName, lastName
 				FROM users 
 				WHERE userID = ?
 				LIMIT 1";
         $values = array($userID);
 		
-		$this->query($sql, $values);
+		$user = $this->query($sql, $values);
+
+        return $user->results;
 	}
 
-    function insertNewUser($userID, $hashedPassword)
+    function insertNewUser($userID, $hashedPassword, $firstName, $lastName)
 	{
-		$sql = "INSERT INTO users (userID, password)
-				VALUES (?, ?)";
-        $values = array($userID, $hashedPassword);
+		$sql = "INSERT INTO users (userID, password, firstName, lastName)
+				VALUES (?, ?, ?, ?)";
+        $values = array($userID, $hashedPassword, $firstName, $lastName);
 
         $this->query($sql, $values);
 
-
-
+        // User statistics setup
         $sql = "INSERT INTO userstatistics (userID, score, wins, losses, gamesPlayed, totalShotsFired)
 				VALUES (?, '0', '0', '0', '0', '0')";
         $values = array($userID);

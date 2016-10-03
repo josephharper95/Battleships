@@ -196,6 +196,10 @@ html body .body #loginForm fieldset .button {
   float: right;
   margin-top: 20px;
 }
+html body .body #registrationForm fieldset ul,
+html body .body #loginForm fieldset ul {
+  padding-left: 40px;
+}
 html body .body #registrationForm .registrationExtra,
 html body .body #loginForm .registrationExtra {
   font-size: 70%;

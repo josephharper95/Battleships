@@ -9,7 +9,7 @@
 
 	if(Input::itemExists("register")) {
 
-        if(Input::itemExists("username") && Input::post("password") && Input::itemExists("passwordMatch")) {
+        if(Input::itemExists("username") && Input::itemExists("firstName") && Input::itemExists("lastName") && Input::post("password") && Input::itemExists("passwordMatch")) {
 
 			$userID = trim(Input::post("username"));
 			if(preg_match("/^[a-zA-Z0-9]{1,12}$/", $userID)) { // If username is alphanumeric and 1-12 characters long
@@ -17,6 +17,8 @@
 				if(Input::post("password") === Input::post("passwordMatch")) {
 
 					$hashedPassword = hash("sha256", Input::post("password"));
+					$firstName = Input::post("firstName");
+					$lastName = Input::post("lastName");
 
 					$db = Database::getInstance();
 					$db->getUserByID($userID);
@@ -27,7 +29,7 @@
 						exit();
 					} else {
 
-						$db->insertNewUser($userID, $hashedPassword);
+						$db->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
 						header("Location: login.php");
 						exit();
 					}
@@ -70,6 +72,16 @@
 				<label for="username">Username:</label> 
 				<input type="text" 
 					   name="username"/>
+			</li>
+			<li>
+				<label for="firstName">Forename(s):</label> 
+				<input type="text" 
+					   name="firstName"/>
+			</li>
+			<li>
+				<label for="lastName">Surname:</label> 
+				<input type="text" 
+					   name="lastName"/>
 			</li>
 			<li>
 				<label for="password">Password:</label> 

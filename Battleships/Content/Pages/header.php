@@ -1,3 +1,7 @@
+<?php 
+    require_once("../Classes/setup.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +21,8 @@
             <h1 id="headerTitle">BattleShips</h1>
 
             <div id="userDetails">
-                <div id="firstName">Nick</div>
-                <div id="lastName">Holdsworth</div>
+                <div id="firstName"><?= Session::get("firstName"); ?></div>
+                <div id="lastName"><?= Session::get("lastName"); ?></div>
             </div>
 
         </div>
