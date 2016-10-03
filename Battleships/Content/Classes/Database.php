@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/**
 *
 * Last Modified By: Nick Holdsworth
 * Last Modified On: 03/10/16
@@ -8,9 +10,8 @@
 * V0.2      Joe     02/10/16    added user operations
 * V0.21     Nick    03/10/16    update user operations to include first name / last name
 *
--->
+**/
 
-<?php
 //singleton pattern 
 class Database
 {
@@ -125,4 +126,3 @@ class Database
 }
 
 ?>
-

@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/**
 *
 * Last Modified By: Nick Holdsworth
 * Current Version: 0.2
@@ -6,58 +8,52 @@
 * V0.1      Joe     01/10/16    initial creation
 * V0.2      Nick    03/10/16    added session variables
 *
--->
+**/
 
-<?php
     //http://www.datagenetics.com/blog/december32011/
     require_once("../Classes/setup.php");
     
-    if(Session::get("userID")) // If user is already logged in on a session... go to game!
-    {
+    if (Session::get("userID")) { // If user is already logged in on a session... go to game!
         header("Location: game.php");
         exit();
     }
     
-    if(Input::itemExists("register"))
-    {
+    if (Input::itemExists("register")) {
         header("Location: registration.php");
         exit();
     }
 
-    if(Input::itemExists("userID") && Input::itemExists("password") && Input::itemExists("login")) // If user has entered a username and password
-    {
+    if(Input::itemExists("userID") && Input::itemExists("password") && Input::itemExists("login")) { // If user has entered a username and password
         $userID = Input::post("userID");
         $hashedPassword = hash("sha256", Input::post("password"));
         $db = Database::getInstance();
         $db->checkForUserAndPassword($userID, $hashedPassword);
 
-        if($db->getRowCount() > 0) // If username + hashed password combination is found in the DB... go to game!
-        {
+        if($db->getRowCount() > 0) { // If username + hashed password combination is found in the DB... go to game!
             $user = $db->getUserByID($userID)[0];
 
             Session::set("userID", $user->userID);
             Session::set("firstName", $user->firstName);
             Session::set("lastName", $user->lastName);
-            
-            header("Location: game.php");
 
+            header("Location: game.php");
             exit();
-        }
-        else // If username + hashed password combination not found in the DB... redirect back to login page.
-        {
+
+        } else { // If username + hashed password combination not found in the DB... redirect back to login page.
             Session::set("loginMessage", "The entered username and password combination could not be found.");
             header("Location: login.php");
             exit();
         }
     }
-    
-    require_once("header.php");
 
     if(Session::exists("loginMessage"))
 	{
 		echo Session::get("loginMessage");
 		Session::delete("loginMessage");
 	}
+
+require_once("header.php");
+
 ?>
 
 <form method="post" 
