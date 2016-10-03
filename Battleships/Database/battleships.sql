@@ -63,16 +63,16 @@ CREATE TABLE `savegameships` (
 --
 
 INSERT INTO `savegameships` (`saveGameShipsID`, `saveGameID`, `shipID`, `userControlled`, `orientation`, `headPositionX`, `headPositionY`) VALUES
-(1, 2, 'battleship', 1, 1, 0, 0),
-(2, 2, 'carrier', 1, 1, 0, 1),
-(3, 2, 'destroyer', 1, 1, 0, 2),
-(4, 2, 'patrol', 1, 1, 0, 3),
-(5, 2, 'submarine', 1, 1, 0, 4),
-(6, 2, 'battleship', 0, 1, 0, 0),
-(7, 2, 'carrier', 0, 1, 0, 1),
-(8, 2, 'destroyer', 0, 1, 0, 2),
-(9, 2, 'patrol', 0, 1, 0, 3),
-(10, 2, 'submarine', 0, 1, 0, 4);
+(1, 2, 'Battleship', 1, 1, 0, 0),
+(2, 2, 'Carrier', 1, 1, 0, 1),
+(3, 2, 'Destroyer', 1, 1, 0, 2),
+(4, 2, 'Patrol', 1, 1, 0, 3),
+(5, 2, 'Submarine', 1, 1, 0, 4),
+(6, 2, 'Battleship', 0, 1, 0, 0),
+(7, 2, 'Carrier', 0, 1, 0, 1),
+(8, 2, 'Destroyer', 0, 1, 0, 2),
+(9, 2, 'Patrol', 0, 1, 0, 3),
+(10, 2, 'Submarine', 0, 1, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -90,11 +90,11 @@ CREATE TABLE `ships` (
 --
 
 INSERT INTO `ships` (`shipID`, `size`) VALUES
-('battleship', 4),
-('carrier', 5),
-('destroyer', 3),
-('patrol', 2),
-('submarine', 3);
+('Battleship', 4),
+('Carrier', 5),
+('Destroyer', 3),
+('Patrol', 2),
+('Submarine', 3);
 
 -- --------------------------------------------------------
 
