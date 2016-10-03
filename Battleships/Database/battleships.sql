@@ -120,8 +120,6 @@ CREATE TABLE `shotsfired` (
 CREATE TABLE `users` (
   `userID` varchar(20) NOT NULL,
   `password` char(64) NOT NULL,
-  `firstName` varchar(50) NOT NULL,
-  `lastName` varchar(50) NOT NULL,
   `saveGameID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
