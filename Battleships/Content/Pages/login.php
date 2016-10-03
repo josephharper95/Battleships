@@ -1,8 +1,6 @@
 <?php
     //http://www.datagenetics.com/blog/december32011/
     require("../Classes/setup.php");
-
-    //Session::set("userID", "user"); //dummy user for developers without DB setup.
     
     if(Session::get("userID")) // If user is already logged in on a session... go to game!
     {
@@ -23,11 +21,11 @@
         $db = Database::getInstance();
         $db->checkForUserAndPassword($userID, $hashedPassword);
 
-        $user = $db->getUserByID($userID)[0];
-
         if($db->getRowCount() > 0) // If username + hashed password combination is found in the DB... go to game!
         {
-            Session::set("userID", $userID);
+            $user = $db->getUserByID($userID)[0];
+
+            Session::set("userID", $user->userID);
             Session::set("firstName", $user->firstName);
             Session::set("lastName", $user->lastName);
             
