@@ -8,5 +8,7 @@
 -->
 
 <?php
-    Navigator::changePage("game.php");
+    require_once("Content/Classes/setup.php");
+
+    Navigator::changePage("Content/Pages/game.php");
 ?>
