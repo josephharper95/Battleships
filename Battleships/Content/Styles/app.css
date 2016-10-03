@@ -4,6 +4,7 @@
 * Current Version: 0.1
 *
 * V0.1      Nick    01/10/16    initial creation
+* V0.11     Nick    03/10/16    logout styling
 *
 **/
 html body {
@@ -51,6 +52,18 @@ html body #header #headerBar #userDetails #firstName {
 }
 html body #header #headerBar #userDetails #lastName {
   font-size: 90%;
+}
+html body #header #headerBar #userDetails .logout {
+  font-size: 70%;
+  margin-top: 5px;
+}
+html body #header #headerBar #userDetails .logout a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+html body #header #headerBar #userDetails .logout a:hover {
+  color: #ccc;
 }
 html body .body {
   margin-top: 125px;
