@@ -4,7 +4,7 @@
 * Current Version: 1.01
 *
 * V1.00   Joe     01/10/16    initial creation
-* V1.01   Nick    03/01/16    added first name / last name to user
+* V1.01   Joe    03/01/16    added first name / last name to user
 *
 **/
 

@@ -1,3 +1,3 @@
 <?php
-    header("Location: Content/Pages/game.php");
+    Navigator::changePage("game.php");
 ?>

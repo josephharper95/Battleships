@@ -1,6 +1,4 @@
-<?php 
-    require_once("../Classes/setup.php");
-?>
+<?php require_once("../Classes/setup.php"); ?>
 
 <!DOCTYPE html>
 <html>
@@ -20,10 +18,28 @@
              
             <h1 id="headerTitle">BattleShips</h1>
 
+<?php
+
+if (Session::exists("userID")) {
+
+?>
+
             <div id="userDetails">
                 <div id="firstName"><?= Session::get("firstName"); ?></div>
                 <div id="lastName"><?= Session::get("lastName"); ?></div>
+                
+                <!--<form method="post" action="logout.php">-->
+                    <i>Not you?</i>
+                    <!--<button type="submit">Logout</button>-->
+                    <a href="logout.php">Logout</a>
+                <!--</form>--> 
             </div>
+
+<?php
+
+}
+
+?>
 
         </div>
 
