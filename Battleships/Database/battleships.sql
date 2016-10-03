@@ -1,11 +1,12 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Oct 03, 2016 at 02:34 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 7.0.6
+/**
+*
+* Last Modified By: Nick Holdsworth
+* Current Version: 1.01
+*
+* V1.00   Joe     01/10/16    initial creation
+* V1.01   Nick    03/01/16    added first name / last name to user
+*
+**/
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
