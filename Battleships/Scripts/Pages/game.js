@@ -218,8 +218,7 @@ function boardFireAtComputer($cell) {
         if (ship) {
             
             if (ship.isDestroyed()) {
-                console.log("ship destroyed: " + ship.getName());
-                console.log($("#opponentContainer .remainingShipsContainer li." + ship.getName()));
+                
                 $("#opponentContainer .remainingShipsContainer li." + ship.getName()).addClass("destroyed");
             }
         }

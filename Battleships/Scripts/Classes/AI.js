@@ -3,7 +3,7 @@ function AI(name, board, targetBoard){
     var destroyer = new Ship("Destroyer", 2);
     var submarine = new Ship("Submarine", 3);
     var cruiser = new Ship("Cruiser", 3);
-    var battleship = new Ship("BattleShip", 3);
+    var battleship = new Ship("BattleShip", 4);
     var carrier = new Ship("Carrier", 5);
 
     var _ships = [destroyer, submarine, cruiser, battleship, carrier];
