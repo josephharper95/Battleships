@@ -1,3 +1,5 @@
+<?php require_once("../Classes/setup.php"); ?>
+
 <!--
 *
 * Last Modified By: Nick Holdsworth
@@ -7,13 +9,12 @@
 *
 -->
 
-<?php require_once("../Classes/setup.php"); ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>BattleShips!</title>
 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>

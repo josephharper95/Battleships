@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/**
 *
 * Last Modified By: Nick Holdsworth
 * Current Version: 0.2
@@ -6,14 +8,13 @@
 * V0.1      Joe  	01/10/16    initial creation
 * V0.2 		Nick 	03/10/16 	added first / last name
 *
--->
+**/
 
-<?php
 	require_once("../Classes/setup.php");
 
     if (Input::itemExists("return")) { // If user selected "Return to Login Screen"
 
-        Navigator::changePage("login.php");
+        header("Location: login.php");
         exit();
     }
 
@@ -35,30 +36,30 @@
 					if($db->getRowCount() > 0) {
 
 						Session::set("registrationMessage", "That username is taken, please pick another.");
-						Navigator::changePage("registration.php");
+						header("Location: registration.php");
 						exit();
 					} else {
 
 						$db->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
-						Navigator::changePage("login.php");
+						header("Location: login.php");
 						exit();
 					}
 				} else {
 
 					Session::set("registrationMessage", "Please ensure both your password fields match.");
-					Navigator::changePage("registration.php");
+					header("Location: registration.php");
 					exit();
 				}
 			} else {
 
 				Session::set("registrationMessage", "Please ensure your username is between 1 and 12 characters long.");
-				Navigator::changePage("registration.php");
+				header("Location: registration.php");
 				exit();
 			}
 		} else {
 
 			Session::set("registrationMessage", "Please ensure every field has an input.");
-			Navigator::changePage("registration.php");
+			header("Location: registration.php");
 			exit();
 		}
     }
