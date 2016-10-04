@@ -6,6 +6,7 @@
 * Current Version: 0.1
 *
 * V0.1      Nick    01/10/16    initial creation
+* V0.11     Nick    04/10/16    menu doesn't show when user is not logged in
 *
 -->
 
@@ -28,6 +29,12 @@
              
             <h1 id="headerTitle">BattleShips</h1>
 
+<?php
+
+if (Session::exists("userID")) {
+
+?>
+
             <ul class="blank"
             id="navigationHeader" >
             
@@ -36,12 +43,6 @@
                 <li><a href="logout.php">Logout</a></li>
             
             </ul>
-
-<?php
-
-if (Session::exists("userID")) {
-
-?>
 
             <div id="userDetails">
                 <div id="firstName"><?= Session::get("firstName"); ?></div>
@@ -55,7 +56,6 @@ if (Session::exists("userID")) {
 ?>
 
         </div>
-
     </div>
 
     <div class="body">

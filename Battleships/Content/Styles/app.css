@@ -5,6 +5,7 @@
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    03/10/16    logout styling
+* V0.12     Nick    04/10/16    moved ul styling to outside of everything
 *
 **/
 html body {
@@ -23,6 +24,13 @@ html body {
 html body h3,
 html body h4 {
   font-weight: 100;
+}
+html body ul.blank {
+  list-style: none;
+  padding: 0;
+}
+html body ul li {
+  margin-bottom: 7px;
 }
 html body #header {
   position: fixed;
@@ -186,13 +194,6 @@ html body .body #pageGame .sideContainer .boardContainer .board#boardComputer td
 html body .body #pageGame .sideContainer .boardContainer .board#boardPlayer td.noHover,
 html body .body #pageGame .sideContainer .boardContainer .board#boardComputer td.noHover {
   background-color: red;
-}
-html body .body ul.blank {
-  list-style: none;
-  padding: 0;
-}
-html body .body ul li {
-  margin-bottom: 7px;
 }
 html body .body fieldset {
   border: 1px solid #ccc;
