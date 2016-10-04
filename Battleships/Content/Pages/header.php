@@ -18,19 +18,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- default files needed -->
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
 </head>
 
 <body>
     <div id="header">
-        
         <div id="headerBar">
-             
             <h1 id="headerTitle">BattleShips</h1>
 
 <?php
 
+// if the user is logged in, provide menu items
 if (Session::exists("userID")) {
 
 ?>
