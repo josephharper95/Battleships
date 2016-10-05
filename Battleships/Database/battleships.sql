@@ -146,10 +146,6 @@ CREATE TABLE `userstatistics` (
 -- Dumping data for table `userstatistics`
 --
 
-INSERT INTO `userstatistics` (`userID`, `score`, `wins`, `losses`, `gamesPlayed`, `totalShotsFired`) VALUES
-('test1', 0, 0, 0, 0, 0),
-('user', 0, 0, 0, 0, 0);
-
 --
 -- Indexes for dumped tables
 --
