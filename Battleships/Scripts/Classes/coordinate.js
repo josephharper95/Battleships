@@ -5,6 +5,7 @@
 *
 * V0.1      Dave / Nick / Joe    01/10/16    initial creation
 * V0.11     Dave                 05/10/16    Added comments
+* V0.2      Dave                 06/10/16    Added removeShip method.
 *
 **/
 
