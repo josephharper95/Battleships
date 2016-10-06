@@ -15,6 +15,7 @@ function Board(size) {
     var _height = size;
     var _width = size;
     const MAX_SHIPS = 5;
+    var _shipsPlaced = [];
 
     // Create multidimensional array and initialise a new coordinate object for each cell.
 
@@ -57,12 +58,25 @@ function Board(size) {
 
             ship.place(shipCoordinates);
             _ships.push(ship);
+            _shipsPlaced.push(ship);
             return true;
 
         } else {
             //console.log("Cannot place ship here");
             return false;
         }
+    }
+
+    /**
+     * Function to undo the last ship placement.
+     */
+    this.undoPlaceShip = function(){
+        var ship = _shipsPlaced.pop();
+        var coords = ship.coordinates();
+        for(var i = 0; i< ship.getSize(); i++){
+            console.log(coords[i].removeShip());
+        }
+        console.log(ship.toString());
     }
 
     /**

@@ -80,11 +80,20 @@ function Coordinate(x, y) {
     }
 
     /**
+     * Function to remove the ship placed on this coordinate
+     */
+    this.removeShip = function(){
+        if(_containsShip){
+            _containsShip = false;
+            _ship = null;
+        }
+    }
+    /**
      * Record this coordinate as hit. If it contains a ship, record a hit on the ship object.
      * @return {boolean}
      */
     this.recordHit = function() {
-        if (!_isHit) {
+        /*if (!_isHit) {
             _isHit = true;
             if(_containsShip){
                 _ship.recordHit();
@@ -93,6 +102,6 @@ function Coordinate(x, y) {
             }
         }
 
-        return false;
+        return false;*/
     }
 }

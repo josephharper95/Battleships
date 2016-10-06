@@ -17,7 +17,7 @@ function Ship(name, size) {
     var _isDestroyed = false;
 
     // set when ship is placed on board
-    var _coordinates;
+    var _coordinates = new Array();
     var _orientation = 1;
 
     /**

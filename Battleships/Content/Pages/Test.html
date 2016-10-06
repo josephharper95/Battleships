@@ -19,46 +19,14 @@
 
 
             $(document).ready(function () { 
-               /* console.log(playerBoard.placeShip(patrol,0,0));
+                console.log(playerBoard.placeShip(patrol,0,0));
+                console.log(playerBoard.placeShip(destroyer,5,5));
+                playerBoard.toString();
+                playerBoard.undoPlaceShip();
+                playerBoard.undoPlaceShip();
                 console.log(playerBoard.getObjectAt(0,0).containsShip());
-                console.log(patrol.getOrientation());
-               battleship.changeOrientation();
-                playerBoard.placeShip(battleship,7,7);
-              //  console.log(playerBoard.getObjectAt(9,9).containsShip());
-                playerBoard.placeShip(sub,7,1);
-                playerBoard.placeShip(destroyer, 4,4);
-                carier.changeOrientation();
-                playerBoard.placeShip(carier,1,5);
-                document.write("before......");*/
-               // playerBoard.toString();
 
-
-               /* console.log(patrol.toString());
-                console.log("fire at [0,0]");
-                playerBoard.fire(0,0);
-                console.log(patrol.toString());
-                console.log("fire at [1,0]");
-                playerBoard.fire(1,0);
-                console.log(patrol.toString());
-
-                document.write("after....");
-                playerBoard.toString();*/
-
-                //console.log("Adjacent locations at {5, 5}:" + playerBoard.printAdjLocations(5,5));
-                var enemyBoard = new Board(10);
-                var cpu1 = new AI("CPU1", playerBoard, enemyBoard);
-                var cpu2 = new AI("CPU2", enemyBoard, playerBoard);
-                cpu1.placeShips();
-                cpu2.placeShips();
                 playerBoard.toString();
-                enemyBoard.toString();
-
-                while(!playerBoard.gameFinished() || !playerBoard.gameFinished()){
-                cpu1.fire();
-                cpu2.fire();
-                playerBoard.toString();
-                enemyBoard.toString();
-                }
                 
 
 
