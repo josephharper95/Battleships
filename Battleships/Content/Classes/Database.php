@@ -9,6 +9,7 @@
 * V0.1      Dave    01/10/16    initial creation
 * V0.2      Joe     02/10/16    added user operations
 * V0.21     Nick    03/10/16    update user operations to include first name / last name
+* V0.22     Joe     06/10/16    added comments to database queries
 *
 **/
 
@@ -83,6 +84,7 @@ class Database
        return $this->rowCount;
    }        
 
+   //Function to execute a query checking for a user in the table with the entered userID and hashed password
    public function checkForUserAndPassword($userID, $hashedPassword)
    {
        $sql = "SELECT userID, password
@@ -94,6 +96,7 @@ class Database
        $this->query($sql, $values);
    }
 
+    //Function to execute a query, getting the user details from the database with the entered userID
    	function getUserByID($userID)
 	{
 
@@ -108,6 +111,7 @@ class Database
         return $user->results;
 	}
 
+    //Function to insert new user into database
     function insertNewUser($userID, $hashedPassword, $firstName, $lastName)
 	{
 		$sql = "INSERT INTO users (userID, password, firstName, lastName)
