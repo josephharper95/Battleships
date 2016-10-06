@@ -33,31 +33,31 @@
 
 					$db = Database::getInstance();
 					$db->getUserByID($userID);
-					if($db->getRowCount() > 0) {
+					if($db->getRowCount() > 0) { // If the user already exists in the database... error
 
 						Session::set("registrationMessage", "That username is taken, please pick another.");
 						header("Location: registration.php");
 						exit();
-					} else {
+					} else { // No issues with input, user inserted into DB and redirected
 
 						$db->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
 						Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
 						header("Location: login.php");
 						exit();
 					}
-				} else {
+				} else { // Password fields did not match, redirect back to registration page with error
 
 					Session::set("registrationMessage", "Please ensure both your password fields match.");
 					header("Location: registration.php");
 					exit();
 				}
-			} else {
+			} else { // Username wasn't between 1-12 characters, redirect back to registration page with error'
 
 				Session::set("registrationMessage", "Please ensure your username is between 1 and 12 characters long.");
 				header("Location: registration.php");
 				exit();
 			}
-		} else {
+		} else { // Not every field had an input, redirect back to registration page with error
 
 			Session::set("registrationMessage", "Please ensure every field has an input.");
 			header("Location: registration.php");
@@ -73,7 +73,7 @@
 	  id="registrationForm">
 	<fieldset>
 		<legend>User Registration</legend>
-		<ul class="blank">
+		<ul class="blank"> <!-- Registration field for the users -->
 		<?php
 			if(Session::exists("registrationMessage"))
 			{
@@ -113,7 +113,7 @@
 				   class="button"/>
 		</ul>
 	</fieldset>
-	<div class="registrationExtra">
+	<div class="registrationExtra"> <!-- Return to login screen button -->
 		<i>Already registered?</i>
 		<input type="submit" 
 			   name="return" 

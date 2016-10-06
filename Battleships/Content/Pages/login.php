@@ -32,7 +32,7 @@
         if($db->getRowCount() > 0) { // If username + hashed password combination is found in the DB... go to game!
             $user = $db->getUserByID($userID)[0];
 
-            Session::set("userID", $user->userID);
+            Session::set("userID", $user->userID); // Setting the user in the session allows them to play the game
             Session::set("firstName", $user->firstName);
             Session::set("lastName", $user->lastName);
 
@@ -46,14 +46,14 @@
         }
     }
 
-require_once("header.php");
+require_once("header.php"); // Runs header.php file
 
 ?>
 
 <form method="post" 
       action=""
       id="loginForm">
-	<fieldset>
+	<fieldset><!-- Login form to allow user to enter their login details. -->
 	    <legend>User Login</legend>
 	    <ul class="blank">
         <?php
@@ -82,7 +82,7 @@ require_once("header.php");
 	    </ul>
 	</fieldset>
 
-    <div class="registrationExtra">
+    <div class="registrationExtra"> <!-- Register button -->
         <i>Need an account?</i>
 		<input type="submit" 
                name="register" 
@@ -92,5 +92,5 @@ require_once("header.php");
 </form>
 
 <?php
-        require_once("footer.php");
+        require_once("footer.php"); // Runs the footer.php script
 ?>
