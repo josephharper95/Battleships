@@ -2,11 +2,12 @@
 
 /**
 *
-* Last Modified By: Nick Holdsworth
+* Last Modified By: Joe Harper
 * Current Version: 0.2
 *
 * V0.1      Joe  	01/10/16    initial creation
 * V0.2 		Nick 	03/10/16 	added first / last name
+* V0.21     Joe     06/10/16    Added comments, moved message to formatted tags
 *
 **/
 
@@ -123,5 +124,5 @@
 </form> 
 
 <?php
-    require_once("footer.php");
+    require_once("footer.php"); // Included footer script in file
 ?>

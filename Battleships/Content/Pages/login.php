@@ -7,6 +7,7 @@
 *
 * V0.1      Joe     01/10/16    initial creation
 * V0.2      Nick    03/10/16    added session variables
+* V0.21     Joe     06/10/16    Added comments, moved message to formatted tags
 *
 **/
 
