@@ -41,6 +41,7 @@
 					} else {
 
 						$db->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
+						Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
 						header("Location: login.php");
 						exit();
 					}
@@ -65,12 +66,6 @@
     }
     
     require_once("header.php");
-
-	if(Session::exists("registrationMessage"))
-	{
-		echo Session::get("registrationMessage");
-		Session::delete("registrationMessage");
-	}
 ?>
 
 <form method="post" 
@@ -79,6 +74,13 @@
 	<fieldset>
 		<legend>User Registration</legend>
 		<ul class="blank">
+		<?php
+			if(Session::exists("registrationMessage"))
+			{
+				echo Session::get("registrationMessage")."<br><br>";
+				Session::delete("registrationMessage");
+			}
+		?>	
 			<li>
 				<label for="username">Username:</label> 
 				<input type="text" 

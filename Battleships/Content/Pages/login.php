@@ -46,12 +46,6 @@
         }
     }
 
-    if(Session::exists("loginMessage"))
-	{
-		echo Session::get("loginMessage");
-		Session::delete("loginMessage");
-	}
-
 require_once("header.php");
 
 ?>
@@ -62,6 +56,13 @@ require_once("header.php");
 	<fieldset>
 	    <legend>User Login</legend>
 	    <ul class="blank">
+        <?php
+            if(Session::exists("loginMessage"))
+        	{
+	        	echo Session::get("loginMessage")."<br><br>";
+	        	Session::delete("loginMessage");
+	        }
+        ?>
             <li>
 				<label for="username">Username:</label> 
 				<input type="text" 
