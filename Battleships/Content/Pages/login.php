@@ -2,7 +2,7 @@
 
 /**
 *
-* Last Modified By: Nick Holdsworth
+* Last Modified By: Joe Harper
 * Current Version: 0.2
 *
 * V0.1      Joe     01/10/16    initial creation
