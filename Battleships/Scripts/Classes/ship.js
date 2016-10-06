@@ -4,6 +4,7 @@
 * Current Version: 0.1
 *
 * V0.1      Dave / Nick / Joe    01/10/16    initial creation
+* V0.11     Dave                 06/10/16    commented code
 *
 **/
 
@@ -19,22 +20,43 @@ function Ship(name, size) {
     var _coordinates;
     var _orientation = 1;
 
+    /**
+     * Returns the ship size
+     * 
+     * @return {number}
+     */
     this.getSize = function () {
         return _size;
     };
 
+    /**
+     * Returns the ship name
+     * 
+     * @return {String}
+     */
     this.getName = function () {
         return _name;
     };
 
+    /**
+     * Returns the coordinates
+     */
     this.coordinates = function () {
         return _coordinates;
     };
 
+    /**
+     * Returns the ship orientation
+     */
     this.getOrientation = function () {
         return _orientation;
     };
 
+    /**
+     * Changes the ships orientation
+     * 
+     * @return {boolean} false if the ship is not placed
+     */
     this.changeOrientation = function() {
         if (_isPlaced) {
             return false;
@@ -45,11 +67,18 @@ function Ship(name, size) {
         _orientation = _orientation == 1 ? 0 : 1;
     }
 
+    /**
+     * Sets the ships coordinates and isPlaced flag
+     * @param {Coordinates[]} array of coordinates
+     */
     this.place = function (coordinates) {
         _coordinates = coordinates;
         _isPlaced = true;
     }
 
+    /**
+     * Records a hit on the ship, if the number of hits equals its size, then the ship is destroyed.
+     */
     this.recordHit = function () {
         _numberOfHits++;
 
@@ -58,15 +87,30 @@ function Ship(name, size) {
         }
     }
 
+    /**
+     * Returns if the ship is destroyed or not.
+     * 
+     * @return {boolean}
+     */
     this.isDestroyed = function () {
         return _isDestroyed;
     }
 
+    /**
+     * Returns a string representation of this ship
+     * 
+     * @return {String}
+     */
     this.toString = function(){
         return _name +", Size: "+ _size +", Orientation: " +_orientation + 
         ", No. of hits: " +_numberOfHits+", Is destroyed: " + _isDestroyed;
     }
-
+    
+    /**
+     * Returns if the ship is placed or not
+     * 
+     * @return {boolean}
+     */
     this.isPlaced = function () {
         return _isPlaced;
     }

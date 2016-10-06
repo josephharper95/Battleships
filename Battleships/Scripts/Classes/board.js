@@ -4,6 +4,7 @@
 * Current Version: 0.1
 *
 * V0.1      Dave / Nick / Joe    01/10/16    initial creation
+* V0.11     Dave                 05/10/16    Added comments
 *
 **/
 
@@ -15,7 +16,7 @@ function Board(size) {
     var _width = size;
     const MAX_SHIPS = 5;
 
-    // initialise board functions
+    // Create multidimensional array and initialise a new coordinate object for each cell.
 
     for (var h = 0; h < _height; h++) {
         _coordinates[h] = new Array(_width);
@@ -24,8 +25,15 @@ function Board(size) {
             _coordinates[h][w] = new Coordinate(h, w);
         }
     }
-    // end initialise
 
+    /**
+     * Function to place a ship on the Board
+     * @param {ship} a ship object
+     * @param {number} an x coordinate
+     * @param {number} a y coordinate 
+     * 
+     * @return {boolean} whether or not the placement was successful
+     */
     this.placeShip = function(ship, x, y) {
         if (this.canPlaceShip(ship, x, y)[0]) {
             var x = x;
@@ -57,6 +65,14 @@ function Board(size) {
         }
     }
 
+    /**
+     * Function to place validate ship placement
+     * @param {ship} a ship object
+     * @param {number} an x coordinate
+     * @param {number} a y coordinate 
+     * 
+     * @return {boolean} whether or not the placement is valid
+     */
     this.canPlaceShip = function(ship, x, y) {
 
         var orientation = ship.getOrientation();
@@ -94,10 +110,24 @@ function Board(size) {
         return [passed, coordinates];
     }
 
+    /**
+     * Returns the object at a given coordinate
+     * @param {number} x value
+     * @param {number} y value
+     * 
+     * @return {Coordinate} the coordinate object.
+     */
     this.getObjectAt = function(x, y) {
         return _coordinates[x][y];
     }
 
+    /**
+     * Fires at a given coordinate
+     * @param {number} x value
+     * @param {number} y value
+     * 
+     * @return
+     */
     this.fire = function(x, y) {
         if (this.canFire) {
 
@@ -111,12 +141,23 @@ function Board(size) {
         return false;
     }
 
+    /**
+     * Checks to see if a location is already hit
+     * @param {number} x value
+     * @param {number} y value
+     * 
+     * @return {boolean} whether or not the coordinate is hit
+     */
     this.canFire = function (x, y) {
         var coordinate = _coordinates[x][y];
         
         return !coordinate.isHit();
     }
 
+    /**
+     * Returns a string consisting of the ships remaining
+     * @return {string} ships remaining
+     */
     this.remainingShips = function() {
          if(_ships.length > 0){
             var result = "";
@@ -128,6 +169,11 @@ function Board(size) {
         else return "No ships remaining";
     }
 
+    /**
+     * Checks to see whether the game is finished
+     * 
+     * @return {boolean}
+     */
     this.isViable = function(){
         var result = 0;
         for(var i = 0; i < _ships.length; i++){
@@ -142,6 +188,11 @@ function Board(size) {
         }
     }
 
+    /**
+     * Overriden toString method for testing purposes.
+     * 
+     * @return {string}
+     */
     this.toString = function(){
         document.write("<table border='1' width='400' height='400' style='table-layout: fixed'>");
         for(var i = 0; i < _coordinates.length; i++){
@@ -166,21 +217,15 @@ function Board(size) {
         document.write("</table>");
     }
 
+    /**
+     * Gets the adjacent locations for a given coordinate, ignoring diagonals and out of bounds
+     * @param {number} x value
+     * @param {number} y value
+     * 
+     * @return {Coordinate[]} array of coordinate objects.
+     */
     this.getAdjacentLocations = function(x, y) {
         var locations = new Array();
-
-        // O X O
-        // X X X
-        // O X O
-
-        // x-1  y-1 diag
-        // x    y-1
-        // x+1  y-1 diag
-        // x-1  y
-        // x+1  y
-        // x-1  y+1 diag
-        // x    y+1
-        // x+1  y+1 diag
 
         if (y - 1 >= 0) {
             locations.push(this.getObjectAt(x, y-1));
@@ -201,6 +246,13 @@ function Board(size) {
         return locations;   
     }
 
+    /**
+     * Queries the adjacent locations for valid moves
+     * @param {number} x value
+     * @param {number} y value
+     * 
+     * @return {Coordinate[]} array of coordinate objects.
+     */
     this.getMovesAtAdjacentLocations = function(x, y) {
         var locations = this.getAdjacentLocations(x, y);
         var availMoveLocations = new Array();
@@ -214,6 +266,11 @@ function Board(size) {
         return availMoveLocations;
     }
 
+    /**
+     * Returns the coordinate multidimensional array as a list.
+     * 
+     * @return {Coordinate[]} array of coordinate objects.
+     */
     this.getListOfCoordinates = function(){
         var list = new Array();
         for (var h = 0; h < _height; h++) {
@@ -223,15 +280,5 @@ function Board(size) {
 
         }
         return list;
-    }
-
-    //testing
-    this.printAdjLocations = function(x,y){
-        var arr = this.getAdjacentLocations(x,y);
-        var result = "";
-                for(var i = 0; i < arr.length; i++){
-                    result+= "["+arr[i].getCoordinates() + "]";
-                }
-            return result;
     }
 }

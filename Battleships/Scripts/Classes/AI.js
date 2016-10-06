@@ -4,6 +4,7 @@
 * Current Version: 0.1
 *
 * V0.1      Dave    01/10/16    initial creation
+* V0.11     Dave    05/10/16    Added comments
 *
 **/
 
@@ -23,7 +24,9 @@ function AI(name, board, targetBoard){
     var _target = targetBoard;
     
 
-    //Places ships randomly on the board, TODO: Perhaps make it so ships aren't placed too close together.
+    /**
+     * Funciton to randomly place ships on the board.
+     */
     this.placeShips = function(){
         var _shipsPlaced = 0;
         
@@ -45,7 +48,10 @@ function AI(name, board, targetBoard){
         }
     }
 
-    //Randomly fireing
+    /**
+     * Function to fire on the enemy board. 
+     * For the hack this will only include 'easy mode' in which the targeting is random.
+     */
     this.fire = function(){
         var cell = Math.floor((Math.random() * _cellsNotYetHit.length));
         var temp = _cellsNotYetHit[cell];
@@ -53,7 +59,7 @@ function AI(name, board, targetBoard){
         _target.fire(temp.getX(), temp.getY());
         _cellsNotYetHit.splice(cell, 1);
 
-        return temp; //ADDED FOR YOU NICK ;)* LYLT D :*
+        return temp; 
         }
         
     }
