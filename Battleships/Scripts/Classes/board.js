@@ -3,9 +3,11 @@
 * Last Modified By: Dave MacDonald
 * Current Version: 0.1
 *
-* V0.1      Dave / Nick / Joe    01/10/16    initial creation
-* V0.11     Dave                 05/10/16    Added comments
-* V0.2      Dave                 06/10/16    Added undoPlaceShip method.
+* V0.1      Dave / Nick / Joe   01/10/16    initial creation
+* V0.11     Dave                05/10/16    Added comments
+* V0.2      Dave                06/10/16    Added undoPlaceShip method.
+* V0.21     Dave                07/10/16    updated bugs with undoPlaceShip and made resetBoard more efficient
+* V0.22     Nick                07/10/16    updated undoPlaceShip & resetBoard to return values for UI
 *
 **/
 
@@ -75,16 +77,19 @@ function Board(size) {
         var ship = _shipsPlaced.pop();
         var coords = ship.coordinates();
         for(var i = 0; i< ship.getSize(); i++){
-            console.log(coords[i].removeShip());
+            coords[i].removeShip();
         }
         ship.reset();
+
+        return [ship, coords, _shipsPlaced.length];
     }
 
     /**
      * Re-initialise the board and all Coordinate objects.
      */
-    this.resetBoard = function(){
-        while(_shipsPlaced.length >0){
+    this.resetBoard = function() {
+        
+        while(_shipsPlaced.length > 0) {
             this.undoPlaceShip();
         }
     }

@@ -7,6 +7,7 @@
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    commented code
+* V0.2      Nick    07/10/16    changes to implement undo / reset board
 *
 **/
 
@@ -69,8 +70,20 @@ $class = "small";
                 <!-- button to start game, hidden at first -->
                 <div style="width: 100%; text-align: center; margin-top:7px;">
                     <button class="button" 
-                    style="display:none;"
-                    id="startGame" >Start!</button>
+                            style="display:none;"
+                            id="startGame" >Start!</button>
+
+                    <button class="button"
+                            style="display:none;"
+                            id="undoLastShip">
+                        Undo Last Ship
+                    </button>
+
+                    <button class="button"
+                            style="display:none;"
+                            id="resetBoard">
+                        Reset Board
+                    </button>
 
                     <h3 id="gameMessage"></h3>
                 </div>

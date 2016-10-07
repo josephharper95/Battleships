@@ -5,11 +5,13 @@
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    made code stricter and tightened validation and commented
+* V0.2      Nick    07/10/16    implemented undo place ship / reset board
 *
 **/
 
 // Global Variables
 var game;
+var gameStarted = false;
 var playerBoard;
 var computerBoard;
 var AI;
@@ -155,6 +157,11 @@ function cleanupHoverClasses() {
     $("#boardComputer td.hover").removeClass("noHover");
 }
 
+function removeHovers() {
+    $("#boardPlayer td").off("hover");
+    $("#boardComputer td").off("hover");
+}
+
 // function to hover a ship on the board
 function boardPlaceHover($cell, ship) {
 
@@ -253,6 +260,9 @@ function boardPlaceShip($cell, ship) {
 
         // trigger the mouseenter event to show the next ship (if exists) hover
         $cell.trigger("mouseenter");
+
+        initUndoLastShip();
+        initResetBoard();
     }
 }
 
@@ -352,6 +362,13 @@ function gameReady() {
 
 // function to start the game officially
 function startGame() {
+
+    // set the variable so other methods know the game has begun
+    gameStarted = true;
+
+    $("#resetBoard").fadeOut(500).off("click");
+    $("#undoLastShip").fadeOut(500).off("click");
+
     // place the ships for the AI
     placeAIShips();
 
@@ -393,12 +410,14 @@ function playerMove() {
                     boardFireAtOpponent($cell);
 
                     // cleanups
-                    $("#boardPlayer td").off("hover");
+                    removeHovers();
                     cleanupHoverClasses();
 
                     // change turn to be AI
                     AIMove();
                 });
+            } else {
+                cleanupHoverClasses();
             }
         });
 
@@ -464,4 +483,56 @@ function endGame(winner) {
     } else {
         alert("Game Over! - You Lost! :(");
     }
+}
+
+function initUndoLastShip() {
+    if (!$("#undoLastShip:visible").length) {
+        $("#undoLastShip").fadeIn(500).off("click").one("click", function () {
+            undoLastShip();
+        });
+    }
+}
+
+function undoLastShip() {
+
+    var ship, coords, numShips;
+    [ship, coords, numShips] = playerBoard.undoPlaceShip();
+
+    for (var i = 0; i < coords.length; i++) {
+        var c = coords[i];
+        $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').removeData("ship").removeClass("containsShip");
+    }
+
+    initPlaceShips();
+
+    if (numShips > 0) {
+        $("#undoLastShip").off("click").one("click", function () {
+            undoLastShip();
+        });
+    } else {
+        $("#undoLastShip").fadeOut(500);
+        $("#startGame").fadeOut(500);
+    }
+}
+
+function initResetBoard() {
+
+    if (!$("#resetBoard:visible").length) {
+        $("#resetBoard").fadeIn(500).off("click").one("click", function () {
+            resetBoard();
+        });
+    }
+}
+
+function resetBoard() {
+
+    $("#resetBoard").fadeOut(500);
+    $("#undoLastShip").fadeOut(500);
+    $("#startGame").fadeOut(500);
+
+    $("#boardPlayer td").removeClass("containsShip").removeData("ship");
+
+    playerBoard.resetBoard();
+
+    initPlaceShips();
 }

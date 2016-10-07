@@ -3,9 +3,10 @@
 * Last Modified By: Dave MacDonald
 * Current Version: 0.1
 *
-* V0.1      Dave / Nick / Joe    01/10/16    initial creation
-* V0.11     Dave                 05/10/16    Added comments
-* V0.2      Dave                 06/10/16    Added removeShip method.
+* V0.1      Dave / Nick / Joe   01/10/16    initial creation
+* V0.11     Dave                05/10/16    Added comments
+* V0.2      Dave                06/10/16    Added removeShip method.
+* V0.21     Nick                07/10/16    uncommented record hit code
 *
 **/
 
@@ -94,7 +95,7 @@ function Coordinate(x, y) {
      * @return {boolean}
      */
     this.recordHit = function() {
-        /*if (!_isHit) {
+        if (!_isHit) {
             _isHit = true;
             if(_containsShip){
                 _ship.recordHit();
@@ -103,6 +104,6 @@ function Coordinate(x, y) {
             }
         }
 
-        return false;*/
+        return false;
     }
 }

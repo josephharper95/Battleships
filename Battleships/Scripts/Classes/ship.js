@@ -3,8 +3,9 @@
 * Last Modified By: Dave MacDonald
 * Current Version: 0.1
 *
-* V0.1      Dave / Nick / Joe    01/10/16    initial creation
-* V0.11     Dave                 06/10/16    commented code
+* V0.1      Dave / Nick / Joe   01/10/16    initial creation
+* V0.11     Dave                06/10/16    commented code
+* V0.2      Dave                07/10/16    added reset method
 *
 **/
 
@@ -21,7 +22,6 @@ function Ship(name, size) {
     var _orientation = 1;
 
     this.reset = function(){
-        console.log("test");
         _isPlaced = false;
     }
 
