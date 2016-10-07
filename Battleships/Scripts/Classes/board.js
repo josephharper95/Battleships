@@ -29,27 +29,6 @@ function Board(size) {
     }
 
     /**
-     * Re-initialise the board and all Coordinate objects.
-     */
-    this.resetBoard = function(){
-        _coordinates = new Array(_height);
-        for (var h = 0; h < _height; h++) {
-        _coordinates[h] = new Array(_width);
-            for (var w = 0; w < _width; w++) {
-                _coordinates[h][w] = new Coordinate(h, w);
-            }
-        }
-
-        //reset ships
-        for(var i = 0; i < _shipsPlaced.length; i++){
-            _shipsPlaced[i].reset();
-        }
-
-        //reset ships placed.
-        _shipsPlaced = [];
-    }
-
-    /**
      * Function to place a ship on the Board
      * @param {ship} a ship object
      * @param {number} an x coordinate
@@ -99,6 +78,15 @@ function Board(size) {
             console.log(coords[i].removeShip());
         }
         ship.reset();
+    }
+
+    /**
+     * Re-initialise the board and all Coordinate objects.
+     */
+    this.resetBoard = function(){
+        while(_shipsPlaced.length >0){
+            this.undoPlaceShip();
+        }
     }
 
     /**
