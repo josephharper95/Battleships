@@ -20,6 +20,11 @@ function Ship(name, size) {
     var _coordinates = new Array();
     var _orientation = 1;
 
+    this.reset = function(){
+        console.log("test");
+        _isPlaced = false;
+    }
+
     /**
      * Returns the ship size
      * 

@@ -39,6 +39,14 @@ function Board(size) {
                 _coordinates[h][w] = new Coordinate(h, w);
             }
         }
+
+        //reset ships
+        for(var i = 0; i < _shipsPlaced.length; i++){
+            _shipsPlaced[i].reset();
+        }
+
+        //reset ships placed.
+        _shipsPlaced = [];
     }
 
     /**
@@ -90,7 +98,7 @@ function Board(size) {
         for(var i = 0; i< ship.getSize(); i++){
             console.log(coords[i].removeShip());
         }
-        console.log(ship.toString());
+        ship.reset();
     }
 
     /**
