@@ -6,6 +6,7 @@
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    03/10/16    logout styling
 * V0.12     Nick    04/10/16    moved ul styling to outside of everything
+* V0.2      Nick    12/10/16    added the beginnings of individual ship images
 *
 **/
 
@@ -202,20 +203,193 @@ html {
                     }
 
                     .boardContainer {
-                        width: 400px;
+                        width: 450px;
 
                         h3 {
                             font-weight: 200;
                             margin: 0;
                         }
 
-                        .board {
+                        table.board {
+                            border-collapse: collapse;
+                            border-spacing: 0;
+
                             td {
-                                width: 40px;
-                                height: 40px;
-                                background-color: @mainColour;
-                                font-size: 11px;
-                                text-align: center;
+                                    width: 40px;
+                                    height: 40px;
+                                    background-color: @mainColour;
+                                    font-size: 11px;
+                                    text-align: center;
+                                    border: 1px solid #fff;
+                                    padding: 0;
+                                }   
+
+                            &#boardPlayer {
+                                td {
+                                    &.containsShip {
+                                        background-size: 40px;
+                                        background-repeat: no-repeat;
+
+                                        &[data-ship=Destroyer] {
+
+                                            &[data-ship-part="0"] {
+                                                background-image: @left-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @left-end-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="1"] {
+                                                background-image: @right-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @right-end-v;
+                                                }
+                                            }
+                                        }
+
+                                        &[data-ship=Submarine] {
+
+                                            &[data-ship-part="0"] {
+                                                background-image: @left-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @left-end-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="1"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="2"] {
+                                                background-image: @right-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @right-end-v;
+                                                }
+                                            }
+                                        }
+
+                                        &[data-ship=Cruiser] {
+
+                                            &[data-ship-part="0"] {
+                                                background-image: @left-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @left-end-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="1"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="2"] {
+                                                background-image: @right-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @right-end-v;
+                                                }
+                                            }
+                                        }
+
+                                        &[data-ship=BattleShip] {
+
+                                            &[data-ship-part="0"] {
+                                                background-image: @left-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @left-end-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="1"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="2"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="3"] {
+                                                background-image: @right-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @right-end-v;
+                                                }
+                                            }
+                                        }
+
+                                        &[data-ship=Carrier] {
+
+                                            &[data-ship-part="0"] {
+                                                background-image: @left-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @left-end-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="1"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="2"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="3"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="4"] {
+                                                background-image: @right-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @right-end-v;
+                                                }
+                                            }
+                                        }
+
+                                        &[data-orientation=Vertical] {
+                                            // -webkit-transform: rotate(90deg);
+                                            // -moz-transform: rotate(90deg);
+                                            // -ms-transform: rotate(90deg);
+                                            // -o-transform: rotate(90deg);
+                                            // transform: rotate(90deg);
+                                        }
+                                    }
+                                }
                             }
 
                             &#boardPlayer,
@@ -223,10 +397,6 @@ html {
                                 td {
                                     &.hover {
                                         background-color: #cc8400;
-                                    }
-
-                                    &.containsShip {
-                                        background-color: blue;
                                     }
 
                                     &.hit {
@@ -238,8 +408,8 @@ html {
                                     }
 
                                     &.noHover {
-                                        background-color: red;
-                                    }   
+                                        background-color: red !important;
+                                    }
                                 }
                             }
                         }
@@ -332,3 +502,19 @@ html {
         }
     }
 }
+
+/***************
+    VARIABLES
+***************/
+
+@left-end-h: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AoMEQMjTlj9zQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABH0lEQVRo3u3ZsWqDQBzH8W96g2uhUOIgnTqV7qGvkdcSnDP5HH2ODJn6Bk6hSycz5AKHGGI8qP9f+P/gQEXlPtydpyd4PB7PlayBrTqiBGqgA1rgTRlxBPpYdmqYMUQP/ClhriGkMLcQQ4w0IsW0QKWMSMtWHXEEmjjPSCNqS10qB1FaaYnmERD1jEHdW0KQObBLS+OiUx/YAKtYOfk8PcpHkkMc4hCHOMQhS72imHrPCsAr8AkUE68pkvP3wK8VyH5QOUlMiJWYi/mK9/i2ACEDA7ABnpfGhGQ7B/MBvCzZzcJgX7abhZFjOS3zDvwAB0uP5jlrXK3VyfLeRWzpFXmpfyRwXv6R6k5TW0auJcYwnTLiksvv6QqPx+P575wA6O3sqrbXCjIAAAAASUVORK5CYII=');
+
+@left-end-v: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AoMFQEeIw97ggAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABFElEQVRo3u3WPQ6DMAwF4NeeAgbEoXotpM6duGCmbEzp4lQRghKH/CD0LHkLir9gRwHyRA9gAmAAuMg08k2Pi4RHWAXCp70K5gwizPcdEE3/TE5EM0wJRHVMSUQ1TA1EcUxNRFFMbUR2TC93fAtENoxvJ3eBTMZ0ie1kC60NMZ0G8lI+AMONYtenHJSR2qJjAPABsCT8+tiiIPOngcwpMzIKJvZ0ff9qILHX+iK1jKkDP8opLAcv13AINZAYzGlEGFttZnee31rIP0xWxF6bTTtrUyBbmOyIdZuZjXbKAcHqAphROI6uv7OQTvYYNEU9CkBdi72fuEkQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEPKLL/gdCjLSju71AAAAAElFTkSuQmCC');
+
+@middle-h: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AoMEQAU3cgLAQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAWklEQVRo3u3YQQ3AQAhFwU/F4N8he6iIdsk8B3MgBGpmsqEnSwIBAQEBAQEBAQEBAQEBeask1x/t3b0DUlU7IIYdBAQE5Ltd4hsPAgICAgICAgICAgICAvLLDiO9CcyIj8/RAAAAAElFTkSuQmCC');
+
+@middle-v: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AoMFQQB03CCMgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAW0lEQVRo3u3PwQmAUAxEwazYSvovMbbwD0FE5hWwy2RmarMkR4Mzk83fq34SCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjIx7vfPkxS3b2++wCZsgfV2Z96dQAAAABJRU5ErkJggg==');
+
+@right-end-h: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AoMETMJSqUC6AAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABKElEQVRo3u2ZPQrCQBBGn1qktRJTiKWVvRfwBF4rYG2Vc+gxtPASgiBpUsXCWZAghGQDmYnzwbLVwr6d/ZtvwOVy/YVmyuazAvbAEyisLuoaOAEPIANSyxAlUAEvqzC5ANTb0Wok6s1EZJogzMDkDQAmYA5yO1V9wQz1jtxlQrsWYxJgK/2t/s4M+SBepQ+Ti4IZEqQALsCij8ho+KKcgXksjJa/VvQ20wJSyMomXWE0/X5jYDYTuaPNazqWxMpBHMRBHMRBHGRsyiQbbJM9PjQBpHzsn7YQIQVWA5G1BAhNjSmRdtxOL4mgeYjM+sFW5XEtIw+2GqPu0OFQq3QbV3ws0xLjlmnQKExsGElZoQnGZNUqwJiG+IbJMV4MrV/NS08CXC7XT70BzpTsMrjaSvkAAAAASUVORK5CYII=');
+
+@right-end-v: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AoMFQQSV87D7AAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABF0lEQVRo3u3YOw6EIBAG4N89hRTGQ3ktE2srL2hFZ8UWC4khvgYZH5ufhG7C8OE4EgvkH+5gXJEz6Qd/MgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIISYZUABoApfK+Gm34gN/f9m4jxh2cS8P4tUefq84NqAH0ACa/CQug9YlzQtoops+JiRFuB5MK6fya85jJ51ZDbGGkkFBOa3HT2TLbQ6xhJBCzUE5rM7nMBsGm5g3gaHxA2IPxocwqafsbhRArOF0nRIQ5SltzmZjIKsXOD0r8DTOJGK251u5fg7H+/TNnW/CdmFBO2cYdGHu2nJ6AUUNciVFHXIG5DKGJuRyhgbkNEV+/X484+2Qeg4gxkovmmBPxBXHBAD5llEr8AAAAAElFTkSuQmCC');

@@ -6,6 +6,7 @@
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    made code stricter and tightened validation and commented
 * V0.2      Nick    07/10/16    implemented undo place ship / reset board
+* V0.3      Nick    12/10/16    added ship images
 *
 **/
 
@@ -244,7 +245,12 @@ function boardPlaceShip($cell, ship) {
             var c = coords[i];
 
             // add the appropriate class to each cell
-            $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')').html(ship.name).attr("data-ship", ship.name).addClass("containsShip");
+            var cell = $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')')[0];
+            
+            $(cell).attr("data-ship", ship.getName());
+            $(cell).attr("data-orientation", (ship.getOrientation() == 0 ? "Vertical" : "Horizontal"));
+            $(cell).attr("data-ship-part", i);
+            $(cell).addClass("containsShip");
         }
 
         // run the function for the Board class
