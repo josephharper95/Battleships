@@ -291,6 +291,14 @@ function Board(size) {
                 availMoveLocations.push(locations[i]);
             }
         }
+        //Shuffle
+        var j, x, i;
+        for (i = availMoveLocations.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            x = availMoveLocations[i - 1];
+            availMoveLocations[i - 1] = availMoveLocations[j];
+            availMoveLocations[j] = x;
+        }
 
         return availMoveLocations;
     }
