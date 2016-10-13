@@ -7,6 +7,7 @@
 * V0.11     Nick    03/10/16    logout styling
 * V0.12     Nick    04/10/16    moved ul styling to outside of everything
 * V0.2      Nick    12/10/16    added the beginnings of individual ship images
+* V0.21     Nick    13/10/16    styling for home / start game page, subtle tweaks to older code for new
 *
 **/
 html body {
@@ -22,9 +23,14 @@ html body {
             Responsive
         *****************/
 }
+html body h1,
 html body h3,
 html body h4 {
   font-weight: 100;
+}
+html body h3,
+html body h4 {
+  margin: 0;
 }
 html body ul.blank {
   list-style: none;
@@ -122,6 +128,7 @@ html body .body .button {
   border-radius: 3px;
   cursor: pointer;
   font-size: 80%;
+  text-decoration: none;
 }
 html body .body .button:hover {
   color: orange;
@@ -324,7 +331,8 @@ html body .body fieldset legend {
   color: #fff;
   border: 1px solid #fff;
 }
-html body .body input,
+html body .body input[type=text],
+html body .body input[type=password],
 html body .body select,
 html body .body textarea {
   -webkit-appearance: none;
@@ -335,10 +343,12 @@ html body .body textarea {
   border: 1px solid #ccc;
   border-radius: 2px;
 }
-html body .body input:hover,
+html body .body input[type=text]:hover,
+html body .body input[type=password]:hover,
 html body .body select:hover,
 html body .body textarea:hover,
-html body .body input:focus,
+html body .body input[type=text]:focus,
+html body .body input[type=password]:focus,
 html body .body select:focus,
 html body .body textarea:focus {
   border-color: orange;
@@ -386,6 +396,46 @@ html body .body #loginForm .registrationExtra i {
 html body .body #registrationForm .registrationExtra .button,
 html body .body #loginForm .registrationExtra .button {
   padding: 0 5px;
+}
+html body .body .container {
+  height: 250px;
+  width: 450px;
+  margin: auto;
+  position: relative;
+  top: 50px;
+  border: 2px solid orange;
+  border-radius: 5px;
+  padding: 5px 10px;
+  box-shadow: 2px 2px 10px #222;
+}
+html body .body .container.register {
+  height: 405px;
+}
+html body .body .container h2 {
+  text-align: center;
+  font-weight: normal;
+}
+html body .body .container ul {
+  text-align: left;
+}
+html body .body .container ul li {
+  padding-bottom: 7px;
+}
+html body .body .container ul li label {
+  display: inline-block;
+  width: 180px;
+  vertical-align: middle;
+}
+html body .body .container ul li input[type=text] {
+  width: 225px;
+}
+html body .body .container ul.left {
+  width: 49%;
+  float: left;
+}
+html body .body .container ul.right {
+  width: 49%;
+  float: right;
 }
 /***************
     VARIABLES

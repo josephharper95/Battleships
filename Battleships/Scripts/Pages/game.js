@@ -1,13 +1,14 @@
 /**
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.1
+* Current Version: 0.32
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    made code stricter and tightened validation and commented
 * V0.2      Nick    07/10/16    implemented undo place ship / reset board
 * V0.3      Nick    12/10/16    added ship images
 * VO.31     Dave    13/10/16    changed AI class to AIMedium
+* V0.32     Nick    13/10/16    made AI class dynamic based on user selection
 *
 **/
 
@@ -17,6 +18,7 @@ var gameStarted = false;
 var playerBoard;
 var computerBoard;
 var AI;
+var difficulty;
 
 // hard coded ships for the hack
 var shipDetails = [
@@ -54,19 +56,8 @@ $(document).ready(function () {
     // allow user to place ships
     initPlaceShips();
 
-    var boardSize;
-
-    switch ($("#boardPlayer").data("size")) {
-        case "small":
-            boardSize = 10
-            break;
-        case "medium":
-            boardSize = 15;
-            break;
-        case "large":
-            boardSize = 20;
-            break;
-    }
+    var boardSize = $("#boardPlayer tr").length;
+    difficulty = $("#opponentContainer").data("difficulty");
 
     // initiliase game object and get the player / computer board
     game = new Game(boardSize);
@@ -386,7 +377,11 @@ function startGame() {
 // function to place AI ships
 function placeAIShips() {
     // initialise AI
-    AI = new AIMedium("AI", computerBoard, playerBoard);
+    if (difficulty == "easy") {
+        AI = new AI("AI", computerBoard, playerBoard);
+    } else if (difficulty == "medium") {
+        AI = new AIMedium("AI", computerBoard, playerBoard);
+    }
 
     // invoke the place ships method
     AI.placeShips();

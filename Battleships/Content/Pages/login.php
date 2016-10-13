@@ -2,12 +2,13 @@
 
 /**
 *
-* Last Modified By: Joe Harper
-* Current Version: 0.2
+* Last Modified By: Nick Holdsworth
+* Current Version: 0.22
 *
 * V0.1      Joe     01/10/16    initial creation
 * V0.2      Nick    03/10/16    added session variables
 * V0.21     Joe     06/10/16    Added comments, moved message to formatted tags
+* V0.22     Nick    13/10/16    changed successful login to point to index.php rather than game.php
 *
 **/
 
@@ -15,7 +16,7 @@
     require_once("../Classes/setup.php");
     
     if (Session::get("userID")) { // If user is already logged in on a session... go to game!
-        header("Location: game.php");
+        header("Location: ../../index.php");
         exit();
     }
     

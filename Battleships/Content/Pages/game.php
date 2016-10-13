@@ -3,11 +3,12 @@
 /**
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.1
+* Current Version: 0.3
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    commented code
 * V0.2      Nick    07/10/16    changes to implement undo / reset board
+* V0.3      Nick    13/10/16    added ability to send in values to the game through POST
 *
 **/
 
@@ -22,12 +23,32 @@ if(!Session::get("userID"))
     exit();
 }
 
+if (!(Input::itemExists("difficulty") && Input::itemExists("size"))) {
+    header("Location: startGame.php");
+    exit();
+}
+
+$sizeClass = Input::post("size");
+$size;
+
+switch ($sizeClass) {
+    case "small":
+        $size = 10;
+        break;
+    case "medium":
+        $size = 15;
+        break;
+    case "large":
+        $size = 20;
+        break;
+}
+
+$difficulty = Input::post("difficulty");
+$difficultyText = $difficulty;
+$difficultyText[0] = strtoupper($difficultyText[0]);
+
 // include the header file if it has not been included before
 require_once("header.php");
-
-// fix the size to small (10x10) -- HACK
-$size = 10;
-$class = "small";
 
 ?>
 
@@ -39,8 +60,6 @@ $class = "small";
 <script src="../../Scripts/Classes/coordinate.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/AI.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/AIMedium.js" type="text/javascript" ></script>
-
-<body>
 
     <!-- set the page width to wide -->
     <div id="pageGame" class="wideWidth">
@@ -64,7 +83,7 @@ $class = "small";
                 <h3>Player</h3>
 
                 <!-- players board, populated relating to the size -->
-                <table id="boardPlayer" class="board" data-size="<?= $class ?>" >
+                <table id="boardPlayer" class="board" data-size="<?= $sizeClass; ?>" >
                     <?php echo createBoard(); ?>
                 </table>
 
@@ -94,7 +113,7 @@ $class = "small";
         </div>
 
         <!-- container for the remaining ships for the opponent -->
-        <div id="opponentContainer" class="sideContainer">
+        <div id="opponentContainer" class="sideContainer" data-difficulty="<?= $difficulty; ?>">
 
             <!-- container for the remaining ships for the opponent -->
             <div class="remainingShipsContainer">
@@ -108,7 +127,7 @@ $class = "small";
             <!-- container for opponent board -->
             <div class="boardContainer">
 
-                <h3>Computer</h3>
+                <h3>Computer (<?= $difficultyText; ?>)</h3>
 
                 <!-- opponents board, populated relating to the size -->
                 <table id="boardComputer" class="board" >
@@ -117,9 +136,6 @@ $class = "small";
             </div>
         </div>
     </div>
-</body>
-
-</html>
 
 <?php
 
@@ -132,7 +148,7 @@ require_once("footer.php");
 
 // function to create board
 function createBoard() {
-    global $size, $class; // use global variables
+    global $size, $sizeClass; // use global variables
 
     // initialise return string
     $str = "<tbody>";
@@ -142,7 +158,7 @@ function createBoard() {
         $str .= "<tr>";
 
         for ($x = 0; $x < $size; $x++) {
-            $str .= "<td class='$class'></td>";
+            $str .= "<td class='$sizeClass'></td>";
         }
 
         $str .= "</tr>";
