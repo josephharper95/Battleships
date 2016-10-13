@@ -5,7 +5,8 @@
 * Last Modified By: Nick Holdsworth
 * Current Version: 0.1
 *
-* V0.1      Nick        13/10/16    initial creation
+* V0.1      Nick    13/10/16    initial creation
+* V0.11     Nick    13/10/16    enabled sizing options that were previously disabled
 *
 **/
 
@@ -70,12 +71,12 @@ require_once("header.php");
 
                     <li>
                         <label>Medium (15x15)</label>
-                        <input type="radio" name="size" value="medium" disabled />
+                        <input type="radio" name="size" value="medium" />
                     </li>
 
                     <li>
                         <label>Large (20x20)</label>
-                        <input type="radio" name="size" value="large" disabled />
+                        <input type="radio" name="size" value="large" />
                     </li>
 
                 </ul>

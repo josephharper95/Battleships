@@ -3,12 +3,13 @@
 /**
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.3
+* Current Version: 0.31
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    commented code
 * V0.2      Nick    07/10/16    changes to implement undo / reset board
 * V0.3      Nick    13/10/16    added ability to send in values to the game through POST
+* V0.31     Nick    13/10/16    added size attribute onto opponent board as was previously missing
 *
 **/
 
@@ -130,7 +131,7 @@ require_once("header.php");
                 <h3>Computer (<?= $difficultyText; ?>)</h3>
 
                 <!-- opponents board, populated relating to the size -->
-                <table id="boardComputer" class="board" >
+                <table id="boardComputer" class="board" data-size="<?= $sizeClass; ?>" >
                     <?php echo createBoard(); ?>
                 </table>
             </div>

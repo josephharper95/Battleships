@@ -1,13 +1,14 @@
 /**
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.1
+* Current Version: 0.22
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    03/10/16    logout styling
 * V0.12     Nick    04/10/16    moved ul styling to outside of everything
 * V0.2      Nick    12/10/16    added the beginnings of individual ship images
 * V0.21     Nick    13/10/16    styling for home / start game page, subtle tweaks to older code for new
+* V0.22     Nick    13/10/16    added styles for medium / large boards to be possible incl framework for ships for diff board sizes
 *
 **/
 
@@ -221,19 +222,237 @@ html {
                             border-spacing: 0;
 
                             td {
-                                    width: 40px;
-                                    height: 40px;
-                                    background-color: @mainColour;
-                                    font-size: 11px;
-                                    text-align: center;
-                                    border: 1px solid #fff;
-                                    padding: 0;
-                                }   
+                                background-color: @mainColour;
+                                font-size: 11px;
+                                text-align: center;
+                                border: 1px solid #fff;
+                                padding: 0;
 
+                                &[data-ship=Carrier] {
+
+                                    &[data-orientation=Horizontal] {
+                                        background-image: @carrier-h;
+                                        background-position-y: 0;
+                                    }
+
+                                    &[data-orientation=Vertical] {
+                                        background-image: @carrier-v;
+                                        background-position-x: 0;
+                                    }
+                                }
+                            }
+
+                            &[data-size=small] {
+                                td {
+                                    @size: 40px;
+                                    width: @size;
+                                    height: @size;
+
+                                    &[data-ship=Carrier] {
+
+                                        &[data-orientation=Horizontal] {
+                                            background-size: calc(@size * 5) @size;
+                                        }
+
+                                        &[data-orientation=Vertical] {
+                                            background-size: @size calc(@size * 5);
+                                        }
+
+                                        &[data-ship-part="0"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: 0;
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: 0;
+                                            }
+                                        }
+
+                                        &[data-ship-part="1"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -1);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -1);
+                                            }
+                                        }
+
+                                        &[data-ship-part="2"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -2);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -2);
+                                            }
+                                        }
+
+                                        &[data-ship-part="3"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -3);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -3);
+                                            }
+                                        }
+
+                                        &[data-ship-part="4"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -4);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -4);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &[data-size=medium] {
+                                td {
+                                    @size: 30px;
+                                    width: @size;
+                                    height: @size;
+
+                                    &[data-ship=Carrier] {
+
+                                        &[data-orientation=Horizontal] {
+                                            background-size: calc(@size * 5) @size;
+                                        }
+
+                                        &[data-orientation=Vertical] {
+                                            background-size: @size calc(@size * 5);
+                                        }
+
+                                        &[data-ship-part="0"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: 0;
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: 0;
+                                            }
+                                        }
+
+                                        &[data-ship-part="1"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -1);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -1);
+                                            }
+                                        }
+
+                                        &[data-ship-part="2"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -2);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -2);
+                                            }
+                                        }
+
+                                        &[data-ship-part="3"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -3);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -3);
+                                            }
+                                        }
+
+                                        &[data-ship-part="4"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -4);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -4);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &[data-size=large] {
+                                td {
+                                    @size: 22.5px;
+                                    width: @size;
+                                    height: @size;
+
+                                    &[data-ship=Carrier] {
+
+                                        &[data-orientation=Horizontal] {
+                                            background-size: calc(@size * 5) @size;
+                                        }
+
+                                        &[data-orientation=Vertical] {
+                                            background-size: @size calc(@size * 5);
+                                        }
+
+                                        &[data-ship-part="0"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: 0;
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: 0;
+                                            }
+                                        }
+
+                                        &[data-ship-part="1"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -1);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -1);
+                                            }
+                                        }
+
+                                        &[data-ship-part="2"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -2);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -2);
+                                            }
+                                        }
+
+                                        &[data-ship-part="3"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -3);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -3);
+                                            }
+                                        }
+
+                                        &[data-ship-part="4"] {
+                                            &[data-orientation=Horizontal] {
+                                                background-position-x: calc(@size * -4);
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-position-y: calc(@size * -4);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            // UNTIL WE GET THE REST OF THE IMAGES
                             &#boardPlayer {
                                 td {
                                     &.containsShip {
-                                        //background-size: 40px;
                                         background-repeat: no-repeat;
 
                                         &[data-ship=Destroyer] {
@@ -343,76 +562,10 @@ html {
                                                 }
                                             }
                                         }
-
-                                        &[data-ship=Carrier] {
-
-                                            &[data-orientation=Horizontal] {
-                                                background-size: 200px 40px;
-                                                background-image: @carrier-h;
-                                                background-position-y: 0;
-                                            }
-
-                                            &[data-orientation=Vertical] {
-                                                background-size: 40px 200px;
-                                                background-image: @carrier-v;
-                                                background-position-x: 0;
-                                            }
-
-
-
-                                            &[data-ship-part="0"] {
-                                                &[data-orientation=Horizontal] {
-                                                    background-position-x: 0;
-                                                }
-
-                                                &[data-orientation=Vertical] {
-                                                    background-position-y: 0;
-                                                }
-                                            }
-
-                                            &[data-ship-part="1"] {
-                                                &[data-orientation=Horizontal] {
-                                                    background-position-x: -40px;
-                                                }
-
-                                                &[data-orientation=Vertical] {
-                                                    background-position-y: -40px;
-                                                }
-                                            }
-
-                                            &[data-ship-part="2"] {
-                                                &[data-orientation=Horizontal] {
-                                                    background-position-x: -80px;
-                                                }
-
-                                                &[data-orientation=Vertical] {
-                                                    background-position-y: -80px;
-                                                }
-                                            }
-
-                                            &[data-ship-part="3"] {
-                                                &[data-orientation=Horizontal] {
-                                                    background-position-x: -120px;
-                                                }
-
-                                                &[data-orientation=Vertical] {
-                                                    background-position-y: -120px;
-                                                }
-                                            }
-
-                                            &[data-ship-part="4"] {
-                                                &[data-orientation=Horizontal] {
-                                                    background-position-x: -160px;
-                                                }
-
-                                                &[data-orientation=Vertical] {
-                                                    background-position-y: -160px;
-                                                }
-                                            }
-                                        }
                                     }
                                 }
                             }
+                            //*************************************
 
                             &#boardPlayer,
                             &#boardComputer {
