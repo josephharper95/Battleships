@@ -7,6 +7,7 @@
 * V0.11     Nick    04/10/16    made code stricter and tightened validation and commented
 * V0.2      Nick    07/10/16    implemented undo place ship / reset board
 * V0.3      Nick    12/10/16    added ship images
+* VO.31     Dave    13/10/16    changed AI class to AIMedium
 *
 **/
 
@@ -385,7 +386,7 @@ function startGame() {
 // function to place AI ships
 function placeAIShips() {
     // initialise AI
-    AI = new AI("AI", computerBoard, playerBoard);
+    AI = new AIMedium("AI", computerBoard, playerBoard);
 
     // invoke the place ships method
     AI.placeShips();

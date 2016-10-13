@@ -32,12 +32,13 @@ $class = "small";
 ?>
 
 <!-- script files to include -->
-<script type="text/javascript" src="../../Scripts/Pages/game.js"></script>
-<script type="text/javascript" src="../../Scripts/Classes/game.js"></script>
-<script type="text/javascript" src="../../Scripts/Classes/board.js"></script>
-<script type="text/javascript" src="../../Scripts/Classes/coordinate.js"></script>
-<script type="text/javascript" src="../../Scripts/Classes/ship.js"></script>
-<script type="text/javascript" src="../../Scripts/Classes/AI.js"></script>
+<script src="../../Scripts/Pages/game.js" type="text/javascript"></script>
+<script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
+<script src="../../Scripts/Classes/ship.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/board.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/coordinate.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AI.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AIMedium.js" type="text/javascript" ></script>
 
 <body>
 

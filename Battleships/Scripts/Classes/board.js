@@ -8,7 +8,7 @@
 * V0.2      Dave                06/10/16    Added undoPlaceShip method.
 * V0.21     Dave                07/10/16    updated bugs with undoPlaceShip and made resetBoard more efficient
 * V0.22     Nick                07/10/16    updated undoPlaceShip & resetBoard to return values for UI
-*
+* V0.23     Dave                13/10/16    updated adjacentLocationsMethod to fix out of bounds coordinate issue
 **/
 
 function Board(size) {
@@ -257,19 +257,19 @@ function Board(size) {
         var locations = new Array();
 
         if (y - 1 >= 0) {
-            locations.push(this.getObjectAt(x, y-1));
+            locations.push(this.getObjectAt(x, y-1)); //9, 4
         }
 
-        if (y + 1 <= _height - 1) {
-            locations.push(this.getObjectAt(x, y+1));
+        if (y + 1 < _height) {
+            locations.push(this.getObjectAt(x, y+1)); //9, 6
         }
 
         if (x - 1 >= 0) {
-            locations.push(this.getObjectAt(x-1, y));
+            locations.push(this.getObjectAt(x-1, y)); //7,5
         }
 
-        if (x + 1 <= _width) {
-            locations.push(this.getObjectAt(x+1, y));
+        if (x + 1 < _width) {
+            locations.push(this.getObjectAt(x+1, y)); //
         }
 
         return locations;   
