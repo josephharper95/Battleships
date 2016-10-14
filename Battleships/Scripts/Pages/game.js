@@ -1,7 +1,7 @@
 /**
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.32
+* Current Version: 0.33
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    made code stricter and tightened validation and commented
@@ -9,6 +9,7 @@
 * V0.3      Nick    12/10/16    added ship images
 * VO.31     Dave    13/10/16    changed AI class to AIMedium
 * V0.32     Nick    13/10/16    made AI class dynamic based on user selection
+* V0.33     Nick    15/10/16    stopped user being able to click when game is finished, fixed bug where undo / reset was not actually resetting images
 *
 **/
 
