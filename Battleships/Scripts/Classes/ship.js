@@ -23,6 +23,7 @@ function Ship(name, size) {
 
     this.reset = function(){
         _isPlaced = false;
+        _coordinates = new Array();
     }
 
     /**
