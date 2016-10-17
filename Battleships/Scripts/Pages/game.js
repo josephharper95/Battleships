@@ -10,6 +10,7 @@
 * VO.31     Dave    13/10/16    changed AI class to AIMedium
 * V0.32     Nick    13/10/16    made AI class dynamic based on user selection
 * V0.33     Nick    15/10/16    stopped user being able to click when game is finished, fixed bug where undo / reset was not actually resetting images
+* V0.34     Dave    17/10/16    Added AIHard creation.
 *
 **/
 
@@ -393,6 +394,8 @@ function placeAIShips() {
         AI = new AI("AI", computerBoard, playerBoard);
     } else if (difficulty == "medium") {
         AI = new AIMedium("AI", computerBoard, playerBoard);
+    } else if (difficulty == "hard") {
+        AI = new AIHard("AI", computerBoard, playerBoard);
     }
 
     // invoke the place ships method

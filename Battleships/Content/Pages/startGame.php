@@ -53,7 +53,7 @@ require_once("header.php");
 
                     <li>
                         <label>Hard</label>
-                        <input type="radio" name="difficulty" value="hard" disabled />
+                        <input type="radio" name="difficulty" value="hard" />
                     </li>
 
                 </ul>
