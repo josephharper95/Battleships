@@ -3,7 +3,7 @@
 * Last Modified By: Dave MacDonald
 * Current Version: 0.1
 *
-* V0.1      Dave    17/10/2016 initial creation (needs commenting)
+* V0.1      Dave    17/10/2016 initial creation
 **/
 
 function AIHard(name, board, targetBoard){
@@ -35,7 +35,7 @@ function AIHard(name, board, targetBoard){
     /**Updates the probability density for each cell by iterating over the whole board and seeing if each ship can be fit horizontaly
      * or vertically. If so the probability of that square is increased. Coordinates next to a hit but not sunk ship are given a larger probability.
      */
-    this.updateProbability = function(){
+    this.refreshProbability = function(){
         //reset the probabilitys
         for (var i = 0; i < probabilityDensity.length; i++) {
         probabilityDensity[i] = new Array(probabilityDensity.length);
@@ -48,38 +48,42 @@ function AIHard(name, board, targetBoard){
         //Iterate over all coordinates
         for(var x = 0; x < coordinates.length; x++){
             for(var y = 0; y < coordinates[x].length; y++){
+                //Iterate though the remaining ships
                 for(var s = 0; s< ships.length; s++){
-                    ships[s].changeOrientation();
-                        if(this.isLegalPlacement(ships[s], x, y, targetMode)){
-                            var coords = this.isLegalPlacement(ships[s], x, y, targetMode);
-                            if(this.numOfHitCellsCovered(coords) > 0){
+                        //If the ship fits, calcuate its other coordinates
+                        if(this.calcShipCoords(ships[s], x, y, targetMode)){
+                            var coords = this.calcShipCoords(ships[s], x, y, targetMode);
+                            //If the ship would cover already hit locations, give a larger probability.
+                            if(this.hitCoords(coords) > 0){
                                 for(var i = 0; i < coords.length; i++){
-                                    probabilityDensity[coords[i].getX()][coords[i].getY()] += 100 * this.numOfHitCellsCovered(coords);
+                                    //The more hit locations covered, the higher the chance of a real ship being there.
+                                    probabilityDensity[coords[i].getX()][coords[i].getY()] += 100 * this.hitCoords(coords);
                                 }
                             }
                             else {
-                                for (var _i = 0; _i < coords.length; _i++) {
-                                    probabilityDensity[coords[_i].getX()][coords[_i].getY()]++;
+                                for (var i = 0; i < coords.length; i++) {
+                                    //Increment the probability for all ship coordinates by 1
+                                    probabilityDensity[coords[i].getX()][coords[i].getY()]++;
                                 }
                             }   
                     }
+                    //Switch the orientation of the ship and then repeat.
                         ships[s].changeOrientation();
-                        if(this.isLegalPlacement(ships[s], x, y, targetMode)){
-                            var coords = this.isLegalPlacement(ships[s], x, y, targetMode);
-                            if(this.numOfHitCellsCovered(coords) > 0){
+                        if(this.calcShipCoords(ships[s], x, y, targetMode)){
+                            var coords = this.calcShipCoords(ships[s], x, y, targetMode);
+                            if(this.hitCoords(coords) > 0){
                                 for(var i = 0; i < coords.length; i++){
-                                    probabilityDensity[coords[i].getX()][coords[i].getY()] += 100 * this.numOfHitCellsCovered(coords);
+                                    probabilityDensity[coords[i].getX()][coords[i].getY()] += 100 * this.hitCoords(coords);
                                 }
                             }
                             else {
-                                for (var _i = 0; _i < coords.length; _i++) {
-                                    probabilityDensity[coords[_i].getX()][coords[_i].getY()]++;
+                                for (var i = 0; i < coords.length; i++) {
+                                    probabilityDensity[coords[i].getX()][coords[i].getY()]++;
                                 }
                             }   
                         }
-                        
-                    
-                    
+                        ships[s].changeOrientation();
+                    //hit cells are given a probability of 0 to ensure they are not targeted again.
                     if(targetCoords[x][y].isHit()){
                         probabilityDensity[x][y] = 0;
                     }
@@ -88,19 +92,27 @@ function AIHard(name, board, targetBoard){
         }
     }
 
-   this.numOfHitCellsCovered= function(shipCells) {
-       var cells = 0;
-        for (var i = 0; i < shipCells.length; i++) {
+    /**
+     * Returns the number of coordinates passed through that are already hit. The higher the number, 
+     * the greater the chance of there being other parts of a ship in the given coordinates.
+     */
+   this.hitCoords= function(shipCoords) {
+       var hits = 0;
+        for (var i = 0; i < shipCoords.length; i++) {
             
-            if (targetCoords[shipCells[i].getX()][shipCells[i].getY()].isHit() && 
-                targetCoords[shipCells[i].getX()][shipCells[i].getY()].containsShip() &&
-                !targetCoords[shipCells[i].getX()][shipCells[i].getY()].getShip().isDestroyed()) {
-                cells ++;
+            if (targetCoords[shipCoords[i].getX()][shipCoords[i].getY()].isHit() && 
+                targetCoords[shipCoords[i].getX()][shipCoords[i].getY()].containsShip() &&
+                !targetCoords[shipCoords[i].getX()][shipCoords[i].getY()].getShip().isDestroyed()) {
+                hits ++;
             }
         }
-        return cells;
+        return hits;
     }   
 
+    /**
+     * Analyses the probability board and randomly fires on the coordinates that share the highest probability. 
+     * After each shot the probability board is updated.
+     */
     this.fire = function(){
         var highestVal = 0;
         for (var i = 0; i < probabilityDensity.length; i++) {
@@ -142,10 +154,13 @@ function AIHard(name, board, targetBoard){
                 }
         }
         virtualBoard.fire(temp.getX(), temp.getY());
-        this.updateProbability();
+        this.refreshProbability();
         return shot;
     }
 
+    /**
+     * Returns true if there is a ship which has been hit but not sunk
+     */
     this.isTargeting = function(){
         var remainingShips = target.remainingShips();
         var targetMode = false;
@@ -157,7 +172,10 @@ function AIHard(name, board, targetBoard){
         return targetMode;
     }
 
-    this.isLegalPlacement = function(ship, x, y, targetMode){
+    /**
+     * Returns the coordinates for the given ship, given its head coordinate.
+     */
+    this.calcShipCoords = function(ship, x, y, targetMode){
         var coords = new Array();
         for (i = 0; i < ship.getSize(); i++) {
 
