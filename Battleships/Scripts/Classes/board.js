@@ -9,6 +9,7 @@
 * V0.21     Dave                07/10/16    updated bugs with undoPlaceShip and made resetBoard more efficient
 * V0.22     Nick                07/10/16    updated undoPlaceShip & resetBoard to return values for UI
 * V0.23     Dave                13/10/16    updated adjacentLocationsMethod to fix out of bounds coordinate issue
+* V0.24     Dave                17/10/16    Changed remainingShips so it now returns an array
 **/
 
 function Board(size) {
@@ -184,18 +185,10 @@ function Board(size) {
     }
 
     /**
-     * Returns a string consisting of the ships remaining
-     * @return {string} ships remaining
+     * Returns the ships array
      */
     this.remainingShips = function() {
-         if(_ships.length > 0){
-            var result = "";
-                for(var i = 0; i < _ships.length; i++){
-                    result+= "["+_ships[i].getName() + "]";
-                }
-            return result;
-        }
-        else return "No ships remaining";
+         return _ships;
     }
 
     /**
@@ -317,5 +310,13 @@ function Board(size) {
 
         }
         return list;
+    }
+
+    /**
+     * Returns the coordinates as a multidimensional array
+     * 
+     */
+    this.getCoordinates = function(){
+        return _coordinates;
     }
 }

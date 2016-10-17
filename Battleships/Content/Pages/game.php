@@ -61,6 +61,7 @@ require_once("header.php");
 <script src="../../Scripts/Classes/coordinate.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/AI.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/AIMedium.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AIHard.js" type="text/javascript" ></script>
 
     <!-- set the page width to wide -->
     <div id="pageGame" class="wideWidth">

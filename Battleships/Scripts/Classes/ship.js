@@ -6,6 +6,7 @@
 * V0.1      Dave / Nick / Joe   01/10/16    initial creation
 * V0.11     Dave                06/10/16    commented code
 * V0.2      Dave                07/10/16    added reset method
+* V0.21     Dave                17/10/16    added method getNumberOfHits
 *
 **/
 
@@ -119,5 +120,14 @@ function Ship(name, size) {
      */
     this.isPlaced = function () {
         return _isPlaced;
+    }
+
+    /**
+     * Returns the number of hits on the ship
+     * 
+     * @return {number}
+     */
+    this.getNumberOfHits = function(){
+        return _numberOfHits;
     }
 };
