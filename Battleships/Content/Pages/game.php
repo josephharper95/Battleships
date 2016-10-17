@@ -10,6 +10,7 @@
 * V0.2      Nick    07/10/16    changes to implement undo / reset board
 * V0.3      Nick    13/10/16    added ability to send in values to the game through POST
 * V0.31     Nick    13/10/16    added size attribute onto opponent board as was previously missing
+* V0.32     Dave    17/10/16    added scripts to include medium / hard AI
 *
 **/
 
