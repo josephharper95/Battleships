@@ -125,7 +125,6 @@ function AIHard(name, board, targetBoard){
         var shot = target.getObjectAt(temp.getX(),temp.getY());
 
         if(hit){
-            console.log("DESTROYED"+shot.getShip().isDestroyed());
             var size = shot.getShip().getSize();
                 var i = ships.length -1;
                 if(shot.getShip().isDestroyed()){
@@ -135,8 +134,7 @@ function AIHard(name, board, targetBoard){
                         break;
                     }
                     i--;
-                }
-                console.log(ships);
+                    }
                 }
                 var coords = shot.getShip().coordinates();
                 for(var i = 0; i<coords.length; i++){
@@ -152,7 +150,6 @@ function AIHard(name, board, targetBoard){
         var remainingShips = target.remainingShips();
         var targetMode = false;
         for(var i = 0; i < remainingShips.length; i++){
-            console.log(remainingShips[i].getNumberOfHits() +" ::" + !remainingShips[i].isDestroyed());
             if(remainingShips[i].getNumberOfHits() > 0 && !remainingShips[i].isDestroyed()){
                 targetMode = true;
             }
