@@ -11,6 +11,7 @@
  *  V0.33   Nick    15/10/16    stopped user being able to click when game is finished, fixed bug where undo / reset was not actually resetting images
  *  V0.34   Dave    17/10/16    Added AIHard creation.
  *  V0.35   Nick    17/10/16    reformatted methods to be grouped, updated comments to be in line with other files
+ *  V0.36   Ncik    17/10/16    added helper method to reduce duplicated code, enemy ship images now show when you destroy a ship
  * 
  */
 
@@ -289,21 +290,6 @@ function boardPlaceShip($cell, ship) {
     // validation check that the ship can be placed on the cell
     if (canPlace) {
 
-        // recurse through the coordinates
-        for (i = 0; i < coords.length; i++) {
-
-            // set a variable for the individual coordinate
-            var c = coords[i];
-
-            // add the appropriate class to each cell
-            var cell = $('#boardPlayer tr:eq(' + c.getY() + ') > td:eq(' + c.getX() + ')')[0];
-            
-            $(cell).attr("data-ship", ship.getName());
-            $(cell).attr("data-orientation", (ship.getOrientation() == 0 ? "Vertical" : "Horizontal"));
-            $(cell).attr("data-ship-part", i);
-            $(cell).addClass("containsShip");
-        }
-
         // run the function for the Board class
         playerBoard.placeShip(ship, x, y);
 
@@ -311,6 +297,8 @@ function boardPlaceShip($cell, ship) {
         $("#boardPlayer td").off("hover");
         cleanupHoverClasses();
         $(window).off("keydown");
+
+        setShipAttributesOnBoard("boardPlayer", ship);
 
         // run the place ship function again for any remaining ships
         initPlaceShips();
@@ -511,6 +499,53 @@ function playerMove() {
 }
 
 /**
+ * Function to handle the firing on the opponent's board
+ */
+function boardFireAtOpponent($cell) {
+
+    // if the cell exists
+    if ($cell) {
+
+        // get x and y values
+        var x = $cell.index();
+        var $tr = $cell.closest('tr');
+        var y = $tr.index();
+
+        // return boolean of whether player has hit a shit
+        var hit = computerBoard.fire(x, y);
+
+        // if a ship was hit...
+        if (hit) {
+
+            // add a class to the cell so that it knows that it contains a ship
+            $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("containsShip");
+
+            // get the coordinate object at the coordinates
+            var coord = computerBoard.getObjectAt(x, y);
+
+            // get the ship object at the coordinate
+            var ship = coord.getShip();
+
+            // validation check to make sure that the ship exists§
+            if (ship) {
+                
+                // check whether the ship has been destroyed
+                if (ship.isDestroyed()) {
+
+                    setShipAttributesOnBoard("boardComputer", ship);
+                    
+                    // add a class to let the remaining ships container know that the ship has been destroyed
+                    $("#opponentContainer .remainingShipsContainer li." + ship.getName()).addClass("destroyed");
+                }
+            }
+        }
+        
+        // let the cell know it has been hit
+        $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("hit");
+    }
+}
+
+/**
  * Function to allow AI to make a move
  */
 function AIMove() {
@@ -551,49 +586,6 @@ function AIMove() {
 
         // if game is not viable, end
         endGame("player");
-    }
-}
-
-// function to fire at the opponent's board
-function boardFireAtOpponent($cell) {
-
-    // if the cell exists
-    if ($cell) {
-
-        // get x and y values
-        var x = $cell.index();
-        var $tr = $cell.closest('tr');
-        var y = $tr.index();
-
-        // return boolean of whether player has hit a shit
-        var hit = computerBoard.fire(x, y);
-
-        // if a ship was hit...
-        if (hit) {
-
-            // add a class to the cell so that it knows that it contains a ship
-            $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("containsShip");
-
-            // get the coordinate object at the coordinates
-            var coord = computerBoard.getObjectAt(x, y);
-
-            // get the ship object at the coordinate
-            var ship = coord.getShip();
-
-            // validation check to make sure that the ship exists§
-            if (ship) {
-                
-                // check whether the ship has been destroyed
-                if (ship.isDestroyed()) {
-                    
-                    // add a class to let the remaining ships container know that the ship has been destroyed
-                    $("#opponentContainer .remainingShipsContainer li." + ship.getName()).addClass("destroyed");
-                }
-            }
-        }
-        
-        // let the cell know it has been hit
-        $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("hit");
     }
 }
 
@@ -651,5 +643,31 @@ function endGame(winner) {
         alert("Game Over! - You Won! :)")
     } else {
         alert("Game Over! - You Lost! :(");
+    }
+}
+
+/******************************
+ * 
+ *       HELPER METHODS
+ * 
+******************************/
+
+function setShipAttributesOnBoard(board, ship) {
+
+    var coords = ship.coordinates();
+
+    // recurse through the coordinates
+    for (i = 0; i < coords.length; i++) {
+
+        // set a variable for the individual coordinate
+        var c = coords[i];
+
+        // add the appropriate class to each cell
+        var cell = $("#" + board + " tr:eq(" + c.getY() + ") > td:eq(" + c.getX() + ")")[0];
+        
+        $(cell).attr("data-ship", ship.getName());
+        $(cell).attr("data-orientation", (ship.getOrientation() == 0 ? "Vertical" : "Horizontal"));
+        $(cell).attr("data-ship-part", i);
+        $(cell).addClass("containsShip");
     }
 }
