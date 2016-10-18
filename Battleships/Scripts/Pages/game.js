@@ -1,6 +1,6 @@
 /**
  * Last Modified By: Nick Holdsworth
- * Current Version: 0.35
+ * Current Version: 0.37
  *
  *  V0.1    Nick    01/10/16    initial creation
  *  V0.11   Nick    04/10/16    made code stricter and tightened validation and commented
@@ -12,6 +12,7 @@
  *  V0.34   Dave    17/10/16    Added AIHard creation.
  *  V0.35   Nick    17/10/16    reformatted methods to be grouped, updated comments to be in line with other files
  *  V0.36   Ncik    17/10/16    added helper method to reduce duplicated code, enemy ship images now show when you destroy a ship
+ *  V0.37   Nick    18/10/16    opponent ships show up if you lose
  * 
  */
 
@@ -643,6 +644,24 @@ function endGame(winner) {
         alert("Game Over! - You Won! :)")
     } else {
         alert("Game Over! - You Lost! :(");
+        showOpponentShips();
+    }
+}
+
+/******************************
+ * 
+ *      POST GAME EVENTS
+ * 
+******************************/
+
+/**
+ * Function to show opponent ships if you lose
+ */
+function showOpponentShips() {
+    var remainingShips = computerBoard.floatingShips();
+
+    for (var i = 0; i < remainingShips.length; i++) {
+        setShipAttributesOnBoard("boardComputer", remainingShips[i]);
     }
 }
 
@@ -652,6 +671,9 @@ function endGame(winner) {
  * 
 ******************************/
 
+/**
+ * Set the attributes for images on board
+ */
 function setShipAttributesOnBoard(board, ship) {
 
     var coords = ship.coordinates();
@@ -668,6 +690,9 @@ function setShipAttributesOnBoard(board, ship) {
         $(cell).attr("data-ship", ship.getName());
         $(cell).attr("data-orientation", (ship.getOrientation() == 0 ? "Vertical" : "Horizontal"));
         $(cell).attr("data-ship-part", i);
-        $(cell).addClass("containsShip");
+
+        if (!$(cell).hasClass("containsShip")) {
+            $(cell).addClass("containsShip");
+        }
     }
 }

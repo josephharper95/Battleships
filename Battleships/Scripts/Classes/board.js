@@ -1,7 +1,7 @@
 /**
 *
-* Last Modified By: Dave MacDonald
-* Current Version: 0.25
+* Last Modified By: Nick Holdsworth
+* Current Version: 0.26
 *
 * V0.1      Dave / Nick / Joe   01/10/16    initial creation
 * V0.11     Dave                05/10/16    Added comments
@@ -11,6 +11,7 @@
 * V0.23     Dave                13/10/16    updated adjacentLocationsMethod to fix out of bounds coordinate issue
 * V0.24     Dave                17/10/16    Changed remainingShips so it now returns an array
 * V0.25     Nick                17/10/16    made place ships more efficient using coords from canPlaceShips - reformatted file with header comments
+* V0.26     Nick                18/10/16    added method "floatingShips" as remainingShips already exists
 *
 **/
 
@@ -263,6 +264,18 @@ function Board(size) {
      */
     this.remainingShips = function() {
          return _ships;
+    }
+
+    this.floatingShips = function () {
+        var ships = new Array();
+
+        for (i = 0; i < _ships.length; i++) {
+            if (!_ships[i].isDestroyed()){
+                ships.push(_ships[i]);
+            }
+        }
+
+        return ships;
     }
 
     /**
