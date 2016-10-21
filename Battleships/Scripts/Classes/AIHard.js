@@ -134,7 +134,7 @@ function AIHard(name, board, targetBoard){
         var index = Math.floor((Math.random() * possibleShots.length));
         var temp = possibleShots[index];
         var hit = target.fire(temp.getX(), temp.getY());
-        var shot = target.getObjectAt(temp.getX(),temp.getY());
+        var shot = target.getCoordinateAt(temp.getX(),temp.getY());
 
         if(hit){
             var size = shot.getShip().getSize();
@@ -162,7 +162,7 @@ function AIHard(name, board, targetBoard){
      * Returns true if there is a ship which has been hit but not sunk
      */
     this.isTargeting = function(){
-        var remainingShips = target.remainingShips();
+        var remainingShips = target.getShipsPlaced();
         var targetMode = false;
         for(var i = 0; i < remainingShips.length; i++){
             if(remainingShips[i].getNumberOfHits() > 0 && !remainingShips[i].isDestroyed()){

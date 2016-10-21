@@ -522,7 +522,7 @@ function boardFireAtOpponent($cell) {
             $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("containsShip");
 
             // get the coordinate object at the coordinates
-            var coord = computerBoard.getObjectAt(x, y);
+            var coord = computerBoard.getCoordinateAt(x, y);
 
             // get the ship object at the coordinate
             var ship = coord.getShip();
@@ -567,7 +567,7 @@ function AIMove() {
         $('#boardPlayer tr:eq(' + coords.getY() + ') > td:eq(' + coords.getX() + ')').addClass("hit");
 
         // get coordinate and ship object
-        var coord = playerBoard.getObjectAt(coords.getX(), coords.getY());
+        var coord = playerBoard.getCoordinateAt(coords.getX(), coords.getY());
         var ship = coord.getShip();
 
         // validation check to see if coordinate contains a ship
