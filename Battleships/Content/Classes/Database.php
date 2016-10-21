@@ -10,6 +10,7 @@
 * V0.2      Joe     02/10/16    added user operations
 * V0.21     Nick    03/10/16    update user operations to include first name / last name
 * V0.22     Joe     06/10/16    added comments to database queries
+* V0.23     Joe     21/10/16    removed queries related to the user and moved them to class User
 *
 **/
 
@@ -83,50 +84,6 @@ class Database
    {
        return $this->rowCount;
    }        
-
-   //Function to execute a query checking for a user in the table with the entered userID and hashed password
-   public function checkForUserAndPassword($userID, $hashedPassword)
-   {
-       $sql = "SELECT userID, password
-               FROM users
-			   WHERE userID = ? && password = ?
-			   LIMIT 1";
-       $values = array($userID, $hashedPassword);
-       
-       $this->query($sql, $values);
-   }
-
-    //Function to execute a query, getting the user details from the database with the entered userID
-   	function getUserByID($userID)
-	{
-
-        $sql = "SELECT userID, firstName, lastName
-				FROM users 
-				WHERE userID = ?
-				LIMIT 1";
-        $values = array($userID);
-		
-		$user = $this->query($sql, $values);
-
-        return $user->results;
-	}
-
-    //Function to insert new user into database
-    function insertNewUser($userID, $hashedPassword, $firstName, $lastName)
-	{
-		$sql = "INSERT INTO users (userID, password, firstName, lastName)
-				VALUES (?, ?, ?, ?)";
-        $values = array($userID, $hashedPassword, $firstName, $lastName);
-
-        $this->query($sql, $values);
-
-        // User statistics setup
-        $sql = "INSERT INTO userstatistics (userID, score, wins, losses, gamesPlayed, totalShotsFired)
-				VALUES (?, '0', '0', '0', '0', '0')";
-        $values = array($userID);
-
-        $this->query($sql, $values);
-	}
 }
 
 ?>
