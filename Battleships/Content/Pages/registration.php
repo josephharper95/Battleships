@@ -7,7 +7,8 @@
 *
 * V0.1      Joe  	01/10/16    initial creation
 * V0.2 		Nick 	03/10/16 	added first / last name
-* V0.21     Joe     06/10/16    Added comments, moved message to formatted tags
+* V0.21     Joe     06/10/16    added comments, moved message to formatted tags
+* V0.22     Joe     21/10/16    altered code to reflect movement of user queries to User class from Database class
 *
 **/
 
@@ -32,16 +33,16 @@
 					$firstName = Input::post("firstName");
 					$lastName = Input::post("lastName");
 
-					$db = Database::getInstance();
-					$db->getUserByID($userID);
-					if($db->getRowCount() > 0) { // If the user already exists in the database... error
+					$userQuery = new User();
+					$userQuery->getUserByID($userID);
+					if($userQuery->db->getRowCount() > 0) { // If the user already exists in the database... error
 
 						Session::set("registrationMessage", "That username is taken, please pick another.");
 						header("Location: registration.php");
 						exit();
 					} else { // No issues with input, user inserted into DB and redirected
 
-						$db->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
+						$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
 						Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
 						header("Location: login.php");
 						exit();
