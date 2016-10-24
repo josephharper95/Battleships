@@ -31,13 +31,12 @@ function Game(size) {
     this.getComputerBoard = function () {
         return _computerBoard;
     }
-
-    /**
-     * Checks both boards to see if the game is finished.
-     * 
-     * @return {boolean}
-     */
-    this.isViable = function () {
-        return _playerBoard.isViable() && _computerBoard.isViable();
-    }
 }
+/**
+ * Checks both boards to see if the game is finished.
+ * 
+ * @return {boolean}
+ */
+Game.prototype.isViable = function () {
+        return this.getPlayerBoard().isViable() && this.getComputerBoard().isViable();
+    }
