@@ -5,7 +5,7 @@
 *
 * V0.1    Joe     01/10/16    initial creation
 * V0.11   Joe     03/01/16    added first name / last name to user
-* V0.12   Joe     26/10/16    added various columns, tables, indexes for user stats
+*
 **/
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -246,19 +246,7 @@ ALTER TABLE `userstatistics`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
-/* V0.11 - Adding first name / last name */
+/* V1.01 - Adding first name / last name */
 
 ALTER TABLE `users` ADD `firstName` VARCHAR(50) NOT NULL AFTER `password`;
 ALTER TABLE `users` ADD `lastName` VARCHAR(50) NOT NULL AFTER `firstName`;
-
-
-/* V1.12 - Adding tables/columns/indexes for stats */
-CREATE TABLE `battleships`.`difficulties` ( `difficultyID` INT NOT NULL , `difficulty` VARCHAR(10) NOT NULL , PRIMARY KEY (`difficultyID`)) ENGINE = InnoDB;
-INSERT INTO `difficulties` (`difficultyID`, `difficulty`) VALUES ('1', 'easy'), ('2', 'medium'), ('3', 'hard')
-ALTER TABLE `userstatistics` ADD `difficultyID` INT NOT NULL AFTER `userID`, ADD INDEX `FK` (`difficultyID`);
-ALTER TABLE `userstatistics` ADD FOREIGN KEY (`difficultyID`) REFERENCES `battleships`.`difficulties`(`difficultyID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `userstatistics` ADD `totalShotsHit` INT NOT NULL AFTER `totalShotsFired`;
-ALTER TABLE `userstatistics` ADD `totalPlayingTime` INT NOT NULL AFTER `totalShotsHit`;
-ALTER TABLE userstatistics DROP FOREIGN KEY userstatistics_ibfk_1;
-ALTER TABLE `battleships`.`userstatistics` DROP PRIMARY KEY, ADD INDEX `INDEX` (`userID`) USING BTREE;
-ALTER TABLE `userstatistics` ADD FOREIGN KEY (`userID`) REFERENCES `battleships`.`users`(`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
