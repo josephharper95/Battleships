@@ -6,6 +6,7 @@
 * Current Version: 0.1
 *
 * V0.1      Joe    21/10/16    initial creation
+* V0.11     Joe    26/10/16    altered user statistics insert (now inserts a line per difficulty)
 *
 **/
 
