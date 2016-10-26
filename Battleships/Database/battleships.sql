@@ -254,7 +254,7 @@ ALTER TABLE `users` ADD `lastName` VARCHAR(50) NOT NULL AFTER `firstName`;
 
 /* V1.12 - Adding tables/columns/indexes for stats */
 CREATE TABLE `battleships`.`difficulties` ( `difficultyID` INT NOT NULL , `difficulty` VARCHAR(10) NOT NULL , PRIMARY KEY (`difficultyID`)) ENGINE = InnoDB;
-INSERT INTO `difficulties` (`difficultyID`, `difficulty`) VALUES ('1', 'easy'), ('2', 'medium'), ('3', 'hard')
+INSERT INTO `difficulties` (`difficultyID`, `difficulty`) VALUES ('1', 'easy'), ('2', 'medium'), ('3', 'hard');
 ALTER TABLE `userstatistics` ADD `difficultyID` INT NOT NULL AFTER `userID`, ADD INDEX `FK` (`difficultyID`);
 ALTER TABLE `userstatistics` ADD FOREIGN KEY (`difficultyID`) REFERENCES `battleships`.`difficulties`(`difficultyID`) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE `userstatistics` ADD `totalShotsHit` INT NOT NULL AFTER `totalShotsFired`;
