@@ -13,6 +13,7 @@
 * V0.25     Nick                17/10/16    made place ships more efficient using coords from canPlaceShips - reformatted file with header comments
 * V0.26     Nick                18/10/16    added method "floatingShips" as remainingShips already exists
 * V0.27     Dave                21/10/16    refactored code to use prototype pattern, renamed some methods.
+* V0.28     Joe                 26/10/16    renamed methods
 *
 **/
 
@@ -203,7 +204,7 @@ Board.prototype.placeShip = function(ship, x, y) {
  */
 Board.prototype.undoPlaceShip = function(){
     var ship = this.getShipsPlaced().pop();
-    var coords = ship.coordinates();
+    var coords = ship.getCoordinates();
     for(var i = 0; i< ship.getSize(); i++){
         coords[i].removeShip();
     }

@@ -7,6 +7,7 @@
 * V0.11     Dave                06/10/16    commented code
 * V0.2      Dave                07/10/16    added reset method
 * V0.21     Dave                17/10/16    added method getNumberOfHits
+* V0.22     Joe                 26/10/16    renamed methods to match pattern
 *
 **/
 
@@ -48,7 +49,7 @@ function Ship(name, size) {
     /**
      * Returns the coordinates
      */
-    this.coordinates = function () {
+    this.getCoordinates = function () {
         return _coordinates;
     };
 

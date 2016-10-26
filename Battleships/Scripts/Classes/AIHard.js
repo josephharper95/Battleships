@@ -3,7 +3,8 @@
 * Last Modified By: Dave MacDonald
 * Current Version: 0.1
 *
-* V0.1      Dave    17/10/2016 initial creation
+* V0.1      Dave    17/10/2016    initial creation
+* V0.11     Joe     26/10/2016    renamed methods
 **/
 
 function AIHard(name, board, targetBoard){
@@ -179,7 +180,7 @@ function AIHard(name, board, targetBoard){
                 }
             }
 
-            var coords = ship.coordinates();
+            var coords = ship.getCoordinates();
             for (var i = 0; i < coords.length; i++) {
                 probabilityDensity[coords[i].getX()][coords[i].getY()] = 0;
             }
