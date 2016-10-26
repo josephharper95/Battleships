@@ -55,9 +55,11 @@ class User{
         $this->db->query($sql, $values);
 
         // User statistics setup
-        $sql = "INSERT INTO userstatistics (userID, score, wins, losses, gamesPlayed, totalShotsFired)
-				VALUES (?, '0', '0', '0', '0', '0')";
-        $values = array($userID);
+        $sql = "INSERT INTO userstatistics (userID, difficultyID, score, wins, gamesPlayed, totalShotsFired, totalShotsHit, totalPlayingTime)
+				VALUES (?, '1', '0', '0', '0', '0', '0', '0'),
+				       (?, '2', '0', '0', '0', '0', '0', '0'),
+				       (?, '3', '0', '0', '0', '0', '0', '0')";
+        $values = array($userID, $userID, $userID);
 
         $this->db->query($sql, $values);
 	}

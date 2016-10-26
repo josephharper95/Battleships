@@ -262,6 +262,7 @@ ALTER TABLE `userstatistics` ADD `totalPlayingTime` INT NOT NULL AFTER `totalSho
 ALTER TABLE userstatistics DROP FOREIGN KEY userstatistics_ibfk_1;
 ALTER TABLE `battleships`.`userstatistics` DROP PRIMARY KEY, ADD INDEX `INDEX` (`userID`) USING BTREE;
 ALTER TABLE `userstatistics` ADD FOREIGN KEY (`userID`) REFERENCES `battleships`.`users`(`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `userstatistics` DROP INDEX `userStatisticsID`;
 /*Save game support removed*/
 DELETE FROM `savegames`;
 DROP TABLE `savegameships`;
