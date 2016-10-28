@@ -1,6 +1,6 @@
 /**
  * Last Modified By: Nick Holdsworth
- * Current Version: 0.37
+ * Current Version: 0.39
  *
  *  V0.1    Nick    01/10/16    initial creation
  *  V0.11   Nick    04/10/16    made code stricter and tightened validation and commented
@@ -13,7 +13,8 @@
  *  V0.35   Nick    17/10/16    reformatted methods to be grouped, updated comments to be in line with other files
  *  V0.36   Ncik    17/10/16    added helper method to reduce duplicated code, enemy ship images now show when you destroy a ship
  *  V0.37   Nick    18/10/16    opponent ships show up if you lose
- *  V0.38   Nick    29/10/16    added initial sonar capabilities
+ *  V0.38   Joe     26/10/16    renamed methods
+ *  V0.39   Nick    29/10/16    added initial sonar capabilities
  * 
  */
 
@@ -836,7 +837,7 @@ function showOpponentShips() {
  */
 function setShipAttributesOnBoard(board, ship) {
 
-    var coords = ship.coordinates();
+    var coords = ship.getCoordinates();
 
     // recurse through the coordinates
     for (i = 0; i < coords.length; i++) {
