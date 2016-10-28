@@ -11,6 +11,7 @@
 * V0.3      Nick    13/10/16    added ability to send in values to the game through POST
 * V0.31     Nick    13/10/16    added size attribute onto opponent board as was previously missing
 * V0.32     Dave    17/10/16    added scripts to include medium / hard AI
+* V0.33     Nick    29/10/16    added perk / sonar pieces
 *
 **/
 
@@ -63,6 +64,8 @@ require_once("header.php");
 <script src="../../Scripts/Classes/AI.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/AIMedium.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/AIHard.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Perk.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
 
     <!-- set the page width to wide -->
     <div id="pageGame" class="wideWidth">
@@ -71,12 +74,24 @@ require_once("header.php");
         <div id="playerContainer" class="sideContainer">
 
             <!-- container for the remaining ships for the player -->
-            <div class="remainingShipsContainer">
+            <div class="boardExtrasContainer">
 
                 <h4>Ships Remaining</h4>
 
                 <!-- container to be populated by ships involved in the game -->
-                <ul class="blank"></ul>
+                <ul class="blank remainingShips"></ul>
+
+                <ul class="blank perkContainer">
+                    <li>
+                        <h3>Perks</h3>
+                    </li>
+                    <li>
+                        <div class="button perk"
+                             data-perk="sonar">
+                             Sonar
+                        </div>
+                    </li>
+                </ul>
 
             </div>
 
@@ -119,12 +134,12 @@ require_once("header.php");
         <div id="opponentContainer" class="sideContainer" data-difficulty="<?= $difficulty; ?>">
 
             <!-- container for the remaining ships for the opponent -->
-            <div class="remainingShipsContainer">
+            <div class="boardExtrasContainer">
 
                 <h4>Ships Remaining</h4>
 
                 <!-- container to be populated by the ships involved in the game -->
-                <ul class="blank"></ul>
+                <ul class="blank remainingShips"></ul>
             </div>
 
             <!-- container for opponent board -->

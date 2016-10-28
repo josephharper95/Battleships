@@ -11,6 +11,7 @@
 * V0.22     Nick    13/10/16    added styles for medium / large boards to be possible incl framework for ships for diff board sizes
 * V0.23     Nick    14/10/16    refactored ship image CSS to be more efficient / less code
 * V0.24     Nick    18/10/16    minor tweak to .registrationExtra buttons
+* V0.25     Nick    29/10/16    added sonar CSS
 *
 **/
 
@@ -158,6 +159,13 @@ html {
                     border-color: @mainColour;
                     background-color: white;
                 }
+
+                &.disabled {
+                    background-color: #ccc;
+                    color: #fff;
+                    border-color: #ccc;
+                    cursor: default;
+                }
             }
 
             .standardWidth {
@@ -184,7 +192,7 @@ html {
                             float: right;
                         }
 
-                        .remainingShipsContainer {
+                        .boardExtrasContainer {
                             float: left;
                             padding-right: 20px;
                         }
@@ -195,19 +203,25 @@ html {
                             float: left;
                         }
 
-                        .remainingShipsContainer {
+                        .boardExtrasContainer {
                             float: right;
                             padding-left: 20px;
                         }
                     }
 
-                    .remainingShipsContainer {
+                    .boardExtrasContainer {
+                        display: none;
+
                         ul {
                             li {
                                 &.destroyed {
                                     text-decoration: line-through;
                                 }
                             }
+                        }
+
+                        .perkContainer {
+                            margin-top: 10px;
                         }
                     }
 
@@ -671,6 +685,10 @@ html {
                                 td {
                                     &.hover {
                                         background-color: #cc8400;
+                                    }
+
+                                    &.sonarShipLocation {
+                                        background-color: green;
                                     }
 
                                     &.hit {

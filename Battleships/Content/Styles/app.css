@@ -11,6 +11,7 @@
 * V0.22     Nick    13/10/16    added styles for medium / large boards to be possible incl framework for ships for diff board sizes
 * V0.23     Nick    14/10/16    refactored ship image CSS to be more efficient / less code
 * V0.24     Nick    18/10/16    minor tweak to .registrationExtra buttons
+* V0.25     Nick    29/10/16    added sonar CSS
 *
 **/
 html body {
@@ -138,6 +139,12 @@ html body .body .button:hover {
   border-color: orange;
   background-color: white;
 }
+html body .body .button.disabled {
+  background-color: #ccc;
+  color: #fff;
+  border-color: #ccc;
+  cursor: default;
+}
 html body .body .standardWidth {
   width: 810px;
   margin: auto;
@@ -158,19 +165,25 @@ html body .body #pageGame .sideContainer {
 html body .body #pageGame .sideContainer#playerContainer .boardContainer {
   float: right;
 }
-html body .body #pageGame .sideContainer#playerContainer .remainingShipsContainer {
+html body .body #pageGame .sideContainer#playerContainer .boardExtrasContainer {
   float: left;
   padding-right: 20px;
 }
 html body .body #pageGame .sideContainer#opponentContainer .boardContainer {
   float: left;
 }
-html body .body #pageGame .sideContainer#opponentContainer .remainingShipsContainer {
+html body .body #pageGame .sideContainer#opponentContainer .boardExtrasContainer {
   float: right;
   padding-left: 20px;
 }
-html body .body #pageGame .sideContainer .remainingShipsContainer ul li.destroyed {
+html body .body #pageGame .sideContainer .boardExtrasContainer {
+  display: none;
+}
+html body .body #pageGame .sideContainer .boardExtrasContainer ul li.destroyed {
   text-decoration: line-through;
+}
+html body .body #pageGame .sideContainer .boardExtrasContainer .perkContainer {
+  margin-top: 10px;
 }
 html body .body #pageGame .sideContainer .boardContainer {
   width: 450px;
@@ -475,6 +488,10 @@ html body .body #pageGame .sideContainer .boardContainer table.board#boardComput
 html body .body #pageGame .sideContainer .boardContainer table.board#boardPlayer td.hover,
 html body .body #pageGame .sideContainer .boardContainer table.board#boardComputer td.hover {
   background-color: #cc8400;
+}
+html body .body #pageGame .sideContainer .boardContainer table.board#boardPlayer td.sonarShipLocation,
+html body .body #pageGame .sideContainer .boardContainer table.board#boardComputer td.sonarShipLocation {
+  background-color: green;
 }
 html body .body #pageGame .sideContainer .boardContainer table.board#boardPlayer td.hit,
 html body .body #pageGame .sideContainer .boardContainer table.board#boardComputer td.hit {

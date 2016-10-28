@@ -13,6 +13,7 @@
  *  V0.35   Nick    17/10/16    reformatted methods to be grouped, updated comments to be in line with other files
  *  V0.36   Ncik    17/10/16    added helper method to reduce duplicated code, enemy ship images now show when you destroy a ship
  *  V0.37   Nick    18/10/16    opponent ships show up if you lose
+ *  V0.38   Nick    29/10/16    added initial sonar capabilities
  * 
  */
 
@@ -23,6 +24,7 @@ var playerBoard;
 var computerBoard;
 var AI;
 var difficulty;
+var boardSize;
 
 // hard coded ships for the hack
 var shipDetails = [
@@ -62,7 +64,7 @@ $(document).ready(function () {
     // allow user to place ships
     initPlaceShips();
 
-    var boardSize = $("#boardPlayer tr").length;
+    boardSize = $("#boardPlayer tr").length;
     difficulty = $("#opponentContainer").data("difficulty");
 
     // initiliase game object and get the player / computer board
@@ -91,7 +93,7 @@ function populateShips() {
         remainingShipsHtml += "<li class='" + shipDetails[i].name + "'>" + shipDetails[i].name + "</li>";
     }
 
-    $(".remainingShipsContainer ul").html(remainingShipsHtml);
+    $(".boardExtrasContainer ul.remainingShips").html(remainingShipsHtml);
 }
 
 /******************************
@@ -147,7 +149,7 @@ function boardPlaceHover($cell, ship) {
         // if the user can place the ship
         if (canPlace) {
             // remove all click handlers from all cells
-            $("#boardPlayer td").off("click");
+            $("#boardPlayer td").unbind("click");
 
             // add a click handler to the cell that is being hovered on
             $($cell).one("click", function () {
@@ -224,7 +226,7 @@ function initPlaceShips() {
         removeClicks();
         removeHovers();
 
-        $(window).off("keydown");
+        $(window).unbind("keydown");
         $("#gameMessage").html("");
 
         // invoke game ready function
@@ -236,7 +238,7 @@ function initPlaceShips() {
     $("#gameMessage").html("Place your " + ship.getName());
 
     // attach a mouseenter event to each cell in the player board
-    $("#boardPlayer td").on("mouseenter ", function () {
+    $("#boardPlayer td").bind("mouseenter ", function () {
         // assign the cell variable to the cell hovered on
         cell = $(this);
 
@@ -295,9 +297,9 @@ function boardPlaceShip($cell, ship) {
         playerBoard.placeShip(ship, x, y);
 
         // cleanups
-        $("#boardPlayer td").off("hover");
+        $("#boardPlayer td").unbind("hover");
         cleanupHoverClasses();
-        $(window).off("keydown");
+        $(window).unbind("keydown");
 
         setShipAttributesOnBoard("boardPlayer", ship);
 
@@ -340,7 +342,7 @@ function placeAIShips() {
  */
 function initUndoLastShip() {
     if (!$("#undoLastShip:visible").length) {
-        $("#undoLastShip").fadeIn(500).off("click").one("click", function () {
+        $("#undoLastShip").fadeIn(500).unbind("click").one("click", function () {
             undoLastShip();
         });
     }
@@ -366,7 +368,7 @@ function undoLastShip() {
     initPlaceShips();
 
     if (numShips > 0) {
-        $("#undoLastShip").off("click").one("click", function () {
+        $("#undoLastShip").unbind("click").one("click", function () {
             undoLastShip();
         });
     } else {
@@ -381,7 +383,7 @@ function undoLastShip() {
 function initResetBoard() {
 
     if (!$("#resetBoard:visible").length) {
-        $("#resetBoard").fadeIn(500).off("click").one("click", function () {
+        $("#resetBoard").fadeIn(500).unbind("click").one("click", function () {
             resetBoard();
         });
     }
@@ -426,22 +428,23 @@ function cleanupHoverClasses() {
  * Function to remove all hover events from both boards
  */
 function removeHovers() {
-    $("#boardPlayer td").off("hover");
-    $("#boardComputer td").off("hover");
+    
+    $("#boardPlayer td").unbind("hover");
+    $("#boardComputer td").unbind("hover");
 
-    $("#boardPlayer td").off("mouseenter");
-    $("#boardComputer td").off("mouseenter");
+    $("#boardPlayer td").unbind("mouseenter");
+    $("#boardComputer td").unbind("mouseenter");
 
-    $("#boardPlayer td").off("mouseleave");
-    $("#boardComputer td").off("mouseleave");
+    $("#boardPlayer td").unbind("mouseleave");
+    $("#boardComputer td").unbind("mouseleave");
 }
 
 /**
  * Function to remove all click events from both boards
  */
 function removeClicks() {
-    $("#boardPlayer td").off("click");
-    $("#boardComputer td").off("click");
+    $("#boardPlayer td").unbind("click");
+    $("#boardComputer td").unbind("click");
 }
 
 /******************************
@@ -459,7 +462,7 @@ function playerMove() {
     if (game.isViable()) {
 
         // add a mouseenter handler onto the computer's board cells
-        $("#boardComputer td").on("mouseenter", function () {
+        $("#boardComputer td").bind("mouseenter", function () {
 
             // initialise cell
             var $cell = $(this);
@@ -471,7 +474,7 @@ function playerMove() {
             if (canFire) {
 
                 // remove any extra click handlers and add a fresh one
-                $cell.off("click").one("click", function () {
+                $cell.unbind("click").one("click", function () {
 
                     // invoke method to fire at opponent
                     boardFireAtOpponent($cell);
@@ -486,11 +489,22 @@ function playerMove() {
             } else {
                 cleanupHoverClasses();
             }
+
+            // add mouseleave handler to cleanup any hovers
+            $cell.bind("mouseleave", function () {
+                cleanupHoverClasses();
+            });
         });
 
-        // add mouseleave handler to cleanup any hovers
-        $("#boardComputer").on ("mouseleave", function () {
-            cleanupHoverClasses();
+        $(".perkContainer .perk.button:not(.disabled)").unbind("click").one("click", function () {
+            
+            removeHovers();
+            disablePerks();
+
+            var perkCell = $(this);
+            var perk = $(perkCell).data("perk");
+
+            runPlayerPerk(perk);
         });
     } else {
 
@@ -536,7 +550,7 @@ function boardFireAtOpponent($cell) {
                     setShipAttributesOnBoard("boardComputer", ship);
                     
                     // add a class to let the remaining ships container know that the ship has been destroyed
-                    $("#opponentContainer .remainingShipsContainer li." + ship.getName()).addClass("destroyed");
+                    $("#opponentContainer .boardExtrasContainer ul.remainingShips li." + ship.getName()).addClass("destroyed");
                 }
             }
         }
@@ -555,10 +569,10 @@ function AIMove() {
     if (game.isViable()) {
 
         // remove handler from computer board so player cannot cheat
-        $("#boardComputer td").off("mouseenter").off("mouseleave");
+        $("#boardComputer td").unbind("mouseenter").unbind("mouseleave");
 
         // ensure all click handlers are removed so user cannot cheat
-        $("#boardComputer td").off("click");
+        $("#boardComputer td").unbind("click");
 
         // invoke fire method from AI and return coordinates hit
         var coords = AI.fire();
@@ -577,7 +591,7 @@ function AIMove() {
             if (ship.isDestroyed()) {
 
                 // if ship is destroyed, update remaining ships
-                $("#playerContainer .remainingShipsContainer li." + ship.getName()).addClass("destroyed");
+                $("#playerContainer .boardExtrasContainer ul.remainingShips li." + ship.getName()).addClass("destroyed");
             }
         }
 
@@ -592,6 +606,151 @@ function AIMove() {
 
 /******************************
  * 
+ *           PERKS
+ * 
+ ******************************/
+
+/**
+ * Make buttons look disabled
+ */
+function disablePerks() {
+    $(".perkContainer .perk.button").addClass("disabled");
+}
+
+/**
+ * Make buttons look enabled
+ */
+function enablePerks() {
+    $(".perkContainer .perk.button").removeClass("disabled");
+}
+
+/**
+ * Initial function that gets the perk and decides how to respond
+ */
+function runPlayerPerk(perk) {
+
+    switch (perk) {
+        case "sonar":
+            initSonarPerk();
+    }
+}
+
+function endPlayerPerk() {
+    enablePerks();
+    playerMove();
+}
+
+/******************************
+ * 
+ *        SONAR PERK
+ * 
+******************************/
+
+function initSonarPerk() {
+
+    $("#boardComputer td").unbind("mouseenter");
+    $("#boardComputer td").unbind("mouseleave");
+    $("#boardComputer td").bind("mouseenter", function (e) {
+
+        //var $cell = $(this);
+        var $cell = $(this);
+
+        // remove all hover classes
+        cleanupHoverClasses();
+        
+        // get x and y values
+        var x = $cell.index();
+        var $tr = $cell.closest('tr');
+        var y = $tr.index();
+
+        sonarPerkHover(x, y);
+
+        //if (canFire) {
+            
+        $cell.off("click").one("click", function () {
+
+            // remove all hover classes
+            cleanupHoverClasses();
+
+            var sonar = new Sonar(computerBoard);
+
+            var cell = sonar.action(x, y);
+
+            if (cell) {
+
+                $('#boardComputer tr:eq(' + cell.getY() + ') > td:eq(' + cell.getX() + ')').addClass("sonarShipLocation");
+
+            } else {
+                alert("no moves found :()");
+            }
+
+            // allow player to now make a move
+            enablePerks();
+            playerMove();
+        });
+        //}
+    });
+}
+
+function sonarPerkHover(x, y) {
+
+    //var canFire = computerBoard.canFire(x, y);
+
+    //if (canFire) {
+
+        var lowX = (x - 1) >= 0 ? true : false;
+        var highX = (x + 1) < boardSize ? true : false;
+        var lowY = (y - 1) >= 0 ? true : false;
+        var highY = (y + 1) < boardSize ? true : false;
+
+        // TOP ROW
+        if (highY) {
+
+            if (lowX) {
+                $('#boardComputer tr:eq(' + (y + 1) + ') > td:eq(' + (x - 1) + ')').addClass("hover");
+            }
+
+            $('#boardComputer tr:eq(' + (y + 1) + ') > td:eq(' + x + ')').addClass("hover");
+            
+            if (highX) {
+                $('#boardComputer tr:eq(' + (y + 1) + ') > td:eq(' + (x + 1) + ')').addClass("hover");
+            }
+
+        }
+
+        // MIDDLE ROW
+        if (lowX) {
+            $('#boardComputer tr:eq(' + y + ') > td:eq(' + (x - 1) + ')').addClass("hover");
+        }
+
+        $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("hover");
+
+        if (highX) {
+            $('#boardComputer tr:eq(' + y + ') > td:eq(' + (x + 1) + ')').addClass("hover");
+        }
+
+        // BOTTOM ROW
+        if (lowY) {
+
+            if (lowX) {
+                $('#boardComputer tr:eq(' + (y - 1) + ') > td:eq(' + (x - 1) + ')').addClass("hover");
+            }
+
+            $('#boardComputer tr:eq(' + (y - 1) + ') > td:eq(' + x + ')').addClass("hover");
+
+            if (highX) {
+                $('#boardComputer tr:eq(' + (y - 1) + ') > td:eq(' + (x + 1) + ')').addClass("hover");
+            }
+        }
+        
+        //return true;
+    //}
+
+    //return false;
+}
+
+/******************************
+ * 
  *        GAME EVENTS
  * 
 ******************************/
@@ -599,15 +758,14 @@ function AIMove() {
 // function to invoke when the game is ready to start playing
 function gameReady() {
     // cleanups
-    $("boardPlayer td").off("mouseenter");
-    $("boardPlayer td").off("mouseleave");
-    $(window).off("keydown");
+    removeHovers();
+    $(window).unbind("keydown");
 
     // show the start game button
     $("#startGame").fadeIn(500);
     
     // add click handler to the button at this point
-    $("#startGame").off("click").one("click", function () {
+    $("#startGame").unbind("click").one("click", function () {
 
         // on click - fade button out
         $("#startGame").fadeOut(500);
@@ -623,8 +781,10 @@ function startGame() {
     // set the variable so other methods know the game has begun
     gameStarted = true;
 
-    $("#resetBoard").fadeOut(500).off("click");
-    $("#undoLastShip").fadeOut(500).off("click");
+    $("#resetBoard").fadeOut(500).unbind("click");
+    $("#undoLastShip").fadeOut(500).unbind("click");
+
+    $(".boardExtrasContainer").fadeIn(500);
 
     // place the ships for the AI
     placeAIShips();
