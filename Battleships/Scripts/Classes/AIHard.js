@@ -5,8 +5,8 @@
 *
 * V0.1      Dave    17/10/2016    initial creation
 * V0.11     Joe     26/10/2016    renamed methods
+* v0.12     Dave    29/10/2016    renamed methods
 **/
-
 function AIHard(name, board, targetBoard){
     AI.call(this, name, board, targetBoard);
 
@@ -162,7 +162,7 @@ function AIHard(name, board, targetBoard){
         var index = Math.floor((Math.random() * possibleShots.length));
         var temp = possibleShots[index];
         var hit = opponentBoard.fire(temp.getX(), temp.getY());
-        var shotCoordinate = opponentBoard.getObjectAt(temp.getX(),temp.getY());
+        var shotCoordinate = opponentBoard.getCoordinateAt(temp.getX(),temp.getY());
 
         if (hit) {
             var ship = shotCoordinate.getShip();
@@ -199,7 +199,7 @@ function AIHard(name, board, targetBoard){
     this.isTargeting = function() {
 
         // get the opponent ships and initialise boolean
-        var opponentShips = opponentBoard.remainingShips();
+        var opponentShips = opponentBoard.getShips();
 
         // iterate through each ship
         for (var i = 0; i < opponentShips.length; i++) {
@@ -271,4 +271,4 @@ function AIHard(name, board, targetBoard){
 
 // Inherit from AI
 AIHard.prototype = Object.create(AI.prototype);
-AIHard.prototype.constructor = AI;
+AIHard.prototype.constructor = AIHard;
