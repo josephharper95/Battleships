@@ -8,6 +8,7 @@
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    menu doesn't show when user is not logged in
 * V0.12     Nick    13/10/16    added start game options to menu
+* V0.13     Nick    30/10/16    added statistics option
 *
 */ 
 
@@ -46,6 +47,8 @@ if (Session::exists("userID")) {
                 <li><a href="home.php">Home<a/></li>
 
                 <li><a href="startGame.php">Start Game</a></li>
+
+                <li><a href="statistics.php">Statistics</a></li>
             
                 <li><a href="logout.php">Logout</a></li>
             

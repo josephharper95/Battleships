@@ -1,12 +1,14 @@
 /**
 *
 * Last Modified By: Dave MacDonald
-* Current Version: 0.1
+* Current Version: 0.12
 *
 * V0.1      Dave    17/10/2016    initial creation
 * V0.11     Joe     26/10/2016    renamed methods
 * v0.12     Dave    29/10/2016    renamed methods
+*
 **/
+
 function AIHard(name, board, targetBoard){
     AI.call(this, name, board, targetBoard);
 

@@ -3,7 +3,7 @@
 /**
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.31
+* Current Version: 0.33
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    commented code
@@ -19,8 +19,7 @@
 require_once("../Classes/setup.php");
 
 // check the user is logged in by checking the session variable
-if(!Session::get("userID"))
-{
+if(!Session::get("userID")) {
     // redirect to login page if user is not logged in already
     header("Location: login.php");
     exit();

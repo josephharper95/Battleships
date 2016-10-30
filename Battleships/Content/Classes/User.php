@@ -11,8 +11,7 @@
 *
 **/
 
-class User{     
-
+class User {
 
     public $db;
     
@@ -31,7 +30,9 @@ class User{
         $values = array($userID, $hashedPassword);
        
         $this->db->query($sql, $values);
-    }
+     }
+
+#region GETTERS
 
     //Function to execute a query, getting the user details from the database with the entered userID
    	function getUserByID($userID)
@@ -200,6 +201,10 @@ class User{
 		$this->db->query($sql, $values);
 	}
 
+#endregion
+
+#region SETTERS
+
     // Function adds 1 to the number of wins of the player with the specified difficulty
     function incrementWins($userID, $difficulty)
 	{
@@ -265,6 +270,9 @@ class User{
 
         $this->db->query($sql, $values);
     }
+
+#endregion
+
 }
 
 ?>
