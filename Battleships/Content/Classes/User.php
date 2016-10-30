@@ -7,6 +7,7 @@
 *
 * V0.1      Joe    21/10/16    initial creation
 * V0.11     Joe    26/10/16    altered user statistics insert (now inserts a line per difficulty)
+* V0.12     Joe    30/10/16    added queries to retrieve user statistics
 *
 **/
 
@@ -76,6 +77,125 @@ class User{
 				WHERE d.difficulty = ? AND us.userID = ?
 				LIMIT 1";
         $values = array($difficulty, $userID);
+		
+		$this->db->query($sql, $values);
+	}
+
+    //Function to execute a query, getting the top ten users and scores by difficulty
+   	function getTopTenUsersScoresByDifficulty($difficulty)
+	{
+        $sql = "SELECT u.userID, firstName, lastName, score
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficulty = ?
+                ORDER BY score desc
+                LIMIT 10";
+        $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+	}
+
+    //Function to execute a query, getting the top ten users and wins by difficulty
+   	function getTopTenUsersWinsByDifficulty($difficulty)
+	{
+        $sql = "SELECT u.userID, firstName, lastName, wins
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficulty = ?
+                ORDER BY wins desc
+                LIMIT 10";
+        $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+	}
+
+    //Function to execute a query, getting the top ten users and games played by difficulty
+   	function getTopTenUsersGamesPlayedByDifficulty($difficulty)
+	{
+        $sql = "SELECT u.userID, firstName, lastName, gamesPlayed
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficulty = ?
+                ORDER BY gamesPlayed desc
+                LIMIT 10";
+        $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+	}
+
+    //Function to execute a query, getting the top ten users and total shots fired by difficulty
+   	function getTopTenUsersTotalShotsFiredByDifficulty($difficulty)
+	{
+        $sql = "SELECT u.userID, firstName, lastName, totalShotsFired
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficulty = ?
+                ORDER BY totalShotsFired desc
+                LIMIT 10";
+        $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+	}
+
+    //Function to execute a query, getting the top ten users and total shots hit by difficulty
+   	function getTopTenUsersTotalShotsHitByDifficulty($difficulty)
+	{
+        $sql = "SELECT u.userID, firstName, lastName, totalShotsHit
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficulty = ?
+                ORDER BY totalShotsHit desc
+                LIMIT 10";
+        $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+	}
+
+    //Function to execute a query, getting the top ten users and total hits received by difficulty
+   	function getTopTenUsersTotalHitsReceivedByDifficulty($difficulty)
+	{
+        $sql = "SELECT u.userID, firstName, lastName, totalHitsReceived
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficulty = ?
+                ORDER BY totalHitsReceived desc
+                LIMIT 10";
+        $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+	}
+
+    //Function to execute a query, getting the top ten users and total playing time by difficulty
+   	function getTopTenUsersTotalPlayingTimeByDifficulty($difficulty)
+	{
+        $sql = "SELECT u.userID, firstName, lastName, totalPlayingTime
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficulty = ?
+                ORDER BY totalPlayingTime desc
+                LIMIT 10";
+        $values = array($difficulty);
 		
 		$this->db->query($sql, $values);
 	}
