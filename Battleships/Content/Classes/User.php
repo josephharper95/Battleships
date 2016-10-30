@@ -66,6 +66,20 @@ class User{
         $this->db->query($sql, $values);
 	}
 
+    //Function to execute a query, getting the user statistics from the database with the entered userID
+   	function getUserStatisticsByUserIDAndDifficulty($userID, $difficulty)
+	{
+        $sql = "SELECT score, wins, gamesPlayed, totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime
+				FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+				WHERE d.difficulty = ? AND us.userID = ?
+				LIMIT 1";
+        $values = array($difficulty, $userID);
+		
+		$this->db->query($sql, $values);
+	}
+
     // Function adds 1 to the number of wins of the player with the specified difficulty
     function incrementWins($userID, $difficulty)
 	{
