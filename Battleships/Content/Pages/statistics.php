@@ -7,6 +7,7 @@
 *
 *   V0.1    Nick    30/10/16    initial creation
 *   V0.11   Nick    01/11/16    added initial data from db
+*   V0.12   Nick    01/11/16    added total playing time
 *
 */
 
@@ -35,6 +36,16 @@ $hard = $difficulties[2];
 $playerEasy = $user->getUserStatisticsByUserIDAndDifficulty($userId, $easy->id)[0];
 $playerMedium = $user->getUserStatisticsByUserIDAndDifficulty($userId, $medium->id)[0];
 $playerHard = $user->getUserStatisticsByUserIDAndDifficulty($userId, $hard->id)[0];
+
+function convertPlayingTime($seconds) {
+    $hours = $seconds / 3600  % 24;
+    $minutes = $seconds / 60  % 60;
+    $seconds = $seconds % 60;
+
+    $result = ($hours < 10 ? "0" . $hours : $hours) . " : " . ($minutes < 10 ? "0" . $minutes : $minutes) . " : " . ($seconds  < 10 ? "0" . $seconds : $seconds);
+
+    return $result;
+}
 
 ?>
 
@@ -141,18 +152,16 @@ $playerHard = $user->getUserStatisticsByUserIDAndDifficulty($userId, $hard->id)[
                     Total Playing Time
                 </td>
                 <td>
-                    <?= $playerEasy->totalPlayingTime; ?>
+                    <?= convertPlayingTime($playerEasy->totalPlayingTime); ?>
                 </td>
                 <td>
-                    <?= $playerMedium->totalPlayingTime; ?>
+                    <?= convertPlayingTime($playerMedium->totalPlayingTime); ?>
                 </td>
                 <td>
-                    <?= $playerHard->totalPlayingTime; ?>
+                    <?= convertPlayingTime($playerHard->totalPlayingTime); ?>
                 </td>
             </tr>
         </tbody>
     
     </table>
-    
-
 </div>

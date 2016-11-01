@@ -6,6 +6,7 @@
 * Current Version: 0.1
 *
 * V0.1      Nick    01/11/16    initial creation
+* V0.11     Nick    01/11/16    added total playing time
 *
 **/
 
@@ -32,8 +33,9 @@ if (Input::itemExists("action")) {
             $totalHits = Input::post("totalHits");
             $totalShots = Input::post("totalShots");
             $totalHitsReceived = Input::post("totalHitsReceived");
+            $playingTime = Input::post("playingTime");
 
-            recordShots($totalHits, $totalShots, $totalHitsReceived);
+            recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime);
             break;
     }
 
@@ -48,7 +50,7 @@ function recordWin() {
     }
 }
 
-function recordShots($totalHits, $totalShots, $totalHitsReceived){
+function recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime){
     global $userId, $user, $difficultyId;
 
     if (isset($userId) && isset($difficultyId)) {
@@ -56,6 +58,7 @@ function recordShots($totalHits, $totalShots, $totalHitsReceived){
         $user->incrementTotalShotsHit($userId, $difficultyId, $totalHits);
         $user->incrementTotalHitsReceived($userId, $difficultyId, $totalHitsReceived);
         $user->incrementTotalShotsFired($userId, $difficultyId, $totalShots);
+        $user->updateTotalPlayingTime($userId, $difficultyId, $playingTime);
     }
 }
 

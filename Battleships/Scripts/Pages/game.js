@@ -16,6 +16,7 @@
  *  V0.38   Joe     26/10/16    renamed methods
  *  V0.39   Nick    29/10/16    added initial sonar capabilities
  *  V0.40   Nick    01/11/16    tracking statistics
+ *  V0.41   Nick    01/11/16    added total playing time
  * 
  */
 
@@ -31,6 +32,7 @@ var boardSize;
 var totalShots = 0;
 var totalHits = 0;
 var totalHitsReceived = 0;
+var startTime = new Date();
 
 // hard coded ships for the hack
 var shipDetails = [
@@ -811,6 +813,9 @@ function endGame(winner) {
     removeHovers();
     disablePerks();
 
+    var endTime = new Date();
+    var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
+
     // alert appropriate message
     if (winner == "player") {
         $.ajax({
@@ -833,7 +838,8 @@ function endGame(winner) {
                 action: "recordShots",
                 totalHits: totalHits,
                 totalHitsReceived: totalHitsReceived,
-                totalShots: totalShots
+                totalShots: totalShots,
+                playingTime: playingTime
             },
             type: "post"
         });
