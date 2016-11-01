@@ -2,12 +2,13 @@
 
 /**
 *
-* Last Modified By: Joe Harper
-* Current Version: 0.1
+* Last Modified By: Nick Holdsworth
+* Current Version: 0.13
 *
-* V0.1      Joe    21/10/16    initial creation
-* V0.11     Joe    26/10/16    altered user statistics insert (now inserts a line per difficulty)
-* V0.12     Joe    30/10/16    added queries to retrieve user statistics
+* V0.1      Joe     21/10/16    initial creation
+* V0.11     Joe     26/10/16    altered user statistics insert (now inserts a line per difficulty)
+* V0.12     Joe     30/10/16    added queries to retrieve user statistics
+* V0.13     Nick    01/11/16    updated queries to allow number of shots to be placed, added regions
 *
 **/
 
@@ -20,23 +21,40 @@ class User {
         $this->db = Database::getInstance();
     }
 
-     //Function to execute a query checking for a user in the table with the entered userID and hashed password
-     function checkForUserAndPassword($userID, $hashedPassword)
-     { 
+    //Function to execute a query checking for a user in the table with the entered userID and hashed password
+    function checkForUserAndPassword($userID, $hashedPassword) { 
         $sql = "SELECT userID, password
                 FROM users
-			    WHERE userID = ? && password = ?
-		 	    LIMIT 1";
+                WHERE userID = ? && password = ?
+                LIMIT 1";
         $values = array($userID, $hashedPassword);
-       
+
         $this->db->query($sql, $values);
-     }
+    }
+
+    //Function to insert new user into database
+    function insertNewUser($userID, $hashedPassword, $firstName, $lastName) {
+        $sql = "INSERT INTO users (userID, password, firstName, lastName)
+                VALUES (?, ?, ?, ?)";
+        $values = array($userID, $hashedPassword, $firstName, $lastName);
+
+        $this->db->query($sql, $values);
+
+        // User statistics setup
+        $sql = "INSERT INTO userstatistics (userID, difficultyID, score, wins, gamesPlayed, 
+                                            totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime)
+                VALUES (?, '1', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '2', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '3', '0', '0', '0', '0', '0', '0', '0')";
+        $values = array($userID, $userID, $userID);
+
+        $this->db->query($sql, $values);
+    }
 
 #region GETTERS
 
     //Function to execute a query, getting the user details from the database with the entered userID
-   	function getUserByID($userID)
-	{
+   	function getUserByID($userID) {
         $sql = "SELECT userID, firstName, lastName
 				FROM users 
 				WHERE userID = ?
@@ -48,43 +66,33 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to insert new user into database
-    function insertNewUser($userID, $hashedPassword, $firstName, $lastName)
-	{
-		$sql = "INSERT INTO users (userID, password, firstName, lastName)
-				VALUES (?, ?, ?, ?)";
-        $values = array($userID, $hashedPassword, $firstName, $lastName);
+    function getDifficulties() {
+        $sql = "SELECT difficultyID as 'id', difficulty as 'name'
+				FROM difficulties";
+        $values = array();
+		
+		$this->db->query($sql, $values);
 
-        $this->db->query($sql, $values);
-
-        // User statistics setup
-        $sql = "INSERT INTO userstatistics (userID, difficultyID, score, wins, gamesPlayed, 
-                                            totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime)
-				VALUES (?, '1', '0', '0', '0', '0', '0', '0', '0'),
-				       (?, '2', '0', '0', '0', '0', '0', '0', '0'),
-				       (?, '3', '0', '0', '0', '0', '0', '0', '0')";
-        $values = array($userID, $userID, $userID);
-
-        $this->db->query($sql, $values);
-	}
+        return $this->db->getResults();
+    }
 
     //Function to execute a query, getting the user statistics from the database with the entered userID
-   	function getUserStatisticsByUserIDAndDifficulty($userID, $difficulty)
-	{
+   	function getUserStatisticsByUserIDAndDifficulty($userID, $difficulty) {
         $sql = "SELECT score, wins, gamesPlayed, totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime
 				FROM userstatistics us
                     JOIN difficulties d
                         ON us.difficultyID = d.difficultyID
-				WHERE d.difficulty = ? AND us.userID = ?
+				WHERE d.difficultyID = ? AND us.userID = ?
 				LIMIT 1";
         $values = array($difficulty, $userID);
 		
 		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
 	}
 
     //Function to execute a query, getting the top ten users and scores by difficulty
-   	function getTopTenUsersScoresByDifficulty($difficulty)
-	{
+   	function getTopTenUsersScoresByDifficulty($difficulty) {
         $sql = "SELECT u.userID, firstName, lastName, score
                 FROM userstatistics us
                     JOIN difficulties d
@@ -228,34 +236,34 @@ class User {
     }
 
     // Function adds 1 to the number of total shots fired of the player with the specified difficulty
-    function incrementTotalShotsFired($userID, $difficulty)
+    function incrementTotalShotsFired($userID, $difficulty, $shots)
 	{
 		$sql = "UPDATE userstatistics
-				SET totalShotsFired = totalShotsFired + 1
+				SET totalShotsFired = totalShotsFired + ?
                 WHERE userID = ? AND difficultyID = ?";
-        $values = array($userID, $difficulty);
+        $values = array($shots, $userID, $difficulty);
 
         $this->db->query($sql, $values);
     }
 
     // Function adds 1 to the number of total shots fired and hit of the player with the specified difficulty
-    function incrementTotalShotsHit($userID, $difficulty)
+    function incrementTotalShotsHit($userID, $difficulty, $shots)
 	{
 		$sql = "UPDATE userstatistics
-				SET totalShotsHit = totalShotsHit + 1
+				SET totalShotsHit = totalShotsHit + ?
                 WHERE userID = ? AND difficultyID = ?";
-        $values = array($userID, $difficulty);
+        $values = array($shots, $userID, $difficulty);
 
         $this->db->query($sql, $values);
     }
 
     // Function adds 1 to the number of total shots received of the player with the specified difficulty
-    function incrementTotalHitsReceived($userID, $difficulty)
+    function incrementTotalHitsReceived($userID, $difficulty, $shots)
 	{
 		$sql = "UPDATE userstatistics
-				SET totalHitsReceived = totalHitsReceived + 1
+				SET totalHitsReceived = totalHitsReceived + ?
                 WHERE userID = ? AND difficultyID = ?";
-        $values = array($userID, $difficulty);
+        $values = array($shots, $userID, $difficulty);
 
         $this->db->query($sql, $values);
     }

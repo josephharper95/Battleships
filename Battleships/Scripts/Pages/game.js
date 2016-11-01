@@ -15,6 +15,7 @@
  *  V0.37   Nick    18/10/16    opponent ships show up if you lose
  *  V0.38   Joe     26/10/16    renamed methods
  *  V0.39   Nick    29/10/16    added initial sonar capabilities
+ *  V0.40   Nick    01/11/16    tracking statistics
  * 
  */
 
@@ -26,6 +27,10 @@ var computerBoard;
 var AI;
 var difficulty;
 var boardSize;
+
+var totalShots = 0;
+var totalHits = 0;
+var totalHitsReceived = 0;
 
 // hard coded ships for the hack
 var shipDetails = [
@@ -533,6 +538,8 @@ function boardFireAtOpponent($cell) {
         // if a ship was hit...
         if (hit) {
 
+            totalHits++;
+
             // add a class to the cell so that it knows that it contains a ship
             $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("containsShip");
 
@@ -557,6 +564,7 @@ function boardFireAtOpponent($cell) {
         }
         
         // let the cell know it has been hit
+        totalShots++;
         $('#boardComputer tr:eq(' + y + ') > td:eq(' + x + ')').addClass("hit");
     }
 }
@@ -587,6 +595,8 @@ function AIMove() {
 
         // validation check to see if coordinate contains a ship
         if (ship) {
+
+            totalHitsReceived++;
             
             // check if ship is destroyed
             if (ship.isDestroyed()) {
@@ -799,14 +809,34 @@ function endGame(winner) {
 
     removeClicks();
     removeHovers();
+    disablePerks();
 
     // alert appropriate message
     if (winner == "player") {
-        alert("Game Over! - You Won! :)")
+        $.ajax({
+            url: "../../Content/Pages/gameAjax.php",
+            data: {
+                action: "recordWin"
+            },
+            type: "post"
+        });
+
+        alert("Game Over! - You Won! :)");
     } else {
         alert("Game Over! - You Lost! :(");
         showOpponentShips();
     }
+
+    $.ajax({
+            url: "../../Content/Pages/gameAjax.php",
+            data: {
+                action: "recordShots",
+                totalHits: totalHits,
+                totalHitsReceived: totalHitsReceived,
+                totalShots: totalShots
+            },
+            type: "post"
+        });
 }
 
 /******************************

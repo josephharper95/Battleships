@@ -3,9 +3,11 @@
 * Last Modified By: Joe Harper
 * Current Version: 0.01
 *
-* V0.1    Joe     01/10/16    initial creation
-* V0.11   Joe     03/01/16    added first name / last name to user
-* V0.12   Joe     26/10/16    added various columns, tables, indexes for user stats, remove save game support
+* V0.1    Joe   01/10/16    initial creation
+* V0.11   Joe   03/01/16    added first name / last name to user
+* V0.12   Joe   26/10/16    added various columns, tables, indexes for user stats, remove save game support
+* V0.13   Nick  01/11/16    updated difficulties to be capitalised
+*
 **/
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -254,7 +256,7 @@ ALTER TABLE `users` ADD `lastName` VARCHAR(50) NOT NULL AFTER `firstName`;
 
 /* V1.12 - Adding tables/columns/indexes for stats, removed save game support */
 CREATE TABLE `battleships`.`difficulties` ( `difficultyID` INT NOT NULL , `difficulty` VARCHAR(10) NOT NULL , PRIMARY KEY (`difficultyID`)) ENGINE = InnoDB;
-INSERT INTO `difficulties` (`difficultyID`, `difficulty`) VALUES ('1', 'easy'), ('2', 'medium'), ('3', 'hard');
+INSERT INTO `difficulties` (`difficultyID`, `difficulty`) VALUES ('1', 'Easy'), ('2', 'Medium'), ('3', 'Hard');
 ALTER TABLE `userstatistics` ADD `difficultyID` INT NOT NULL AFTER `userID`, ADD INDEX `FK` (`difficultyID`);
 ALTER TABLE `userstatistics` ADD FOREIGN KEY (`difficultyID`) REFERENCES `battleships`.`difficulties`(`difficultyID`) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE `userstatistics` ADD `totalShotsHit` INT NOT NULL AFTER `totalShotsFired`;
