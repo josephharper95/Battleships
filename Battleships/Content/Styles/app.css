@@ -1,7 +1,7 @@
 /**
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.25
+* Current Version: 0.26
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    03/10/16    logout styling
@@ -12,6 +12,7 @@
 * V0.23     Nick    14/10/16    refactored ship image CSS to be more efficient / less code
 * V0.24     Nick    18/10/16    minor tweak to .registrationExtra buttons
 * V0.25     Nick    29/10/16    added sonar CSS
+* V0.26     Nick    01/11/16    initial statistics stylings
 *
 **/
 html body {
@@ -504,6 +505,16 @@ html body .body #pageGame .sideContainer .boardContainer table.board#boardComput
 html body .body #pageGame .sideContainer .boardContainer table.board#boardPlayer td.noHover,
 html body .body #pageGame .sideContainer .boardContainer table.board#boardComputer td.noHover {
   background-color: red !important;
+}
+html body .body #pageStatistics #playerStatistics thead th {
+  background-color: orange;
+  padding: 5px;
+  color: #fff;
+  font-weight: 100;
+  min-width: 200px;
+}
+html body .body #pageStatistics #playerStatistics tbody tr td:not(:first-child) {
+  text-align: center;
 }
 html body .body fieldset {
   border: 1px solid #ccc;

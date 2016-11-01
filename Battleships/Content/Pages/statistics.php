@@ -3,11 +3,12 @@
 /**
 *
 *   Last Modified By: Nick Holdsworth
-*   Current Version: 0.1
+*   Current Version: 0.3
 *
 *   V0.1    Nick    30/10/16    initial creation
 *   V0.11   Nick    01/11/16    added initial data from db
 *   V0.12   Nick    01/11/16    added total playing time
+*   V0.13   Nick    01/11/16    added accuracy percentage and styling
 *
 */
 
@@ -37,6 +38,8 @@ $playerEasy = $user->getUserStatisticsByUserIDAndDifficulty($userId, $easy->id)[
 $playerMedium = $user->getUserStatisticsByUserIDAndDifficulty($userId, $medium->id)[0];
 $playerHard = $user->getUserStatisticsByUserIDAndDifficulty($userId, $hard->id)[0];
 
+//print_r($playerEasy);
+
 function convertPlayingTime($seconds) {
     $hours = $seconds / 3600  % 24;
     $minutes = $seconds / 60  % 60;
@@ -47,6 +50,20 @@ function convertPlayingTime($seconds) {
     return $result;
 }
 
+function convertPercentage($small, $large) {
+    if ($large == 0 && $small == 0) {
+        return "N/A";
+    }
+
+    $percent = $small / $large;
+    $percent *= 100;
+
+    $percent = number_format($percent, 2);
+    $percent .= "%";
+
+    return $percent;
+}
+
 ?>
 
 <div id="pageStatistics" class="wideWidth">
@@ -55,7 +72,7 @@ function convertPlayingTime($seconds) {
 
     <h3>Player Statistics</h3>
 
-    <table>
+    <table id="playerStatistics">
         <thead>
             <tr>
                 <th></th>
@@ -144,6 +161,36 @@ function convertPlayingTime($seconds) {
                 </td>
                 <td>
                     <?= $playerHard->totalShotsHit; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Accuracy
+                </td>
+                <td>
+                    <?= convertPercentage($playerEasy->totalShotsHit, $playerEasy->totalShotsFired); ?>
+                </td>
+                <td>
+                    <?= convertPercentage($playerMedium->totalShotsHit, $playerMedium->totalShotsFired); ?>
+                </td>
+                <td>
+                    <?= convertPercentage($playerHard->totalShotsHit, $playerHard->totalShotsFired); ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Total Shots Received
+                </td>
+                <td>
+                    <?= $playerEasy->totalHitsReceived; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->totalHitsReceived; ?>
+                </td>
+                <td>
+                    <?= $playerHard->totalHitsReceived; ?>
                 </td>
             </tr>
 
