@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `battleships`
 --
+DROP DATABASE IF EXISTS `battleships`;
+
 CREATE DATABASE IF NOT EXISTS `battleships` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `battleships`;
 
