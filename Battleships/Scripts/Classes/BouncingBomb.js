@@ -26,36 +26,36 @@ BouncingBomb.prototype.constructor = BouncingBomb;
  * If no ship is found, return false.
  * @return {coordinate}
  */
-BouncingBomb.prototype.action = function(x, y){
+BouncingBomb.prototype.action = function(x, y, orientation){
 
     // method variables
-    var initialTarget = this.getTarget().getCoordinateAt(x, y);
-    var size = this.getTarget().getHeight();
-
     var row = x;
     var col = y;
 
-    if ((this.getTarget().getCoordinateAt(x, y).containsShip())
-    &&(!this.getTarget().getCoordinateAt(x, y).isHit()))
+    if ((this.getTarget().getCoordinateAt(row, col).containsShip())
+    &&(!this.getTarget().getCoordinateAt(row, col).isHit()))
     { // If the given coordinates contain a ship and haven't been hit yet...
-        return getCoordinateAt(x, y);
+        return getCoordinateAt(row, col); // Use the returned coordinate to fire upon....
     }
-    else
-    { // Else.....
-        if(y > 0)
-        { // take 1 from the y if it is greater than 0 (so the shot travels up the board)
-            y = y - 1;
-        }
-        else if(y == 0)
-        { // add 1 to the y if it is 0 (so the shot travels down the board)
-            y = y + 1;
-        }
+    
+    if(orientation == 1)
+    { // If the orientation of the shot is vertical
+        col = col + 1;
 
-        if ((this.getTarget().getCoordinateAt(x, y).containsShip())
-        &&(!this.getTarget().getCoordinateAt(x, y).isHit())) 
+        if ((this.getTarget().getCoordinateAt(row, col).containsShip())
+        &&(!this.getTarget().getCoordinateAt(row, col).isHit())) 
         { // If the new coordinates contain a ship and haven't been hit yet...
-            return getCoordinateAt(x, y);
+            return getCoordinateAt(row, col); // Use the returned coordinate to fire upon....
         }
+    }
+    else if (orientation == 0)
+    { // If the orientation of the shot is horizontal
+        row = row + 1;
+
+        if ((this.getTarget().getCoordinateAt(row, col).containsShip())
+        &&(!this.getTarget().getCoordinateAt(row, col).isHit())) 
+        { // If the new coordinates contain a ship and haven't been hit yet...
+            return getCoordinateAt(row, col); // Use the returned coordinate to fire upon....
     }
 
     // if the bouncing bomb does not hit anything...
