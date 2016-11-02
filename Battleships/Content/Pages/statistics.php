@@ -3,9 +3,12 @@
 /**
 *
 *   Last Modified By: Nick Holdsworth
-*   Current Version: 0.1
+*   Current Version: 0.3
 *
 *   V0.1    Nick    30/10/16    initial creation
+*   V0.11   Nick    01/11/16    added initial data from db
+*   V0.12   Nick    01/11/16    added total playing time
+*   V0.13   Nick    01/11/16    added accuracy percentage and styling
 *
 */
 
@@ -23,12 +26,189 @@ if(!Session::get("userID")) {
 // include the header file if it has not been included before
 require_once("header.php");
 
+$user = new User();
+$userId = Session::get("userID");
+
+$difficulties = $user->getDifficulties();
+$easy = $difficulties[0];
+$medium = $difficulties[1];
+$hard = $difficulties[2];
+
+$playerEasy = $user->getUserStatisticsByUserIDAndDifficulty($userId, $easy->id)[0];
+$playerMedium = $user->getUserStatisticsByUserIDAndDifficulty($userId, $medium->id)[0];
+$playerHard = $user->getUserStatisticsByUserIDAndDifficulty($userId, $hard->id)[0];
+
+//print_r($playerEasy);
+
+function convertPlayingTime($seconds) {
+    $hours = $seconds / 3600  % 24;
+    $minutes = $seconds / 60  % 60;
+    $seconds = $seconds % 60;
+
+    $result = ($hours < 10 ? "0" . $hours : $hours) . " : " . ($minutes < 10 ? "0" . $minutes : $minutes) . " : " . ($seconds  < 10 ? "0" . $seconds : $seconds);
+
+    return $result;
+}
+
+function convertPercentage($small, $large) {
+    if ($large == 0 && $small == 0) {
+        return "N/A";
+    }
+
+    $percent = $small / $large;
+    $percent *= 100;
+
+    $percent = number_format($percent, 2);
+    $percent .= "%";
+
+    return $percent;
+}
+
 ?>
 
 <div id="pageStatistics" class="wideWidth">
 
     <h1>Statistics</h1>
 
-    <?= Session::get("userID"); ?>
+    <h3>Player Statistics</h3>
 
+    <table id="playerStatistics">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr>
+                <td>
+                    Score
+                </td>
+                <td>
+                    <?= $playerEasy->score; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->score; ?>
+                </td>
+                <td>
+                    <?= $playerHard->score; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Wins
+                </td>
+                <td>
+                    <?= $playerEasy->wins; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->wins; ?>
+                </td>
+                <td>
+                    <?= $playerHard->wins; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Games Played
+                </td>
+                <td>
+                    <?= $playerEasy->gamesPlayed; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->gamesPlayed; ?>
+                </td>
+                <td>
+                    <?= $playerHard->gamesPlayed; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Total Shots Fired
+                </td>
+                <td>
+                    <?= $playerEasy->totalShotsFired; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->totalShotsFired; ?>
+                </td>
+                <td>
+                    <?= $playerHard->totalShotsFired; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Total Shots Hit
+                </td>
+                <td>
+                    <?= $playerEasy->totalShotsHit; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->totalShotsHit; ?>
+                </td>
+                <td>
+                    <?= $playerHard->totalShotsHit; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Accuracy
+                </td>
+                <td>
+                    <?= convertPercentage($playerEasy->totalShotsHit, $playerEasy->totalShotsFired); ?>
+                </td>
+                <td>
+                    <?= convertPercentage($playerMedium->totalShotsHit, $playerMedium->totalShotsFired); ?>
+                </td>
+                <td>
+                    <?= convertPercentage($playerHard->totalShotsHit, $playerHard->totalShotsFired); ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Total Shots Received
+                </td>
+                <td>
+                    <?= $playerEasy->totalHitsReceived; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->totalHitsReceived; ?>
+                </td>
+                <td>
+                    <?= $playerHard->totalHitsReceived; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Total Playing Time
+                </td>
+                <td>
+                    <?= convertPlayingTime($playerEasy->totalPlayingTime); ?>
+                </td>
+                <td>
+                    <?= convertPlayingTime($playerMedium->totalPlayingTime); ?>
+                </td>
+                <td>
+                    <?= convertPlayingTime($playerHard->totalPlayingTime); ?>
+                </td>
+            </tr>
+        </tbody>
+    
+    </table>
 </div>

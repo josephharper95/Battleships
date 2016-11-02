@@ -3,7 +3,7 @@
 /**
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.33
+* Current Version: 0.34
 *
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    commented code
@@ -12,6 +12,7 @@
 * V0.31     Nick    13/10/16    added size attribute onto opponent board as was previously missing
 * V0.32     Dave    17/10/16    added scripts to include medium / hard AI
 * V0.33     Nick    29/10/16    added perk / sonar pieces
+* V0.34     Nick    01/10/16    tracking what difficulty they're on from DB
 *
 **/
 
@@ -48,6 +49,18 @@ switch ($sizeClass) {
 $difficulty = Input::post("difficulty");
 $difficultyText = $difficulty;
 $difficultyText[0] = strtoupper($difficultyText[0]);
+
+$userClass = new User();
+$dbDifficulties = $userClass->getDifficulties();
+
+foreach ($dbDifficulties as $diff) {
+    if (strtolower($difficulty) == strtolower($diff->name)) {
+        Session::set("difficultyID", $diff->id);
+        break;
+    }
+}
+
+$userClass->incrementGamesPlayed(Session::get("userID"), Session::get("difficultyID"));
 
 // include the header file if it has not been included before
 require_once("header.php");
