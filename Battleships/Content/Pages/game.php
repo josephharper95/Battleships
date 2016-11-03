@@ -67,12 +67,16 @@ require_once("header.php");
 
 ?>
 
-<!-- script files to include -->
+<!-- Scripts for Computer Game -->
 <script src="../../Scripts/Pages/gameComputer.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/boardHover.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/boardUndoReset.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/placePlayerShips.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/placeAIShips.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/playerFireAtComputer.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/aiFireAtPlayer.js" type="text/javascript"></script>
 
+<!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
 <script src="../../Scripts/Classes/ship.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/board.js" type="text/javascript" ></script>

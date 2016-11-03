@@ -18,16 +18,16 @@ function cleanupHoverClasses() {
  */
 function removeHovers() {
     
-    $(page + " " + playerBoard + " td.hover, " + page + " " + opponentBoard + " td.hover").unbind("hover");
+    $(page + " " + playerBoard + " td, " + page + " " + opponentBoard + " td").unbind("hover");
 
-    $(page + " " + playerBoard + " td.hover, " + page + " " + opponentBoard + " td.hover").unbind("mouseenter");
+    $(page + " " + playerBoard + " td, " + page + " " + opponentBoard + " td").unbind("mouseenter");
 
-    $(page + " " + playerBoard + " td.hover, " + page + " " + opponentBoard + " td.hover").unbind("mouseleave");
+    $(page + " " + playerBoard + " td, " + page + " " + opponentBoard + " td").unbind("mouseleave");
 }
 
 /**
  * Function to remove all click events from both boards
  */
 function removeClicks() {
-    $(page + " " + playerBoard + " td.hover, " + page + " " + opponentBoard + " td.hover").unbind("click");
+    $(page + " " + playerBoard + " td, " + page + " " + opponentBoard + " td").unbind("click");
 }
