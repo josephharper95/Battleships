@@ -179,7 +179,7 @@ html {
                 margin: auto;
             }
 
-            #pageGame {
+            #pageComputerGame {
                 text-align: center;
 
                 .sideContainer {
@@ -245,6 +245,26 @@ html {
                                 border: 1px solid #fff;
                                 padding: 0;
 
+                                &.hover {
+                                    background-color: #cc8400;
+                                }
+
+                                &.sonarShipLocation {
+                                    background-color: green;
+                                }
+
+                                &.hit {
+                                    background-color: grey;
+
+                                    &.containsShip {
+                                        background-color: red;
+                                    }
+                                }
+
+                                &.noHover {
+                                    background-color: red !important;
+                                }
+
                                 &[data-orientation=Horizontal] {
                                     background-position-y: 0;
                                 }
@@ -273,6 +293,99 @@ html {
                                         background-image: @carrier-v;
                                     }
                                 }
+
+                                &.containsShip {
+                                        background-repeat: no-repeat;
+
+                                        &[data-ship=Submarine] {
+
+                                            &[data-ship-part="0"] {
+                                                background-image: @left-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @left-end-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="1"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="2"] {
+                                                background-image: @right-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @right-end-v;
+                                                }
+                                            }
+                                        }
+
+                                        &[data-ship=Cruiser] {
+
+                                            &[data-ship-part="0"] {
+                                                background-image: @left-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @left-end-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="1"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="2"] {
+                                                background-image: @right-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @right-end-v;
+                                                }
+                                            }
+                                        }
+
+                                        &[data-ship=BattleShip] {
+
+                                            &[data-ship-part="0"] {
+                                                background-image: @left-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @left-end-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="1"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="2"] {
+                                                background-image: @middle-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @middle-v;
+                                                }
+                                            }
+
+                                            &[data-ship-part="3"] {
+                                                background-image: @right-end-h;
+
+                                                &[data-orientation=Vertical] {
+                                                    background-image: @right-end-v;
+                                                }
+                                            }
+                                        }
+                                    }
                             }
 
                             &[data-size=small] {
@@ -577,131 +690,6 @@ html {
                                         &[data-orientation=Vertical] {
                                             background-position-y: calc(@size * -4);
                                         }
-                                    }
-                                }
-                            }
-
-                            // UNTIL WE GET THE REST OF THE IMAGES
-                            &#boardPlayer,
-                            &#boardComputer {
-                                td {
-                                    &.containsShip {
-                                        background-repeat: no-repeat;
-
-                                        &[data-ship=Submarine] {
-
-                                            &[data-ship-part="0"] {
-                                                background-image: @left-end-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @left-end-v;
-                                                }
-                                            }
-
-                                            &[data-ship-part="1"] {
-                                                background-image: @middle-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @middle-v;
-                                                }
-                                            }
-
-                                            &[data-ship-part="2"] {
-                                                background-image: @right-end-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @right-end-v;
-                                                }
-                                            }
-                                        }
-
-                                        &[data-ship=Cruiser] {
-
-                                            &[data-ship-part="0"] {
-                                                background-image: @left-end-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @left-end-v;
-                                                }
-                                            }
-
-                                            &[data-ship-part="1"] {
-                                                background-image: @middle-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @middle-v;
-                                                }
-                                            }
-
-                                            &[data-ship-part="2"] {
-                                                background-image: @right-end-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @right-end-v;
-                                                }
-                                            }
-                                        }
-
-                                        &[data-ship=BattleShip] {
-
-                                            &[data-ship-part="0"] {
-                                                background-image: @left-end-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @left-end-v;
-                                                }
-                                            }
-
-                                            &[data-ship-part="1"] {
-                                                background-image: @middle-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @middle-v;
-                                                }
-                                            }
-
-                                            &[data-ship-part="2"] {
-                                                background-image: @middle-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @middle-v;
-                                                }
-                                            }
-
-                                            &[data-ship-part="3"] {
-                                                background-image: @right-end-h;
-
-                                                &[data-orientation=Vertical] {
-                                                    background-image: @right-end-v;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            //*************************************
-
-                            &#boardPlayer,
-                            &#boardComputer {
-                                td {
-                                    &.hover {
-                                        background-color: #cc8400;
-                                    }
-
-                                    &.sonarShipLocation {
-                                        background-color: green;
-                                    }
-
-                                    &.hit {
-                                        background-color: grey;
-
-                                        &.containsShip {
-                                            background-color: red;
-                                        }
-                                    }
-
-                                    &.noHover {
-                                        background-color: red !important;
                                     }
                                 }
                             }

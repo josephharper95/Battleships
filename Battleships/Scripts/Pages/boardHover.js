@@ -1,0 +1,98 @@
+/**
+ * Last Modified By: Nick Holdsworth
+ * 
+ * V0.1     Nick    Initial creation
+ */
+
+/**
+ * Function to hover on the player board when trying to place a ship
+ * 
+ * @param   {$cell}     The table cell that the mouse is hovering on
+ * @param   {ship}      The ship that is currently trying to be placed on the ship  
+ */
+function boardPlaceHover($cell, ship) {
+
+    // validation check to make sure the ship has not been placed
+    if (ship.isPlaced()) {
+        return;
+    }
+
+    // validation check to make sure that a cell has been passed
+    if ($cell) {
+
+        // make sure all hover classes are removed
+        cleanupHoverClasses();
+        
+        // get the index of the cell to get the x value
+        var x = $cell.index();
+        // get the row of the cell to get the y value
+        var $tr = $cell.closest('tr');
+        var y = $tr.index();
+
+        // set up variables for canHover and coordinates
+        var canPlace, coords;
+
+        // set the variables according to the return values from the Board class method canPlaceship
+        [canPlace, coords] = playerBoardClass.canPlaceShip(ship, x, y);
+
+        // for each coordinate returned from the method...
+        for (i = 0; i < coords.length; i++) {
+            // set individual coordinate and class for whether the ship can be placed
+            var c = coords[i];
+            var hover = canPlace ? "hover" : "noHover";
+
+            // validation check to make sure that c is not null
+            if (c) {
+                // add the relevant class to the player's board
+                $(page + " " + playerBoard + " tr:eq(" + c.getY() + ") > td:eq(" + c.getX() + ")").addClass(hover);
+            }
+        }
+
+        // if the user can place the ship
+        if (canPlace) {
+            // remove all click handlers from all cells
+            $(page + " " + playerBoard + " td").unbind("click");
+
+            // add a click handler to the cell that is being hovered on
+            $($cell).one("click", function () {
+                boardPlaceShip($cell, ship);
+            }); 
+        }
+    }
+}
+
+/**
+ * Function to hover on the opponent's board when trying to fire
+ * 
+ * @param   {$cell}     The table cell that the mouse is hovering on
+ * 
+ * @returns {boolean}   Whether the board can be fired on
+ */
+function boardFireHover($cell) {
+
+    // if the cell exists
+    if ($cell) {
+
+        // remove all hover classes
+        cleanupHoverClasses();
+        
+        // get x and y values
+        var x = $cell.index();
+        var $tr = $cell.closest('tr');
+        var y = $tr.index();
+
+        // return a boolean as to whether the user can fire at that cell
+        var canFire = opponentBoardClass.canFire(x, y);
+
+        // if they can...
+        if (canFire) {
+            
+            // add hover class to the opponent's board
+            $(page  + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hover");
+
+            return true;
+        }
+    }
+
+    return false;
+}

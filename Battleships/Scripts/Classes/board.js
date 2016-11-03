@@ -137,8 +137,6 @@ Board.prototype.canPlaceShip = function(ship, x, y) {
 
     var orientation = ship.getOrientation();
     var shipSize = ship.getSize();
-    var x = x;
-    var y = y;
     var coordinates = new Array();
     var passed = true;
 
@@ -149,6 +147,7 @@ Board.prototype.canPlaceShip = function(ship, x, y) {
     for (i = 0; i < shipSize; i++) {
         
         if (x > this.getWidth() - 1 || x < 0 || y > this.getHeight() - 1 || y < 0) {
+            console.log(this.getWidth());
             return [false, coordinates];
         }
 
