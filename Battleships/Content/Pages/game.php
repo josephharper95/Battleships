@@ -67,8 +67,16 @@ require_once("header.php");
 
 ?>
 
-<!-- script files to include -->
-<script src="../../Scripts/Pages/game.js" type="text/javascript"></script>
+<!-- Scripts for Computer Game -->
+<script src="../../Scripts/Pages/gameComputer.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/boardHover.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/boardUndoReset.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/placePlayerShips.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/placeAIShips.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/playerFireAtComputer.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/aiFireAtPlayer.js" type="text/javascript"></script>
+
+<!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
 <script src="../../Scripts/Classes/ship.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/board.js" type="text/javascript" ></script>
@@ -80,7 +88,7 @@ require_once("header.php");
 <script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
 
     <!-- set the page width to wide -->
-    <div id="pageGame" class="wideWidth">
+    <div id="pageComputerGame" class="wideWidth">
 
         <!-- container for all player related items -->
         <div id="playerContainer" class="sideContainer">
@@ -113,7 +121,7 @@ require_once("header.php");
                 <h3>Player</h3>
 
                 <!-- players board, populated relating to the size -->
-                <table id="boardPlayer" class="board" data-size="<?= $sizeClass; ?>" >
+                <table id="playerBoard" class="board" data-size="<?= $sizeClass; ?>" >
                     <?php echo createBoard(); ?>
                 </table>
 
@@ -160,7 +168,7 @@ require_once("header.php");
                 <h3>Computer (<?= $difficultyText; ?>)</h3>
 
                 <!-- opponents board, populated relating to the size -->
-                <table id="boardComputer" class="board" data-size="<?= $sizeClass; ?>" >
+                <table id="computerBoard" class="board" data-size="<?= $sizeClass; ?>" >
                     <?php echo createBoard(); ?>
                 </table>
             </div>
