@@ -1,6 +1,9 @@
 {
-  "name": "socket-play-ground",
+  "name": "play-ground",
   "version": "0.0.1",
   "description": "playground",
-  "dependencies": {}
+  "dependencies": {
+        "express": "*",
+        "socket.io": "*"
+     }
 }
