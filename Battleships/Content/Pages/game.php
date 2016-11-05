@@ -75,6 +75,7 @@ require_once("header.php");
 <script src="../../Scripts/Pages/placeAIShips.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/playerFireAtComputer.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/aiFireAtPlayer.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/cleanups.js" type="text/javascript"></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
