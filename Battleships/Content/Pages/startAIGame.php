@@ -24,7 +24,7 @@ require_once("header.php");
 ?>
 
 
-<div id="pageHome" class="standardWidth">
+<div id="pageStartAI" class="standardWidth">
 
     <h1>Start Game</h1>
 

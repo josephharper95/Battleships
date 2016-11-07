@@ -44,13 +44,25 @@ if (Session::exists("userID")) {
             <ul class="blank"
             id="navigationHeader" >
             
-                <li><a href="home.php">Home<a/></li>
+                <li>
+                    <a href="home.php">Home</a>
+                </li>
 
-                <li><a href="startGame.php">Start Game</a></li>
+                <li class="large">
+                    <a href="startAIGame.php">Play Computer</a>
+                </li>
 
-                <li><a href="statistics.php">Statistics</a></li>
+                <li>
+                    <a href="startMultiplayer.php">Multiplayer</a>
+                </li>
+
+                <li>
+                    <a href="statistics.php">Statistics</a>
+                </li>
             
-                <li><a href="logout.php">Logout</a></li>
+                <li>
+                    <a href="logout.php">Logout</a>
+                </li>
             
             </ul>
 

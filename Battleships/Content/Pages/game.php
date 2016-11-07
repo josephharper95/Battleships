@@ -13,6 +13,7 @@
 * V0.32     Dave    17/10/16    added scripts to include medium / hard AI
 * V0.33     Nick    29/10/16    added perk / sonar pieces
 * V0.34     Nick    01/10/16    tracking what difficulty they're on from DB
+* V0.35     Nick    07/11/16    missing files
 *
 **/
 
@@ -27,7 +28,7 @@ if(!Session::get("userID")) {
 }
 
 if (!(Input::itemExists("difficulty") && Input::itemExists("size"))) {
-    header("Location: startGame.php");
+    header("Location: startAIGame.php");
     exit();
 }
 
@@ -76,6 +77,7 @@ require_once("header.php");
 <script src="../../Scripts/Pages/playerFireAtComputer.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/aiFireAtPlayer.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/cleanups.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/perkSonar.js" type="text/javascript"></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>

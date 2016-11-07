@@ -2,6 +2,7 @@
  * Last Modified By: Nick Holdsworth
  * 
  * V0.1     Nick    Initial creation
+ * V0.11    Nick    Name of board was fixed when it shouldn't have been
  * 
  */
 
@@ -26,7 +27,7 @@ function undoLastShip() {
 
     for (var i = 0; i < coords.length; i++) {
         var c = coords[i];
-        var $cell = $('#boardPlayer tr:eq(' + c.getY() + ") > td:eq(" + c.getX() + ")")
+        var $cell = $(page + " " + playerBoard + " tr:eq(" + c.getY() + ") > td:eq(" + c.getX() + ")")
         $cell.removeAttr("data-ship")
         $cell.removeClass("containsShip");
         $cell.removeAttr("data-orientation");
@@ -41,6 +42,7 @@ function undoLastShip() {
         });
     } else {
         $("#undoLastShip").fadeOut(500);
+        $("#resetBoard").fadeOut(500);
         $("#startGame").fadeOut(500);
     }
 }
