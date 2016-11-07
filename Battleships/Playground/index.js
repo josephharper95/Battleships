@@ -13,11 +13,10 @@ Game.prototype.addPlayer = function(userID) {
   }
 };
 
-module.exports = Game;
-
 /** Server Code */
 
-var app = require('express')(),
+var express = require('express');
+    app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     fs = require('fs');
@@ -26,6 +25,8 @@ var app = require('express')(),
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
+
+app.use(express.static('Classes'));
 
 //Create objects for players and games
 var players = {};
@@ -134,6 +135,23 @@ io.sockets.on('connection', function (socket, username) {
                 socket.leave(game.name); //Remove the player from the game session
             }
         });
+
+        socket.on("fire", function(coord){
+            var opponent;
+            var game = games[players[socket.id].game];
+                if(game.players[0] !== socket.id){
+                    opponent = game.players[0];
+                }else{
+                    opponent = game.players[1];
+                }
+            io.sockets.to(opponent).emit("recordHit", coord);
+        });
+
+        socket.on("sonarRequest", function(x,y){
+            
+        });
+
+
 
         /**
          * Removes players from game gracefully on disconnect

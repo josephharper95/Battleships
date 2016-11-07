@@ -4,6 +4,7 @@
   "description": "playground",
   "dependencies": {
         "express": "*",
-        "socket.io": "*"
+        "socket.io": "*",
+        "path": "*"
      }
 }
