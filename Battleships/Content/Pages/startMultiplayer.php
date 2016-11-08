@@ -21,8 +21,18 @@ require_once("header.php");
 
 ?>
 
-<div id="pageStartMultiplayer">
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<!--<script src="/socket.io/socket.io.js"></script>-->
+<script src="../../Scripts/Pages/startMultiplayer.js" type="text/javascript"></script>
+
+<div id="pageStartMultiplayer"
+     class="standardWidth">
     
     <h1>Multiplayer</h1>
+
+    <ul id="availableRooms"
+        class="blank">
+
+    </ul>
 
 </div>

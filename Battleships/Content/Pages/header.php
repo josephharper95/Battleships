@@ -19,7 +19,7 @@ require_once("../Classes/setup.php");
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BattleShips!</title>
+    <title>BattleShips Online!</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,7 +32,7 @@ require_once("../Classes/setup.php");
 <body>
     <div id="header">
         <div id="headerBar">
-            <h1 id="headerTitle">BattleShips</h1>
+            <h1 id="headerTitle">BattleShips Online</h1>
 
 <?php
 
@@ -40,6 +40,14 @@ require_once("../Classes/setup.php");
 if (Session::exists("userID")) {
 
 ?>
+
+<script type="text/javascript">
+    var session = {
+        id: <?= json_encode(Session::get("userID")); ?>,
+        firstName: <?= json_encode(Session::get("firstName")); ?>,
+        lastName: <?= json_encode(Session::get("lastName")); ?>
+    };
+</script>
 
             <ul class="blank"
             id="navigationHeader" >
@@ -70,7 +78,6 @@ if (Session::exists("userID")) {
                 <div id="firstName"><?= Session::get("firstName"); ?></div>
                 <div id="lastName"><?= Session::get("lastName"); ?></div>
             </div>
-
 <?php
 
 }

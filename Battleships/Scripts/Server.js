@@ -24,7 +24,7 @@ var express = require('express');
 
 // Loading the page index.html
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../Content/Pages', 'index.html'));
+  res.sendFile(path.join(__dirname, '../Content/Pages', 'startMultiplayer.php'));
 });
 
 app.use(express.static('Classes'));
