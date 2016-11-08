@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 // FAKES
 function fakeCreatingGame() {
-    socket.emit("createGame", "nholdswo");
+    socket.emit("createGame", session.id;
 }
 
 socket.on('gameList', function (data) {
