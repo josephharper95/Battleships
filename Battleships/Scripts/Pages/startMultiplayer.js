@@ -3,7 +3,7 @@
  */
 
 // Connecting to socket.io
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect('http://ec2-52-18-77-251.eu-west-1.compute.amazonaws.com:3000');
 
 var availableRooms = "#availableRooms";
 

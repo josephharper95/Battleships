@@ -21,7 +21,7 @@ require_once("header.php");
 
 ?>
 
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="http://ec2-52-18-77-251.eu-west-1.compute.amazonaws.com:3000/socket.io/socket.io.js"></script>
 <!--<script src="/socket.io/socket.io.js"></script>-->
 <script src="../../Scripts/Pages/startMultiplayer.js" type="text/javascript"></script>
 
