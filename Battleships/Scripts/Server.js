@@ -16,18 +16,28 @@ Game.prototype.addPlayer = function(userID) {
 /** Server Code */
 
 var express = require('express');
-    app = express(),
-    server = require('http').createServer(app),
+var app = express();
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+    next();
+});
+
+var server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     fs = require('fs'),
     path = require('path');
 
 // Loading the page index.html
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../Content/Pages', 'startMultiplayer.php'));
-});
+// app.get('/', function (req, res) {
+//     console.log(req.socket.address());
+//     res.sendFile(path.join(__dirname, '../Content/Pages', 'startMultiplayer.php'));
+// });
 
-app.use(express.static('Classes'));
+// //app.use(express.static('Classes'));
 
 //Create objects for players and games
 var players = {};
@@ -198,4 +208,8 @@ io.sockets.on('connection', function (socket, username) {
 
 
 
-server.listen(3000, '52.18.77.251');
+server.listen(3000);
+// server.listen(process.env.port, function () {  //Updated
+//   var addr = server.address();
+//   console.log('   app listening on http://' + addr.address + ':' + addr.port);
+// });
