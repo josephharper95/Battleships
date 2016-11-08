@@ -8,8 +8,6 @@
 *
 */
 
-header("Access-Control-Allow-Origin: *");
-
 require_once("../Classes/setup.php");
 
 if(!Session::get("userID"))
