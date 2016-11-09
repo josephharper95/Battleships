@@ -15,8 +15,36 @@
 * V0.26     Nick    01/11/16    initial statistics stylings
 * V0.3      Nick    09/11/16    added loader
 * V0.31     Nick    09/11/16    font update
+* V0.32     Nick    09/11/16    moved where button css is
 *
 **/
+html .button,
+html button {
+  min-width: 100px;
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: orange;
+  padding: 5px 7px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 80%;
+  text-decoration: none;
+}
+html .button:hover,
+html button:hover {
+  color: orange;
+  border-color: orange;
+  background-color: white;
+}
+html .button.disabled,
+html button.disabled {
+  background-color: #ccc;
+  color: #fff;
+  border-color: #ccc;
+  cursor: default;
+}
 html body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100;
@@ -124,33 +152,6 @@ html body #header #headerBar ul#navigationHeader li.large {
 }
 html body .body {
   margin-top: 125px;
-}
-html body .body .button,
-html body .body button {
-  min-width: 100px;
-  color: #fff;
-  border: 1px solid #fff;
-  background-color: orange;
-  padding: 5px 7px;
-  display: inline-block;
-  text-align: center;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 80%;
-  text-decoration: none;
-}
-html body .body .button:hover,
-html body .body button:hover {
-  color: orange;
-  border-color: orange;
-  background-color: white;
-}
-html body .body .button.disabled,
-html body .body button.disabled {
-  background-color: #ccc;
-  color: #fff;
-  border-color: #ccc;
-  cursor: default;
 }
 html body .body .standardWidth {
   width: 810px;

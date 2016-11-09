@@ -83,6 +83,4 @@ function createRoom() {
             createRoom();
         });
     });
-
-    console.log("te");
 }
