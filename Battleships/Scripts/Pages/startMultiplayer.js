@@ -8,6 +8,7 @@
 
 // Connecting to socket.io
 var socket = io.connect('http://40.68.102.207:3000');
+//var socket = io.connect('http://localhost:3000');
 
 var createRoomButton = "#createGame";
 var cancelGameButton = "#cancelGame";
@@ -22,6 +23,11 @@ $(document).ready(function() {
         createRoom();
     });
 
+});
+
+//To show alerts from server
+socket.on('alert', function(message){
+    console.log(message);
 });
 
 socket.on('gameList', function (data) {
@@ -72,7 +78,7 @@ function createRoom() {
 
     showWaiting(true, message);
 
-    $(document).on("click", cancelGameButton, function () {
+    $(document).off("click").one("click", cancelGameButton, function () {
         $(cancelGameButton).off("click");
 
         socket.emit("leaveGame");

@@ -31,6 +31,8 @@ var server = require('http').createServer(app),
     fs = require('fs'),
     path = require('path');
 
+console.log('Server running. . . ');
+
 // Loading the page index.html
 // app.get('/', function (req, res) {
 //     console.log(req.socket.address());
@@ -119,32 +121,21 @@ io.sockets.on('connection', function (socket, username) {
         });
 
         /**
-         * Removes the client from the game. If the host leaves the game, the game session is deleted.
+         * Removes all clients from the game and closes that game session.
          */
         socket.on("leaveGame", function() {  
         var game = games[players[socket.id].game];//Get the game object that the player is in
-        if (socket.id === game.owner) {//If this player is the owner of the game
-            io.sockets.in(socket.game).emit("alert", "The host (" +players[socket.id].username + ") is leaving the game. The game has ended.");
-            delete games[players[socket.id].game]; //Delete the game session
-            var i = 0;
-            //Remove all players from the game
-            while(i < clients.length) {
-                if(clients[i].id == game.players[i]) {
+            io.sockets.in(socket.game).emit("alert", "(" +players[socket.id].username + ") is leaving the game. The game has ended.");
+            var gameId = players[socket.id].game //Store the game ID
+            //Iterate over connected clients, if that client is in this game remove them TODO: Can this be more efficient?
+            for(var i=0; i < clients.length; i++){
+                if(clients[i].id == game.players[i]){
                     players[clients[i].id].game = null;
                     clients[i].leave(game.name);
                 }
-            i++;
             }
-            players[socket.id].game = null; //TODO: Maybe not needed?
+            delete games[gameId]; //Delete the game session
             io.sockets.emit("gameList", games); //Refresh the games list
-            
-        } else {
-                var index = game.players.indexOf(socket.id);
-                game.players.splice(index, 1); //Remove the player from the game players array
-                players[socket.id].game = null; //Remove game reference from the player object
-                io.sockets.emit("alert", players[socket.id].username + " has left the game.");
-                socket.leave(game.name); //Remove the player from the game session
-            }
         });
 
         socket.on("fire", function(coord){
