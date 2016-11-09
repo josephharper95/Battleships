@@ -1,3 +1,10 @@
+/**
+ * Last Modified By: Team
+ * 
+ * 0.1  Team    07/11/16    initial creation  
+ * 0.2  Team    09/11/16    updates and bug fixes
+ */
+
 /** Game class */
 function Game(name, id, owner) {  
   this.name = name;
@@ -49,36 +56,67 @@ var clients = [];
 //id for new games
 var id = 0;
 
+// socket.emit = YOUR client
+// io.sockets.emit = ALL clients
+
 io.sockets.on('connection', function (socket, username) {
 
     /**
      * Executes when a new client joins the server. 
      */
-    socket.on('join', function(username){
+    socket.on('join', function(username) {
+
         var gameID = null;
-        players[socket.id] = {"username": username, "game": gameID};
+
+        players[socket.id] = {
+            "username": username, 
+            "game": gameID
+        };
+
         socket.emit("alert", "You have connected to the server.");
-        io.sockets.emit("alert", players[socket.id].username + " is online.")
+        io.sockets.emit("alert", players[socket.id].username + " is online.");
         socket.emit("gameList", games);
+
         clients.push(socket); //populate the clients array with the client object
+
+        io.sockets.emit("playersOnline", clients.length);
     });
 
     /**
      * Creates a new game room and assigns the calling client as the owner. The owner is added to the game.
      */
-    socket.on("createGame", function(name) {  
-        //If the player is not in a game
-        if (players[socket.id].game === null) {
-            var game = new Game(name, id, socket.id);
-            games[id] = game;
-            io.sockets.emit("gameList", games); //update the list of games on the frontend
-            socket.game = name;
-            socket.join(socket.game); //Creator is added to the game
-            game.addPlayer(socket.id); //also add the player to the game object
-            players[socket.id].game = id; //Add the game id to the player object
-            id++; //Increment the ID for the next game session to use
+    socket.on("createGame", function(name) {
+
+        if (players[socket.id] == null) {
+
+            io.sockets.emit("alert", "players[socket.id] == null");
         } else {
-            io.sockets.emit("alert", "You are already in a game.");
+
+            //If the player is not in a game
+            if (players[socket.id].game == null) {
+
+                var game = new Game(name, id, socket.id);
+
+                games[id] = game;
+
+                io.sockets.emit("gameList", games); //update the list of games on the frontend
+
+                socket.game = name;
+
+                socket.join(socket.game); //Creator is added to the game
+
+                game.addPlayer(socket.id); //also add the player to the game object
+
+                players[socket.id].game = id; //Add the game id to the player object
+
+                id++; //Increment the ID for the next game session to use
+
+                socket.emit("createGameResponse", true)
+
+            } else {
+                //io.sockets.emit("alert", "You are already in a game.");
+                socket.emit("createGameResponse", false);
+            }
         }
     });
 
@@ -86,15 +124,17 @@ io.sockets.on('connection', function (socket, username) {
      * Adds the client to the game with the given id.
      */
     socket.on("joinGame", function(id) {  
+
         var game = games[id];//get the game that corresponds with the id
+
         //Perform some validation
-        if (socket.id === game.owner) {
-        socket.emit("alert", "You are the owner of this game and you have already been joined.");
+        if (socket.id == game.owner) {
+            socket.emit("alert", "You are the owner of this game and you have already been joined.");
         } 
-        else if(players[socket.id].game !== null){
+        else if (players[socket.id].game != null){
             socket.emit("alert", "You are already in a game");
         }
-        else if(game.players.length >= 2){
+        else if (game.players.length >= 2){
             socket.emit("alert", "This game is full, please create a new one");
         }
         else {
@@ -106,98 +146,120 @@ io.sockets.on('connection', function (socket, username) {
             io.sockets.in(socket.game).emit("alert", user.username + " has connected to " + game.name);// Message to players in the game
             socket.emit("alert", "Welcome to " + game.name + ".");
             }
-        });
+    });
 
-        /**
-         * Sends a message to players in the same game.
-         */
-        socket.on("message", function(message) {  
-            if (players[socket.id].game !== null) {
-                //TODO: Maybe store the game object in a variable so it doesn't have to be called this way??
-                io.sockets.in(games[players[socket.id].game].name).emit("chat", {username: players[socket.id].username, message: message});
-            } else {
-                socket.emit("alert", "Please connect to a game.");//Must be in a game to send a message
+    /**
+     * Sends a message to players in the same game.
+     */
+    socket.on("message", function(message) {  
+        if (players[socket.id].game !== null) {
+            //TODO: Maybe store the game object in a variable so it doesn't have to be called this way??
+            io.sockets.in(games[players[socket.id].game].name).emit("chat", {username: players[socket.id].username, message: message});
+        } else {
+            socket.emit("alert", "Please connect to a game.");//Must be in a game to send a message
+        }
+    });
+
+    /**
+     * Removes all clients from the game and closes that game session.
+     */
+    socket.on("leaveGame", function() {
+
+        if (players[socket.id] == null) {
+            console.log("players[socket.id] == null");
+        } else if (games[players[socket.id].game] == null) {
+            console.log("games[player[socket.id]] == null");
+        } else {
+            leaveGame();
+        }
+    });
+
+    socket.on("fire", function(coord){
+        var opponent;
+        var game = games[players[socket.id].game];
+            if(game.players[0] !== socket.id){
+                opponent = game.players[0];
+            }else{
+                opponent = game.players[1];
             }
-        });
+        io.sockets.to(opponent).emit("recordHit", coord);
+    });
 
-        /**
-         * Removes all clients from the game and closes that game session.
-         */
-        socket.on("leaveGame", function() {  
-        var game = games[players[socket.id].game];//Get the game object that the player is in
-            io.sockets.in(socket.game).emit("alert", "(" +players[socket.id].username + ") is leaving the game. The game has ended.");
-            var gameId = players[socket.id].game //Store the game ID
-            //Iterate over connected clients, if that client is in this game remove them TODO: Can this be more efficient?
-            for(var i=0; i < clients.length; i++){
-                if(clients[i].id == game.players[i]){
-                    players[clients[i].id].game = null;
-                    clients[i].leave(game.name);
-                }
-            }
-            delete games[gameId]; //Delete the game session
-            io.sockets.emit("gameList", games); //Refresh the games list
-        });
-
-        socket.on("fire", function(coord){
-            var opponent;
-            var game = games[players[socket.id].game];
-                if(game.players[0] !== socket.id){
-                    opponent = game.players[0];
-                }else{
-                    opponent = game.players[1];
-                }
-            io.sockets.to(opponent).emit("recordHit", coord);
-        });
-
-        socket.on("sonarRequest", function(x,y){
-            
-        });
+    socket.on("sonarRequest", function(x,y){
+        
+    });
 
 
 
-        /**
-         * Removes players from game gracefully on disconnect
-         * TODO: Code is copied from leave game, not worked out how to call the other method internally. 
-         */
-        socket.on("disconnect", function() {  
+    /**
+     * Removes players from game gracefully on disconnect
+     * TODO: Code is copied from leave game, not worked out how to call the other method internally. 
+     */
+    socket.on("disconnect", function() {  
         if (players[socket.id]) {
-            var username = players[socket.id].username;
-            if (players[socket.id].game === null) { //If the player is not in a game
-                delete players[socket.id]; // Remove the player from the player list.
-            } else {
-                //Copied section from leave game
-                if (players[socket.id].game !== null) {
-                    var game = games[players[socket.id].game];
-                    if (socket.id === game.owner) {
-                        io.sockets.in(socket.game).emit("alert", "The host (" +players[socket.id].username + ") is leaving the game. The game has ended.");
-                        delete games[players[socket.id].game];
-                        var i = 0;
-                        //Remove all players from the game
-                        while(i < clients.length) {
-                            if(clients[i].id == game.players[i]) {
-                                players[clients[i].id].game = null;
-                                clients[i].leave(game.name);
-                            }
-                        i++;
-                    }
-                }
-                var index = game.players.indexOf(socket.id);
-                game.players.splice(index, 1); //Remove the player from the game players array
-                socket.game = undefined;
+
+            var player = players[socket.id];
+
+            if (player == null) {
+
+            } else if (player.game == null) {
                 delete players[socket.id];
-                io.sockets.emit("gameList", games);
-                }
+            } else {
+                leaveGame();
+                delete players[socket.id];
+            }
+
+            var username = player.username;
+
+            //Remove the client from the client array.
+            io.sockets.emit("alert", username + " has gone offline.");
+            var index = clients.indexOf(socket);
+            clients.splice(index, 1);
+
+            console.log("Players Online: " + clients.length);
+
+            io.sockets.emit("playersOnline", clients.length);
+        }
+    });
+
+    function leaveGame() {
+
+        //Get the game object that the player is in
+        var game = games[players[socket.id].game];
+
+        // alerting to all relevant that A player has left the game
+        io.sockets.in(socket.game).emit("alert", "(" +players[socket.id].username + ") is leaving the game. The game has ended.");
+        
+        //Store the game ID
+        var gameId = players[socket.id].game 
+
+        //Iterate over connected clients, if that client is in this game remove them TODO: Can this be more efficient?
+        for (var i=0; i < clients.length; i++){
+            if (clients[i].id == game.players[i]) {
+                clients[i].leave(game.name);
             }
         }
-        //Remove the client from the client array.
-        io.sockets.emit("alert", username + " has gone offline.");
-        var index = clients.indexOf(socket);
-        clients.splice(index, 1);
-        console.log(clients.length);
-    });
+
+        var game = games[players[socket.id].game];
+        if (game.players[0] == socket.id) {
+            var opponent = game.players[1];
+            
+            if (opponent != null) {
+                players[opponent].game = null;
+            }
+        }
+
+        players[socket.id].game = null;
+
+        //if (game[gameId]) {
+            //Delete the game session
+            delete games[gameId]; 
+        //}
+
+        // refresh games list
+        io.sockets.emit("gameList", games);
+    }
 });
-
-
 
 server.listen(3000);
 // server.listen(process.env.port, function () {  //Updated

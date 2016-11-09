@@ -16,6 +16,7 @@
 * V0.3      Nick    09/11/16    added loader
 * V0.31     Nick    09/11/16    font update
 * V0.32     Nick    09/11/16    moved where button css is
+* V0.4      Nick    09/11/16    added for offline / online
 *
 **/
 html .button,
@@ -107,6 +108,9 @@ html body #header #headerBar #userDetails #firstName {
 }
 html body #header #headerBar #userDetails #lastName {
   font-size: 90%;
+}
+html body #header #headerBar #userDetails #playersOnline {
+  font-size: 70%;
 }
 html body #header #headerBar #userDetails .logout {
   font-size: 70%;
