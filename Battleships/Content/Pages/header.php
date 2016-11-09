@@ -5,11 +5,12 @@
 * Last Modified By: Nick Holdsworth
 * Current Version: 0.12
 *
-* V0.1      Nick    01/10/16    initial creation
-* V0.11     Nick    04/10/16    menu doesn't show when user is not logged in
-* V0.12     Nick    13/10/16    added start game options to menu
-* V0.13     Nick    30/10/16    added statistics option
-* V0.2      Nick    09/11/16    added waiting loader 
+* V0.1      Nick                01/10/16    initial creation
+* V0.11     Nick                04/10/16    menu doesn't show when user is not logged in
+* V0.12     Nick                13/10/16    added start game options to menu
+* V0.13     Nick                30/10/16    added statistics option
+* V0.2      Nick                09/11/16    added waiting loader 
+* V0.3      Nick / Dave / Joe   09/11/16    added offline / online
 *
 */ 
 
@@ -90,6 +91,7 @@ if (Session::exists("userID")) {
             <div id="userDetails">
                 <div id="firstName"><?= Session::get("firstName"); ?></div>
                 <div id="lastName"><?= Session::get("lastName"); ?></div>
+                <div id="playersOnline">Offline</div>
             </div>
 <?php
 

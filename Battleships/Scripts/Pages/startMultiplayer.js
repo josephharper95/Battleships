@@ -4,6 +4,7 @@
  * V0.1     Nick        08/11/16    initial creation
  * V0.2     Nick        09/11/16    added the ability to create / leave room
  * V0.2.1   Dave        09/11/16    Create game bug fix
+ * V0.3     Team        09/11/16    added more listeners and giving more feedback to user
  * 
  */
 
@@ -26,6 +27,10 @@ $(document).ready(function() {
 
 });
 
+socket.on("playersOnline", function (num) {
+    $("#playersOnline").html("Online (" + num + " Worldwide)");
+});
+
 //To show alerts from server
 socket.on('alert', function(message){
     console.log(message);
@@ -33,7 +38,7 @@ socket.on('alert', function(message){
 
 socket.on('gameList', function (data) {
 
-    console.log("Games");
+    //console.log("Games");
 
     var returnText = "";
     
@@ -45,7 +50,7 @@ socket.on('gameList', function (data) {
                 
                 returnText += "<li>";
 
-                console.log(game + " -> " + data[game].name);
+                //console.log(game + " -> " + data[game].name);
 
                 returnText += "<span>";
                 returnText += data[game].name;
@@ -72,22 +77,36 @@ socket.on('gameList', function (data) {
 function createRoom() {
 
     socket.emit("createGame", session.id);
+}
 
-    var message = "You have created a game!<br/>Please wait for someone to join, and good luck!<br/><br/>";
+socket.on("createGameResponse", function (data) {
 
-    message += "<button id='cancelGame'>Cancel</button>";
+    if (data) {
 
-    showWaiting(true, message);
 
-    $(document).off("click").one("click", cancelGameButton, function () {
-        $(cancelGameButton).off("click");
+        var message = "You have created a game!<br/>Please wait for someone to join, and good luck!<br/><br/>";
 
-        socket.emit("leaveGame");
+        message += "<button id='cancelGame'>Cancel</button>";
 
-        showWaiting(false);
+        showWaiting(true, message);
+
+        $(document).off("click").one("click", cancelGameButton, function () {
+            $(cancelGameButton).off("click");
+
+            socket.emit("leaveGame");
+
+            showWaiting(false);
+
+            $(createRoomButton).off("click").one("click", function () {
+                createRoom();
+            });
+        });
+    } else {
+
+        alert("FAILED TO CREATE GAME");
 
         $(createRoomButton).off("click").one("click", function () {
             createRoom();
         });
-    });
-}
+    }
+});
