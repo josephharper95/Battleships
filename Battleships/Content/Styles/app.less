@@ -13,8 +13,11 @@
 * V0.24     Nick    18/10/16    minor tweak to .registrationExtra buttons
 * V0.25     Nick    29/10/16    added sonar CSS
 * V0.26     Nick    01/11/16    initial statistics stylings
+* V0.3      Nick    09/11/16    added loader
 *
 **/
+
+@standardWidth: 810px;
 
 html {
     body {
@@ -142,7 +145,8 @@ html {
         .body {
             margin-top: 125px;
 
-            .button {
+            .button,
+            button {
                 min-width: 100px;
                 color: #fff;
                 border: 1px solid #fff;
@@ -170,13 +174,17 @@ html {
             }
 
             .standardWidth {
-                width: 810px;
+                width: @standardWidth;
                 margin: auto;
             }
 
             .wideWidth {
                 width: 1200px;
                 margin: auto;
+            }
+
+            .clear {
+                clear:both;
             }
 
             #pageComputerGame {
@@ -722,6 +730,39 @@ html {
                 }
             }
 
+            #pageStartMultiplayer {
+                .pageTitle {
+                    float: left;
+                }
+
+                #createGame {
+                    float: right;
+                    margin-top: 25px;
+                }
+
+                #availableRooms {
+                    li {
+                        display: inline-block;
+                        margin-bottom: 7px;
+                        clear: both;
+                        width: calc(@standardWidth - 10px);
+                        padding: 5px;
+                        border-radius: 5px;
+                        background-color: #f2f2f2;
+
+                        span {
+                            vertical-align: middle;
+                            line-height: 30px;
+                            margin-left: 5px;
+                        }
+
+                        button {
+                            float: right;
+                        }
+                    }
+                }
+            }
+
             fieldset {
                 border: 1px solid #ccc;
                 border-radius: 5px;
@@ -857,6 +898,53 @@ html {
         *****************/
         @media screen and (min-width: 810px) {
             
+        }
+    }
+}
+
+#loaderOverlay,
+#waitingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #222;
+    opacity: 0.7;
+    z-index: 100000;
+    display: none;
+
+    #loaderCont,
+    #waitingCont {
+        height: 350px;
+        width: 600px;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 1;
+        text-align: center;
+    }
+
+    #loader,
+    #waitingLoader {
+        width: 180px;
+        height: 180px;
+        margin: auto;
+        background-image: url('../Loaders/loader.gif');
+        background-repeat: none;
+    }
+
+    #message,
+    #waitingMessage {
+        margin-top: 30px;
+        color: #fff;
+        font-size: 150%;
+
+        button {
+            font-size: initial;
         }
     }
 }

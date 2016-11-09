@@ -4,7 +4,8 @@
 *
 * Last Modified By: Nick Holdsworth
 *
-* V0.1  Nick    07/11/16    initial creation
+* V0.1      Nick    07/11/16    initial creation
+* V0.11     Nick    09/11/16    added pieces for creating / leaving
 *
 */
 
@@ -21,19 +22,24 @@ require_once("header.php");
 
 ?>
 
-<!--<script src="http://52.18.77.251:3000/socket.io/socket.io.js"></script>-->
 <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.0.3.js"></script>
-<!--<script src="/socket.io/socket.io.js"></script>-->
+
 <script src="../../Scripts/Pages/startMultiplayer.js" type="text/javascript"></script>
 
 <div id="pageStartMultiplayer"
      class="standardWidth">
     
-    <h1>Multiplayer</h1>
+    <h1 class="pageTitle">Multiplayer</h1>
+
+    <button id="createGame">
+        Create Room
+    </button>
+
+    <div class="clear"></div>
+
+    <h3>Available Rooms</h3>
 
     <ul id="availableRooms"
-        class="blank">
-
-    </ul>
+        class="blank"></ul>
 
 </div>

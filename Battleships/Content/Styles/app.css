@@ -13,6 +13,7 @@
 * V0.24     Nick    18/10/16    minor tweak to .registrationExtra buttons
 * V0.25     Nick    29/10/16    added sonar CSS
 * V0.26     Nick    01/11/16    initial statistics stylings
+* V0.3      Nick    09/11/16    added loader
 *
 **/
 html body {
@@ -122,7 +123,8 @@ html body #header #headerBar ul#navigationHeader li.large {
 html body .body {
   margin-top: 125px;
 }
-html body .body .button {
+html body .body .button,
+html body .body button {
   min-width: 100px;
   color: #fff;
   border: 1px solid #fff;
@@ -135,12 +137,14 @@ html body .body .button {
   font-size: 80%;
   text-decoration: none;
 }
-html body .body .button:hover {
+html body .body .button:hover,
+html body .body button:hover {
   color: orange;
   border-color: orange;
   background-color: white;
 }
-html body .body .button.disabled {
+html body .body .button.disabled,
+html body .body button.disabled {
   background-color: #ccc;
   color: #fff;
   border-color: #ccc;
@@ -153,6 +157,9 @@ html body .body .standardWidth {
 html body .body .wideWidth {
   width: 1200px;
   margin: auto;
+}
+html body .body .clear {
+  clear: both;
 }
 html body .body #pageComputerGame {
   text-align: center;
@@ -490,6 +497,30 @@ html body .body #pageStatistics #playerStatistics thead th {
 html body .body #pageStatistics #playerStatistics tbody tr td:not(:first-child) {
   text-align: center;
 }
+html body .body #pageStartMultiplayer .pageTitle {
+  float: left;
+}
+html body .body #pageStartMultiplayer #createGame {
+  float: right;
+  margin-top: 25px;
+}
+html body .body #pageStartMultiplayer #availableRooms li {
+  display: inline-block;
+  margin-bottom: 7px;
+  clear: both;
+  width: calc(800px);
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+html body .body #pageStartMultiplayer #availableRooms li span {
+  vertical-align: middle;
+  line-height: 30px;
+  margin-left: 5px;
+}
+html body .body #pageStartMultiplayer #availableRooms li button {
+  float: right;
+}
 html body .body fieldset {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -607,6 +638,57 @@ html body .body .container ul.left {
 html body .body .container ul.right {
   width: 49%;
   float: right;
+}
+#loaderOverlay,
+#waitingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #222;
+  opacity: 0.7;
+  z-index: 100000;
+  display: none;
+}
+#loaderOverlay #loaderCont,
+#waitingOverlay #loaderCont,
+#loaderOverlay #waitingCont,
+#waitingOverlay #waitingCont {
+  height: 350px;
+  width: 600px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  text-align: center;
+}
+#loaderOverlay #loader,
+#waitingOverlay #loader,
+#loaderOverlay #waitingLoader,
+#waitingOverlay #waitingLoader {
+  width: 180px;
+  height: 180px;
+  margin: auto;
+  background-image: url('../Loaders/loader.gif');
+  background-repeat: none;
+}
+#loaderOverlay #message,
+#waitingOverlay #message,
+#loaderOverlay #waitingMessage,
+#waitingOverlay #waitingMessage {
+  margin-top: 30px;
+  color: #fff;
+  font-size: 150%;
+}
+#loaderOverlay #message button,
+#waitingOverlay #message button,
+#loaderOverlay #waitingMessage button,
+#waitingOverlay #waitingMessage button {
+  font-size: initial;
 }
 /***************
     VARIABLES

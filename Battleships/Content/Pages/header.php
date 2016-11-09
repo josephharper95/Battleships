@@ -9,6 +9,7 @@
 * V0.11     Nick    04/10/16    menu doesn't show when user is not logged in
 * V0.12     Nick    13/10/16    added start game options to menu
 * V0.13     Nick    30/10/16    added statistics option
+* V0.2      Nick    09/11/16    added waiting loader 
 *
 */ 
 
@@ -26,8 +27,20 @@ require_once("../Classes/setup.php");
 
     <!-- default files needed -->
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/app.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
 </head>
+
+<!-- Loader markup -->
+<div id="waitingOverlay">
+    <div id="waitingCont">
+        <div id="waitingLoader"></div>
+        <div id="waitingMessage">
+            
+        </div>
+    </div>
+</div>
 
 <body>
     <div id="header">
