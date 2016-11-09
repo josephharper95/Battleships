@@ -7,6 +7,7 @@
 *
 * V0.1      Nick    13/10/16    initial creation
 * V0.11     Nick    13/10/16    enabled sizing options that were previously disabled
+* V0.12     Nick    09/11/16    page redirection bug
 *
 **/
 
@@ -15,7 +16,7 @@ require_once("../Classes/setup.php");
 if(!Session::get("userID"))
 {
     // redirect to login page if user is not logged in already
-    header("Location: Content/Pages/login.php");
+    header("Location: login.php");
     exit();
 }
 
