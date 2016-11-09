@@ -1,8 +1,9 @@
 /**
- * Last Modified By: Nick Holdsworth
+ * Last Modified By: Dave MacDonald
  * 
  * V0.1     08/11/16    initial creation
  * V0.2     09/11/16    added the ability to create / leave room
+ * V0.2.1   09/11/16    Create game bug fix - DM
  * 
  */
 
