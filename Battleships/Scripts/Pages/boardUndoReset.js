@@ -3,6 +3,7 @@
  * 
  * V0.1     Nick    Initial creation
  * V0.11    Nick    Name of board was fixed when it shouldn't have been
+ * V0.12    Nick    returning object instead of array
  * 
  */
 
@@ -22,8 +23,14 @@ function initUndoLastShip() {
  */
 function undoLastShip() {
 
-    var ship, coords, numShips;
-    [ship, coords, numShips] = playerBoardClass.undoPlaceShip();
+    // var ship, coords, numShips;
+    // [ship, coords, numShips] = playerBoardClass.undoPlaceShip();
+
+    var obj = playerBoardClass.undoPlaceShip();
+
+    var ship = obj.ship;
+    var coords = obj.coordinates;
+    var numShips = obj.numShipsPlaced;
 
     for (var i = 0; i < coords.length; i++) {
         var c = coords[i];

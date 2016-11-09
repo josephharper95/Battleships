@@ -2,6 +2,8 @@
  * Last Modified By: Nick Holdsworth
  * 
  * V0.1     Nick    Initial creation
+ * V0.11    Nick    returning object instead of array
+ * 
  */
 
 /**
@@ -29,11 +31,10 @@ function boardPlaceHover($cell, ship) {
         var $tr = $cell.closest('tr');
         var y = $tr.index();
 
-        // set up variables for canHover and coordinates
-        var canPlace, coords;
-
-        // set the variables according to the return values from the Board class method canPlaceship
-        [canPlace, coords] = playerBoardClass.canPlaceShip(ship, x, y);
+        var obj = playerBoardClass.canPlaceShip(ship, x, y);
+    
+        var canPlace = obj.canPlace;
+        var coords = obj.coordinates;
 
         // for each coordinate returned from the method...
         for (i = 0; i < coords.length; i++) {

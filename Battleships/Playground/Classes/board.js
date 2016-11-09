@@ -14,6 +14,7 @@
 * V0.26     Nick                18/10/16    added method "floatingShips" as remainingShips already exists
 * V0.27     Dave                21/10/16    refactored code to use prototype pattern, renamed some methods.
 * V0.28     Joe                 26/10/16    renamed methods
+* V0.29     Nick                09/11/16    returning objects instead of arrays
 *
 **/
 
@@ -141,21 +142,26 @@ Board.prototype.canPlaceShip = function(ship, x, y) {
     var passed = true;
 
     if (ship.isPlaced()) {
-        return [false, new Array()];
+        return {
+            canPlace: false,
+            coordinates: new Array()
+        };
     }
 
     for (i = 0; i < shipSize; i++) {
         
         if (x > this.getWidth() - 1 || x < 0 || y > this.getHeight() - 1 || y < 0) {
-            console.log(this.getWidth());
-            return [false, coordinates];
+
+            return {
+                canPlace: false,
+                coordinates: coordinates
+            };
         }
 
         var coordinate = this.getCoordinateAt(x, y);
         coordinates.push(coordinate);
 
         if (coordinate.containsShip()) {
-            //return [false, coordinates];
             passed = false;
         }
 
@@ -166,7 +172,10 @@ Board.prototype.canPlaceShip = function(ship, x, y) {
         }
     }
     
-    return [passed, coordinates];
+    return {
+        canPlace: passed,
+        coordinates: coordinates
+    }
 }
 
 /**
@@ -179,8 +188,10 @@ Board.prototype.canPlaceShip = function(ship, x, y) {
  */
 Board.prototype.placeShip = function(ship, x, y) {
 
-    var canPlace, coords;
-    [canPlace, coords] = this.canPlaceShip(ship, x, y);
+    var obj = this.canPlaceShip(ship, x, y);
+
+    var canPlace = obj.canPlace;
+    var coords = obj.coordinates;
 
     if (canPlace) {
         for (i = 0; i < coords.length; i++) {
@@ -209,7 +220,13 @@ Board.prototype.undoPlaceShip = function(){
     }
     ship.reset();
 
-    return [ship, coords, this.getShipsPlaced().length];
+    return {
+        ship: ship,
+        coordinates: coords,
+        numShipsPlaced: this.getShipsPlaced().length
+    };
+
+    //return [ship, coords, this.getShipsPlaced().length];
 }
 
 /**
