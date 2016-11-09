@@ -14,10 +14,11 @@
 * V0.25     Nick    29/10/16    added sonar CSS
 * V0.26     Nick    01/11/16    initial statistics stylings
 * V0.3      Nick    09/11/16    added loader
+* V0.31     Nick    09/11/16    font update
 *
 **/
 html body {
-  font-family: "Helvetica";
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100;
   /**************
             HEADER
@@ -52,6 +53,7 @@ html body #header {
   left: 0;
   height: 80px;
   background-color: orange;
+  overflow: hidden;
 }
 html body #header #headerBar {
   width: 810px;
@@ -92,7 +94,7 @@ html body #header #headerBar #userDetails .logout a:hover {
 }
 html body #header #headerBar ul#navigationHeader {
   margin: 0;
-  padding-top: 4px;
+  padding-top: 2px;
   float: left;
 }
 html body #header #headerBar ul#navigationHeader li {
