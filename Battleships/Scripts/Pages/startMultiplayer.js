@@ -11,7 +11,7 @@
 // Connecting to socket.io
 //var socket = io.connect('http://40.68.102.207:3000');
 var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
-//var socket = io.connect('http://localhost:3000');
+//var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
 
 var createRoomButton = "#createGame";
 var cancelGameButton = "#cancelGame";
