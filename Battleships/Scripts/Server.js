@@ -22,7 +22,7 @@ Game.prototype.addPlayer = function(userID) {
 
 /** Server Code */
 
-var express = require('express');
+/*var express = require('express');
 var app = express();
 
 app.use(function(req, res, next) {
@@ -38,7 +38,27 @@ var server = require('http').createServer(app),
     fs = require('fs'),
     path = require('path');
 
+server.listen(3000);*/
+
+var https = require('https'), 
+	path = require('path'),
+    fs = require('fs'),
+	express = require('express'),
+	app = express();        
+
+var options = 
+	{
+		//key: fs.readFileSync('./test_key.key'),
+		pfx: fs.readFileSync('./battleships-preprod.pfx'),
+		passphrase: 'password',
+		requestCert: false,
+		rejectUnauthorized: false
+	};
+var server = https.createServer(options, app);
+var io = require('socket.io').listen(server);     //socket.io server listens to https connections
+
 server.listen(3000);
+///////
 
 console.log('Server running. . . ');
 
