@@ -18,9 +18,6 @@ var hoverCell;
 
 function boardPlaceHover(ship) {
 
-    console.log("hover");
-    console.log(hoverCell);
-
     // validation check to make sure the ship has not been placed
     if (ship.isPlaced()) {
         return;
