@@ -3,6 +3,7 @@
  * 
  * V0.1     Nick    07/11/16    Initial creation
  * V0.11    Nick    09/11/16    returning object instead of array
+ * V0.2     Nick    10/11/16    removed rotation code
  * 
  */
 
@@ -12,7 +13,6 @@
 function initPlaceShips() {
 
     // variables to be used in various places
-    var cell;
     var ship;
 
     // get the next ship to place
@@ -31,7 +31,7 @@ function initPlaceShips() {
         removeClicks();
         removeHovers();
 
-        $(window).unbind("keydown");
+        endShipRotation();
         $("#gameMessage").html("");
 
         // invoke game ready function
@@ -45,27 +45,17 @@ function initPlaceShips() {
     // attach a mouseenter event to each cell in the player board
     $(page + " " + playerBoard + " td").bind("mouseenter ", function () {
         // assign the cell variable to the cell hovered on
-        cell = $(this);
+        hoverCell = $(this);
 
         // run the hover function on the cell with the ship
-        boardPlaceHover(cell, ship);  
+        boardPlaceHover(ship);
     });
-    
-    // attach a keydown handler to the window
-    $(window).keydown(function (e) {
 
-        // when an "r" is pressed...
-        if (e.which == 82) {
-            // change the orientation of the ship
-            ship.changeOrientation();
-
-            // re-run the hover function to show that the ship has changed orientation
-            boardPlaceHover(cell, ship);
-        }
-    });
+    initShipRotation(ship);
 
     // add a mouseleave handler onto the cell in player's board
     $(page + " " + playerBoard + " td").on ("mouseleave", function () {
+        hoverCell = null;
         cleanupHoverClasses();
     });
 }

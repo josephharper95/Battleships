@@ -1,7 +1,8 @@
 /**
  * Last Modified By: Nick Holdsworth
  * 
- * V0.1     Nick    Initial creation
+ * V0.1     Nick    09/11/16    Initial creation
+ * V0.2     Nick    10/11/16    update to endGame to add param
  * 
  */
 
@@ -61,7 +62,7 @@ function playerMove() {
     } else {
 
         // if game is not viable, end game
-        endGame("opponent");
+        endGame("opponent", true);
     }
 }
 

@@ -14,6 +14,7 @@
 * V0.33     Nick    29/10/16    added perk / sonar pieces
 * V0.34     Nick    01/10/16    tracking what difficulty they're on from DB
 * V0.35     Nick    07/11/16    missing files
+* V0.36     Nick    10/11/16    added rotate ship file
 *
 **/
 
@@ -78,6 +79,7 @@ require_once("header.php");
 <script src="../../Scripts/Pages/aiFireAtPlayer.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/cleanups.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/perkSonar.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/rotateShip.js" type="text/javascript" ></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
@@ -133,6 +135,13 @@ require_once("header.php");
                     <button class="button" 
                             style="display:none;"
                             id="startGame" >Start!</button>
+
+                    <button class="button"
+                            style="display:none;"
+                            id="rotateShip"
+                            title="Or press 'r' to rotate">
+                        Rotate Ship
+                    </button>
 
                     <button class="button"
                             style="display:none;"

@@ -10,6 +10,7 @@
 * V0.21     Joe     06/10/16    Added comments, moved message to formatted tags
 * V0.22     Nick    13/10/16    changed successful login to point to index.php rather than game.php
 * V0.23     Joe     21/10/16    altered code to reflect addition of User class
+* V0.24     Nick    10/11/16    updated redirection
 *
 **/
 
@@ -39,7 +40,7 @@
             Session::set("firstName", $user->firstName);
             Session::set("lastName", $user->lastName);
 
-            header("Location: game.php");
+            header("Location: ../../index.php");
             exit();
 
         } else { // If username + hashed password combination not found in the DB... redirect back to login page.

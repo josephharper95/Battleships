@@ -2,6 +2,7 @@
  * Last Modified By: Nick Holdsworth
  * 
  * V0.1     Nick    Initial creation
+ * V0.11    Nick    Added extra param to end game
  * 
  */
 
@@ -47,6 +48,6 @@ function AIMove() {
     } else {
 
         // if game is not viable, end
-        endGame("player");
+        endGame("player", true);
     }
 }

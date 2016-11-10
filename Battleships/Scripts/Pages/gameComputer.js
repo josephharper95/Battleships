@@ -18,6 +18,7 @@
  *  V0.6    Nick    01/11/16    tracking statistics
  *  V0.61   Nick    01/11/16    added total playing time
  *  V0.7    Nick    03/11/16    split off code into more files
+ *  V0.8    Nick    10/11/16    added confirmation when user wants to leave page (WHEN ACTUALLY PLAYING)
  * 
  */
 
@@ -83,7 +84,7 @@ $(document).ready(function () {
     // initiliase game object and get the player / computer board
     game = new Game(boardSize);
     playerBoardClass = game.getPlayerBoard();
-    opponentBoardClass = game.getComputerBoard();
+    opponentBoardClass = game.getComputerBoard(); 
 });
 
 /******************************
@@ -174,6 +175,8 @@ function gameReady() {
 // function to start the game officially
 function startGame() {
 
+    window.onbeforeunload = confirmExit;
+
     // set the variable so other methods know the game has begun
     gameStarted = true;
 
@@ -186,33 +189,40 @@ function startGame() {
     placeAIShips();
 
     // let the player have the first move
-    playerMove();    
+    playerMove();
+}
+
+function confirmExit() {
+    return "If you leave the page, your game will not be saved";
 }
 
 // function to end game - HACK
-function endGame(winner) {
+function endGame(winner, finished) {
 
-    removeClicks();
-    removeHovers();
-    disablePerks();
+    if (finished) {
 
-    var endTime = new Date();
-    var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
+        removeClicks();
+        removeHovers();
+        disablePerks();
 
-    // alert appropriate message
-    if (winner == "player") {
-        $.ajax({
-            url: "../../Content/Pages/gameAjax.php",
-            data: {
-                action: "recordWin"
-            },
-            type: "post"
-        });
+        var endTime = new Date();
+        var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
 
-        alert("Game Over! - You Won! :)");
-    } else {
-        alert("Game Over! - You Lost! :(");
-        showOpponentShips();
+        // alert appropriate message
+        if (winner == "player") {
+            $.ajax({
+                url: "../../Content/Pages/gameAjax.php",
+                data: {
+                    action: "recordWin"
+                },
+                type: "post"
+            });
+
+            alert("Game Over! - You Won! :)");
+        } else {
+            alert("Game Over! - You Lost! :(");
+            showOpponentShips();
+        }
     }
 
     $.ajax({
@@ -226,6 +236,8 @@ function endGame(winner) {
             },
             type: "post"
         });
+
+    window.onbeforeunload = null;
 }
 
 /******************************
