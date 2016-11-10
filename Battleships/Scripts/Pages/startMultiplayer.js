@@ -5,13 +5,14 @@
  * V0.2     Nick        09/11/16    added the ability to create / leave room
  * V0.2.1   Dave        09/11/16    Create game bug fix
  * V0.3     Team        09/11/16    added more listeners and giving more feedback to user
+ * V0.31    Nick        10/11/16    added in loader until the user connects to the server
  * 
  */
 
 // Connecting to socket.io
 //var socket = io.connect('http://40.68.102.207:3000');
-var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
-//var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
+//var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
+var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
 
 var createRoomButton = "#createGame";
 var cancelGameButton = "#cancelGame";
@@ -20,11 +21,13 @@ var availableRooms = "#availableRooms";
 
 $(document).ready(function() {
 
+    showWaiting(true, "Connecting you, Please wait...");
+
     socket.emit("join", session.id);
 
-    socket.on("joinServerRepsonse", function(data){
-        if(data){
-         //action
+    socket.on("joinServerRepsonse", function(data) {
+        if (data){
+            showWaiting(false);
         }
     });
 

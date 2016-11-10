@@ -11,6 +11,7 @@
 * V0.13     Nick                30/10/16    added statistics option
 * V0.2      Nick                09/11/16    added waiting loader 
 * V0.3      Nick / Dave / Joe   09/11/16    added offline / online
+* V0.4      Nick                10/11/16    added extra loader HTML
 *
 */ 
 
@@ -40,6 +41,12 @@ require_once("../Classes/setup.php");
         <div id="waitingMessage">
             
         </div>
+    </div>
+</div>
+
+<div id="loaderOverlay">
+    <div id="loaderCont">
+        <div id="loader"></div></div>
     </div>
 </div>
 
