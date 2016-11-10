@@ -26,7 +26,7 @@ require_once("header.php");
 
 <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.0.3.js"></script>
 
-<script src="../../Scripts/Pages/startMultiplayer.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/multiplayer.js" type="text/javascript"></script>
 
 <div id="pageStartMultiplayer"
      class="standardWidth">

@@ -12,6 +12,7 @@
 * V0.2      Nick                09/11/16    added waiting loader 
 * V0.3      Nick / Dave / Joe   09/11/16    added offline / online
 * V0.4      Nick                10/11/16    added extra loader HTML
+* V0.41     Nick                10/11/16    renamed multiplayer pages
 *
 */ 
 
@@ -82,7 +83,7 @@ if (Session::exists("userID")) {
                 </li>
 
                 <li>
-                    <a href="startMultiplayer.php">Multiplayer</a>
+                    <a href="multiplayer.php">Multiplayer</a>
                 </li>
 
                 <li>

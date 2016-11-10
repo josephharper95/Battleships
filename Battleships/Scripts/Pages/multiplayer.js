@@ -66,14 +66,18 @@ socket.on('gameList', function (data) {
                 returnText += data[game].name;
                 returnText += "</span>";
 
-                returnText += "<button ";
-                returnText += "class='joinGame' "
-                returnText += "data-username='" + data[game].name + "'"; 
-                returnText += ">"
+                if (data[game].name != session.id) {
 
-                returnText += "Join Game"
+                    returnText += "<button ";
+                    returnText += "class='joinGame' "
+                    returnText += "data-username='" + data[game].name + "'"; 
+                    returnText += ">"
 
-                returnText += "</button>";
+                    returnText += "Join Game"
+
+                    returnText += "</button>";
+
+                }
 
                 returnText += "</li>";
             }
