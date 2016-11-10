@@ -38,6 +38,8 @@ var server = require('http').createServer(app),
     fs = require('fs'),
     path = require('path');
 
+server.listen(3000);
+
 console.log('Server running. . . ');
 
 // Loading the page index.html
@@ -80,6 +82,7 @@ io.sockets.on('connection', function (socket, username) {
         clients.push(socket); //populate the clients array with the client object
 
         io.sockets.emit("playersOnline", clients.length);
+        socket.emit('joinServerRepsonse', true);
     });
 
     /**
@@ -130,12 +133,15 @@ io.sockets.on('connection', function (socket, username) {
         //Perform some validation
         if (socket.id == game.owner) {
             socket.emit("alert", "You are the owner of this game and you have already been joined.");
+            socket.emit("joinGameResponse", false);
         } 
         else if (players[socket.id].game != null){
             socket.emit("alert", "You are already in a game");
+            socket.emit("joinGameResponse", false);
         }
         else if (game.players.length >= 2){
             socket.emit("alert", "This game is full, please create a new one");
+            socket.emit("joinGameResponse", false);
         }
         else {
             game.addPlayer(socket.id); //add the player to the game object
@@ -145,6 +151,7 @@ io.sockets.on('connection', function (socket, username) {
             user = players[socket.id];
             io.sockets.in(socket.game).emit("alert", user.username + " has connected to " + game.name);// Message to players in the game
             socket.emit("alert", "Welcome to " + game.name + ".");
+            socket.emit("joinGameResponse", true);
             }
     });
 
@@ -174,26 +181,23 @@ io.sockets.on('connection', function (socket, username) {
         }
     });
 
+    /**
+     * Tells the opponent to record a hit at x,y
+     */
     socket.on("fire", function(coord){
-        var opponent;
-        var game = games[players[socket.id].game];
-            if(game.players[0] !== socket.id){
-                opponent = game.players[0];
-            }else{
-                opponent = game.players[1];
-            }
+        var opponent = getOpponent();
         io.sockets.to(opponent).emit("recordHit", coord);
     });
 
-    socket.on("sonarRequest", function(x,y){
-        
-    });
-
-
-
     /**
-     * Removes players from game gracefully on disconnect
-     * TODO: Code is copied from leave game, not worked out how to call the other method internally. 
+     * Waits for response from oppenent of a recorded hit, transmits the data back to the client (hit/miss)
+     */
+    socket.on("recordHitResponse", function(data){
+        io.sockets.to(socket.id).emit("fireResponse", data);
+    });
+    
+    /**
+     * Removes players from game gracefully on disconnect 
      */
     socket.on("disconnect", function() {  
         if (players[socket.id]) {
@@ -250,19 +254,21 @@ io.sockets.on('connection', function (socket, username) {
         }
 
         players[socket.id].game = null;
-
-        //if (game[gameId]) {
-            //Delete the game session
-            delete games[gameId]; 
-        //}
+        //Delete the game session
+        delete games[gameId]; 
 
         // refresh games list
         io.sockets.emit("gameList", games);
     }
-});
 
-server.listen(3000);
-// server.listen(process.env.port, function () {  //Updated
-//   var addr = server.address();
-//   console.log('   app listening on http://' + addr.address + ':' + addr.port);
-// });
+    function getOpponent(){
+        var opponent;
+        var game = games[players[socket.id].game];
+        if(game.players[0] !== socket.id){
+            opponent = game.players[0];
+        } else{
+            opponent = game.players[1];
+        }
+        return opponent;
+    }
+});

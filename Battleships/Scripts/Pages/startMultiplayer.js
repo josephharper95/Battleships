@@ -21,6 +21,12 @@ $(document).ready(function() {
 
     socket.emit("join", session.id);
 
+    socket.on("joinServerRepsonse", function(data){
+        if(data){
+         //action
+        }
+    });
+
     $(createRoomButton).off("click").one("click", function () {
         createRoom();
     });
