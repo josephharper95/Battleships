@@ -206,7 +206,22 @@ io.sockets.on('connection', function (socket, username) {
         } else if (games[players[socket.id].game] == null) {
             console.log("games[player[socket.id]] == null");
         } else {
+            io.sockets.to(socket.id).emit('leaveGameResponse', true);
+            var opponent = getOpponent();
+            io.sockets.emit(opponent).emit('playerLeftResponse', true); 
             leaveGame();
+        }
+    });
+
+    /**
+     * Records the win/loss and ends the game.
+     */
+    socket.on("lostGame", function(){
+        if(players[socket.id].game !== null){
+            var opponent = getOpponent();
+            io.sockets.on(socket.id).emit("lostGameResponse", true);//Loss
+            io.sockets.on(opponent).emit("lostGameRepsonse", false);//Win
+            leaveGame(); //end the game
         }
     });
 
