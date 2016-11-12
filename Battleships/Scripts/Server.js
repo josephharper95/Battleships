@@ -1,8 +1,9 @@
 /**
  * Last Modified By: Team
  * 
- * 0.1  Team    07/11/16    initial creation  
- * 0.2  Team    09/11/16    updates and bug fixes
+ * V0.1     Team    07/11/16    initial creation  
+ * V0.2     Team    09/11/16    updates and bug fixes
+ * V0.21    Nick    12/11/16    added joinGameResponse
  */
 
 /** Game class */
@@ -181,7 +182,9 @@ io.sockets.on('connection', function (socket, username) {
             io.sockets.in(socket.game).emit("alert", user.username + " has connected to " + game.name);// Message to players in the game
             socket.emit("alert", "Welcome to " + game.name + ".");
             socket.emit("joinGameResponse", true);
-            }
+
+            io.sockets.in(socket.game).emit("joinGameResponse", true);
+        }
     });
 
     /**
