@@ -13,6 +13,7 @@
 * V0.3      Nick / Dave / Joe   09/11/16    added offline / online
 * V0.4      Nick                10/11/16    added extra loader HTML
 * V0.41     Nick                10/11/16    renamed multiplayer pages
+* V0.5      Nick                12/11/16    added version to header
 *
 */ 
 
@@ -53,6 +54,11 @@ require_once("../Classes/setup.php");
 
 <body>
     <div id="header">
+
+        <div class="version">
+            Version: 1.0.0
+        </div>
+
         <div id="headerBar">
             <h1 id="headerTitle">BattleShips Online</h1>
 
