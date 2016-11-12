@@ -6,6 +6,7 @@
  * V0.2.1   Dave        09/11/16    Create game bug fix
  * V0.3     Team        09/11/16    added more listeners and giving more feedback to user
  * V0.31    Nick        10/11/16    added in loader until the user connects to the server
+ * V0.4     Nick        12/11/16    added timeout to join server, added the ability to join a game
  * 
  */
 
@@ -25,9 +26,14 @@ $(document).ready(function() {
 
     socket.emit("join", session.id);
 
+    var timeout = setTimeout(function () {
+        socket.emit("join", session.id);
+    }, 5000);
+
     socket.on("joinServerRepsonse", function(data) {
         if (data){
             showWaiting(false);
+            clearTimeout(timeout);
         }
     });
 
@@ -70,7 +76,7 @@ socket.on('gameList', function (data) {
 
                     returnText += "<button ";
                     returnText += "class='joinGame' "
-                    returnText += "data-username='" + data[game].name + "'"; 
+                    returnText += "data-game='" + data[game].id + "'"; 
                     returnText += ">"
 
                     returnText += "Join Game"
@@ -86,10 +92,17 @@ socket.on('gameList', function (data) {
     }
 
     $(availableRooms).html(returnText);
+
+    // click handlers for joining a game
+    $(".joinGame").off("click").on("click", function () {
+        
+        var id = $(this).data("game");
+
+        joinGame(id);
+    });
 });
 
 function createRoom() {
-
     socket.emit("createGame", session.id);
 }
 
@@ -122,5 +135,37 @@ socket.on("createGameResponse", function (data) {
         $(createRoomButton).off("click").one("click", function () {
             createRoom();
         });
+    }
+});
+
+function joinGame(id) {
+
+    // remove click handler
+    $(".joinGame").off("click");
+
+    // join the game
+    socket.emit("joinGame", id);
+
+    showWaiting(true, "Connecting you to the game, good luck!");
+}
+
+socket.on("joinGameResponse", function (joined) {
+
+    showWaiting(false);
+
+    if (joined) {
+
+        alert("Game is now ready to play!");
+
+    } else {
+
+        alert("Couldn't join you to the game :(");
+    }
+});
+
+socket.on("gameReady", function (ready) {
+    if (ready) {
+        showWaiting(false);
+        alert("Lobby ready");
     }
 });

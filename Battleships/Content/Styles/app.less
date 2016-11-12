@@ -18,6 +18,7 @@
 * V0.32     Nick    09/11/16    moved where button css is
 * V0.4      Nick    09/11/16    added for offline / online
 * V0.41     Nick    10/11/16    missing css for loader
+* V0.5      Nick    12/11/16    added version CSS
 *
 **/
 
@@ -90,6 +91,14 @@ html {
             height: 80px;
             background-color: @mainColour;
             overflow: hidden;
+
+            .version {
+                position: fixed;
+                right: 5px;
+                top: 60px;
+                font-size: 90%;
+                color: #fff;
+            }
 
             #headerBar {
                 width: 810px;
