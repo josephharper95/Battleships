@@ -157,7 +157,7 @@ io.sockets.on('connection', function (socket, username) {
      * Adds the client to the game with the given id.
      */
     socket.on("joinGame", function(id) {  
-
+        
         var game = games[id];//get the game that corresponds with the id
 
         //Perform some validation

@@ -1,9 +1,10 @@
 /**
  * Last Modified By: Nick Holdsworth
  * 
- * V0.1     Nick    Initial creation
- * V0.11    Nick    Name of board was fixed when it shouldn't have been
- * V0.12    Nick    returning object instead of array
+ * V0.1     Nick    09/11/16    Initial creation
+ * V0.11    Nick    10/11/16    Name of board was fixed when it shouldn't have been
+ * V0.12    Nick    11/11/16    returning object instead of array
+ * V0.13    Nick    13/11/16    changed ID strings to be variables
  * 
  */
 
@@ -12,7 +13,7 @@
  */
 function initUndoLastShip() {
     if (!$("#undoLastShip:visible").length) {
-        $("#undoLastShip").fadeIn(500).unbind("click").one("click", function () {
+        $(undoLastShipButton).fadeIn(500).unbind("click").one("click", function () {
             undoLastShip();
         });
     }
@@ -41,17 +42,23 @@ function undoLastShip() {
         $cell.removeAttr("data-ship-part");
     }
 
-    initPlaceShips();
-
+    console.log(numShips);
+    console.log(shipsToPlace.length);
+    
     if (numShips > 0) {
-        $("#undoLastShip").unbind("click").one("click", function () {
+        $(undoLastShipButton).unbind("click").one("click", function () {
             undoLastShip();
         });
     } else {
-        $("#undoLastShip").fadeOut(500);
-        $("#resetBoard").fadeOut(500);
-        $("#startGame").fadeOut(500);
+        $(undoLastShipButton).fadeOut(500);
+        $(resetBoardButton).fadeOut(500);
     }
+
+    if (numShips < shipsToPlace.length) {
+        $(startGameButton).fadeOut(500);
+    }
+
+    initPlaceShips();
 }
 
 /**
@@ -60,7 +67,7 @@ function undoLastShip() {
 function initResetBoard() {
 
     if (!$("#resetBoard:visible").length) {
-        $("#resetBoard").fadeIn(500).unbind("click").one("click", function () {
+        $(resetBoardButton).fadeIn(500).unbind("click").one("click", function () {
             resetBoard();
         });
     }
@@ -71,9 +78,9 @@ function initResetBoard() {
  */
 function resetBoard() {
 
-    $("#resetBoard").fadeOut(500);
-    $("#undoLastShip").fadeOut(500);
-    $("#startGame").fadeOut(500);
+    $(resetBoardButton).fadeOut(500);
+    $(undoLastShipButton).fadeOut(500);
+    $(startGameButton).fadeOut(500);
 
     $(page + " " + playerBoard + " td").removeClass("containsShip");
     $(page + " " + playerBoard + " td").removeAttr("data-ship");

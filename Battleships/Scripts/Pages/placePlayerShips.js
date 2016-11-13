@@ -4,6 +4,7 @@
  * V0.1     Nick    07/11/16    Initial creation
  * V0.11    Nick    09/11/16    returning object instead of array
  * V0.2     Nick    10/11/16    removed rotation code
+ * V0.21    Nick    13/11/16    renamed 'gameReady' to 'shipsPlaced'
  * 
  */
 
@@ -35,7 +36,7 @@ function initPlaceShips() {
         $("#gameMessage").html("");
 
         // invoke game ready function
-        gameReady();
+        shipsPlaced();
         return;
     }
 

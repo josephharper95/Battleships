@@ -7,6 +7,7 @@
  * V0.3     Team        09/11/16    added more listeners and giving more feedback to user
  * V0.31    Nick        10/11/16    added in loader until the user connects to the server
  * V0.4     Nick        12/11/16    added timeout to join server, added the ability to join a game
+ * V0.5     Nick        13/11/16    added necessary variables to be able to place ships - place ship functionality
  * 
  */
 
@@ -15,10 +16,50 @@
 var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
 //var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
 
+var game;
+var playerBoardClass;
+var opponentBoardClass;
+var boardSize = 10; // static for the moment
+
+var page = "#subPagePlayGame";
+var playerBoard = "#playerBoard";
+var opponentBoard = "#opponentBoard";
+
 var createRoomButton = "#createGame";
 var cancelGameButton = "#cancelGame";
 
+var startGameButton = "#playerReady";
+var rotateShipButton = "#rotateShip";
+var undoLastShipButton = "#undoLastShip";
+var resetBoardButton = "#resetBoard";
+
 var availableRooms = "#availableRooms";
+
+// hard coded ships for the moment
+var shipDetails = [
+    {
+        name: "Destroyer",
+        size: 2
+    },
+    {
+        name: "Submarine",
+        size: 3
+    },
+    {
+        name: "Cruiser",
+        size: 3
+    },
+    {
+        name: "BattleShip",
+        size: 4
+    },
+    {
+        name: "Carrier",
+        size: 5
+    }
+];
+
+var shipsToPlace = new Array();
 
 $(document).ready(function() {
 
@@ -34,6 +75,9 @@ $(document).ready(function() {
         if (data){
             showWaiting(false);
             clearTimeout(timeout);
+        } else {
+            showWaiting(false);
+
         }
     });
 
@@ -42,6 +86,16 @@ $(document).ready(function() {
     });
 
 });
+
+function changePage(page) {
+    // $(".subPage").fadeOut(500, function () {
+    //     $(page).fadeIn(500);
+    // });
+
+    $(".subPage:not(" + page +")").fadeOut(200).promise().done(function () {
+        $(page).fadeIn(500);
+    });
+}
 
 socket.on("playersOnline", function (num) {
     $("#playersOnline").html("Online (" + num + " Worldwide)");
@@ -155,7 +209,9 @@ socket.on("joinGameResponse", function (joined) {
 
     if (joined) {
 
-        alert("Game is now ready to play!");
+        changePage("#subPagePlayGame");
+        
+        initGame();
 
     } else {
 
@@ -163,9 +219,60 @@ socket.on("joinGameResponse", function (joined) {
     }
 });
 
-socket.on("gameReady", function (ready) {
-    if (ready) {
-        showWaiting(false);
-        alert("Lobby ready");
+function initGame() {
+
+    if (shipsToPlace.length == 0) {
+        populateShips();
+        initPlaceShips();
     }
-});
+
+    game = new Game(boardSize);
+    playerBoardClass = game.getPlayerBoard();
+    opponentBoardClass = game.getComputerBoard();
+
+}
+
+/******************************
+ * 
+ *      POPULATING SHIPS
+ * 
+******************************/
+
+/**
+ * Function to populate the ships that can be placed into an array and into the reamining ships container in the HTML
+ */
+function populateShips() {
+    console.log("populating ships");
+    var remainingShipsHtml = "";
+
+    for (i = 0; i < shipDetails.length; i++) {
+
+        shipsToPlace.push(new Ship(shipDetails[i].name, shipDetails[i].size));
+
+        remainingShipsHtml += "<li class='" + shipDetails[i].name + "'>" + shipDetails[i].name + "</li>";
+    }
+
+    $(page + " .boardExtrasContainer ul.remainingShips").html(remainingShipsHtml);
+}
+
+function shipsPlaced() {
+
+    // cleanups
+    removeHovers();
+    $(window).unbind("keydown");
+
+    // show the start game button
+    $(startGameButton).fadeIn(500);
+    
+    // add click handler to the button at this point
+    $(startGameButton).unbind("click").one("click", function () {
+
+        // on click - fade button out
+        $(startGameButton).fadeOut(500);
+        $(resetBoardButton).fadeOut(500).unbind("click");
+        $(undoLastShipButton).fadeOut(500).unbind("click");
+
+        // emit to server that player is ready
+        showWaiting(true, "You're ready to play!<br/><br/>Please wait for your opponent to place their ships")
+    });
+}

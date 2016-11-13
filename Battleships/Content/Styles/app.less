@@ -19,6 +19,7 @@
 * V0.4      Nick    09/11/16    added for offline / online
 * V0.41     Nick    10/11/16    missing css for loader
 * V0.5      Nick    12/11/16    added version CSS
+* V0.51     Nick    13/11/16    tweaks to renamed ids
 *
 **/
 
@@ -206,7 +207,8 @@ html {
                 clear:both;
             }
 
-            #pageComputerGame {
+            #pageComputerGame,
+            #subPagePlayGame {
                 text-align: center;
 
                 .sideContainer {
@@ -749,7 +751,9 @@ html {
                 }
             }
 
-            #pageStartMultiplayer {
+            #pageMultiplayer {
+                text-align: left;
+
                 .pageTitle {
                     float: left;
                 }
@@ -929,7 +933,7 @@ html {
     height: 100%;
     width: 100%;
     background-color: #222;
-    opacity: 0.7;
+    opacity: 0.8;
     z-index: 100000;
     display: none;
 

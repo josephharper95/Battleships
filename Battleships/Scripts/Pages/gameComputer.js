@@ -19,6 +19,7 @@
  *  V0.61   Nick    01/11/16    added total playing time
  *  V0.7    Nick    03/11/16    split off code into more files
  *  V0.8    Nick    10/11/16    added confirmation when user wants to leave page (WHEN ACTUALLY PLAYING)
+ *  0.81    Nick    13/11/16    added variables for buttons, extracted set attributes on ship to own file
  * 
  */
 
@@ -26,6 +27,11 @@
 var page = "#pageComputerGame";
 var playerBoard = "#playerBoard";
 var opponentBoard = "#computerBoard";
+
+var startGameButton = "#startGame";
+var rotateShipButton = "#rotateShip";
+var undoLastShipButton = "#undoLastShip";
+var resetBoardButton = "#resetBoard";
 
 var game;
 var gameStarted = false;
@@ -153,19 +159,19 @@ function endPlayerPerk() {
 ******************************/
 
 // function to invoke when the game is ready to start playing
-function gameReady() {
+function shipsPlaced() {
     // cleanups
     removeHovers();
     $(window).unbind("keydown");
 
     // show the start game button
-    $("#startGame").fadeIn(500);
+    $(startGameButton).fadeIn(500);
     
     // add click handler to the button at this point
-    $("#startGame").unbind("click").one("click", function () {
+    $(startGameButton).unbind("click").one("click", function () {
 
         // on click - fade button out
-        $("#startGame").fadeOut(500);
+        $(startGameButton).fadeOut(500);
 
         // invoke method startGame
         startGame();
@@ -180,8 +186,8 @@ function startGame() {
     // set the variable so other methods know the game has begun
     gameStarted = true;
 
-    $("#resetBoard").fadeOut(500).unbind("click");
-    $("#undoLastShip").fadeOut(500).unbind("click");
+    $(resetBoardButton).fadeOut(500).unbind("click");
+    $(undoLastShipButton).fadeOut(500).unbind("click");
 
     $(".boardExtrasContainer").fadeIn(500);
 
@@ -254,37 +260,5 @@ function showOpponentShips() {
 
     for (var i = 0; i < remainingShips.length; i++) {
         setShipAttributesOnBoard(opponentBoard, remainingShips[i]);
-    }
-}
-
-/******************************
- * 
- *       HELPER METHODS
- * 
-******************************/
-
-/**
- * Set the attributes for images on board
- */
-function setShipAttributesOnBoard(board, ship) {
-
-    var coords = ship.getCoordinates();
-
-    // recurse through the coordinates
-    for (i = 0; i < coords.length; i++) {
-
-        // set a variable for the individual coordinate
-        var c = coords[i];
-
-        // add the appropriate class to each cell
-        var cell = $(board + " tr:eq(" + c.getY() + ") > td:eq(" + c.getX() + ")")[0];
-        
-        $(cell).attr("data-ship", ship.getName());
-        $(cell).attr("data-orientation", (ship.getOrientation() == 0 ? "Vertical" : "Horizontal"));
-        $(cell).attr("data-ship-part", i);
-
-        if (!$(cell).hasClass("containsShip")) {
-            $(cell).addClass("containsShip");
-        }
     }
 }

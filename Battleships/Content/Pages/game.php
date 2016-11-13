@@ -15,6 +15,7 @@
 * V0.34     Nick    01/10/16    tracking what difficulty they're on from DB
 * V0.35     Nick    07/11/16    missing files
 * V0.36     Nick    10/11/16    added rotate ship file
+* V0.37     Nick    13/11/16    added new file that has been added
 *
 **/
 
@@ -80,6 +81,7 @@ require_once("header.php");
 <script src="../../Scripts/Pages/cleanups.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/perkSonar.js" type="text/javascript"></script>
 <script src="../../Scripts/Pages/rotateShip.js" type="text/javascript" ></script>
+<script src="../../Scripts/Pages/setShipAttributes.js" type="text/javascript" ></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>

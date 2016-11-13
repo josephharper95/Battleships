@@ -2,6 +2,7 @@
  * Last Modified By: Nick Holdsworth
  * 
  * V0.1     Nick    10/11/16    intial creation
+ * V0.11    Nikc    13/11/16    changed ID strings to variables
  * 
  */
 
@@ -21,7 +22,7 @@ function initShipRotation(ship) {
         }
     });
 
-    $("#rotateShip").fadeIn(200).off("click").on("click", function () {
+    $(rotateShipButton).fadeIn(200).off("click").on("click", function () {
         // change the orientation of the ship
         ship.changeOrientation();
     });
@@ -30,5 +31,5 @@ function initShipRotation(ship) {
 function endShipRotation() {
     $(window).unbind("keydown");
 
-    $("#rotateShip").off("click").fadeOut(200);
+    $(rotateShipButton).off("click").fadeOut(200);
 }
