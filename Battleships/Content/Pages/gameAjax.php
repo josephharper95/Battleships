@@ -7,6 +7,7 @@
 *
 * V0.1      Nick    01/11/16    initial creation
 * V0.11     Nick    01/11/16    added total playing time
+* V0.12     Nick    13/11/16    added increment games played
 *
 **/
 
@@ -26,6 +27,9 @@ if (Input::itemExists("action")) {
     $action = Input::post("action");
 
     switch ($action) {
+        case "incrementGamesPlayed":
+            incrementGamesPlayed();
+            break;
         case "recordWin":
             recordWin();
             break;
@@ -39,6 +43,15 @@ if (Input::itemExists("action")) {
             break;
     }
 
+}
+
+function incrementGamesPlayed() {
+    global $userId, $user, $difficultyId;
+
+    if (isset($userId) && isset($difficultyId)) {
+
+        $user->incrementGamesPlayed($userId, $difficultyId);
+    }
 }
 
 function recordWin() {

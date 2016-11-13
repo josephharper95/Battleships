@@ -2,24 +2,25 @@
  * Last Modified By: Nick Holdsworth
  * Current Version: 0.61
  *
- *  V0.1    Nick    01/10/16    initial creation
- *  V0.11   Nick    04/10/16    made code stricter and tightened validation and commented
- *  V0.2    Nick    07/10/16    implemented undo place ship / reset board
- *  V0.3    Nick    12/10/16    added ship images
- *  VO.31   Dave    13/10/16    changed AI class to AIMedium
- *  V0.32   Nick    13/10/16    made AI class dynamic based on user selection
- *  V0.33   Nick    15/10/16    stopped user being able to click when game is finished, fixed bug where undo / reset was not actually resetting images
- *  V0.34   Dave    17/10/16    Added AIHard creation.
- *  V0.35   Nick    17/10/16    reformatted methods to be grouped, updated comments to be in line with other files
- *  V0.36   Ncik    17/10/16    added helper method to reduce duplicated code, enemy ship images now show when you destroy a ship
- *  V0.4    Nick    18/10/16    opponent ships show up if you lose
- *  V0.41   Joe     26/10/16    renamed methods
- *  V0.5    Nick    29/10/16    added initial sonar capabilities
- *  V0.6    Nick    01/11/16    tracking statistics
- *  V0.61   Nick    01/11/16    added total playing time
- *  V0.7    Nick    03/11/16    split off code into more files
- *  V0.8    Nick    10/11/16    added confirmation when user wants to leave page (WHEN ACTUALLY PLAYING)
- *  0.81    Nick    13/11/16    added variables for buttons, extracted set attributes on ship to own file
+ * V0.1     Nick    01/10/16    initial creation
+ * V0.11    Nick    04/10/16    made code stricter and tightened validation and commented
+ * V0.2     Nick    07/10/16    implemented undo place ship / reset board
+ * V0.3     Nick    12/10/16    added ship images
+ * VO.31    Dave    13/10/16    changed AI class to AIMedium
+ * V0.32    Nick    13/10/16    made AI class dynamic based on user selection
+ * V0.33    Nick    15/10/16    stopped user being able to click when game is finished, fixed bug where undo / reset was not actually resetting images
+ * V0.34    Dave    17/10/16    Added AIHard creation.
+ * V0.35    Nick    17/10/16    reformatted methods to be grouped, updated comments to be in line with other files
+ * V0.36    Ncik    17/10/16    added helper method to reduce duplicated code, enemy ship images now show when you destroy a ship
+ * V0.4     Nick    18/10/16    opponent ships show up if you lose
+ * V0.41    Joe     26/10/16    renamed methods
+ * V0.5     Nick    29/10/16    added initial sonar capabilities
+ * V0.6     Nick    01/11/16    tracking statistics
+ * V0.61    Nick    01/11/16    added total playing time
+ * V0.7     Nick    03/11/16    split off code into more files
+ * V0.8     Nick    10/11/16    added confirmation when user wants to leave page (WHEN ACTUALLY PLAYING)
+ * V0.81    Nick    13/11/16    added variables for buttons, extracted set attributes on ship to own file
+ * V0.82    Nick    13/11/16    statistics bug fix for incrementing games played
  * 
  */
 
@@ -182,6 +183,14 @@ function shipsPlaced() {
 function startGame() {
 
     window.onbeforeunload = confirmExit;
+
+    $.ajax({
+        url: "../../Content/Pages/gameAjax.php",
+        data: {
+            action: "incrementGamesPlayed"
+        },
+        type: "post"
+    });
 
     // set the variable so other methods know the game has begun
     gameStarted = true;

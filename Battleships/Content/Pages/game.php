@@ -16,6 +16,7 @@
 * V0.35     Nick    07/11/16    missing files
 * V0.36     Nick    10/11/16    added rotate ship file
 * V0.37     Nick    13/11/16    added new file that has been added
+* V0.38     Nick    13/11/16    statistics bug
 *
 **/
 
@@ -62,8 +63,6 @@ foreach ($dbDifficulties as $diff) {
         break;
     }
 }
-
-$userClass->incrementGamesPlayed(Session::get("userID"), Session::get("difficultyID"));
 
 // include the header file if it has not been included before
 require_once("header.php");
