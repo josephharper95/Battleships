@@ -9,6 +9,7 @@
 * V0.12     Nick    09/11/16    renamed to games rather than rooms
 * V0.13     Nick    09/11/16    page redirection bug
 * V0.2      Nick    13/11/16    added files for classes / scripts, markup for boards
+* V0.3      Nick    14/11/16    opponent's username gets populated
 *
 */
 
@@ -153,7 +154,7 @@ require_once("header.php");
             <!-- container for opponent board -->
             <div class="boardContainer">
 
-                <h3>Opponent (insert name)</h3>
+                <h3 id="opponentName" >Opponent</h3>
 
                 <!-- opponents board, populated relating to the size -->
                 <table id="opponentBoard" class="board" data-size="small" >

@@ -5,6 +5,7 @@
  * V0.2     Team    09/11/16    updates and bug fixes
  * V0.21    Nick    12/11/16    added joinGameResponse
  * V0.3     Dave    14/11/16    added methods to check that both clients are ready to play.
+ * V0.31    Nick    14/11/16    recordHitResponse goes to opponent instead of user
  */
 
 /** Game class */
@@ -265,7 +266,7 @@ io.sockets.on('connection', function (socket, username) {
     /**
      * Tells the opponent to record a hit at x,y
      */
-    socket.on("fire", function(coord){
+    socket.on("fire", function(coord) {
         var opponent = getOpponent();
         io.sockets.to(opponent).emit("recordHit", coord);
     });
@@ -273,8 +274,9 @@ io.sockets.on('connection', function (socket, username) {
     /**
      * Waits for response from oppenent of a recorded hit, transmits the data back to the client (hit/miss)
      */
-    socket.on("recordHitResponse", function(data){
-        io.sockets.to(socket.id).emit("fireResponse", data);
+    socket.on("recordHitResponse", function (data) {
+        var opponent = getOpponent();
+        io.sockets.to(opponent).emit("fireResponse", data);
     });
     
     /**

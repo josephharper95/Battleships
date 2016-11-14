@@ -8,6 +8,7 @@
  * V0.31    Nick        10/11/16    added in loader until the user connects to the server
  * V0.4     Nick        12/11/16    added timeout to join server, added the ability to join a game
  * V0.5     Nick        13/11/16    added necessary variables to be able to place ships - place ship functionality
+ * V0.6     Nick        14/11/16    players can now fire at each other
  * 
  */
 
@@ -102,24 +103,10 @@ socket.on("playersOnline", function (num) {
     $("#playersOnline").html("Online (" + num + " Worldwide)");
 });
 
-/**************************************** */
-//Getting the oppenent name and the player to start
-
 socket.on("opponentName", function(data){
-    console.log("Opponent: " + data);
+    //console.log("Opponent: " + data);
+    $("#opponentName").html("Opponent: " + data);
 });
-
-socket.on("gameReady", function(data){
-    console.log("Player to start: " +data);
-});
-
-socket.on("playerToStart", function(data){
-    if(data){
-         console.log("You are going first!!!");
-    }
-});
-
-/**************************************** */
 
 //To show alerts from server
 socket.on('alert', function(message){
@@ -214,6 +201,8 @@ socket.on("createGameResponse", function (data) {
 
 function joinGame(id) {
 
+    host = false;
+
     // remove click handler
     $(".joinGame").off("click");
 
@@ -251,6 +240,23 @@ function initGame() {
     opponentBoardClass = game.getComputerBoard();
 
 }
+
+socket.on("gameReady", function (data) {
+
+    console.log("gameReady");
+    showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
+});
+
+socket.on("playerToStart", function(data) {
+
+    console.log("playerToStart");
+    showWaiting(false);
+    
+    if (data) {
+         console.log("You are going first!!!");
+         playerMove();
+    }
+});
 
 /******************************
  * 
@@ -295,12 +301,122 @@ function shipsPlaced() {
         // emit to server that player is ready
         showWaiting(true, "You're ready to play!<br/><br/>Please wait for your opponent to place their ships")
 
-        /************************************************************** */
+        console.log("Host: " + host);
+
         if(host){
             socket.emit("hostReady");
         } else{
             socket.emit("playerReady");
         }
-        /************************************************************** */
     });
 }
+
+/******************************
+ * 
+ *        BOARD FIRING
+ * 
+******************************/
+
+function playerMove() {
+
+    $(page + " " + opponentBoard + " td").bind("mouseenter", function () {
+
+        var $cell = $(this);
+
+        var canFire = boardFireHover($cell);
+
+        if (canFire) {
+
+            $cell.unbind("click").one("click", function () {
+
+                fireAtPlayer($cell);
+            });
+        } else {
+            cleanupHoverClasses();
+        }
+
+        $cell.bind("mouseleave", function () {
+            cleanupHoverClasses();
+        });
+    });
+}
+
+function fireAtPlayer($cell) {
+
+    if ($cell) {
+
+        removeHovers();
+        removeClicks();
+        cleanupHoverClasses();
+
+        var x = $cell.index();
+        var $tr = $cell.closest('tr');
+        var y = $tr.index();
+
+        socket.emit("fire", {
+            x: x,
+            y: y
+        });
+
+        showWaiting(true, "Firing at opponent's board!")
+    }
+}
+
+socket.on("recordHit", function (data) {
+    
+    if (data) {
+
+        var x = data.x;
+        var y = data.y;
+
+        var hit = playerBoardClass.fire(x, y);
+        var ship = null;
+        var sunk = false;
+
+        if (hit) {
+            var coord = playerBoardClass.getCoordinateAt(x, y);
+            var shipObj = coord.getShip();
+
+            if (shipObj && shipObj.isDestroyed()) {
+                ship = shipObj;
+                sunk = true;
+            }
+        }
+
+        socket.emit("recordHitResponse", {
+            x: x,
+            y: y,
+            hit: hit,
+            ship: ship,
+            sunk: sunk
+        });
+
+        showWaiting(false);
+        playerMove();
+    }
+});
+
+socket.on("fireResponse", function (data) {
+    showWaiting(false);
+
+    var x = data.x;
+    var y = data.y;
+    var hit = data.hit;
+    var ship = data.ship;
+    var sunk = data.sunk;
+
+    $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
+
+    if (hit) {
+        $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("containsShip");
+
+        if (sunk) {
+            
+            if (ship.isDestroyed()) {
+
+            }
+        }
+    }
+
+    showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
+});
