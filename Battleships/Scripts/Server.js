@@ -320,9 +320,12 @@ io.sockets.on('connection', function (socket, username) {
 
         //Iterate over connected clients, if that client is in this game remove them TODO: Can this be more efficient?
         for (var i=0; i < clients.length; i++){
-            if (clients[i].id == game.players[i]) {
+            if (clients[i].id == game.players[0]) {
+                clients[i].leave(game.name);
+            } else if (clients[i].id == game.players[1]) {
                 clients[i].leave(game.name);
             }
+
         }
 
         var game = games[players[socket.id].game];
