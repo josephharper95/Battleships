@@ -10,6 +10,7 @@
 * V0.12     Joe     30/10/16    added queries to retrieve user statistics
 * V0.13     Nick    01/11/16    updated queries to allow number of shots to be placed, added regions
 * V0.14     Joe     14/11/16    added query to update score
+* V0.15     Joe     14/11/16    updated new user query to reflect addition of multiplayer statistics
 *
 **/
 
@@ -46,8 +47,9 @@ class User {
                                             totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime)
                 VALUES (?, '1', '0', '0', '0', '0', '0', '0', '0'),
                         (?, '2', '0', '0', '0', '0', '0', '0', '0'),
-                        (?, '3', '0', '0', '0', '0', '0', '0', '0')";
-        $values = array($userID, $userID, $userID);
+                        (?, '3', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '4', '0', '0', '0', '0', '0', '0', '0')";
+        $values = array($userID, $userID, $userID, $userID);
 
         $this->db->query($sql, $values);
     }

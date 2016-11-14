@@ -7,6 +7,7 @@
 * V0.11   Joe   03/01/16    added first name / last name to user
 * V0.12   Joe   26/10/16    added various columns, tables, indexes for user stats, remove save game support
 * V0.13   Nick  01/11/16    updated difficulties to be capitalised
+* V0.14   Joe   14/11/16    added "multiplayer" difficulty for stats and cleaned sql file
 *
 **/
 
@@ -30,90 +31,23 @@ USE `battleships`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `savegames`
+-- Table structure for table `difficulties`
 --
 
-CREATE TABLE `savegames` (
-  `saveGameID` int(11) NOT NULL,
-  `score` int(11) NOT NULL,
-  `boardWidth` int(11) NOT NULL,
-  `boardHeight` int(11) NOT NULL
+CREATE TABLE `difficulties` (
+  `difficultyID` int(11) NOT NULL,
+  `difficulty` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `savegames`
+-- Dumping data for table `difficulties`
 --
 
-INSERT INTO `savegames` (`saveGameID`, `score`, `boardWidth`, `boardHeight`) VALUES
-(2, 0, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `savegameships`
---
-
-CREATE TABLE `savegameships` (
-  `saveGameShipsID` int(11) NOT NULL,
-  `saveGameID` int(11) NOT NULL,
-  `shipID` varchar(15) NOT NULL,
-  `userControlled` tinyint(1) NOT NULL,
-  `orientation` tinyint(1) NOT NULL,
-  `headPositionX` int(11) NOT NULL,
-  `headPositionY` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `savegameships`
---
-
-INSERT INTO `savegameships` (`saveGameShipsID`, `saveGameID`, `shipID`, `userControlled`, `orientation`, `headPositionX`, `headPositionY`) VALUES
-(1, 2, 'Battleship', 1, 1, 0, 0),
-(2, 2, 'Carrier', 1, 1, 0, 1),
-(3, 2, 'Destroyer', 1, 1, 0, 2),
-(4, 2, 'Patrol', 1, 1, 0, 3),
-(5, 2, 'Submarine', 1, 1, 0, 4),
-(6, 2, 'Battleship', 0, 1, 0, 0),
-(7, 2, 'Carrier', 0, 1, 0, 1),
-(8, 2, 'Destroyer', 0, 1, 0, 2),
-(9, 2, 'Patrol', 0, 1, 0, 3),
-(10, 2, 'Submarine', 0, 1, 0, 4);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ships`
---
-
-CREATE TABLE `ships` (
-  `shipID` varchar(15) NOT NULL,
-  `size` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ships`
---
-
-INSERT INTO `ships` (`shipID`, `size`) VALUES
-('Battleship', 4),
-('Carrier', 5),
-('Destroyer', 3),
-('Patrol', 2),
-('Submarine', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `shotsfired`
---
-
-CREATE TABLE `shotsfired` (
-  `shotFiredID` int(11) NOT NULL,
-  `saveGameID` int(11) NOT NULL,
-  `positionX` int(11) NOT NULL,
-  `positionY` int(11) NOT NULL,
-  `userControlled` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `difficulties` (`difficultyID`, `difficulty`) VALUES
+(1, 'Easy'),
+(2, 'Medium'),
+(3, 'Hard'),
+(4, 'Multiplayer');
 
 -- --------------------------------------------------------
 
@@ -124,12 +58,9 @@ CREATE TABLE `shotsfired` (
 CREATE TABLE `users` (
   `userID` varchar(20) NOT NULL,
   `password` char(64) NOT NULL,
-  `saveGameID` int(11) DEFAULT NULL
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
 
 -- --------------------------------------------------------
 
@@ -139,142 +70,51 @@ CREATE TABLE `users` (
 
 CREATE TABLE `userstatistics` (
   `userID` varchar(20) NOT NULL,
+  `difficultyID` int(11) NOT NULL,
   `score` int(11) NOT NULL,
   `wins` int(11) NOT NULL,
-  `losses` int(11) NOT NULL,
   `gamesPlayed` int(11) NOT NULL,
-  `totalShotsFired` int(11) NOT NULL
+  `totalShotsFired` int(11) NOT NULL,
+  `totalShotsHit` int(11) NOT NULL,
+  `totalHitsReceived` int(11) NOT NULL,
+  `totalPlayingTime` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `userstatistics`
---
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `savegames`
+-- Indexes for table `difficulties`
 --
-ALTER TABLE `savegames`
-  ADD PRIMARY KEY (`saveGameID`);
-
---
--- Indexes for table `savegameships`
---
-ALTER TABLE `savegameships`
-  ADD PRIMARY KEY (`saveGameShipsID`),
-  ADD KEY `saveGameID` (`saveGameID`),
-  ADD KEY `shipID` (`shipID`);
-
---
--- Indexes for table `ships`
---
-ALTER TABLE `ships`
-  ADD PRIMARY KEY (`shipID`),
-  ADD UNIQUE KEY `shipID` (`shipID`);
-
---
--- Indexes for table `shotsfired`
---
-ALTER TABLE `shotsfired`
-  ADD PRIMARY KEY (`shotFiredID`),
-  ADD KEY `saveGameID` (`saveGameID`);
+ALTER TABLE `difficulties`
+  ADD PRIMARY KEY (`difficultyID`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userID`),
-  ADD UNIQUE KEY `userID` (`userID`),
-  ADD KEY `INDEX` (`saveGameID`);
+  ADD UNIQUE KEY `userID` (`userID`);
 
 --
 -- Indexes for table `userstatistics`
 --
 ALTER TABLE `userstatistics`
-  ADD PRIMARY KEY (`userID`),
-  ADD UNIQUE KEY `userStatisticsID` (`userID`);
+  ADD KEY `FK` (`difficultyID`),
+  ADD KEY `INDEX` (`userID`) USING BTREE;
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `savegames`
---
-ALTER TABLE `savegames`
-  MODIFY `saveGameID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `savegameships`
---
-ALTER TABLE `savegameships`
-  MODIFY `saveGameShipsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT for table `shotsfired`
---
-ALTER TABLE `shotsfired`
-  MODIFY `shotFiredID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `savegameships`
---
-ALTER TABLE `savegameships`
-  ADD CONSTRAINT `savegameships_ibfk_1` FOREIGN KEY (`saveGameID`) REFERENCES `savegames` (`saveGameID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `savegameships_ibfk_2` FOREIGN KEY (`shipID`) REFERENCES `ships` (`shipID`);
-
---
--- Constraints for table `shotsfired`
---
-ALTER TABLE `shotsfired`
-  ADD CONSTRAINT `shotsfired_ibfk_1` FOREIGN KEY (`saveGameID`) REFERENCES `savegames` (`saveGameID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`saveGameID`) REFERENCES `savegames` (`saveGameID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `userstatistics`
 --
 ALTER TABLE `userstatistics`
-  ADD CONSTRAINT `userstatistics_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`);
+  ADD CONSTRAINT `userstatistics_ibfk_2` FOREIGN KEY (`difficultyID`) REFERENCES `difficulties` (`difficultyID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `userstatistics_ibfk_3` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-/* V0.11 - Adding first name / last name */
-
-ALTER TABLE `users` ADD `firstName` VARCHAR(50) NOT NULL AFTER `password`;
-ALTER TABLE `users` ADD `lastName` VARCHAR(50) NOT NULL AFTER `firstName`;
-
-
-/* V1.12 - Adding tables/columns/indexes for stats, removed save game support */
-CREATE TABLE `battleships`.`difficulties` ( `difficultyID` INT NOT NULL , `difficulty` VARCHAR(10) NOT NULL , PRIMARY KEY (`difficultyID`)) ENGINE = InnoDB;
-INSERT INTO `difficulties` (`difficultyID`, `difficulty`) VALUES ('1', 'Easy'), ('2', 'Medium'), ('3', 'Hard');
-ALTER TABLE `userstatistics` ADD `difficultyID` INT NOT NULL AFTER `userID`, ADD INDEX `FK` (`difficultyID`);
-ALTER TABLE `userstatistics` ADD FOREIGN KEY (`difficultyID`) REFERENCES `battleships`.`difficulties`(`difficultyID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE `userstatistics` ADD `totalShotsHit` INT NOT NULL AFTER `totalShotsFired`;
-ALTER TABLE `userstatistics` ADD `totalPlayingTime` INT NOT NULL AFTER `totalShotsHit`;
-ALTER TABLE userstatistics DROP FOREIGN KEY userstatistics_ibfk_1;
-ALTER TABLE `battleships`.`userstatistics` DROP PRIMARY KEY, ADD INDEX `INDEX` (`userID`) USING BTREE;
-ALTER TABLE `userstatistics` ADD FOREIGN KEY (`userID`) REFERENCES `battleships`.`users`(`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `userstatistics` DROP INDEX `userStatisticsID`;
-ALTER TABLE `userstatistics` ADD `totalHitsReceived` INT NOT NULL AFTER `totalShotsHit`;
-/*Save game support removed*/
-DELETE FROM `savegames`;
-DROP TABLE `savegameships`;
-DROP TABLE `ships`;
-ALTER TABLE `users` DROP FOREIGN KEY `users_ibfk_1`;
-ALTER TABLE `users` DROP `saveGameID`;
-SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE `savegames`;
-SET FOREIGN_KEY_CHECKS=1;
-ALTER TABLE `userstatistics` DROP `losses`;
