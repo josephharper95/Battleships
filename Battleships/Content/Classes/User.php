@@ -11,6 +11,7 @@
 * V0.13     Nick    01/11/16    updated queries to allow number of shots to be placed, added regions
 * V0.14     Joe     14/11/16    added query to update score
 * V0.15     Joe     14/11/16    updated new user query to reflect addition of multiplayer statistics
+* V0.16     Joe     14/11/16    updated queries to reflect addition of new "incompleteGames" column
 *
 **/
 
@@ -43,12 +44,12 @@ class User {
         $this->db->query($sql, $values);
 
         // User statistics setup
-        $sql = "INSERT INTO userstatistics (userID, difficultyID, score, wins, gamesPlayed, 
+        $sql = "INSERT INTO userstatistics (userID, difficultyID, score, wins, gamesPlayed, incompleteGames,
                                             totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime)
-                VALUES (?, '1', '0', '0', '0', '0', '0', '0', '0'),
-                        (?, '2', '0', '0', '0', '0', '0', '0', '0'),
-                        (?, '3', '0', '0', '0', '0', '0', '0', '0'),
-                        (?, '4', '0', '0', '0', '0', '0', '0', '0')";
+                VALUES  (?, '1', '0', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '2', '0', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '3', '0', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '4', '0', '0', '0', '0', '0', '0', '0', '0')";
         $values = array($userID, $userID, $userID, $userID);
 
         $this->db->query($sql, $values);
@@ -81,7 +82,7 @@ class User {
 
     //Function to execute a query, getting the user statistics from the database with the entered userID
    	function getUserStatisticsByUserIDAndDifficulty($userID, $difficulty) {
-        $sql = "SELECT score, wins, gamesPlayed, totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime
+        $sql = "SELECT score, wins, gamesPlayed, incompleteGames, totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime
 				FROM userstatistics us
                     JOIN difficulties d
                         ON us.difficultyID = d.difficultyID
@@ -243,6 +244,28 @@ class User {
 	{
 		$sql = "UPDATE userstatistics
 				SET gamesPlayed = gamesPlayed + 1
+                WHERE userID = ? AND difficultyID = ?";
+        $values = array($userID, $difficulty);
+
+        $this->db->query($sql, $values);
+    }
+
+    // Function adds 1 to the number of incomplete games of the player with the specified difficulty
+    function incrementIncompleteGames($userID, $difficulty)
+	{
+		$sql = "UPDATE userstatistics
+				SET incompleteGames = incompleteGames + 1
+                WHERE userID = ? AND difficultyID = ?";
+        $values = array($userID, $difficulty);
+
+        $this->db->query($sql, $values);
+    }
+
+    // Function takes 1 from the number of incomplete games of the player with the specified difficulty
+    function decrementIncompleteGames($userID, $difficulty)
+	{
+		$sql = "UPDATE userstatistics
+				SET incompleteGames = incompleteGames - 1
                 WHERE userID = ? AND difficultyID = ?";
         $values = array($userID, $difficulty);
 

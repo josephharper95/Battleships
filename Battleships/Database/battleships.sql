@@ -8,6 +8,7 @@
 * V0.12   Joe   26/10/16    added various columns, tables, indexes for user stats, remove save game support
 * V0.13   Nick  01/11/16    updated difficulties to be capitalised
 * V0.14   Joe   14/11/16    added "multiplayer" difficulty for stats and cleaned sql file
+* V0.15   Joe   14/11/16    added "incompleteGames" column to userstatistics
 *
 **/
 
@@ -74,6 +75,7 @@ CREATE TABLE `userstatistics` (
   `score` int(11) NOT NULL,
   `wins` int(11) NOT NULL,
   `gamesPlayed` int(11) NOT NULL,
+  `incompleteGames` int(11) NOT NULL,
   `totalShotsFired` int(11) NOT NULL,
   `totalShotsHit` int(11) NOT NULL,
   `totalHitsReceived` int(11) NOT NULL,

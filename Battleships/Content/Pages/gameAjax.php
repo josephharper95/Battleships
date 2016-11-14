@@ -9,6 +9,7 @@
 * V0.11     Nick    01/11/16    added total playing time
 * V0.12     Nick    13/11/16    added increment games played
 * V0.13     Joe     14/11/16    added update score
+* V0.14     Joe     14/11/2016  altered call names + added methods to reflect addition of incomplete games statistic
 *
 **/
 
@@ -28,8 +29,8 @@ if (Input::itemExists("action")) {
     $action = Input::post("action");
 
     switch ($action) {
-        case "incrementGamesPlayed":
-            incrementGamesPlayed();
+        case "incrementIncompleteGames":
+            incrementIncompleteGames();
             break;
         case "recordWin":
             recordWin();
@@ -56,6 +57,24 @@ function incrementGamesPlayed() {
     }
 }
 
+function incrementIncompleteGames() {
+    global $userId, $user, $difficultyId;
+
+    if (isset($userId) && isset($difficultyId)) {
+
+        $user->incrementIncompleteGames($userId, $difficultyId);
+    }
+}
+
+function decrementIncompleteGames() {
+    global $userId, $user, $difficultyId;
+
+    if (isset($userId) && isset($difficultyId)) {
+
+        $user->decrementIncompleteGames($userId, $difficultyId);
+    }
+}
+
 function recordWin() {
     global $userId, $user, $difficultyId;
 
@@ -75,6 +94,8 @@ function recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime, 
         $user->incrementTotalShotsFired($userId, $difficultyId, $totalShots);
         $user->updateTotalPlayingTime($userId, $difficultyId, $playingTime);
         $user->updateScore($userId, $difficultyId, $gameScore);
+        $user->incrementGamesPlayed($userId, $difficultyId);
+        $user->decrementIncompleteGames($userId, $difficultyId);
     }
 }
 

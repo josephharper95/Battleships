@@ -132,7 +132,7 @@ function convertPercentage($small, $large) {
 
             <tr>
                 <td>
-                    Games Played
+                    Completed Games
                 </td>
                 <td>
                     <?= $playerEasy->gamesPlayed; ?>
@@ -145,6 +145,60 @@ function convertPercentage($small, $large) {
                 </td>
                 <td>
                     <?= $playerMultiplayer->gamesPlayed; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Incomplete Games
+                </td>
+                <td>
+                    <?= $playerEasy->incompleteGames; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->incompleteGames; ?>
+                </td>
+                <td>
+                    <?= $playerHard->incompleteGames; ?>
+                </td>
+                <td>
+                    <?= $playerMultiplayer->incompleteGames; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Total Games Started
+                </td>
+                <td>
+                    <?= $playerEasy->gamesPlayed + $playerEasy->incompleteGames; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->gamesPlayed + $playerMedium->incompleteGames; ?>
+                </td>
+                <td>
+                    <?= $playerHard->gamesPlayed + $playerHard->incompleteGames; ?>
+                </td>
+                <td>
+                    <?= $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Incomplete Game Rate Percentage
+                </td>
+                <td>
+                    <?= convertPercentage($playerEasy->incompleteGames, $playerEasy->gamesPlayed + $playerEasy->incompleteGames); ?>
+                </td>
+                <td>
+                    <?= convertPercentage($playerMedium->incompleteGames, $playerMedium->gamesPlayed + $playerMedium->incompleteGames); ?>
+                </td>
+                <td>
+                    <?= convertPercentage($playerHard->incompleteGames, $playerHard->gamesPlayed + $playerHard->incompleteGames); ?>
+                </td>
+                <td>
+                    <?= convertPercentage($playerMultiplayer->incompleteGames, $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames); ?>
                 </td>
             </tr>
 

@@ -188,7 +188,7 @@ function startGame() {
     $.ajax({
         url: "../../Content/Pages/gameAjax.php",
         data: {
-            action: "incrementGamesPlayed"
+            action: "incrementIncompleteGames"
         },
         type: "post"
     });
