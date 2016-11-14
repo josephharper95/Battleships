@@ -9,6 +9,7 @@
 * V0.11     Joe     26/10/16    altered user statistics insert (now inserts a line per difficulty)
 * V0.12     Joe     30/10/16    added queries to retrieve user statistics
 * V0.13     Nick    01/11/16    updated queries to allow number of shots to be placed, added regions
+* V0.14     Joe     14/11/16    added query to update score
 *
 **/
 
@@ -212,6 +213,17 @@ class User {
 #endregion
 
 #region SETTERS
+
+    // Function updates the score of the player with the specified difficulty
+    function updateScore($userID, $difficulty, $gameScore)
+	{
+		$sql = "UPDATE userstatistics
+				SET score = score + ?
+                WHERE userID = ? AND difficultyID = ?";
+        $values = array($gameScore, $userID, $difficulty);
+
+        $this->db->query($sql, $values);
+    }
 
     // Function adds 1 to the number of wins of the player with the specified difficulty
     function incrementWins($userID, $difficulty)

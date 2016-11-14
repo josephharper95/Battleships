@@ -8,6 +8,7 @@
 * V0.1      Nick    01/11/16    initial creation
 * V0.11     Nick    01/11/16    added total playing time
 * V0.12     Nick    13/11/16    added increment games played
+* V0.13     Joe     14/11/16    added update score
 *
 **/
 
@@ -38,8 +39,9 @@ if (Input::itemExists("action")) {
             $totalShots = Input::post("totalShots");
             $totalHitsReceived = Input::post("totalHitsReceived");
             $playingTime = Input::post("playingTime");
+            $gameScore = Input::post("gameScore");
 
-            recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime);
+            recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime, $gameScore);
             break;
     }
 
@@ -63,7 +65,7 @@ function recordWin() {
     }
 }
 
-function recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime){
+function recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime, $gameScore){
     global $userId, $user, $difficultyId;
 
     if (isset($userId) && isset($difficultyId)) {
@@ -72,6 +74,7 @@ function recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime){
         $user->incrementTotalHitsReceived($userId, $difficultyId, $totalHitsReceived);
         $user->incrementTotalShotsFired($userId, $difficultyId, $totalShots);
         $user->updateTotalPlayingTime($userId, $difficultyId, $playingTime);
+        $user->updateScore($userId, $difficultyId, $gameScore);
     }
 }
 

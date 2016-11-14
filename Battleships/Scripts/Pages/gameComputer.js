@@ -21,6 +21,7 @@
  * V0.8     Nick    10/11/16    added confirmation when user wants to leave page (WHEN ACTUALLY PLAYING)
  * V0.81    Nick    13/11/16    added variables for buttons, extracted set attributes on ship to own file
  * V0.82    Nick    13/11/16    statistics bug fix for incrementing games played
+ * V0.83    Joe     14/11/16    added game scoring method and passed the game score to ajax call
  * 
  */
 
@@ -222,6 +223,29 @@ function endGame(winner, finished) {
 
         var endTime = new Date();
         var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
+       
+        /*** SCORING ***/
+        var baseScore = 100;
+        var negativeScorePerHitReceived = 5;
+        var negativeScorePerShotMissed = 1;
+        var positiveScorePerShotHit = 5;
+        var winBonus = 100;
+        var timeBonusPerSecond = 2;
+
+        var shotsMissed = totalShots - totalHits;
+        var timeBonus = 0;
+        if(playingTime < 120)
+        {
+            var timeBonus = (120 - playingTime)*timeBonusPerSecond;
+        }
+        if (winner != "player")
+        {
+            winBonus = winBonus - winBonus;
+        }
+
+        var gameScore = baseScore - (totalHitsReceived*negativeScorePerHitReceived) - (shotsMissed*negativeScorePerShotMissed)
+                        + (totalHits*positiveScorePerShotHit) + timeBonus + winBonus;
+        /*** END SCORING ***/
 
         // alert appropriate message
         if (winner == "player") {
@@ -247,7 +271,8 @@ function endGame(winner, finished) {
                 totalHits: totalHits,
                 totalHitsReceived: totalHitsReceived,
                 totalShots: totalShots,
-                playingTime: playingTime
+                playingTime: playingTime,
+                gameScore: gameScore
             },
             type: "post"
         });
