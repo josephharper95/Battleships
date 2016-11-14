@@ -4,6 +4,7 @@
  * V0.1     Team    07/11/16    initial creation  
  * V0.2     Team    09/11/16    updates and bug fixes
  * V0.21    Nick    12/11/16    added joinGameResponse
+ * V0.3     Dave    14/11/16    added methods to check that both clients are ready to play.
  */
 
 /** Game class */
@@ -13,6 +14,8 @@ function Game(name, id, owner) {
   this.owner = owner;
   this.players = [];
   this.status = "available";
+  this.hostReady = false;
+  this.playerReady = false;
 };
 
 Game.prototype.addPlayer = function(userID) {  
@@ -181,11 +184,42 @@ io.sockets.on('connection', function (socket, username) {
             user = players[socket.id];
             io.sockets.in(socket.game).emit("alert", user.username + " has connected to " + game.name);// Message to players in the game
             socket.emit("alert", "Welcome to " + game.name + ".");
-            socket.emit("joinGameResponse", true);
-
             io.sockets.in(socket.game).emit("joinGameResponse", true);
+
+            var opponent = getOpponent();
+            io.sockets.to(opponent).emit("opponentName", players[socket.id].username);//Joinee
+            socket.emit("opponentName", players[opponent].username);//Host
         }
     });
+
+    /**
+     * Sets the host to ready and starts the game
+     */
+    socket.on("hostReady", function(){
+        var game = games[players[socket.id].game];
+        game.hostReady = true;
+        console.log("Host is ready. . .");
+        if(game.hostReady && game.playerReady){
+            var playerToStart = chooseStartingPlayer(game);
+            socket.emit("gameReady", playerToStart);
+            io.sockets.to(playerToStart).emit("playerToStart", true);
+        }
+    });
+
+    /**
+     * Sets the player to ready
+     */
+    socket.on("playerReady", function(){
+        console.log("player is ready. . .")
+        var game = games[players[socket.id].game];
+        game.playerReady = true;
+        if(game.hostReady && game.playerReady){
+            var playerToStart = chooseStartingPlayer(game);
+            socket.emit("gameReady", playerToStart);
+            io.sockets.to(playerToStart).emit("playerToStart", true);
+        }
+    });
+
 
     /**
      * Sends a message to players in the same game.
@@ -209,9 +243,9 @@ io.sockets.on('connection', function (socket, username) {
         } else if (games[players[socket.id].game] == null) {
             console.log("games[player[socket.id]] == null");
         } else {
-            io.sockets.to(socket.id).emit('leaveGameResponse', true);
+            io.sockets.on(socket.id).emit('leaveGameResponse', true);
             var opponent = getOpponent();
-            io.sockets.emit(opponent).emit('playerLeftResponse', true); 
+            io.sockets.on(opponent).emit('playerLeftResponse', true); 
             leaveGame();
         }
     });
@@ -317,5 +351,14 @@ io.sockets.on('connection', function (socket, username) {
             opponent = game.players[1];
         }
         return opponent;
+    }
+
+    /**
+     * Returns at random, who will start the game.
+     */
+    function chooseStartingPlayer(game){
+        var game = games[players[socket.id].game];
+        var player = Math.round((Math.random()));
+        return game.players[player];
     }
 });

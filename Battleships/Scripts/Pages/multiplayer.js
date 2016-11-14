@@ -17,6 +17,7 @@ var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
 //var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
 
 var game;
+var host = false; //******* this is updated if they create a game ******
 var playerBoardClass;
 var opponentBoardClass;
 var boardSize = 10; // static for the moment
@@ -101,6 +102,25 @@ socket.on("playersOnline", function (num) {
     $("#playersOnline").html("Online (" + num + " Worldwide)");
 });
 
+/**************************************** */
+//Getting the oppenent name and the player to start
+
+socket.on("opponentName", function(data){
+    console.log("Opponent: " + data);
+});
+
+socket.on("gameReady", function(data){
+    console.log("Player to start: " +data);
+});
+
+socket.on("playerToStart", function(data){
+    if(data){
+         console.log("You are going first!!!");
+    }
+});
+
+/**************************************** */
+
 //To show alerts from server
 socket.on('alert', function(message){
     console.log(message);
@@ -164,7 +184,7 @@ socket.on("createGameResponse", function (data) {
 
     if (data) {
 
-
+        host = true; // update the host variable
         var message = "You have created a game!<br/>Please wait for someone to join, and good luck!<br/><br/>";
 
         message += "<button id='cancelGame'>Cancel</button>";
@@ -274,5 +294,13 @@ function shipsPlaced() {
 
         // emit to server that player is ready
         showWaiting(true, "You're ready to play!<br/><br/>Please wait for your opponent to place their ships")
+
+        /************************************************************** */
+        if(host){
+            socket.emit("hostReady");
+        } else{
+            socket.emit("playerReady");
+        }
+        /************************************************************** */
     });
 }
