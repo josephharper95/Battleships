@@ -132,6 +132,24 @@ function convertPercentage($small, $large) {
 
             <tr>
                 <td>
+                    Losses
+                </td>
+                <td>
+                    <?= $playerEasy->gamesPlayed - $playerEasy->wins; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->gamesPlayed - $playerMedium->wins; ?>
+                </td>
+                <td>
+                    <?= $playerHard->gamesPlayed - $playerHard->wins; ?>
+                </td>
+                <td>
+                    <?= $playerMultiplayer->gamesPlayed - $playerMultiplayer->wins; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
                     Completed Games
                 </td>
                 <td>
