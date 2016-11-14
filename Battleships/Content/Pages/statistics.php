@@ -2,14 +2,14 @@
 
 /**
 *
-*   Last Modified By: Nick Holdsworth
-*   Current Version: 0.3
+*   Last Modified By: Joe Harper
+*   Current Version: 0.14
 *
 *   V0.1    Nick    30/10/16    initial creation
 *   V0.11   Nick    01/11/16    added initial data from db
 *   V0.12   Nick    01/11/16    added total playing time
 *   V0.13   Nick    01/11/16    added accuracy percentage and styling
-*
+*   V0.14   Joe     14/11/16    added table entry for multiplayer statistics
 */
 
 // include the setup file if it has not been included
@@ -33,10 +33,12 @@ $difficulties = $user->getDifficulties();
 $easy = $difficulties[0];
 $medium = $difficulties[1];
 $hard = $difficulties[2];
+$multiplayer = $difficulties[3];
 
 $playerEasy = $user->getUserStatisticsByUserIDAndDifficulty($userId, $easy->id)[0];
 $playerMedium = $user->getUserStatisticsByUserIDAndDifficulty($userId, $medium->id)[0];
 $playerHard = $user->getUserStatisticsByUserIDAndDifficulty($userId, $hard->id)[0];
+$playerMultiplayer = $user->getUserStatisticsByUserIDAndDifficulty($userId, $multiplayer->id)[0];
 
 //print_r($playerEasy);
 
@@ -85,6 +87,9 @@ function convertPercentage($small, $large) {
                 <th>
                     Hard
                 </th>
+                <th>
+                    Multiplayer
+                </th>
             </tr>
         </thead>
     
@@ -102,6 +107,9 @@ function convertPercentage($small, $large) {
                 <td>
                     <?= $playerHard->score; ?>
                 </td>
+                <td>
+                    <?= $playerMultiplayer->score; ?>
+                </td>
             </tr>
 
             <tr>
@@ -116,6 +124,9 @@ function convertPercentage($small, $large) {
                 </td>
                 <td>
                     <?= $playerHard->wins; ?>
+                </td>
+                <td>
+                    <?= $playerMultiplayer->wins; ?>
                 </td>
             </tr>
 
@@ -132,6 +143,9 @@ function convertPercentage($small, $large) {
                 <td>
                     <?= $playerHard->gamesPlayed; ?>
                 </td>
+                <td>
+                    <?= $playerMultiplayer->gamesPlayed; ?>
+                </td>
             </tr>
 
             <tr>
@@ -146,6 +160,9 @@ function convertPercentage($small, $large) {
                 </td>
                 <td>
                     <?= $playerHard->totalShotsFired; ?>
+                </td>
+                <td>
+                    <?= $playerMultiplayer->totalShotsFired; ?>
                 </td>
             </tr>
 
@@ -162,6 +179,9 @@ function convertPercentage($small, $large) {
                 <td>
                     <?= $playerHard->totalShotsHit; ?>
                 </td>
+                <td>
+                    <?= $playerMultiplayer->totalShotsHit; ?>
+                </td>
             </tr>
 
             <tr>
@@ -176,6 +196,9 @@ function convertPercentage($small, $large) {
                 </td>
                 <td>
                     <?= convertPercentage($playerHard->totalShotsHit, $playerHard->totalShotsFired); ?>
+                </td>
+                <td>
+                    <?= convertPercentage($playerMultiplayer->totalShotsHit, $playerMultiplayer->totalShotsFired); ?>
                 </td>
             </tr>
 
@@ -192,6 +215,9 @@ function convertPercentage($small, $large) {
                 <td>
                     <?= $playerHard->totalHitsReceived; ?>
                 </td>
+                <td>
+                    <?= $playerMultiplayer->totalHitsReceived; ?>
+                </td>
             </tr>
 
             <tr>
@@ -206,6 +232,9 @@ function convertPercentage($small, $large) {
                 </td>
                 <td>
                     <?= convertPlayingTime($playerHard->totalPlayingTime); ?>
+                </td>
+                <td>
+                    <?= convertPlayingTime($playerMultiplayer->totalPlayingTime); ?>
                 </td>
             </tr>
         </tbody>

@@ -3,7 +3,7 @@
 /*
 *
 * Last Modified By: Nick Holdsworth
-* Current Version: 0.12
+* Current Version: 0.5
 *
 * V0.1      Nick                01/10/16    initial creation
 * V0.11     Nick                04/10/16    menu doesn't show when user is not logged in
@@ -56,7 +56,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 1.2.1
+            Version: 1.2.2
         </div>
 
         <div id="headerBar">
