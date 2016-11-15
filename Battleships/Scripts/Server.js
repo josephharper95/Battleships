@@ -8,6 +8,7 @@
  * V0.31    Nick            14/11/16    recordHitResponse goes to opponent instead of user
  * V0.32    Nick            15/11/16    made sure opponent gets a game ready notification
  * V0.33    Nick / Dave     15/11/16    tweaks to leave game functionality to hopefully reduce errors
+ * V0.34    Dave            15/11/16    Changed clients to be an associative array.
  * 
  */
 
@@ -87,11 +88,11 @@ console.log('Server running. . . ');
 
 // //app.use(express.static('Classes'));
 
-//Create objects for players and games
+//Create objects for players and games and clients
 var players = {};
 var games ={};
-//Store array of connected clients
-var clients = [];
+var clients = {};
+var numOfPlayersOnline = 0;
 //id for new games
 var id = 0;
 
@@ -116,9 +117,12 @@ io.sockets.on('connection', function (socket, username) {
         io.sockets.emit("alert", players[socket.id].username + " is online.");
         socket.emit("gameList", games);
 
-        clients.push(socket); //populate the clients array with the client object
+        clients[socket.id] = {
+            "socket": socket
+        };
 
-        io.sockets.emit("playersOnline", clients.length);
+        numOfPlayersOnline ++;
+        io.sockets.emit("playersOnline", numOfPlayersOnline);
         socket.emit('joinServerRepsonse', true);
     });
 
@@ -300,7 +304,7 @@ io.sockets.on('connection', function (socket, username) {
             } else if (player.game == null) {
                 delete players[socket.id];
             } else {
-                io.sockets.to(getOpponent()).emit('playerLeftResponse', true); 
+                io.sockets.to(getOpponent()).emit('playerLeftResponse', true);
                 leaveGame();
                 delete players[socket.id];
             }
@@ -309,12 +313,10 @@ io.sockets.on('connection', function (socket, username) {
 
             //Remove the client from the client array.
             io.sockets.emit("alert", username + " has gone offline.");
-            var index = clients.indexOf(socket);
-            clients.splice(index, 1);
-
-            console.log("Players Online: " + clients.length);
-
-            io.sockets.emit("playersOnline", clients.length);
+            delete clients[socket.id];
+            
+            numOfPlayersOnline --;
+            io.sockets.emit("playersOnline", numOfPlayersOnline);
         }
     });
 
@@ -329,25 +331,14 @@ io.sockets.on('connection', function (socket, username) {
         //Store the game ID
         var gameId = players[socket.id].game 
 
-        //Iterate over connected clients, if that client is in this game remove them TODO: Can this be more efficient?
-        for (var i=0; i < clients.length; i++){
-            if (clients[i].id == game.players[0]) {
-                clients[i].leave(game.name);
-            } else if (clients[i].id == game.players[1]) {
-                clients[i].leave(game.name);
-            }
-
+        //Iterate over connected clients, if that client is in this game remove them
+ 
+        clients[socket.id].socket.leave(game.name);
+        var opponent = getOpponent();
+        if(opponent){
+            clients[opponent].socket.leave(game.name)
+            players[opponent].game = null
         }
-
-        var game = games[players[socket.id].game];
-        if (game.players[0] == socket.id) {
-            var opponent = game.players[1];
-            
-            if (opponent != null) {
-                players[opponent].game = null;
-            }
-        }
-
         players[socket.id].game = null;
         //Delete the game session
         delete games[gameId]; 
@@ -357,14 +348,17 @@ io.sockets.on('connection', function (socket, username) {
     }
 
     function getOpponent(){
-        var opponent;
         var game = games[players[socket.id].game];
-        if(game.players[0] !== socket.id){
-            opponent = game.players[0];
-        } else{
-            opponent = game.players[1];
+        if(typeof(game.players[1]) !== undefined || typeof(game.players[1]) !== null){
+            var opponent;
+            if(game.players[0] !== socket.id){
+                opponent = game.players[0];
+            } else{
+                opponent = game.players[1];
+            }
+            return opponent;
         }
-        return opponent;
+        return null;
     }
 
     /**
