@@ -10,6 +10,7 @@
  * V0.5     Nick        13/11/16    added necessary variables to be able to place ships - place ship functionality
  * V0.6     Nick        14/11/16    players can now fire at each other
  * V0.61    Nick        15/11/16    bug fixes
+ * V0.7     Nick        15/11/16    ships now show when you sink them on the opponen'ts board. enemy firing now shows on your board
  * 
  */
 
@@ -375,11 +376,15 @@ socket.on("recordHit", function (data) {
         var coord = playerBoardClass.getCoordinateAt(x, y);
         var coordinate = coord.toObject();
 
+        $(page + " " + playerBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
+
         if (hit) {
             var shipObj = coord.getShip();
 
             if (shipObj && shipObj.isDestroyed()) {
                 ship = shipObj.toObject();
+
+                setShipAttributesOnBoard(playerBoard, shipObj);
 
                 console.log(ship);
             }
@@ -412,7 +417,28 @@ socket.on("fireResponse", function (data) {
 
         // only populated if destroyed
         if (ship) {
+            
+            // set up ship object
+            var shipObj = new Ship(ship.name, ship.size);
 
+            // change orientation if necessary
+            if (ship.orientation != 1) {
+                shipObj.changeOrientation();
+            }
+
+            var shipCoords = data.ship.coordinates;
+
+            // place the ship on the board
+            opponentBoardClass.placeShip(shipObj, shipCoords[0].x, shipCoords[0].y);
+
+            // fire  at all coords
+            for (i = 0; i < shipCoords.length; i++) {
+
+                var c = shipCoords[i];
+                opponentBoardClass.fire(c.x, c.y);
+            }
+
+            setShipAttributesOnBoard(opponentBoard, shipObj);
         }
     }
 
