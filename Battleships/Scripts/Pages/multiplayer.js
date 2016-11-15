@@ -111,7 +111,7 @@ socket.on("opponentName", function(data){
 });
 
 //To show alerts from server
-socket.on('alert', function(message){
+socket.on('alert', function(message){ // listens for alert emit from server.js
     console.log(message);
 });
 
@@ -171,7 +171,7 @@ function createRoom() {
 
 socket.on("createGameResponse", function (data) {
 
-    if (data) {
+    if (data) { // if true/if exists
 
         host = true; // update the host variable
         var message = "You have created a game!<br/>Please wait for someone to join, and good luck!<br/><br/>";
