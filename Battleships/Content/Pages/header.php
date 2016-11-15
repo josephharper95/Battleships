@@ -14,6 +14,7 @@
 * V0.4      Nick                10/11/16    added extra loader HTML
 * V0.41     Nick                10/11/16    renamed multiplayer pages
 * V0.5      Nick                12/11/16    added version to header
+* V0.51     Nick                15/11/16    rejigged loaders
 *
 */ 
 
@@ -37,26 +38,22 @@ require_once("../Classes/setup.php");
 </head>
 
 <!-- Loader markup -->
-<div id="waitingOverlay">
-    <div id="waitingCont">
-        <div id="waitingLoader"></div>
-        <div id="waitingMessage">
-            
-        </div>
-    </div>
+<div id="waitingOverlay"></div>
+<div id="waitingCont">
+    <div id="waitingLoader"></div>
+    <div id="waitingMessage"></div>
 </div>
 
-<div id="loaderOverlay">
-    <div id="loaderCont">
-        <div id="loader"></div></div>
-    </div>
+<div id="loaderOverlay"></div>
+<div id="loaderCont">
+    <div id="loader"></div></div>
 </div>
 
 <body>
     <div id="header">
 
         <div class="version">
-            Version: 1.5.0
+            Version: 1.7.0
         </div>
 
         <div id="headerBar">

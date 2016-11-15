@@ -1,7 +1,7 @@
 /**
  * Last Modified By: Dave MacDonald
  * 
- * V0.1     Nick        08/11/16    initial creation
+ * V0.4     Nick        08/11/16    initial creation
  * V0.2     Nick        09/11/16    added the ability to create / leave room
  * V0.2.1   Dave        09/11/16    Create game bug fix
  * V0.3     Team        09/11/16    added more listeners and giving more feedback to user
@@ -11,6 +11,7 @@
  * V0.6     Nick        14/11/16    players can now fire at each other
  * V0.61    Nick        15/11/16    bug fixes
  * V0.7     Nick        15/11/16    ships now show when you sink them on the opponen'ts board. enemy firing now shows on your board
+ * V8.71    Nick        15/11/16    removed logging
  * 
  */
 
@@ -137,20 +138,17 @@ socket.on('gameList', function (data) {
 
                 if (data[game].name != session.id) {
 
+                    // button markup
                     returnText += "<button ";
                     returnText += "class='joinGame' "
                     returnText += "data-game='" + data[game].id + "'"; 
                     returnText += ">"
-
                     returnText += "Join Game"
-
                     returnText += "</button>";
-
                 }
 
                 returnText += "</li>";
             }
-            
         }
     }
 
@@ -245,17 +243,17 @@ function initGame() {
 
 socket.on("gameReady", function (data) {
 
-    console.log("gameReady");
+    //console.log("gameReady");
     showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
 });
 
 socket.on("playerToStart", function(data) {
 
-    console.log("playerToStart");
+    //console.log("playerToStart");
     showWaiting(false);
     
     if (data) {
-         console.log("You are going first!!!");
+         //console.log("You are going first!!!");
          playerMove();
     }
 });
@@ -270,7 +268,7 @@ socket.on("playerToStart", function(data) {
  * Function to populate the ships that can be placed into an array and into the reamining ships container in the HTML
  */
 function populateShips() {
-    console.log("populating ships");
+    //console.log("populating ships");
     var remainingShipsHtml = "";
 
     for (i = 0; i < shipDetails.length; i++) {
@@ -303,7 +301,7 @@ function shipsPlaced() {
         // emit to server that player is ready
         showWaiting(true, "You're ready to play!<br/><br/>Please wait for your opponent to place their ships")
 
-        console.log("Host: " + host);
+        //console.log("Host: " + host);
 
         if(host){
             socket.emit("hostReady");
@@ -360,7 +358,7 @@ function fireAtPlayer($cell) {
             y: y
         });
 
-        showWaiting(true, "Firing at opponent's board!")
+        showWaiting(true, "Firing at opponent's board!", 0.4);
     }
 }
 
@@ -386,7 +384,7 @@ socket.on("recordHit", function (data) {
 
                 setShipAttributesOnBoard(playerBoard, shipObj);
 
-                console.log(ship);
+                //console.log(ship);
             }
         }
 
@@ -413,7 +411,7 @@ socket.on("fireResponse", function (data) {
     var hit = data.hit;
     var ship = data.ship;
 
-    console.log(data);
+    //console.log(data);
 
     $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("hit");
 
@@ -447,7 +445,7 @@ socket.on("fireResponse", function (data) {
         }
     }
 
-    showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
+    showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!", 0.4);
 });
 
 /******************************
