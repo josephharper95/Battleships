@@ -6,6 +6,8 @@
  * V0.21    Nick    12/11/16    added joinGameResponse
  * V0.3     Dave    14/11/16    added methods to check that both clients are ready to play.
  * V0.31    Nick    14/11/16    recordHitResponse goes to opponent instead of user
+ * V0.32    Nick    15/11/16    made sure opponent gets a game ready notification
+ * 
  */
 
 /** Game class */
@@ -200,9 +202,12 @@ io.sockets.on('connection', function (socket, username) {
         var game = games[players[socket.id].game];
         game.hostReady = true;
         console.log("Host is ready. . .");
-        if(game.hostReady && game.playerReady){
+
+        if (game.hostReady && game.playerReady) {
             var playerToStart = chooseStartingPlayer(game);
             socket.emit("gameReady", playerToStart);
+            io.sockets.to(getOpponent()).emit("gameReady");
+
             io.sockets.to(playerToStart).emit("playerToStart", true);
         }
     });
@@ -214,9 +219,12 @@ io.sockets.on('connection', function (socket, username) {
         console.log("player is ready. . .")
         var game = games[players[socket.id].game];
         game.playerReady = true;
-        if(game.hostReady && game.playerReady){
+
+        if (game.hostReady && game.playerReady) {
             var playerToStart = chooseStartingPlayer(game);
             socket.emit("gameReady", playerToStart);
+            io.sockets.to(getOpponent()).emit("gameReady");
+
             io.sockets.to(playerToStart).emit("playerToStart", true);
         }
     });

@@ -8,6 +8,7 @@
 * V0.2      Dave                07/10/16    added reset method
 * V0.21     Dave                17/10/16    added method getNumberOfHits
 * V0.22     Joe                 26/10/16    renamed methods to match pattern
+* V0.3      Nick                15/11/16    added toObject method
 *
 **/
 
@@ -130,5 +131,22 @@ function Ship(name, size) {
      */
     this.getNumberOfHits = function(){
         return _numberOfHits;
+    }
+
+    this.toObject = function() {
+
+        var coords = new Array();
+
+        for (i = 0; i < _coordinates.length; i++) {
+            coords.push(_coordinates[i].toObject());
+        }
+
+        return {
+            name: _name,
+            size: _size,
+            orientation: _orientation,
+            coordinates: coords,
+            isDestroyed: _isDestroyed
+        };
     }
 };

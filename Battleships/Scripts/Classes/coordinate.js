@@ -7,6 +7,7 @@
 * V0.11     Dave                05/10/16    Added comments
 * V0.2      Dave                06/10/16    Added removeShip method.
 * V0.21     Nick                07/10/16    uncommented record hit code
+* V0.3      Nick                15/11/16    added toObject method
 *
 **/
 
@@ -90,6 +91,7 @@ function Coordinate(x, y) {
             _ship = null;
         }
     }
+
     /**
      * Record this coordinate as hit. If it contains a ship, record a hit on the ship object.
      * @return {boolean}
@@ -105,5 +107,14 @@ function Coordinate(x, y) {
         }
 
         return false;
+    }
+
+    this.toObject = function() {
+        return {
+            x: _x,
+            y: _y,
+            isHit: _isHit,
+            containsShip: _containsShip
+        };
     }
 }

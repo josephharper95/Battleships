@@ -9,6 +9,7 @@
  * V0.4     Nick        12/11/16    added timeout to join server, added the ability to join a game
  * V0.5     Nick        13/11/16    added necessary variables to be able to place ships - place ship functionality
  * V0.6     Nick        14/11/16    players can now fire at each other
+ * V0.61    Nick        15/11/16    bug fixes
  * 
  */
 
@@ -371,24 +372,23 @@ socket.on("recordHit", function (data) {
 
         var hit = playerBoardClass.fire(x, y);
         var ship = null;
-        var sunk = false;
+        var coord = playerBoardClass.getCoordinateAt(x, y);
+        var coordinate = coord.toObject();
 
         if (hit) {
-            var coord = playerBoardClass.getCoordinateAt(x, y);
             var shipObj = coord.getShip();
 
             if (shipObj && shipObj.isDestroyed()) {
-                ship = shipObj;
-                sunk = true;
+                ship = shipObj.toObject();
+
+                console.log(ship);
             }
         }
 
         socket.emit("recordHitResponse", {
-            x: x,
-            y: y,
+            coordinate: coordinate,
             hit: hit,
-            ship: ship,
-            sunk: sunk
+            ship: ship
         });
 
         showWaiting(false);
@@ -399,22 +399,20 @@ socket.on("recordHit", function (data) {
 socket.on("fireResponse", function (data) {
     showWaiting(false);
 
-    var x = data.x;
-    var y = data.y;
+    var coord = data.coordinate;
     var hit = data.hit;
     var ship = data.ship;
-    var sunk = data.sunk;
 
-    $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
+    console.log(data);
+
+    $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("hit");
 
     if (hit) {
-        $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("containsShip");
+        $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("containsShip");
 
-        if (sunk) {
-            
-            if (ship.isDestroyed()) {
+        // only populated if destroyed
+        if (ship) {
 
-            }
         }
     }
 
