@@ -1,12 +1,13 @@
 /**
  * Last Modified By: Team
  * 
- * V0.1     Team    07/11/16    initial creation  
- * V0.2     Team    09/11/16    updates and bug fixes
- * V0.21    Nick    12/11/16    added joinGameResponse
- * V0.3     Dave    14/11/16    added methods to check that both clients are ready to play.
- * V0.31    Nick    14/11/16    recordHitResponse goes to opponent instead of user
- * V0.32    Nick    15/11/16    made sure opponent gets a game ready notification
+ * V0.1     Team            07/11/16    initial creation  
+ * V0.2     Team            09/11/16    updates and bug fixes
+ * V0.21    Nick            12/11/16    added joinGameResponse
+ * V0.3     Dave            14/11/16    added methods to check that both clients are ready to play.
+ * V0.31    Nick            14/11/16    recordHitResponse goes to opponent instead of user
+ * V0.32    Nick            15/11/16    made sure opponent gets a game ready notification
+ * V0.33    Nick / Dave     15/11/16    tweaks to leave game functionality to hopefully reduce errors
  * 
  */
 
@@ -229,7 +230,6 @@ io.sockets.on('connection', function (socket, username) {
         }
     });
 
-
     /**
      * Sends a message to players in the same game.
      */
@@ -252,9 +252,9 @@ io.sockets.on('connection', function (socket, username) {
         } else if (games[players[socket.id].game] == null) {
             console.log("games[player[socket.id]] == null");
         } else {
-            io.sockets.on(socket.id).emit('leaveGameResponse', true);
+            io.sockets.to(socket.id).emit('leaveGameResponse', true);
             var opponent = getOpponent();
-            io.sockets.on(opponent).emit('playerLeftResponse', true); 
+            io.sockets.to(opponent).emit('playerLeftResponse', true); 
             leaveGame();
         }
     });
@@ -265,8 +265,8 @@ io.sockets.on('connection', function (socket, username) {
     socket.on("lostGame", function(){
         if(players[socket.id].game !== null){
             var opponent = getOpponent();
-            io.sockets.on(socket.id).emit("lostGameResponse", true);//Loss
-            io.sockets.on(opponent).emit("lostGameRepsonse", false);//Win
+            io.sockets.to(socket.id).emit("lostGameResponse", true);//Loss
+            io.sockets.to(opponent).emit("lostGameRepsonse", false);//Win
             leaveGame(); //end the game
         }
     });
@@ -300,6 +300,7 @@ io.sockets.on('connection', function (socket, username) {
             } else if (player.game == null) {
                 delete players[socket.id];
             } else {
+                io.sockets.to(getOpponent()).emit('playerLeftResponse', true); 
                 leaveGame();
                 delete players[socket.id];
             }

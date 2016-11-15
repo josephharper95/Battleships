@@ -396,8 +396,13 @@ socket.on("recordHit", function (data) {
             ship: ship
         });
 
+        if (!playerBoardClass.isViable()) {
+            socket.emit("lostGame");
+        } else {
+            playerMove();
+        }
+
         showWaiting(false);
-        playerMove();
     }
 });
 
@@ -443,4 +448,34 @@ socket.on("fireResponse", function (data) {
     }
 
     showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
+});
+
+/******************************
+ * 
+ *        GAME EVENTS
+ * 
+******************************/
+
+socket.on("lostGameResponse", function (lost) {
+    
+    showWaiting(false);
+
+    if (lost) {
+
+        alert("You lost the game, get better.")
+    } else {
+
+        alert("You won! ...nothing");
+    }
+});
+
+socket.on("playerLeftResponse", function (data) {
+
+    if (data) {
+        showWaiting(false);
+
+        changePage("#subPageRoom");
+
+        alert("Your opponent has only gone and bladdy left!");
+    }
 });
