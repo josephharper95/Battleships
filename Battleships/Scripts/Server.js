@@ -99,7 +99,7 @@ var id = 0;
 // socket.emit = YOUR client
 // io.sockets.emit = ALL clients
 
-io.sockets.on('connection', function (socket, username) {
+io.sockets.on('connection', function (socket, username) { //emited from multiplayer.js
 
     /**
      * Executes when a new client joins the server. 
@@ -108,16 +108,16 @@ io.sockets.on('connection', function (socket, username) {
 
         var gameID = null;
 
-        players[socket.id] = {
+        players[socket.id] = {   // New client object is added to the associative players array based on their ID (from socket)
             "username": username, 
-            "game": gameID
+            "game": gameID 
         };
-
-        socket.emit("alert", "You have connected to the server.");
+        // There is always an "on" (listener) for each emit
+        socket.emit("alert", "You have connected to the server.");   // emitted to console (alert)
         io.sockets.emit("alert", players[socket.id].username + " is online.");
-        socket.emit("gameList", games);
+        socket.emit("gameList", games); //emits number of games available (passes games object)
 
-        clients[socket.id] = {
+        clients[socket.id] = { // Add socket information to clients array
             "socket": socket
         };
 
@@ -131,7 +131,7 @@ io.sockets.on('connection', function (socket, username) {
      */
     socket.on("createGame", function(name) {
 
-        if (players[socket.id] == null) {
+        if (players[socket.id] == null) { //checks that player has been created
 
             io.sockets.emit("alert", "players[socket.id] == null");
         } else {
@@ -155,7 +155,7 @@ io.sockets.on('connection', function (socket, username) {
 
                 id++; //Increment the ID for the next game session to use
 
-                socket.emit("createGameResponse", true)
+                socket.emit("createGameResponse", true);
 
             } else {
                 //io.sockets.emit("alert", "You are already in a game.");
@@ -187,9 +187,9 @@ io.sockets.on('connection', function (socket, username) {
         else {
             game.addPlayer(socket.id); //add the player to the game object
             players[socket.id].game = id; //update the game id in the player object
-            socket.game = game.name;
+            socket.game = game.name; //TODO: Look into removing variable
             socket.join(socket.game); //add player to the game room
-            user = players[socket.id];
+            var user = players[socket.id]; 
             io.sockets.in(socket.game).emit("alert", user.username + " has connected to " + game.name);// Message to players in the game
             socket.emit("alert", "Welcome to " + game.name + ".");
             io.sockets.in(socket.game).emit("joinGameResponse", true);
@@ -204,14 +204,14 @@ io.sockets.on('connection', function (socket, username) {
      * Sets the host to ready and starts the game
      */
     socket.on("hostReady", function(){
-        var game = games[players[socket.id].game];
-        game.hostReady = true;
-        console.log("Host is ready. . .");
+        var game = games[players[socket.id].game]; //Gets current game
+        game.hostReady = true; // sets host as ready
+        console.log("Host is ready. . ."); //logs in node server console
 
         if (game.hostReady && game.playerReady) {
             var playerToStart = chooseStartingPlayer(game);
             socket.emit("gameReady", playerToStart);
-            io.sockets.to(getOpponent()).emit("gameReady");
+            io.sockets.to(getOpponent()).emit("gameReady"); //TODO: io.sockets.in(game.name).emit("gameReady");
 
             io.sockets.to(playerToStart).emit("playerToStart", true);
         }
@@ -228,7 +228,7 @@ io.sockets.on('connection', function (socket, username) {
         if (game.hostReady && game.playerReady) {
             var playerToStart = chooseStartingPlayer(game);
             socket.emit("gameReady", playerToStart);
-            io.sockets.to(getOpponent()).emit("gameReady");
+            io.sockets.to(getOpponent()).emit("gameReady"); //TODO: io.sockets.in(game.name).emit("gameReady");
 
             io.sockets.to(playerToStart).emit("playerToStart", true);
         }
@@ -295,7 +295,7 @@ io.sockets.on('connection', function (socket, username) {
      * Removes players from game gracefully on disconnect 
      */
     socket.on("disconnect", function() {  
-        if (players[socket.id]) {
+        if (players[socket.id]) { // If player exists
 
             var player = players[socket.id];
 
@@ -329,15 +329,15 @@ io.sockets.on('connection', function (socket, username) {
         io.sockets.in(socket.game).emit("alert", "(" +players[socket.id].username + ") is leaving the game. The game has ended.");
         
         //Store the game ID
-        var gameId = players[socket.id].game 
+        var gameId = players[socket.id].game;
 
         //Iterate over connected clients, if that client is in this game remove them
  
         clients[socket.id].socket.leave(game.name);
         var opponent = getOpponent();
         if(opponent){
-            clients[opponent].socket.leave(game.name)
-            players[opponent].game = null
+            clients[opponent].socket.leave(game.name);
+            players[opponent].game = null;
         }
         players[socket.id].game = null;
         //Delete the game session
@@ -347,18 +347,21 @@ io.sockets.on('connection', function (socket, username) {
         io.sockets.emit("gameList", games);
     }
 
+    /**
+     * Returns person who is deemed to be the opponent
+     */
     function getOpponent(){
         var game = games[players[socket.id].game];
-        if(typeof(game.players[1]) !== undefined || typeof(game.players[1]) !== null){
+        if(typeof(game.players[1]) !== undefined || typeof(game.players[1]) !== null){ // If two people are in the game
             var opponent;
-            if(game.players[0] !== socket.id){
+            if(game.players[0] !== socket.id){ // Compare your own socket id to each player in list to see who the opponent is
                 opponent = game.players[0];
             } else{
                 opponent = game.players[1];
             }
             return opponent;
         }
-        return null;
+        return null; // Not two people in the game;
     }
 
     /**
