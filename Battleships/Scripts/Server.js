@@ -271,6 +271,7 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
             var opponent = getOpponent();
             io.sockets.to(socket.id).emit("lostGameResponse", true);//Loss
             io.sockets.to(opponent).emit("lostGameRepsonse", false);//Win
+            io.sockets.in(players[socket.id].game).emit("playerLeftResponse", false);
             leaveGame(); //end the game
         }
     });
