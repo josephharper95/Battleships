@@ -13,6 +13,7 @@
  * V0.7     Nick        15/11/16    ships now show when you sink them on the opponen'ts board. enemy firing now shows on your board
  * V0.71    Nick        15/11/16    removed logging
  * V0.72    Dave        16/11/16    Added win alert.
+ * V0.73    Nick        16/11/16    changed win alert, added fire method on opponent board that was missing
  * 
  */
 
@@ -334,10 +335,12 @@ function playerMove() {
             });
         } else {
             cleanupHoverClasses();
+            removeClicks();
         }
 
         $cell.bind("mouseleave", function () {
             cleanupHoverClasses();
+            removeClicks();
         });
     });
 }
@@ -353,6 +356,8 @@ function fireAtPlayer($cell) {
         var x = $cell.index();
         var $tr = $cell.closest('tr');
         var y = $tr.index();
+
+        opponentBoardClass.fire(x, y);
 
         socket.emit("fire", {
             x: x,
@@ -459,6 +464,8 @@ socket.on("lostGameResponse", function (lost) {
     
     showWaiting(false);
 
+    changePage("#subPageRoom");
+
     if (lost) {
 
         alert("You lost the game, get better.")
@@ -476,11 +483,5 @@ socket.on("playerLeftResponse", function (data) {
         changePage("#subPageRoom");
 
         alert("Your opponent has only gone and bladdy left!");
-    } else {
-        showWaiting(false);
-
-        changePage("#subPageRoom");
-
-        alert("You Won!");
     }
 });

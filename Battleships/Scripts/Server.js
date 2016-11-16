@@ -10,6 +10,8 @@
  * V0.33    Nick / Dave     15/11/16    tweaks to leave game functionality to hopefully reduce errors
  * V0.34    Dave            15/11/16    Changed clients to be an associative array.
  * V0.35    Dave            16/11/16    Added playerLeftResponse to lostGame
+ * V0.36    Nick            16/11/16    altered spelling mistake, checking for undefined AND null removed
+ * 
  */
 
 /** Game class */
@@ -48,7 +50,7 @@ var server = require('http').createServer(app),
     fs = require('fs'),
     path = require('path');
 
-server.listen(3000);/*
+server.listen(3000);*/
 /*************************************************
 END OF SERVER SETUP FOR LOCALHOST/HTTP
 *************************************************/
@@ -266,12 +268,14 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     /**
      * Records the win/loss and ends the game.
      */
-    socket.on("lostGame", function(){
-        if(players[socket.id].game !== null){
+    socket.on("lostGame", function() {
+
+        if (players[socket.id].game !== null){
             var opponent = getOpponent();
+
             io.sockets.to(socket.id).emit("lostGameResponse", true);//Loss
-            io.sockets.to(opponent).emit("lostGameRepsonse", false);//Win
-            io.sockets.to(opponent).emit("playerLeftResponse", false);
+            io.sockets.to(opponent).emit("lostGameResponse", false);//Win
+            
             leaveGame(); //end the game
         }
     });
@@ -353,9 +357,9 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
      */
     function getOpponent(){
         var game = games[players[socket.id].game];
-        if(typeof(game.players[1]) !== undefined || typeof(game.players[1]) !== null){ // If two people are in the game
+        if (typeof(game.players[1]) != undefined) { // If two people are in the game
             var opponent;
-            if(game.players[0] !== socket.id){ // Compare your own socket id to each player in list to see who the opponent is
+            if (game.players[0] != socket.id) { // Compare your own socket id to each player in list to see who the opponent is
                 opponent = game.players[0];
             } else{
                 opponent = game.players[1];
@@ -368,7 +372,7 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     /**
      * Returns at random, who will start the game.
      */
-    function chooseStartingPlayer(game){
+    function chooseStartingPlayer(game) {
         var game = games[players[socket.id].game];
         var player = Math.round((Math.random()));
         return game.players[player];
