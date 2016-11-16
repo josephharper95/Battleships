@@ -11,7 +11,8 @@
  * V0.6     Nick        14/11/16    players can now fire at each other
  * V0.61    Nick        15/11/16    bug fixes
  * V0.7     Nick        15/11/16    ships now show when you sink them on the opponen'ts board. enemy firing now shows on your board
- * V8.71    Nick        15/11/16    removed logging
+ * V0.71    Nick        15/11/16    removed logging
+ * V0.72    Dave        16/11/16    Added win alert.
  * 
  */
 
@@ -475,5 +476,11 @@ socket.on("playerLeftResponse", function (data) {
         changePage("#subPageRoom");
 
         alert("Your opponent has only gone and bladdy left!");
+    } else {
+        showWaiting(false);
+
+        changePage("#subPageRoom");
+
+        alert("You Won!");
     }
 });

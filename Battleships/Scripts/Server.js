@@ -9,7 +9,7 @@
  * V0.32    Nick            15/11/16    made sure opponent gets a game ready notification
  * V0.33    Nick / Dave     15/11/16    tweaks to leave game functionality to hopefully reduce errors
  * V0.34    Dave            15/11/16    Changed clients to be an associative array.
- * 
+ * V0.35    Dave            16/11/16    Added playerLeftResponse to lostGame
  */
 
 /** Game class */
@@ -48,7 +48,7 @@ var server = require('http').createServer(app),
     fs = require('fs'),
     path = require('path');
 
-server.listen(3000);*/
+server.listen(3000);/*
 /*************************************************
 END OF SERVER SETUP FOR LOCALHOST/HTTP
 *************************************************/
@@ -271,7 +271,7 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
             var opponent = getOpponent();
             io.sockets.to(socket.id).emit("lostGameResponse", true);//Loss
             io.sockets.to(opponent).emit("lostGameRepsonse", false);//Win
-            io.sockets.in(players[socket.id].game).emit("playerLeftResponse", false);
+            io.sockets.to(opponent).emit("playerLeftResponse", false);
             leaveGame(); //end the game
         }
     });
