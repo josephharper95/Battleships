@@ -14,6 +14,7 @@
  * V0.71    Nick        15/11/16    removed logging
  * V0.72    Dave        16/11/16    Added win alert.
  * V0.73    Nick        16/11/16    changed win alert, added fire method on opponent board that was missing
+ * V0.8     Nick        17/11/16    allow player to see their opponent's remaining ships after they lose. board resets when they leave the game
  * 
  */
 
@@ -34,6 +35,7 @@ var opponentBoard = "#opponentBoard";
 
 var createRoomButton = "#createGame";
 var cancelGameButton = "#cancelGame";
+var backToMultiplayerButton = "#backToMultiplayer";
 
 var startGameButton = "#playerReady";
 var rotateShipButton = "#rotateShip";
@@ -221,6 +223,7 @@ socket.on("joinGameResponse", function (joined) {
     if (joined) {
 
         changePage("#subPagePlayGame");
+        $(backToMultiplayerButton).hide();
         
         initGame();
 
@@ -245,7 +248,24 @@ function initGame() {
 
 socket.on("gameReady", function (data) {
 
-    //console.log("gameReady");
+    for (var i = 0; i < data.length; i++) {
+        var ship = data[i];
+
+        // set up ship object
+        var shipObj = new Ship(ship.name, ship.size);
+
+        // change orientation if necessary
+        if (ship.orientation != 1) {
+            shipObj.changeOrientation();
+        }
+
+        var shipCoords = ship.coordinates;
+
+        // place the ship on the board
+        opponentBoardClass.placeShip(shipObj, shipCoords[0].x, shipCoords[0].y);
+    }
+
+    console.log("gameReady");
     showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
 });
 
@@ -305,10 +325,17 @@ function shipsPlaced() {
 
         //console.log("Host: " + host);
 
-        if(host){
-            socket.emit("hostReady");
+        var myShipObjs = playerBoardClass.getShipsPlaced();
+        var myShips = new Array();
+
+        for (var i = 0; i < myShipObjs.length; i++) {
+            myShips.push(myShipObjs[i].toObject());
+        }
+
+        if (host) {
+            socket.emit("hostReady", myShips);
         } else{
-            socket.emit("playerReady");
+            socket.emit("playerReady", myShips);
         }
     });
 }
@@ -357,8 +384,6 @@ function fireAtPlayer($cell) {
         var $tr = $cell.closest('tr');
         var y = $tr.index();
 
-        opponentBoardClass.fire(x, y);
-
         socket.emit("fire", {
             x: x,
             y: y
@@ -376,28 +401,14 @@ socket.on("recordHit", function (data) {
         var y = data.y;
 
         var hit = playerBoardClass.fire(x, y);
-        var ship = null;
+        
         var coord = playerBoardClass.getCoordinateAt(x, y);
         var coordinate = coord.toObject();
 
         $(page + " " + playerBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
 
-        if (hit) {
-            var shipObj = coord.getShip();
-
-            if (shipObj && shipObj.isDestroyed()) {
-                ship = shipObj.toObject();
-
-                setShipAttributesOnBoard(playerBoard, shipObj);
-
-                //console.log(ship);
-            }
-        }
-
         socket.emit("recordHitResponse", {
-            coordinate: coordinate,
-            hit: hit,
-            ship: ship
+            coordinate: coordinate
         });
 
         if (!playerBoardClass.isViable()) {
@@ -414,40 +425,28 @@ socket.on("fireResponse", function (data) {
     showWaiting(false);
 
     var coord = data.coordinate;
-    var hit = data.hit;
-    var ship = data.ship;
 
-    //console.log(data);
+    // fire at board
+    var hit = opponentBoardClass.fire(coord.x, coord.y);
 
     $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("hit");
 
     if (hit) {
+
         $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("containsShip");
+
+        var coordObj = opponentBoardClass.getCoordinateAt(coord.x, coord.y);
+
+        var ship = coordObj.getShip();
 
         // only populated if destroyed
         if (ship) {
             
-            // set up ship object
-            var shipObj = new Ship(ship.name, ship.size);
+            if (ship.isDestroyed()) {
+                setShipAttributesOnBoard(opponentBoard, ship);
 
-            // change orientation if necessary
-            if (ship.orientation != 1) {
-                shipObj.changeOrientation();
+                $("#opponentContainer .boardExtrasContainer ul.remainingShips li." + ship.getName()).addClass("destroyed");
             }
-
-            var shipCoords = data.ship.coordinates;
-
-            // place the ship on the board
-            opponentBoardClass.placeShip(shipObj, shipCoords[0].x, shipCoords[0].y);
-
-            // fire  at all coords
-            for (i = 0; i < shipCoords.length; i++) {
-
-                var c = shipCoords[i];
-                opponentBoardClass.fire(c.x, c.y);
-            }
-
-            setShipAttributesOnBoard(opponentBoard, shipObj);
         }
     }
 
@@ -464,15 +463,22 @@ socket.on("lostGameResponse", function (lost) {
     
     showWaiting(false);
 
-    changePage("#subPageRoom");
-
     if (lost) {
-
+        showRemainingShips();
         alert("You lost the game, get better.")
     } else {
 
         alert("You won! ...nothing");
     }
+
+    $(backToMultiplayerButton).fadeIn(500, function () {
+        $(backToMultiplayerButton).off("click").one("click", function () {
+            $(backToMultiplayerButton).fadeOut(500);
+            changePage("#subPageRoom");
+
+            resetMultiplayerBoard();
+        });
+    });
 });
 
 socket.on("playerLeftResponse", function (data) {
@@ -485,3 +491,24 @@ socket.on("playerLeftResponse", function (data) {
         alert("Your opponent has only gone and bladdy left!");
     }
 });
+
+function showRemainingShips() {
+    var remainingShips = opponentBoardClass.getFloatingShips();
+
+    for (var i = 0; i < remainingShips.length; i++) {
+        setShipAttributesOnBoard(opponentBoard, remainingShips[i]);
+    }
+}
+
+function resetMultiplayerBoard() {
+
+    var $cell = $(page + " " + playerBoard + " td, " + page + " " + opponentBoard + " td")
+    
+    $cell.removeClass("hit");
+    $cell.removeClass("containsShip");
+
+    $cell.removeAttr("data-ship");
+    $cell.removeAttr("data-orientation");
+    $cell.removeAttr("data-ship-part");
+
+}

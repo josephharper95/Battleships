@@ -11,6 +11,7 @@
  * V0.34    Dave            15/11/16    Changed clients to be an associative array.
  * V0.35    Dave            16/11/16    Added playerLeftResponse to lostGame
  * V0.36    Nick            16/11/16    altered spelling mistake, checking for undefined AND null removed
+ * V0.37    Nick            17/11/16    passing player's ships to the other player
  * 
  */
 
@@ -205,15 +206,18 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     /**
      * Sets the host to ready and starts the game
      */
-    socket.on("hostReady", function(){
+    socket.on("hostReady", function(data) {
+
         var game = games[players[socket.id].game]; //Gets current game
         game.hostReady = true; // sets host as ready
         console.log("Host is ready. . ."); //logs in node server console
 
+        game.hostShips = data;
+
         if (game.hostReady && game.playerReady) {
             var playerToStart = chooseStartingPlayer(game);
-            socket.emit("gameReady", playerToStart);
-            io.sockets.to(getOpponent()).emit("gameReady"); //TODO: io.sockets.in(game.name).emit("gameReady");
+            socket.emit("gameReady", game.playerShips);
+            io.sockets.to(getOpponent()).emit("gameReady", game.hostShips); //TODO: io.sockets.in(game.name).emit("gameReady");
 
             io.sockets.to(playerToStart).emit("playerToStart", true);
         }
@@ -222,15 +226,18 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     /**
      * Sets the player to ready
      */
-    socket.on("playerReady", function(){
-        console.log("player is ready. . .")
+    socket.on("playerReady", function(data) {
+
+        console.log("player is ready. . .");
         var game = games[players[socket.id].game];
         game.playerReady = true;
 
+        game.playerShips = data;
+
         if (game.hostReady && game.playerReady) {
             var playerToStart = chooseStartingPlayer(game);
-            socket.emit("gameReady", playerToStart);
-            io.sockets.to(getOpponent()).emit("gameReady"); //TODO: io.sockets.in(game.name).emit("gameReady");
+            socket.emit("gameReady", game.hostShips);
+            io.sockets.to(getOpponent()).emit("gameReady", game.playerShips); //TODO: io.sockets.in(game.name).emit("gameReady");
 
             io.sockets.to(playerToStart).emit("playerToStart", true);
         }

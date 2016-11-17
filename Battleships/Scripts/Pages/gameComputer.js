@@ -22,6 +22,7 @@
  * V0.81    Nick    13/11/16    added variables for buttons, extracted set attributes on ship to own file
  * V0.82    Nick    13/11/16    statistics bug fix for incrementing games played
  * V0.83    Joe     14/11/16    added game scoring method and passed the game score to ajax call
+ * V0.84    Nick    17/11/16    changed function it was calling to be correct
  * 
  */
 
@@ -290,7 +291,7 @@ function endGame(winner, finished) {
  * Function to show opponent ships if you lose
  */
 function showOpponentShips() {
-    var remainingShips = opponentBoardClass.floatingShips();
+    var remainingShips = opponentBoardClass.getFloatingShips();
 
     for (var i = 0; i < remainingShips.length; i++) {
         setShipAttributesOnBoard(opponentBoard, remainingShips[i]);

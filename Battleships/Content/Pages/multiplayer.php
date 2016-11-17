@@ -10,6 +10,7 @@
 * V0.13     Nick    09/11/16    page redirection bug
 * V0.2      Nick    13/11/16    added files for classes / scripts, markup for boards
 * V0.3      Nick    14/11/16    opponent's username gets populated
+* V0.4      Nick    17/11/16    added back to multiplayer button
 *
 */
 
@@ -47,6 +48,11 @@ require_once("header.php");
     
     <div class="standardWidth">
         <h1 class="pageTitle">Multiplayer</h1>
+
+        <button id="backToMultiplayer"
+                style="display:none;">
+            Back to Multiplayer
+        </button>
     </div>
 
     <div id="subPageRoom"
@@ -66,7 +72,7 @@ require_once("header.php");
     </div>
 
     <div id="subPagePlayGame"
-         class="subPage"
+         class="subPage wideWidth"
          style="display:none;clear:both;">
 
          <!-- container for all player related items -->

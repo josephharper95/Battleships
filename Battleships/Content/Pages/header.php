@@ -53,7 +53,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 1.7.2
+            Version: 1.8.0
         </div>
 
         <div id="headerBar">
@@ -67,15 +67,17 @@ if (Session::exists("userID")) {
 ?>
 
 <script type="text/javascript">
+
     var session = {
         id: <?= json_encode(Session::get("userID")); ?>,
         firstName: <?= json_encode(Session::get("firstName")); ?>,
         lastName: <?= json_encode(Session::get("lastName")); ?>
     };
+
 </script>
 
             <ul class="blank"
-            id="navigationHeader" >
+                id="navigationHeader" >
             
                 <li>
                     <a href="home.php">Home</a>
@@ -100,9 +102,19 @@ if (Session::exists("userID")) {
             </ul>
 
             <div id="userDetails">
-                <div id="firstName"><?= Session::get("firstName"); ?></div>
-                <div id="lastName"><?= Session::get("lastName"); ?></div>
-                <div id="playersOnline">Offline</div>
+
+                <div id="firstName">
+                    <?= Session::get("firstName"); ?>
+                </div>
+
+                <div id="lastName">
+                    <?= Session::get("lastName"); ?>
+                </div>
+
+                <div id="playersOnline">
+                    Offline
+                </div>
+
             </div>
 <?php
 

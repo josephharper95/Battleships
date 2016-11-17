@@ -15,6 +15,7 @@
 * V0.27     Dave                21/10/16    refactored code to use prototype pattern, renamed some methods.
 * V0.28     Joe                 26/10/16    renamed methods
 * V0.29     Nick                09/11/16    returning objects instead of arrays
+* V0.30     Nick                17/11/16    fixed bug in get floating ships
 *
 **/
 
@@ -357,8 +358,9 @@ Board.prototype.getFloatingShips = function () {
     var ships = new Array();
     var allShips = this.getShipsPlaced();
 
-    for (i = 0; i < allShips; i++) {
-        if (!allShips[i].isDestroyed()){
+    for (i = 0; i < allShips.length; i++) {
+        
+        if (!allShips[i].isDestroyed()) {
             ships.push(allShips[i]);
         }
     }
