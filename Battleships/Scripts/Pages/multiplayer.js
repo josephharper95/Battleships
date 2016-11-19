@@ -297,7 +297,7 @@ function populateShips() {
 
         shipsToPlace.push(new Ship(shipDetails[i].name, shipDetails[i].size));
 
-        remainingShipsHtml += "<li class='" + shipDetails[i].name + "'>" + shipDetails[i].name + "</li>";
+        remainingShipsHtml += "<li class='" + shipDetails[i].name + "'></li>";
     }
 
     $(page + " .boardExtrasContainer ul.remainingShips").html(remainingShipsHtml);
