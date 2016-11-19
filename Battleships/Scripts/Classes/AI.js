@@ -60,8 +60,8 @@ AI.prototype = {
             }
             //try to place ship at random coordinates until successful
             while(_shipsPlaced <= i){
-                var x = Math.floor((Math.random() * 10));
-                var y = Math.floor((Math.random() * 10));
+                var x = Math.floor((Math.random() * _board.getWidth()));
+                var y = Math.floor((Math.random() * _board.getWidth()));
             
                 if(_board.placeShip(_ships[i], x, y)){
                     _shipsPlaced++;
