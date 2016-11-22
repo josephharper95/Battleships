@@ -1,7 +1,6 @@
 /**
 *
-* Last Modified By: Nick Holdsworth
-* Current Version: 0.26
+* Last Modified By: Dave MacDonald
 *
 * V0.1      Dave / Nick / Joe   01/10/16    initial creation
 * V0.11     Dave                05/10/16    Added comments
@@ -16,14 +15,20 @@
 * V0.28     Joe                 26/10/16    renamed methods
 * V0.29     Nick                09/11/16    returning objects instead of arrays
 * V0.30     Nick                17/11/16    fixed bug in get floating ships
+* V0.30     Dave                22/11/16    added further validation and exeptions
 *
 **/
 
 function Board(size) {
+    if(typeof(size)=='number'){
+        var _height = size;
+        var _width = size;
+    } else{
+        throw new InvalidArgumentException("The board size must be a number");
+    }
+    
     var _ships = new Array();
     var _coordinates = new Array(_height);
-    var _height = size;
-    var _width = size;
     const MAX_SHIPS = 5;
     var _shipsPlaced = [];
 
@@ -137,6 +142,10 @@ function Board(size) {
  */
 Board.prototype.canPlaceShip = function(ship, x, y) {
 
+    if(typeof(x)!='number' || typeof(y)!= 'number'){
+        throw new InvalidArgumentException("The coordinates must be integers");
+    }
+
     var orientation = ship.getOrientation();
     var shipSize = ship.getSize();
     var coordinates = new Array();
@@ -222,6 +231,9 @@ Board.prototype.placeShip = function(ship, x, y) {
  * Function to undo the last ship placement.
  */
 Board.prototype.undoPlaceShip = function(){
+    if(!this.getShipsPlaced().length > 0){
+        throw "There are no placed ships to undo";
+    }
     var ship = this.getShipsPlaced().pop();
     var coords = ship.getCoordinates();
     for(var i = 0; i< ship.getSize(); i++){
@@ -262,6 +274,9 @@ Board.prototype.resetBoard = function() {
  * @return {boolean} whether or not the coordinate is hit
  */
 Board.prototype.canFire = function (x, y) {
+    if(typeof(x)!='number' || typeof(y)!= 'number'){
+        throw new InvalidArgumentException("The coordinates must be integers");
+    }
     var coordinate = this.getCoordinateAt(x, y);
     
     return !coordinate.isHit();
@@ -301,6 +316,9 @@ Board.prototype.fire = function(x, y) {
  * @return {Coordinate[]} array of coordinate objects.
  */
 Board.prototype.getAdjacentLocations = function(x, y) {
+    if(typeof(x)!='number' || typeof(y)!= 'number'){
+        throw new InvalidArgumentException("The coordinates must be integers");
+    }
     var locations = new Array();
 
     if (y - 1 >= 0) {
