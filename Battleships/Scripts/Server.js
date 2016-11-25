@@ -15,7 +15,11 @@
  * 
  */
 
-/** Game class */
+ /******************************
+     * 
+     *      GAME CLASS
+     * 
+ ******************************/ 
 function Game(name, id, owner) {  
   this.name = name;
   this.id = id;
@@ -83,15 +87,7 @@ END OF SERVER SSL/HTTPS SETUP FOR PREPRODUCTION/PRODUCTION
 
 console.log('Server running. . . ');
 
-// Loading the page index.html
-// app.get('/', function (req, res) {
-//     console.log(req.socket.address());
-//     res.sendFile(path.join(__dirname, '../Content/Pages', 'startMultiplayer.php'));
-// });
-
-// //app.use(express.static('Classes'));
-
-//Create objects for players and games and clients
+//Create objects for players, games and clients
 var players = {};
 var games ={};
 var clients = {};
@@ -103,6 +99,12 @@ var id = 0;
 // io.sockets.emit = ALL clients
 
 io.sockets.on('connection', function (socket, username) { //emited from multiplayer.js
+
+     /******************************
+     * 
+     *      CLIENT JOIN / DISCONNECT
+     * 
+    ******************************/ 
 
     /**
      * Executes when a new client joins the server. 
@@ -128,6 +130,41 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
         io.sockets.emit("playersOnline", numOfPlayersOnline);
         socket.emit('joinServerRepsonse', true);
     });
+
+    /**
+     * Removes players from game gracefully on disconnect 
+     */
+    socket.on("disconnect", function() {  
+        if (players[socket.id]) { // If player exists
+
+            var player = players[socket.id];
+
+            if (player == null) {
+
+            } else if (player.game == null) {
+                delete players[socket.id];
+            } else {
+                io.sockets.to(getOpponent()).emit('playerLeftResponse', true);
+                leaveGame();
+                delete players[socket.id];
+            }
+
+            var username = player.username;
+
+            //Remove the client from the client array.
+            io.sockets.emit("alert", username + " has gone offline.");
+            delete clients[socket.id];
+            
+            numOfPlayersOnline --;
+            io.sockets.emit("playersOnline", numOfPlayersOnline);
+        }
+    });
+
+     /******************************
+     * 
+     *   GAME ROOM HANDLING
+     * 
+     ******************************/ 
 
     /**
      * Creates a new game room and assigns the calling client as the owner. The owner is added to the game.
@@ -204,6 +241,29 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     });
 
     /**
+     * Removes all clients from the game and closes that game session.
+     */
+    socket.on("leaveGame", function() {
+
+        if (players[socket.id] == null) {
+            console.log("players[socket.id] == null");
+        } else if (games[players[socket.id].game] == null) {
+            console.log("games[player[socket.id]] == null");
+        } else {
+            io.sockets.to(socket.id).emit('leaveGameResponse', true);
+            var opponent = getOpponent();
+            io.sockets.to(opponent).emit('playerLeftResponse', true); 
+            leaveGame();
+        }
+    });
+
+    /******************************
+     * 
+     *       STARTING GAME
+     * 
+     ******************************/ 
+
+    /**
      * Sets the host to ready and starts the game
      */
     socket.on("hostReady", function(data) {
@@ -243,6 +303,28 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
         }
     });
 
+    /******************************
+     * 
+     *          GAMEPLAY
+     * 
+     ******************************/ 
+
+    /**
+     * Tells the opponent to record a hit at x,y
+     */
+    socket.on("fire", function(coord) {
+        var opponent = getOpponent();
+        io.sockets.to(opponent).emit("recordHit", coord);
+    });
+
+    /**
+     * Waits for response from oppenent of a recorded hit, transmits the data back to the client (hit/miss)
+     */
+    socket.on("recordHitResponse", function (data) {
+        var opponent = getOpponent();
+        io.sockets.to(opponent).emit("fireResponse", data);
+    });
+
     /**
      * Sends a message to players in the same game.
      */
@@ -252,23 +334,6 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
             io.sockets.in(games[players[socket.id].game].name).emit("chat", {username: players[socket.id].username, message: message});
         } else {
             socket.emit("alert", "Please connect to a game.");//Must be in a game to send a message
-        }
-    });
-
-    /**
-     * Removes all clients from the game and closes that game session.
-     */
-    socket.on("leaveGame", function() {
-
-        if (players[socket.id] == null) {
-            console.log("players[socket.id] == null");
-        } else if (games[players[socket.id].game] == null) {
-            console.log("games[player[socket.id]] == null");
-        } else {
-            io.sockets.to(socket.id).emit('leaveGameResponse', true);
-            var opponent = getOpponent();
-            io.sockets.to(opponent).emit('playerLeftResponse', true); 
-            leaveGame();
         }
     });
 
@@ -287,50 +352,12 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
         }
     });
 
-    /**
-     * Tells the opponent to record a hit at x,y
-     */
-    socket.on("fire", function(coord) {
-        var opponent = getOpponent();
-        io.sockets.to(opponent).emit("recordHit", coord);
-    });
-
-    /**
-     * Waits for response from oppenent of a recorded hit, transmits the data back to the client (hit/miss)
-     */
-    socket.on("recordHitResponse", function (data) {
-        var opponent = getOpponent();
-        io.sockets.to(opponent).emit("fireResponse", data);
-    });
+    /******************************
+     * 
+     *          HELPER FUNCTIONS
+     * 
+     ******************************/ 
     
-    /**
-     * Removes players from game gracefully on disconnect 
-     */
-    socket.on("disconnect", function() {  
-        if (players[socket.id]) { // If player exists
-
-            var player = players[socket.id];
-
-            if (player == null) {
-
-            } else if (player.game == null) {
-                delete players[socket.id];
-            } else {
-                io.sockets.to(getOpponent()).emit('playerLeftResponse', true);
-                leaveGame();
-                delete players[socket.id];
-            }
-
-            var username = player.username;
-
-            //Remove the client from the client array.
-            io.sockets.emit("alert", username + " has gone offline.");
-            delete clients[socket.id];
-            
-            numOfPlayersOnline --;
-            io.sockets.emit("playersOnline", numOfPlayersOnline);
-        }
-    });
 
     function leaveGame() {
 
