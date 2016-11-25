@@ -12,7 +12,7 @@
  * V0.35    Dave            16/11/16    Added playerLeftResponse to lostGame
  * V0.36    Nick            16/11/16    altered spelling mistake, checking for undefined AND null removed
  * V0.37    Nick            17/11/16    passing player's ships to the other player
- * 
+ * V0.38    Dave            25/11/16    users cannot join on different sessions anymore.
  */
 
  /******************************
@@ -89,6 +89,7 @@ console.log('Server running. . . ');
 
 //Create objects for players, games and clients
 var players = {};
+var usernames = {};
 var games ={};
 var clients = {};
 var numOfPlayersOnline = 0;
@@ -113,9 +114,21 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
 
         var gameID = null;
 
+        //Check the user is not already connected
+        if(usernames[username]){
+            socket.emit("alert", "You are already connected on a different session.");
+            socket.emit("joinServerRepsonse", false);
+            return;
+        }
+
         players[socket.id] = {   // New client object is added to the associative players array based on their ID (from socket)
             "username": username, 
             "game": gameID 
+        };
+
+        //Store the username for future connection checks.
+        usernames[username] = {
+            "loggedIn": true
         };
         // There is always an "on" (listener) for each emit
         socket.emit("alert", "You have connected to the server.");   // emitted to console (alert)
