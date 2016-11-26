@@ -62,9 +62,9 @@ END OF SERVER SETUP FOR LOCALHOST/HTTP
 
 
 /***********************************************
-SERVER SSL/HTTPS SETUP FOR PREPRODUCTION/PRODUCTION
+SERVER SSL/HTTPS SETUP FOR PREPRODUCTION
 ************************************************/
-var https = require('https'), 
+/*var https = require('https'), 
 	path = require('path'),
     fs = require('fs'),
 	express = require('express'),
@@ -80,9 +80,34 @@ var options =
 var server = https.createServer(options, app);
 var io = require('socket.io').listen(server);     //socket.io server listens to https connections
 
+server.listen(3000);*/
+/*************************************************
+END OF SERVER SSL/HTTPS SETUP FOR PREPRODUCTION
+*************************************************/
+
+
+/***********************************************
+SERVER SSL/HTTPS SETUP FOR PRODUCTION
+************************************************/
+var https = require('https'), 
+	path = require('path'),
+    fs = require('fs'),
+	express = require('express'),
+	app = express();        
+
+var options = 
+	{
+		pfx: fs.readFileSync('./battleships-prod.pfx'),
+		passphrase: 'password',
+		requestCert: false,
+		rejectUnauthorized: false
+	};
+var server = https.createServer(options, app);
+var io = require('socket.io').listen(server);     //socket.io server listens to https connections
+
 server.listen(3000);
 /*************************************************
-END OF SERVER SSL/HTTPS SETUP FOR PREPRODUCTION/PRODUCTION
+END OF SERVER SSL/HTTPS SETUP FOR PRODUCTION
 *************************************************/
 
 console.log('Server running. . . ');
