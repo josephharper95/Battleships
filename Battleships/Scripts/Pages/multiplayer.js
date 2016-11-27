@@ -14,7 +14,7 @@
  * V0.71    Nick        15/11/16    removed logging
  * V0.72    Dave        16/11/16    Added win alert.
  * V0.73    Nick        16/11/16    changed win alert, added fire method on opponent board that was missing
- * V0.8     Nick        17/11/16    allow player to see their opponent's remaining ships after they lose. board resets when they leave the game
+ * V0.8     Nick        17/11/16    allow player to see their opponent's remaining ships after they lose. board resets when they leave the game 
  * 
  */
 
