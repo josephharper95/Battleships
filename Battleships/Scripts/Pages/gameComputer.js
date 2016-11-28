@@ -24,6 +24,7 @@
  * V0.83    Joe     14/11/16    added game scoring method and passed the game score to ajax call
  * V0.84    Nick    17/11/16    changed function it was calling to be correct
  * V0.9     Nick    28/11/16    added scoring modal
+ * V0.91    Nick    28/11/16    fade bug
  * 
  */
 
@@ -325,10 +326,11 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
 
     $(scoreModalTitle).html(won ? "You Won!" : "You Lost!");
 
-    $(scoreModalOverlay).fadeIn(200);
-    $(scoreModal).fadeIn(500);
+    $(scoreModalOverlay).fadeIn(200, function () {
+        $(scoreModal).fadeIn(500);
 
-    $("#baseScore span").fadeIn(500);
+        $("#baseScore span").fadeIn(500);
+    });
 
     setTimeout(function () {
         $(scoreModal + " #hitsReceived span").html("- " + totalHitRScore + "pts").fadeIn(500);
@@ -358,5 +360,4 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
         $(scoreModalOverlay).fadeOut(200);
         $(scoreModal).fadeOut(500);
     });
-
 }

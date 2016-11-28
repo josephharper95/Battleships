@@ -18,6 +18,7 @@
  * V0.81    Nick        28/11/16    when finishing a game, it should now allow you to place ships and create a room
  * V0.82    Nick        28/11/16    remaining ships now shows
  * V0.9     Nick        28/11/16    added scoring modal
+ * V0.91    Nick        28/11/16    scoring bug
  * 
  */
 
@@ -399,6 +400,8 @@ function fireAtPlayer($cell) {
         var $tr = $cell.closest('tr');
         var y = $tr.index();
 
+        totalShots++;
+
         socket.emit("fire", {
             x: x,
             y: y
@@ -416,6 +419,10 @@ socket.on("recordHit", function (data) {
         var y = data.y;
 
         var hit = playerBoardClass.fire(x, y);
+
+        if (hit) {
+            totalHitsReceived++;
+        }
         
         var coord = playerBoardClass.getCoordinateAt(x, y);
         var coordinate = coord.toObject();
@@ -455,6 +462,8 @@ socket.on("fireResponse", function (data) {
     $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("hit");
 
     if (hit) {
+
+        totalHits++;
 
         $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("containsShip");
 
@@ -659,6 +668,7 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
 
         resetMultiplayerBoard();
 
+        $(backToMultiplayerButton).hide();
         $(scoreModalOverlay).fadeOut(200);
         $(scoreModal).fadeOut(500);
     });
