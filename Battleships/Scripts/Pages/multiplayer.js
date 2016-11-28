@@ -15,6 +15,7 @@
  * V0.72    Dave        16/11/16    Added win alert.
  * V0.73    Nick        16/11/16    changed win alert, added fire method on opponent board that was missing
  * V0.8     Nick        17/11/16    allow player to see their opponent's remaining ships after they lose. board resets when they leave the game 
+ * V0.81    Nick        28/11/16    when finishing a game, it should now allow you to place ships and create a room
  * 
  */
 
@@ -235,10 +236,10 @@ socket.on("joinGameResponse", function (joined) {
 
 function initGame() {
 
-    if (shipsToPlace.length == 0) {
-        populateShips();
-        initPlaceShips();
-    }
+    shipsToPlace = new Array();
+
+    populateShips();
+    initPlaceShips();
 
     game = new Game(boardSize);
     playerBoardClass = game.getPlayerBoard();
@@ -474,6 +475,12 @@ socket.on("lostGameResponse", function (lost) {
     $(backToMultiplayerButton).fadeIn(500, function () {
         $(backToMultiplayerButton).off("click").one("click", function () {
             $(backToMultiplayerButton).fadeOut(500);
+
+            // allow user to once again create a room
+            $(createRoomButton).off("click").one("click", function () {
+                createRoom();
+            });
+
             changePage("#subPageRoom");
 
             resetMultiplayerBoard();
