@@ -23,6 +23,7 @@
 * V0.6      Nick    15/11/16    ship images
 * V0.61     Nick    17/11/16    back to multiplayer button included
 * V1.0      Nick    27/11/16    updated for new design
+* V1.1      Nick    28/11/16    added scoring styling
 *
 **/
 
@@ -1108,6 +1109,85 @@ html {
                     }
                 }
             }
+
+            #scoreModal {
+                border: 4px solid #754524;
+                border-radius: 5px;
+                height: 410px;
+                width: 400px;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                position: absolute;
+                background-image: @blackboard-texture;
+                font-family: 'Erasdust';
+                color: #fff;
+                z-index: 100001;
+
+                h1 {
+                    display: inline-block;
+                    width: 100%;
+                    text-align: center;
+                }
+
+                ul {
+                    text-align: left;
+                    padding: 0 10px;
+                    display: inline-block;
+                    width: 310px;
+
+                    li {
+                        font-size: 120%;
+
+                        label {
+                            display: inline-block;
+                            width: 200px;
+                        }
+
+                        span {
+                            display: inline-block;
+                            width: 100px;
+                        }
+
+                        &.line {
+                            display: inline-block;
+                            width: 100%;
+                            border-top: 3px solid #fff;
+                        }
+                    }
+                }
+
+                .buttonContainer {
+                    a,
+                    .link {
+                        text-decoration: none;
+                        color: #fff;
+                        font-size: 150%;
+                        display: inline-block;
+                        cursor: pointer;
+
+                        &:visited {
+                            text-decoration: none;
+                        }
+
+                        &:hover {
+                            color: #ccc;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                #closeModal {
+                    color: #fff;
+                    position: absolute;
+                    top: 0;
+                    right: 5px;
+                    font-size: 150%;
+                    cursor: pointer;
+                }
+            }
         }
 
         #pageStatistics {
@@ -1223,7 +1303,8 @@ html {
 }
 
 #loaderOverlay,
-#waitingOverlay {
+#waitingOverlay,
+.overlay {
     position: fixed;
     top: 0;
     left: 0;

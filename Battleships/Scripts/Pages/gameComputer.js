@@ -23,6 +23,7 @@
  * V0.82    Nick    13/11/16    statistics bug fix for incrementing games played
  * V0.83    Joe     14/11/16    added game scoring method and passed the game score to ajax call
  * V0.84    Nick    17/11/16    changed function it was calling to be correct
+ * V0.9     Nick    28/11/16    added scoring modal
  * 
  */
 
@@ -35,6 +36,10 @@ var startGameButton = "#startGame";
 var rotateShipButton = "#rotateShip";
 var undoLastShipButton = "#undoLastShip";
 var resetBoardButton = "#resetBoard";
+
+var scoreModalOverlay = "#scoreModalOverlay";
+var scoreModal = "#scoreModal";
+var scoreModalTitle = scoreModal + " #resultTitle";
 
 var game;
 var gameStarted = false;
@@ -230,23 +235,33 @@ function endGame(winner, finished) {
         var negativeScorePerHitReceived = 5;
         var negativeScorePerShotMissed = 1;
         var positiveScorePerShotHit = 5;
-        var winBonus = 100;
+        var winBonus = 0;
         var timeBonusPerSecond = 2;
 
         var shotsMissed = totalShots - totalHits;
         var timeBonus = 0;
-        if(playingTime < 120)
-        {
-            var timeBonus = (120 - playingTime)*timeBonusPerSecond;
-        }
-        if (winner != "player")
-        {
-            winBonus = winBonus - winBonus;
+
+        if (playingTime < 120) {
+            var timeBonus = (120 - playingTime) * timeBonusPerSecond;
         }
 
-        var gameScore = baseScore - (totalHitsReceived*negativeScorePerHitReceived) - (shotsMissed*negativeScorePerShotMissed)
-                        + (totalHits*positiveScorePerShotHit) + timeBonus + winBonus;
+        if (winner == "player") {
+            winBonus = 100;
+        }
+
+        var totalHitRScore = (totalHitsReceived * negativeScorePerHitReceived);
+        var shotsMissedScore = (shotsMissed * negativeScorePerShotMissed);
+        var totalHitScore = (totalHits * positiveScorePerShotHit);
+
+        var gameScore = baseScore 
+                        - totalHitRScore
+                        - shotsMissedScore
+                        + totalHitScore 
+                        + timeBonus 
+                        + winBonus;
         /*** END SCORING ***/
+
+        showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus);
 
         // alert appropriate message
         if (winner == "player") {
@@ -296,4 +311,52 @@ function showOpponentShips() {
     for (var i = 0; i < remainingShips.length; i++) {
         setShipAttributesOnBoard(opponentBoard, remainingShips[i]);
     }
+}
+
+function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus) {
+
+    var won = false;
+
+    if (winBonus != 0) {
+        won = true;
+    }
+
+    $(scoreModal + " span").hide();
+
+    $(scoreModalTitle).html(won ? "You Won!" : "You Lost!");
+
+    $(scoreModalOverlay).fadeIn(200);
+    $(scoreModal).fadeIn(500);
+
+    $("#baseScore span").fadeIn(500);
+
+    setTimeout(function () {
+        $(scoreModal + " #hitsReceived span").html("- " + totalHitRScore + "pts").fadeIn(500);
+    }, 500);
+
+    setTimeout(function () {
+        $(scoreModal + " #shotsMissed span").html("- " + shotsMissedScore + "pts").fadeIn(500);
+    }, 1000);
+
+    setTimeout(function () {
+        $(scoreModal + " #shotsHit span").html("+ " + totalHitScore + "pts").fadeIn(500);
+    }, 1500);
+
+    setTimeout(function () {
+        $(scoreModal + " #timeBonus span").html("+ " + timeBonus.toFixed(2) + "pts").fadeIn(500);
+    }, 2000);
+
+    setTimeout(function () {
+        $(scoreModal + " #winBonus span").html("+ " + winBonus + "pts").fadeIn(500);
+    }, 2500);
+
+    setTimeout(function () {
+        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+    }, 3000);
+
+    $("#closeModal").off("click").one("click", function () {
+        $(scoreModalOverlay).fadeOut(200);
+        $(scoreModal).fadeOut(500);
+    });
+
 }

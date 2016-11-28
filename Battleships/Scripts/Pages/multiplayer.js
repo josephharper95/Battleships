@@ -17,6 +17,7 @@
  * V0.8     Nick        17/11/16    allow player to see their opponent's remaining ships after they lose. board resets when they leave the game 
  * V0.81    Nick        28/11/16    when finishing a game, it should now allow you to place ships and create a room
  * V0.82    Nick        28/11/16    remaining ships now shows
+ * V0.9     Nick        28/11/16    added scoring modal
  * 
  */
 
@@ -45,6 +46,15 @@ var undoLastShipButton = "#undoLastShip";
 var resetBoardButton = "#resetBoard";
 
 var availableRooms = "#availableRooms";
+
+var scoreModalOverlay = "#scoreModalOverlay";
+var scoreModal = "#scoreModal";
+var scoreModalTitle = scoreModal + " #resultTitle";
+
+var totalShots;
+var totalHits;
+var totalHitsReceived;
+var startTime;
 
 // hard coded ships for the moment
 var shipDetails = [
@@ -99,9 +109,6 @@ $(document).ready(function() {
 });
 
 function changePage(page) {
-    // $(".subPage").fadeOut(500, function () {
-    //     $(page).fadeIn(500);
-    // });
 
     $(".subPage:not(" + page +")").fadeOut(200).promise().done(function () {
         $(page).fadeIn(500);
@@ -270,6 +277,11 @@ socket.on("gameReady", function (data) {
     $(".boardExtrasContainer").fadeIn(500);
 
     showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
+
+    totalShots = 0;
+    totalHits = 0;
+    totalHitsReceived = 0;
+    startTime = new Date();
 });
 
 socket.on("playerToStart", function(data) {
@@ -476,10 +488,10 @@ socket.on("lostGameResponse", function (lost) {
 
     if (lost) {
         showRemainingShips();
-        alert("You lost the game, get better.")
+        statisticsAjax(false);
     } else {
-
-        alert("You won! ...nothing");
+        statisticsAjax(true);
+        winAjax();
     }
 
     $(backToMultiplayerButton).fadeIn(500, function () {
@@ -527,5 +539,128 @@ function resetMultiplayerBoard() {
     $cell.removeAttr("data-ship");
     $cell.removeAttr("data-orientation");
     $cell.removeAttr("data-ship-part");
+
+}
+
+function statisticsAjax(won) {
+
+    var endTime = new Date();
+    var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
+    
+    /*** SCORING ***/
+    var baseScore = 100;
+    var negativeScorePerHitReceived = 5;
+    var negativeScorePerShotMissed = 1;
+    var positiveScorePerShotHit = 5;
+    var winBonus = 0;
+    var timeBonusPerSecond = 2;
+
+    var shotsMissed = totalShots - totalHits;
+    var timeBonus = 0;
+
+    if (playingTime < 120) {
+        var timeBonus = (120 - playingTime) * timeBonusPerSecond;
+    }
+
+    if (won) {
+        winBonus = 100;
+    }
+
+    var totalHitRScore = (totalHitsReceived * negativeScorePerHitReceived);
+    var shotsMissedScore = (shotsMissed * negativeScorePerShotMissed);
+    var totalHitScore = (totalHits * positiveScorePerShotHit);
+
+    var gameScore = baseScore 
+                    - totalHitRScore
+                    - shotsMissedScore
+                    + totalHitScore 
+                    + timeBonus 
+                    + winBonus;
+    /*** END SCORING ***/
+
+    showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus);
+
+    $.ajax({
+            url: "../../Content/Pages/multiplayerAjax.php",
+            data: {
+                action: "recordShots",
+                totalHits: totalHits,
+                totalHitsReceived: totalHitsReceived,
+                totalShots: totalShots,
+                playingTime: playingTime,
+                gameScore: gameScore
+            },
+            type: "post"
+        });
+
+    window.onbeforeunload = null;
+}
+
+function winAjax() {
+    $.ajax({
+        url: "../../Content/Pages/multiplayerAjax.php",
+        data: {
+            action: "recordWin"
+        },
+        type: "post"
+    });
+}
+
+function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus) {
+
+    won = winBonus != 0;
+
+    $(scoreModal + " span").hide();
+
+    $(scoreModalTitle).html(won ? "You Won!" : "You Lost!");
+
+    $(scoreModalOverlay).fadeIn(200);
+    $(scoreModal).fadeIn(500);
+
+    $("#baseScore span").fadeIn(500);
+
+    setTimeout(function () {
+        $(scoreModal + " #hitsReceived span").html("- " + totalHitRScore + "pts").fadeIn(500);
+    }, 500);
+
+    setTimeout(function () {
+        $(scoreModal + " #shotsMissed span").html("- " + shotsMissedScore + "pts").fadeIn(500);
+    }, 1000);
+
+    setTimeout(function () {
+        $(scoreModal + " #shotsHit span").html("+ " + totalHitScore + "pts").fadeIn(500);
+    }, 1500);
+
+    setTimeout(function () {
+        $(scoreModal + " #timeBonus span").html("+ " + timeBonus.toFixed(2) + "pts").fadeIn(500);
+    }, 2000);
+
+    setTimeout(function () {
+        $(scoreModal + " #winBonus span").html("+ " + winBonus + "pts").fadeIn(500);
+    }, 2500);
+
+    setTimeout(function () {
+        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+    }, 3000);
+
+    $("#closeModal").off("click").one("click", function () {
+        $(scoreModalOverlay).fadeOut(200);
+        $(scoreModal).fadeOut(500);
+    });
+
+    $("#scoreBackToMultiplayer").off("click").one("click", function () {
+
+        // allow user to once again create a room
+        $(createRoomButton).off("click").one("click", function () {
+            createRoom();
+        });
+
+        changePage("#subPageRoom");
+
+        resetMultiplayerBoard();
+
+        $(scoreModalOverlay).fadeOut(200);
+        $(scoreModal).fadeOut(500);
+    });
 
 }

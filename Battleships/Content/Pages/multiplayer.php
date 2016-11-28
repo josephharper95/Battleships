@@ -12,6 +12,7 @@
 * V0.3      Nick    14/11/16    opponent's username gets populated
 * V0.4      Nick    17/11/16    added back to multiplayer button
 * V0.41     Nick    28/11/16    update file locations - commented out perks
+* V0.5      Nick    28/11/16    added scoring HTML
 *
 */
 
@@ -169,6 +170,68 @@ require_once("header.php");
                     <?php echo createBoard(); ?>
                 </table>
             </div>
+        </div>
+
+        <div id="scoreModalOverlay"
+                class="overlay"></div>
+        <div id="scoreModal"
+                class="modal"
+                style="display:none;">
+
+            <h1 id="resultTitle"></h1>
+
+            <ul class="blank">
+
+                <li id="baseScore">
+                    <label>Base Score</label>
+                    <span>100pts</span>
+                </li>
+
+                <li id="hitsReceived">
+                    <label>Hits Received</label>
+                    <span></span>
+                </li>
+
+                <li id="shotsMissed">
+                    <label>Shots Missed</label>
+                    <span></span>
+                </li>
+
+                <li id="shotsHit">
+                    <label>Shots Hit</label>
+                    <span></span>
+                </li>
+
+                <li id="timeBonus">
+                    <label>Time Bonus</label>
+                    <span></span>
+                </li>
+
+                <li id="winBonus">
+                    <label>Win Bonus</label>
+                    <span></span>
+                </li>
+
+                <li class="line"></li>
+
+                <li id="total">
+                    <label>Total</label>
+                    <span></span>
+                </li>
+
+            </ul>
+
+            <div class="buttonContainer">
+
+                <a href="home.php">Home</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div id="scoreBackToMultiplayer"
+                        class="link">Back to Multiplayer</div>
+
+            </div>
+
+            <div id="closeModal">X</div>
+            
         </div>
     </div>
 </div>
