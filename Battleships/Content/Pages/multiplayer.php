@@ -11,6 +11,7 @@
 * V0.2      Nick    13/11/16    added files for classes / scripts, markup for boards
 * V0.3      Nick    14/11/16    opponent's username gets populated
 * V0.4      Nick    17/11/16    added back to multiplayer button
+* V0.41     Nick    28/11/16    update file locations - commented out perks
 *
 */
 
@@ -30,13 +31,14 @@ require_once("header.php");
 <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.0.3.js"></script>
 
 <script src="../../Scripts/Pages/multiplayer.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/boardHover.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/boardUndoReset.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/placePlayerShips.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/cleanups.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/perkSonar.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/rotateShip.js" type="text/javascript" ></script>
-<script src="../../Scripts/Pages/setShipAttributes.js" type="text/javascript" ></script>
+
+<script src="../../Scripts/Helpers/boardHover.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/boardUndoReset.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/placePlayerShips.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/cleanups.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/perkSonar.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/rotateShip.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/setShipAttributes.js" type="text/javascript" ></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
@@ -86,18 +88,18 @@ require_once("header.php");
                 <!-- container to be populated by ships involved in the game -->
                 <ul class="blank remainingShips"></ul>
 
-                <ul class="blank perkContainer">
+                <!-- TODO NEH: not implemented yet -->
+                <!--<ul class="blank perkContainer">
                     <li>
                         <h3>Perks</h3>
                     </li>
                     <li>
-                        <!-- TODO NEH: not implemented yet -->
-                        <!--<div class="button perk"
+                        <div class="button perk"
                              data-perk="sonar">
                              Sonar
-                        </div>-->
+                        </div>
                     </li>
-                </ul>
+                </ul>-->
 
             </div>
 

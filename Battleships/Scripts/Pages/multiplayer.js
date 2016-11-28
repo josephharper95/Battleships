@@ -16,6 +16,7 @@
  * V0.73    Nick        16/11/16    changed win alert, added fire method on opponent board that was missing
  * V0.8     Nick        17/11/16    allow player to see their opponent's remaining ships after they lose. board resets when they leave the game 
  * V0.81    Nick        28/11/16    when finishing a game, it should now allow you to place ships and create a room
+ * V0.82    Nick        28/11/16    remaining ships now shows
  * 
  */
 
@@ -266,7 +267,8 @@ socket.on("gameReady", function (data) {
         opponentBoardClass.placeShip(shipObj, shipCoords[0].x, shipCoords[0].y);
     }
 
-    console.log("gameReady");
+    $(".boardExtrasContainer").fadeIn(500);
+
     showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
 });
 
@@ -407,6 +409,14 @@ socket.on("recordHit", function (data) {
         var coordinate = coord.toObject();
 
         $(page + " " + playerBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
+
+        var ship = coord.getShip(x, y);
+
+        if (ship) {
+            if (ship.isDestroyed()) {
+                $("#playerContainer .boardExtrasContainer ul.remainingShips li." + ship.getName()).addClass("destroyed");
+            }
+        }
 
         socket.emit("recordHitResponse", {
             coordinate: coordinate

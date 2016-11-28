@@ -17,6 +17,7 @@
 * V0.36     Nick    10/11/16    added rotate ship file
 * V0.37     Nick    13/11/16    added new file that has been added
 * V0.38     Nick    13/11/16    statistics bug
+* V0.39     Nick    28/11/16    updated file locations
 *
 **/
 
@@ -71,16 +72,17 @@ require_once("header.php");
 
 <!-- Scripts for Computer Game -->
 <script src="../../Scripts/Pages/gameComputer.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/boardHover.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/boardUndoReset.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/placePlayerShips.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/placeAIShips.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/playerFireAtComputer.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/aiFireAtPlayer.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/cleanups.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/perkSonar.js" type="text/javascript"></script>
-<script src="../../Scripts/Pages/rotateShip.js" type="text/javascript" ></script>
-<script src="../../Scripts/Pages/setShipAttributes.js" type="text/javascript" ></script>
+
+<script src="../../Scripts/Helpers/boardHover.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/boardUndoReset.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/placePlayerShips.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/placeAIShips.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/playerFireAtComputer.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/aiFireAtPlayer.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/cleanups.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/perkSonar.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/rotateShip.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/setShipAttributes.js" type="text/javascript" ></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
