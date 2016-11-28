@@ -13,6 +13,7 @@
  * V0.36    Nick            16/11/16    altered spelling mistake, checking for undefined AND null removed
  * V0.37    Nick            17/11/16    passing player's ships to the other player
  * V0.38    Dave            25/11/16    users cannot join on different sessions anymore.
+ * V0.39    Dave            28/11/16    added methods required for sonar perk
  */
 
  /******************************
@@ -349,6 +350,24 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
             socket.emit("alert", "Please connect to a game.");//Must be in a game to send a message
         }
     });
+
+    /**
+     * Tells the opponent to run sonar at x,y
+     */
+    socket.on("sonar", function(coord){
+        var opponent = getOpponent();
+        io.sockets.to(opponent).emit("runSonar", coord);
+    });
+
+    /**
+     * Waits for response from oppenent of a recorded hit, transmits the data back to the client (hit/miss)
+     */
+    socket.on("runSonarResponse", function (data) {
+        var opponent = getOpponent();
+        io.sockets.to(opponent).emit("sonarResponse", data);
+    });
+
+
 
     /**
      * Records the win/loss and ends the game.
