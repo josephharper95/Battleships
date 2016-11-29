@@ -5,6 +5,7 @@
 *
 * V0.1      Dave    01/10/16    initial creation
 * V0.11     Dave    05/10/16    Added comments
+* V0.12     Dave    29/11/16    Added methods to track perks available
 *
 **/
 
@@ -13,6 +14,37 @@ function Game(size) {
     var _playerBoard = new Board(size);
     var _computerBoard = new Board(size);
     var playerTurn = true;
+    var _size = size;
+    var _playerPerks = {};
+
+    //Initialise perks availble according to board size
+    switch(_size) {
+    case 10:
+        _playerPerks['Sonar'] = {
+            "usesLeft": 0
+        }
+        _playerPerks['BounceBomb'] = {
+            "usesLeft": 1
+        }
+        break;
+    case 15:
+        _playerPerks['Sonar'] = {
+            "usesLeft": 1
+        }
+        _playerPerks['BounceBomb'] = {
+            "usesLeft": 1
+        }
+        break;
+    case 20:
+        _playerPerks['Sonar'] = {
+            "usesLeft": 2
+        }
+        _playerPerks['BounceBomb'] = {
+            "usesLeft": 2
+        }
+    default:
+        _playerPerks = null;
+    }
 
     /**
      * Returns the player board
@@ -31,6 +63,37 @@ function Game(size) {
     this.getComputerBoard = function () {
         return _computerBoard;
     }
+
+    /**
+     * Returns the board size
+     * @return {number}
+     */
+    this.getSize = function(){
+        return _size;
+    }
+
+    /**
+     * Returns the perks available
+     * 
+     * @return {object}
+     */
+    this.getPlayerPerksAvailable = function(){
+        return _playerPerks;
+    }
+
+    /**
+     * Decrements the given perk by 1
+     */
+    this.updatePlayerPerks = function(perk){
+        if(typeof(perk) != "string"){
+            return false;
+        }
+        if(perk!="Sonar" || perk!= "BounceBomb"){
+            return false;
+        }
+        _playerPerks[perk].usesLeft -= 1;
+        return true;
+    }
 }
 /**
  * Checks both boards to see if the game is finished.
@@ -39,4 +102,4 @@ function Game(size) {
  */
 Game.prototype.isViable = function () {
         return this.getPlayerBoard().isViable() && this.getComputerBoard().isViable();
-    }
+}
