@@ -19,13 +19,15 @@
  * V0.82    Nick        28/11/16    remaining ships now shows
  * V0.9     Nick        28/11/16    added scoring modal
  * V0.91    Nick        28/11/16    scoring bug
+ * V0.92    Nick        29/11/16    added incrementIncompleteGames
  * 
  */
 
-// Connecting to socket.io
-//var socket = io.connect('http://40.68.102.207:3000');
-var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
-//var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
+// Connecting to socket.io //var socket = io.connect('http://40.68.102.207:3000');
+var socket = io.connect('https://battleships.online:3000', {secure: true});
+//var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
+// UNCOMMENT FOR PREPROD //var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
+
 
 var game;
 var host = false; //******* this is updated if they create a game ******
@@ -283,6 +285,8 @@ socket.on("gameReady", function (data) {
     totalHits = 0;
     totalHitsReceived = 0;
     startTime = new Date();
+
+    incrementIncompleteGames();
 });
 
 socket.on("playerToStart", function(data) {
@@ -603,6 +607,16 @@ function statisticsAjax(won) {
         });
 
     window.onbeforeunload = null;
+}
+
+function incrementIncompleteGames() {
+    $.ajax({
+            url: "../../Content/Pages/multiplayerAjax.php",
+            data: {
+                action: "incrementIncompleteGames"
+            },
+            type: "post"
+        });
 }
 
 function winAjax() {
