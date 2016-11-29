@@ -6,6 +6,7 @@
 * Current Version: 0.1
 *
 * V0.1      Nick    28/11/16    initial creation statistic
+* V0.11     Nick    28/11/16    difficulty is now an ID as it should have been
 *
 **/
 
@@ -20,7 +21,9 @@ if (Input::itemExists("action")) {
     $user = new User();
     
     $userId = Session::get("userID");
-    $difficultyId = "multiplayer";
+
+    $difficulties = $user->getDifficulties();
+    $difficultyId = $difficulties[3]->id;
 
     $action = Input::post("action");
 

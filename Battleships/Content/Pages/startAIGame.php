@@ -8,6 +8,7 @@
 * V0.1      Nick    13/10/16    initial creation
 * V0.11     Nick    13/10/16    enabled sizing options that were previously disabled
 * V0.12     Nick    09/11/16    page redirection bug
+* V0.2      Nick    29/11/16    changed start AI to be new design - PENDING HEADER
 *
 **/
 
@@ -24,74 +25,111 @@ require_once("header.php");
 
 ?>
 
+<div id="pageStartAICont"
+        class="pageContainer">
 
-<div id="pageStartAI" class="standardWidth">
+        <div id="pageStartAI">
 
-    <h1>Start Game</h1>
+            <h1>Single Player</h1>
 
-    <div class="container" style="text-align:center;">
+            <form action="game.php" method="POST">
+                <div>
 
-        <i>Before you start your game, choose your difficulty and board size!</i>
+                    <ul class="blank left">
 
-        <form action="game.php" method="POST">
-            <div>
+                        <li>
+                            <b>Difficulty</b>
+                        </li>
 
-                <ul class="blank left">
+                        <li>
+                            <input type="radio" 
+                                    id="easy" 
+                                    name="difficulty"
+                                    value="easy"
+                                    checked />
+                            <label for="easy">
+                                <span></span>
+                                Easy
+                            </label>
+                        </li>
 
-                    <li>
-                        <b>Difficulty</b>
-                    </li>
+                        <li>
+                            <input type="radio" 
+                                    id="mediumDiff" 
+                                    name="difficulty"
+                                    value="medium" />
+                            <label for="mediumDiff">
+                                <span></span>
+                                Medium
+                            </label>
+                        </li>
 
-                    <li>
-                        <label>Easy</label>
-                        <input type="radio" name="difficulty" value="easy" checked />
-                    </li>
+                        <li>
+                            <input type="radio" 
+                                    id="hard" 
+                                    name="difficulty"
+                                    value="hard" />
+                            <label for="hard">
+                                <span></span>
+                                Hard
+                            </label>
+                        </li>
 
-                    <li>
-                        <label>Medium</label>
-                        <input type="radio" name="difficulty" value="medium" />
-                    </li>
+                    </ul>
 
-                    <li>
-                        <label>Hard</label>
-                        <input type="radio" name="difficulty" value="hard" />
-                    </li>
+                    <ul class="blank right">
 
-                </ul>
+                        <li>
+                            <b>Board Size</b>
+                        </li>
 
-                <ul class="blank right">
+                        <li>
+                            <input type="radio" 
+                                    id="small" 
+                                    name="size"
+                                    value="small"
+                                    checked />
+                            <label for="small">
+                                <span></span>
+                                Small (10x10)
+                            </label>
+                        </li>
 
-                    <li>
-                        <b>Board Size</b>
-                    </li>
+                        <li>
+                            <input type="radio" 
+                                    id="medium" 
+                                    name="size"
+                                    value="medium" />
+                            <label for="medium">
+                                <span></span>
+                                Medium (15x15)
+                            </label>
+                        </li>
 
-                    <li>
-                        <label>Small (10x10)</label>
-                        <input type="radio" name="size" value="small" checked />
-                    </li>
+                        <li>
+                            <input type="radio" 
+                                    id="large" 
+                                    name="size"
+                                    value="large" />
+                            <label for="large">
+                                <span></span>
+                                Large (20x20)
+                            </label>
+                        </li>
 
-                    <li>
-                        <label>Medium (15x15)</label>
-                        <input type="radio" name="size" value="medium" />
-                    </li>
+                    </ul>
+                    <br />
+                    <button style="clear:both;"
+                            type="submit">
+                        Start!
+                    </button>
 
-                    <li>
-                        <label>Large (20x20)</label>
-                        <input type="radio" name="size" value="large" />
-                    </li>
+                </div>
 
-                </ul>
+            </form>
 
-            </div>
+        </div>
 
-            <button class="button" 
-                    style="clear:both;"
-                    type="submit">
-                Start!
-            </button>
-
-        </form>
-    </div>
 </div>
 
 <?php
