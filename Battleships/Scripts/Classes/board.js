@@ -20,12 +20,8 @@
 **/
 
 function Board(size) {
-    if(typeof(size)=='number'){
-        var _height = size;
-        var _width = size;
-    } else{
-        throw new InvalidArgumentException("The board size must be a number");
-    }
+    var _height = size;
+    var _width = size;
     
     var _ships = new Array();
     var _coordinates = new Array(_height);
@@ -143,7 +139,10 @@ function Board(size) {
 Board.prototype.canPlaceShip = function(ship, x, y) {
 
     if(typeof(x)!='number' || typeof(y)!= 'number'){
-        throw new InvalidArgumentException("The coordinates must be integers");
+        return false;
+    }
+    if(typeof(ship)!='object'){
+        return false;
     }
 
     var orientation = ship.getOrientation();
@@ -232,7 +231,7 @@ Board.prototype.placeShip = function(ship, x, y) {
  */
 Board.prototype.undoPlaceShip = function(){
     if(!this.getShipsPlaced().length > 0){
-        throw "There are no placed ships to undo";
+        return false;
     }
     var ship = this.getShipsPlaced().pop();
     var coords = ship.getCoordinates();
@@ -275,7 +274,7 @@ Board.prototype.resetBoard = function() {
  */
 Board.prototype.canFire = function (x, y) {
     if(typeof(x)!='number' || typeof(y)!= 'number'){
-        throw new InvalidArgumentException("The coordinates must be integers");
+        return false;
     }
     var coordinate = this.getCoordinateAt(x, y);
     
@@ -317,7 +316,7 @@ Board.prototype.fire = function(x, y) {
  */
 Board.prototype.getAdjacentLocations = function(x, y) {
     if(typeof(x)!='number' || typeof(y)!= 'number'){
-        throw new InvalidArgumentException("The coordinates must be integers");
+        return false;
     }
     var locations = new Array();
 
