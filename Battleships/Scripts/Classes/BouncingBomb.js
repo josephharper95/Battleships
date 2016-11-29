@@ -28,6 +28,10 @@ BouncingBomb.prototype.constructor = BouncingBomb;
  */
 BouncingBomb.prototype.action = function(x, y, orientation){
 
+    if(typeof(x)!='number' || typeof(y)!= 'number')
+    {
+        return false;
+    }
     // method variables
     var row = x;
     var col = y;

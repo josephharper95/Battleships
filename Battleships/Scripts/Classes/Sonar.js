@@ -25,6 +25,11 @@ Sonar.prototype.constructor = Sonar;
  */
 Sonar.prototype.action = function(x, y){
 
+    if(typeof(x)!='number' || typeof(y)!= 'number')
+    {
+        return false;
+    }
+
     // local variables
     var centre = this.getTarget().getCoordinateAt(x, y);
     var size = this.getTarget().getHeight();
