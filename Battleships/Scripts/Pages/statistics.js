@@ -37,79 +37,63 @@ function populateTopTenUsersScoresByDifficultyTable(data)
     {
         tableHTML += "<tr>";
         //Easy
-        tableHTML += "<td>";
         if(!easy[i])
         {
-            tableHTML += "N/A";
+            tableHTML += "<td>N/A</td>";
         }
         else
         {
-            tableHTML += "<label>";
-            tableHTML += easy[i].userID;
-            tableHTML += "</label>";
-
-            tableHTML += "<span>";
-            tableHTML += easy[i].score;
-            tableHTML += "</span>";
+            tableHTML += twoItemTableCell(easy[i].userID, easy[i].score);
         }
-        tableHTML += "</td>";
 
         //Medium
-        tableHTML += "<td>";
         if(!medium[i])
         {
-            tableHTML += "N/A";
+            tableHTML += "</td>N/A</td>";
         }
         else
         {
-            tableHTML += "<label>";
-            tableHTML += medium[i].userID;
-            tableHTML += "</label>";
-
-            tableHTML += "<span>";
-            tableHTML += medium[i].score;
-            tableHTML += "</span>";
+            tableHTML += twoItemTableCell(medium[i].userID, medium[i].score);
         }
-        tableHTML += "</td>";
 
         //Hard
-        tableHTML += "<td>";
         if(!hard[i])
         {
-            tableHTML += "N/A";
+            tableHTML += "<td>N/A</td>";
         }
         else
         {
-            tableHTML += "<label>";
-            tableHTML += hard[i].userID;
-            tableHTML += "</label>";
-
-            tableHTML += "<span>";
-            tableHTML += hard[i].score;
-            tableHTML += "</span>";
+            tableHTML += twoItemTableCell(hard[i].userID, hard[i].score);
         }
-        tableHTML += "</td>";
 
         //Multiplayer
-        tableHTML += "<td>";
-        if(!multiplayer[i])
+        if(!hard[i])
         {
-            tableHTML += "N/A";
+            tableHTML += "<td>N/A</td>";
         }
         else
         {
-            tableHTML += "<label>";
-            tableHTML += multiplayer[i].userID;
-            tableHTML += "</label>";
-
-            tableHTML += "<span>";
-            tableHTML += multiplayer[i].score;
-            tableHTML += "</span>";
+            tableHTML += twoItemTableCell(multiplayer[i].userID, multiplayer[i].score);
         }
-        tableHTML += "</td>";
 
         tableHTML += "</tr>";
     }
 
     $("#topTenScore tbody").html(tableHTML);
+}
+
+function twoItemTableCell(item1, item2) {
+    var tableHTML = "<td>";
+
+    tableHTML += "<label>";
+    tableHTML += item1;
+    tableHTML += "</label>";
+
+    tableHTML += "<span>";
+    tableHTML += item2;
+    tableHTML += "</span>";
+
+    tableHTML += "</td>";
+
+    return tableHTML;
 }
