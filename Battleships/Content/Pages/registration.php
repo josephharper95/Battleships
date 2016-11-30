@@ -26,37 +26,42 @@ if (Input::itemExists("register")) {
 	if (Input::itemExists("username") && Input::itemExists("firstName") && Input::itemExists("lastName") && Input::post("password") && Input::itemExists("passwordMatch")) {
 
 		$userID = trim(Input::post("username"));
-		if(preg_match("/^[a-zA-Z0-9]{1,12}$/", $userID)) { // If username is alphanumeric and 1-12 characters long
-		
-			if(Input::post("password") === Input::post("passwordMatch")) {
+		if(preg_match("/^[a-zA-Z0-9]{1,20}$/", $userID)) { // If username is alphanumeric and 1-20 characters long
 
-				$hashedPassword = hash("sha256", Input::post("password"));
-				$firstName = Input::post("firstName");
-				$lastName = Input::post("lastName");
+			$firstName = Input::post("firstName");
+			$lastName = Input::post("lastName");
+			if(preg_match("/^[a-zA-Z0-9\'\-]{1,50}$/", $firstName) && preg_match("/^[a-zA-Z0-9\'\-]{1,50}$/", $lastName)) {
 
-				$userQuery = new User();
-				$userQuery->getUserByID($userID);
-				if($userQuery->db->getRowCount() > 0) { // If the user already exists in the database... error
+				if(Input::post("password") === Input::post("passwordMatch")) {
 
-					Session::set("registrationMessage", "That username is taken, please pick another.");
+					$hashedPassword = hash("sha256", Input::post("password"));
+
+					$userQuery = new User();
+					$userQuery->getUserByID($userID);
+					if($userQuery->db->getRowCount() > 0) { // If the user already exists in the database... error
+
+						Session::set("registrationMessage", "That username is taken, please pick another.");
+						//header("Location: registration.php");
+						//exit();
+					} else { // No issues with input, user inserted into DB and redirected
+
+						$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
+						Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
+						header("Location: login.php");
+						exit();
+					}
+				} else { // Password fields did not match, redirect back to registration page with error
+
+					Session::set("registrationMessage", "Please ensure both your password fields match.");
 					//header("Location: registration.php");
 					//exit();
-				} else { // No issues with input, user inserted into DB and redirected
-
-					$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
-					Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
-					header("Location: login.php");
-					exit();
 				}
-			} else { // Password fields did not match, redirect back to registration page with error
-
-				Session::set("registrationMessage", "Please ensure both your password fields match.");
-				//header("Location: registration.php");
-				//exit();
+			} else {
+				Session::set("registrationMessage", "Please ensure your first name and last name are up to 50 characters long and do not contain special characters.");
 			}
-		} else { // Username wasn't between 1-12 characters, redirect back to registration page with error'
+		} else { // Username wasn't between 1-20 characters, redirect back to registration page with error'
 
-			Session::set("registrationMessage", "Please ensure your username is between 1 and 12 characters long.");
+			Session::set("registrationMessage", "Please ensure your username is between 1 and 20 characters long.");
 			//header("Location: registration.php");
 			//exit();
 		}
