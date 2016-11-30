@@ -103,12 +103,14 @@ class User {
                         ON us.difficultyID = d.difficultyID
                     JOIN users u
                         ON u.userID = us.userID
-                WHERE d.difficulty = ?
+                WHERE d.difficultyID = ?
                 ORDER BY score desc
                 LIMIT 10";
         $values = array($difficulty);
 		
 		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
 	}
 
     //Function to execute a query, getting the top ten users and wins by difficulty
@@ -126,6 +128,8 @@ class User {
         $values = array($difficulty);
 		
 		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
 	}
 
     //Function to execute a query, getting the top ten users and games played by difficulty
@@ -143,6 +147,8 @@ class User {
         $values = array($difficulty);
 		
 		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
 	}
 
     //Function to execute a query, getting the top ten users and total shots fired by difficulty
@@ -160,6 +166,8 @@ class User {
         $values = array($difficulty);
 		
 		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
 	}
 
     //Function to execute a query, getting the top ten users and total shots hit by difficulty
@@ -177,6 +185,8 @@ class User {
         $values = array($difficulty);
 		
 		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
 	}
 
     //Function to execute a query, getting the top ten users and total hits received by difficulty
@@ -194,6 +204,8 @@ class User {
         $values = array($difficulty);
 		
 		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
 	}
 
     //Function to execute a query, getting the top ten users and total playing time by difficulty
@@ -211,6 +223,8 @@ class User {
         $values = array($difficulty);
 		
 		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
 	}
 
 #endregion

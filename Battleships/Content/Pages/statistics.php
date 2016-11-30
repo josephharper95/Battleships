@@ -67,6 +67,7 @@ function convertPercentage($small, $large) {
 }
 
 ?>
+<script src="../../Scripts/Pages/statistics.js" type="text/javascript"></script>
 
 <div id="pageStatistics" class="wideWidth">
 
@@ -311,5 +312,25 @@ function convertPercentage($small, $large) {
             </tr>
         </tbody>
     
+    </table>
+    <br/>
+    <table id="topTenScore">
+        <thead>
+            <tr>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+                <th>
+                    Multiplayer
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
     </table>
 </div>
