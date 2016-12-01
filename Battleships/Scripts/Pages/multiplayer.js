@@ -91,17 +91,20 @@ $(document).ready(function() {
 
     socket.emit("join", session.id);
 
-    var timeout = setTimeout(function () {
+    var timesFailed = 0;
+    var timeout = setInterval(function () {
         socket.emit("join", session.id);
     }, 5000);
 
     socket.on("joinServerRepsonse", function(data) {
         if (data){
             showWaiting(false);
-            clearTimeout(timeout);
+            clearInterval(timeout);
         } else {
-            showWaiting(false);
-
+            //alert("Failed to join server! :( Trying again in 5 seconds");
+            //showWaiting(false);
+            timesFailed++;
+            showWaiting(true, "Failed to join server! Trying again in 5 seconds...<br/><br/> Times Failed: " + timesFailed);
         }
     });
 
