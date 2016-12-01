@@ -14,6 +14,7 @@
  * V0.37    Nick            17/11/16    passing player's ships to the other player
  * V0.38    Dave            25/11/16    users cannot join on different sessions anymore.
  * V0.39    Dave            28/11/16    added methods required for sonar perk
+ * V0.4     Dave            1/12/16     Added more info to the games class and returned gamesList
  */
 
  /******************************
@@ -21,7 +22,7 @@
      *      GAME CLASS
      * 
  ******************************/ 
-function Game(name, id, owner) {  
+function Game(name, id, owner, boardSize, highScore, completionRate) {  
   this.name = name;
   this.id = id;
   this.owner = owner;
@@ -29,6 +30,10 @@ function Game(name, id, owner) {
   this.status = "available";
   this.hostReady = false;
   this.playerReady = false;
+  this.hostHighScore = highScore;
+  this.hostCompletionRate = completionRate;
+  this.boardSize = boardSize;
+
 };
 
 Game.prototype.addPlayer = function(userID) {  
@@ -81,7 +86,7 @@ var options =
 var server = https.createServer(options, app);
 var io = require('socket.io').listen(server);     //socket.io server listens to https connections
 
-server.listen(3000)
+server.listen(3000);
 /*************************************************
 END OF SERVER SSL/HTTPS SETUP FOR PREPRODUCTION
 *************************************************/
@@ -138,11 +143,9 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     socket.on('join', function(username) {
 
         var gameID = null;
-
-        console.log(usernames[username]);
         //Check the user is not already connected
         if(typeof(usernames[username]) !== 'undefined'){
-            socket.emit("alert", "You are already connected on a different session(!!!!!).");
+            socket.emit("alert", "You are already connected on a different session.");
             socket.emit("joinServerRepsonse", false);
             return;
         }
@@ -208,7 +211,11 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     /**
      * Creates a new game room and assigns the calling client as the owner. The owner is added to the game.
      */
-    socket.on("createGame", function(name) {
+    socket.on("createGame", function(data) {
+
+        if(typeof(data)!=='object'){
+            return false;
+        }
 
         if (players[socket.id] == null) { //checks that player has been created
 
@@ -218,13 +225,13 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
             //If the player is not in a game
             if (players[socket.id].game == null) {
 
-                var game = new Game(name, id, socket.id);
+                var game = new Game(data.name, id, socket.id, data.boardSize, data.highScore, data.completionRate);
 
                 games[id] = game;
 
                 io.sockets.emit("gameList", games); //update the list of games on the frontend
 
-                socket.game = name;
+                socket.game = data.name;
 
                 socket.join(socket.game); //Creator is added to the game
 
