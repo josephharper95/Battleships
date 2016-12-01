@@ -25,11 +25,12 @@
  * V0.84    Nick    17/11/16    changed function it was calling to be correct
  * V0.9     Nick    28/11/16    added scoring modal
  * V0.91    Nick    28/11/16    fade bug
+ * V1.0     Nick    01/12/16    overhaul to perks so that they are now dynamic by board size
  * 
  */
 
 // Global Variables
-var page = "#pageComputerGame";
+var page = "#pageSinglePlayer";
 var playerBoard = "#playerBoard";
 var opponentBoard = "#computerBoard";
 
@@ -37,6 +38,8 @@ var startGameButton = "#startGame";
 var rotateShipButton = "#rotateShip";
 var undoLastShipButton = "#undoLastShip";
 var resetBoardButton = "#resetBoard";
+
+var boardExtras = ".boardExtras";
 
 var scoreModalOverlay = "#scoreModalOverlay";
 var scoreModal = "#scoreModal";
@@ -122,7 +125,7 @@ function populateShips() {
         remainingShipsHtml += "<li class='" + shipDetails[i].name + "'></li>";
     }
 
-    $(".boardExtrasContainer ul.remainingShips").html(remainingShipsHtml);
+    $(boardExtras + " ul.remainingShips").html(remainingShipsHtml);
 }
 
 /******************************
@@ -132,32 +135,83 @@ function populateShips() {
  ******************************/
 
 /**
- * Make buttons look disabled
+ * 
  */
-function disablePerks() {
-    $(".perkContainer .perk.button").addClass("disabled");
+function updatePerks() {
+    var perks = game.getPlayerPerksAvailable();
+
+    console.log(perks);
+
+    var perkHtml = "";
+
+    $.each(perks, function (i, val) {
+
+        i = i.split("_");
+        i = i.join(" ");
+
+        perkHtml += "<li>";
+
+        perkHtml += "<button ";
+        perkHtml += "class='button perk' ";
+        perkHtml += "data-perk='" + i + "' ";
+
+        if (val.usesLeft == 0) {
+            perkHtml += "disabled ";
+        }
+
+        perkHtml += ">";
+
+        perkHtml += i;
+        perkHtml += " " + val.usesLeft;
+
+        perkHtml += "</button>";
+
+        perkHtml += "</li>";
+    });
+
+    $("#playerContainer .perks").html(perkHtml);
+
+    $("#playerContainer .perk:not(:disabled)").off("click").one("click", function () {
+        var cell = $(this);
+        var perk = $(cell).data("perk");
+
+        runPlayerPerk(perk);
+    });
 }
 
 /**
- * Make buttons look enabled
+ * Make buttons look disabled
  */
-function enablePerks() {
-    $(".perkContainer .perk.button").removeClass("disabled");
+function disablePerks() {
+    $(".perkContainer .perk").attr("disabled", "disabled");
 }
+
+// /**
+//  * Make buttons look enabled
+//  */
+// function enablePerks() {
+//     $(".perkContainer .perk.button").removeClass("disabled");
+// }
 
 /**
  * Initial function that gets the perk and decides how to respond
  */
 function runPlayerPerk(perk) {
 
+    disablePerks();
+
     switch (perk) {
-        case "sonar":
+        case "Sonar":
             initSonarPerk();
+            break;
+        case "Bounce_Bomb":
+            initBounceBombPerk();
+            break;
     }
 }
 
 function endPlayerPerk() {
-    enablePerks();
+    updatePerks();
     playerMove();
 }
 
@@ -206,12 +260,13 @@ function startGame() {
     $(resetBoardButton).fadeOut(500).unbind("click");
     $(undoLastShipButton).fadeOut(500).unbind("click");
 
-    $(".boardExtrasContainer").fadeIn(500);
+    $(boardExtras).fadeIn(500);
 
     // place the ships for the AI
     placeAIShips();
 
     // let the player have the first move
+    updatePerks();
     playerMove();
 }
 
@@ -273,10 +328,7 @@ function endGame(winner, finished) {
                 },
                 type: "post"
             });
-
-            alert("Game Over! - You Won! :)");
         } else {
-            alert("Game Over! - You Lost! :(");
             showOpponentShips();
         }
     }

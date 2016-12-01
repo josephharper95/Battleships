@@ -9,6 +9,7 @@
 * V0.11     Nick    09/11/16    page redirection bug
 * V0.12     Nick    10/11/16    changed home text
 * V1.0      Nick    27/11/16    updated for new design
+* V1.1      Nick    01/12/16    updated to textual links on home page
 *
 */
 
@@ -35,32 +36,38 @@ if(!Session::get("userID"))
     <div id="pageHomeCont">
         <div id="pageHome">
 
-            <a href="statistics.php" 
-                class="pageIcon statistics"
-                title="View your Statistics"></a>
+            <h1>BattleShips Online</h1>
 
-            <a href="multiplayer.php"
-                class="pageIcon multiplayer"
-                title="Battle in Multiplayer"></a>
-
-            <a href="game.php"
-                class="pageIcon computer"
-                title="Battle the Computer"></a>
+            <div class="poster statistics"></div>
+            <div class="poster multiplayer"></div>
+            <div class="poster computer"></div>
 
             <a href="logout.php"
                 class="pageIcon logout"
                 title="Logout of the application"></a>
 
+            <ul id="menu"
+                class="blank">
+
+                <li>
+                    <a href="game.php">Battle in Single-Player</a>
+                </li>
+
+                <li>
+                    <a href="multiplayer.php">Battle in Multi-Player</a>
+                </li>
+
+                <li>
+                    <a href="statistics.php">View your Battle Log</a>
+                </li>
+
+            </ul>
+
             <div class="logo"></div>
-            <a href="http://twitter.com" 
-                class="twitter socialMedia"
-                target="_blank"></a>
-            <a href="https://www.facebook.com/battleships.online" 
-                class="facebook socialMedia"
-                target="_blank"></a>
-            <a href="http://youtube.com" 
-                class="youtube socialMedia"
-                target="_blank"></a>
+
+<?php
+    require("socialMedia.php");
+?>
         </div>
     </div>
 

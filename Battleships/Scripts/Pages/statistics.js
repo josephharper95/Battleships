@@ -1,3 +1,12 @@
+/**
+ * 
+ * Last Modified By: Nick Holdsworth
+ * 
+ * V0.1     Nick / Joe  30/11/16    initial creation
+ * V0.11    Nick        30/11/16    added helper method    
+ * 
+ */
+
 $(document).ready(function(){
     getTopTenUsersScoresByDifficulty();
 });

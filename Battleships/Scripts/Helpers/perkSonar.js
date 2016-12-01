@@ -1,7 +1,8 @@
 /**
  * Last Modified By: Nick Holdsworth
  * 
- * V0.1     Nick    Initial creation
+ * V0.1     Nick                Initial creation
+ * V0.11    Nick    01/12/16    should have been calling a different function when the perk ends
  * 
  */
 
@@ -45,8 +46,7 @@ function initSonarPerk() {
             }
 
             // allow player to now make a move
-            enablePerks();
-            playerMove();
+            endPlayerPerk();
         });
         //}
     });

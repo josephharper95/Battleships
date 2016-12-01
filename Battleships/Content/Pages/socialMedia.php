@@ -1,0 +1,9 @@
+<a href="http://twitter.com/gamebsonline" 
+    class="twitter socialMedia"
+    target="_blank"></a>
+<a href="https://www.facebook.com/battleships.online" 
+    class="facebook socialMedia"
+    target="_blank"></a>
+<a href="https://www.youtube.com/channel/UCHp0l0SEhw3eAS7OZG_NCMQ" 
+    class="youtube socialMedia"
+    target="_blank"></a>

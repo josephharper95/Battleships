@@ -1,8 +1,9 @@
 /**
  * Last Modified By: Nick Holdsworth
  * 
- * V0.1     Nick    Initial creation
- * V0.11    Nick    Added extra param to end game
+ * V0.1     Nick                Initial creation
+ * V0.11    Nick                Added extra param to end game
+ * V0.12    Nick    01/12/16    update to variable name
  * 
  */
 
@@ -39,7 +40,7 @@ function AIMove() {
             if (ship.isDestroyed()) {
 
                 // if ship is destroyed, update remaining ships
-                $("#playerContainer .boardExtrasContainer ul.remainingShips li." + ship.getName()).addClass("destroyed");
+                $("#playerContainer " + boardExtras + " ul.remainingShips li." + ship.getName()).addClass("destroyed");
             }
         }
 

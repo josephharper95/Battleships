@@ -6,6 +6,7 @@
 * V0.1      Dave    01/10/16    initial creation
 * V0.11     Dave    05/10/16    Added comments
 * V0.12     Dave    29/11/16    Added methods to track perks available
+* V0.13     Nick    01/12/16    changed BounceBomb to Bounce_Bomb so other files can add a space in between
 *
 **/
 
@@ -19,31 +20,31 @@ function Game(size) {
 
     //Initialise perks availble according to board size
     switch(_size) {
-    case 10:
-        _playerPerks['Sonar'] = {
-            "usesLeft": 0
-        }
-        _playerPerks['BounceBomb'] = {
-            "usesLeft": 1
-        }
-        break;
-    case 15:
-        _playerPerks['Sonar'] = {
-            "usesLeft": 1
-        }
-        _playerPerks['BounceBomb'] = {
-            "usesLeft": 1
-        }
-        break;
-    case 20:
-        _playerPerks['Sonar'] = {
-            "usesLeft": 2
-        }
-        _playerPerks['BounceBomb'] = {
-            "usesLeft": 2
-        }
-    default:
-        _playerPerks = null;
+        case 10:
+            _playerPerks['Sonar'] = {
+                "usesLeft": 0
+            }
+            _playerPerks['Bounce_Bomb'] = {
+                "usesLeft": 1
+            }
+            break;
+        case 15:
+            _playerPerks['Sonar'] = {
+                "usesLeft": 1
+            }
+            _playerPerks['Bounce_Bomb'] = {
+                "usesLeft": 1
+            }
+            break;
+        case 20:
+            _playerPerks['Sonar'] = {
+                "usesLeft": 2
+            }
+            _playerPerks['Bounce_Bomb'] = {
+                "usesLeft": 2
+            }
+        default:
+            _playerPerks = null;
     }
 
     /**
@@ -88,7 +89,7 @@ function Game(size) {
         if(typeof(perk) != "string"){
             return false;
         }
-        if(perk!="Sonar" || perk!= "BounceBomb"){
+        if(perk!="Sonar" || perk!= "Bounce_Bomb"){
             return false;
         }
         _playerPerks[perk].usesLeft -= 1;

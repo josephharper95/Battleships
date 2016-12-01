@@ -3,6 +3,7 @@
  * 
  * V0.1     Nick    09/11/16    Initial creation
  * V0.2     Nick    10/11/16    update to endGame to add param
+ * V0.21    Nick    01/12/16    updated variable
  * 
  */
 
@@ -105,7 +106,7 @@ function boardFireAtOpponent($cell) {
                     setShipAttributesOnBoard(opponentBoard, ship);
                     
                     // add a class to let the remaining ships container know that the ship has been destroyed
-                    $("#opponentContainer .boardExtrasContainer ul.remainingShips li." + ship.getName()).addClass("destroyed");
+                    $("#opponentContainer " + boardExtras + " ul.remainingShips li." + ship.getName()).addClass("destroyed");
                 }
             }
         }

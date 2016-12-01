@@ -12,6 +12,7 @@
 * V0.23     Joe     21/10/16    altered code to reflect addition of User class
 * V0.24     Nick    10/11/16    updated redirection
 * V1.0      Nick    27/11/16    updated for new design
+* V1.1      Nick    01/12/16    social media links now brought in from file
 *
 **/
 
@@ -116,15 +117,9 @@ if(Input::itemExists("userID") && Input::itemExists("password")) { // If user ha
 
             <div class="logo"></div>
 
-            <a href="http://twitter.com" 
-                class="twitter socialMedia"
-                target="_blank"></a>
-            <a href="https://www.facebook.com/battleships.online" 
-                class="facebook socialMedia"
-                target="_blank"></a>
-            <a href="http://youtube.com" 
-                class="youtube socialMedia"
-                target="_blank"></a>
+<?php
+            require("socialMedia.php");
+?>
 
         </div>
 

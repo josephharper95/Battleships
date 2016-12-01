@@ -19,6 +19,7 @@
 * V0.38     Nick    13/11/16    statistics bug
 * V0.39     Nick    28/11/16    updated file locations
 * V0.40     Nick    28/11/16    added scoring HTML
+* V0.5      Nick    01/12/16    updated design for whole page
 *
 **/
 
@@ -84,6 +85,7 @@ require_once("header.php");
 <script src="../../Scripts/Helpers/perkSonar.js" type="text/javascript"></script>
 <script src="../../Scripts/Helpers/rotateShip.js" type="text/javascript" ></script>
 <script src="../../Scripts/Helpers/setShipAttributes.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/bounceBomb.js" type="text/javascript" ></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
@@ -95,160 +97,173 @@ require_once("header.php");
 <script src="../../Scripts/Classes/AIHard.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/Perk.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
 
-    <!-- set the page width to wide -->
-    <div id="pageComputerGame" class="wideWidth">
+    <div id="pageSinglePlayerCont"
+            class="pageContainer">
 
-        <!-- container for all player related items -->
-        <div id="playerContainer" class="sideContainer">
+        <div id="pageSinglePlayer">
 
-            <!-- container for the remaining ships for the player -->
-            <div class="boardExtrasContainer">
+            <div id="playerContainer" class="sideContainer">
 
-                <h4>Ships Remaining</h4>
+                <!-- container for the remaining ships for the player -->
+                <div class="boardExtrasContainer">
 
-                <!-- container to be populated by ships involved in the game -->
-                <ul class="blank remainingShips"></ul>
+                    <div class="boardExtras">
 
-                <ul class="blank perkContainer">
-                    <li>
-                        <h3>Perks</h3>
-                    </li>
-                    <li>
-                        <div class="button perk"
-                             data-perk="sonar">
-                             Sonar
+                        <div class="shipsRemainingCont">
+
+                            <h4>Ships Remaining</h4>
+
+                            <!-- container to be populated by ships involved in the game -->
+                            <ul class="blank remainingShips"></ul>
+
                         </div>
-                    </li>
-                </ul>
 
-            </div>
+                        <div class="perksCont">
 
-            <!-- container for player board -->
-            <div class="boardContainer">
+                            <h4>Perks</h4>
 
-                <h3>Player</h3>
+                            <ul class="blank perks"></ul>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- players board, populated relating to the size -->
-                <table id="playerBoard" class="board" data-size="<?= $sizeClass; ?>" >
-                    <?php echo createBoard(); ?>
-                </table>
+                <!-- container for player board -->
+                <div class="boardContainer">
 
-                <!-- button to start game, hidden at first -->
-                <div style="width: 100%; text-align: center; margin-top:7px;">
-                    <button class="button" 
-                            style="display:none;"
-                            id="startGame" >Start!</button>
+                    <h3>Player</h3>
 
-                    <button class="button"
-                            style="display:none;"
-                            id="rotateShip"
-                            title="Or press 'r' to rotate">
-                        Rotate Ship
-                    </button>
+                    <!-- players board, populated relating to the size -->
+                    <table id="playerBoard" class="board" data-size="<?= $sizeClass; ?>" >
+                        <?php echo createBoard(); ?>
+                    </table>
 
-                    <button class="button"
-                            style="display:none;"
-                            id="undoLastShip">
-                        Undo Last Ship
-                    </button>
+                    <!-- button to start game, hidden at first -->
+                    <div style="width: 100%; text-align: center; margin-top:7px;">
+                        <button class="button" 
+                                style="display:none;"
+                                id="startGame" >Start!</button>
 
-                    <button class="button"
-                            style="display:none;"
-                            id="resetBoard">
-                        Reset Board
-                    </button>
+                        <button class="button"
+                                style="display:none;"
+                                id="rotateShip"
+                                title="Or press 'r' to rotate">
+                            Rotate Ship
+                        </button>
 
-                    <h3 id="gameMessage"></h3>
+                        <button class="button"
+                                style="display:none;"
+                                id="undoLastShip">
+                            Undo Last Ship
+                        </button>
+
+                        <button class="button"
+                                style="display:none;"
+                                id="resetBoard">
+                            Reset Board
+                        </button>
+
+                        <h3 id="gameMessage"></h3>
+                    </div>
+
                 </div>
 
             </div>
 
-        </div>
-
-        <!-- container for the remaining ships for the opponent -->
-        <div id="opponentContainer" class="sideContainer" data-difficulty="<?= $difficulty; ?>">
-
             <!-- container for the remaining ships for the opponent -->
-            <div class="boardExtrasContainer">
+            <div id="opponentContainer" class="sideContainer" data-difficulty="<?= $difficulty; ?>">
 
-                <h4>Ships Remaining</h4>
+                <!-- container for the remaining ships for the opponent -->
+                <div class="boardExtrasContainer">
 
-                <!-- container to be populated by the ships involved in the game -->
-                <ul class="blank remainingShips"></ul>
+                    <div class="boardExtras">
+
+                        <div class="shipsRemainingCont">
+
+                            <h4>Ships Remaining</h4>
+
+                            <!-- container to be populated by ships involved in the game -->
+                            <ul class="blank remainingShips"></ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- container for opponent board -->
+                <div class="boardContainer">
+
+                    <h3>Computer (<?= $difficultyText; ?>)</h3>
+
+                    <!-- opponents board, populated relating to the size -->
+                    <table id="computerBoard" class="board" data-size="<?= $sizeClass; ?>" >
+                        <?php echo createBoard(); ?>
+                    </table>
+                </div>
             </div>
 
-            <!-- container for opponent board -->
-            <div class="boardContainer">
+            <div class="map"></div>
 
-                <h3>Computer (<?= $difficultyText; ?>)</h3>
+            <div id="scoreModalOverlay"
+                    class="overlay"></div>
+            <div id="scoreModal"
+                    class="modal"
+                    style="display:none;">
 
-                <!-- opponents board, populated relating to the size -->
-                <table id="computerBoard" class="board" data-size="<?= $sizeClass; ?>" >
-                    <?php echo createBoard(); ?>
-                </table>
+                <h1 id="resultTitle"></h1>
+
+                <ul class="blank">
+
+                    <li id="baseScore">
+                        <label>Base Score</label>
+                        <span>100pts</span>
+                    </li>
+
+                    <li id="hitsReceived">
+                        <label>Hits Received</label>
+                        <span></span>
+                    </li>
+
+                    <li id="shotsMissed">
+                        <label>Shots Missed</label>
+                        <span></span>
+                    </li>
+
+                    <li id="shotsHit">
+                        <label>Shots Hit</label>
+                        <span></span>
+                    </li>
+
+                    <li id="timeBonus">
+                        <label>Time Bonus</label>
+                        <span></span>
+                    </li>
+
+                    <li id="winBonus">
+                        <label>Win Bonus</label>
+                        <span></span>
+                    </li>
+
+                    <li class="line"></li>
+
+                    <li id="total">
+                        <label>Total</label>
+                        <span></span>
+                    </li>
+
+                </ul>
+
+                <div class="buttonContainer">
+
+                    <a href="home.php">Home</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="game.php">Back to Single Player</a>
+
+                </div>
+
+                <div id="closeModal">X</div>
+                
             </div>
-        </div>
-
-        <div id="scoreModalOverlay"
-                class="overlay"></div>
-        <div id="scoreModal"
-                class="modal"
-                style="display:none;">
-
-            <h1 id="resultTitle"></h1>
-
-            <ul class="blank">
-
-                <li id="baseScore">
-                    <label>Base Score</label>
-                    <span>100pts</span>
-                </li>
-
-                <li id="hitsReceived">
-                    <label>Hits Received</label>
-                    <span></span>
-                </li>
-
-                <li id="shotsMissed">
-                    <label>Shots Missed</label>
-                    <span></span>
-                </li>
-
-                <li id="shotsHit">
-                    <label>Shots Hit</label>
-                    <span></span>
-                </li>
-
-                <li id="timeBonus">
-                    <label>Time Bonus</label>
-                    <span></span>
-                </li>
-
-                <li id="winBonus">
-                    <label>Win Bonus</label>
-                    <span></span>
-                </li>
-
-                <li class="line"></li>
-
-                <li id="total">
-                    <label>Total</label>
-                    <span></span>
-                </li>
-
-            </ul>
-
-            <div class="buttonContainer">
-
-                <a href="home.php">Home</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="game.php">Back to Single Player</a>
-
-            </div>
-
-            <div id="closeModal">X</div>
-            
         </div>
     </div>
 
@@ -273,7 +288,7 @@ function createBoard() {
         $str .= "<tr>";
 
         for ($x = 0; $x < $size; $x++) {
-            $str .= "<td class='$sizeClass'></td>";
+            $str .= "<td></td>";
         }
 
         $str .= "</tr>";
