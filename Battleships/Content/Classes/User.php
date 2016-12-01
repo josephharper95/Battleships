@@ -13,6 +13,7 @@
 * V0.15     Joe     14/11/16    updated new user query to reflect addition of multiplayer statistics
 * V0.16     Joe     14/11/16    updated queries to reflect addition of new "incompleteGames" column
 * V0.17     Joe     01/12/16    updated methods + added method to reflect the addition of a new "highScore" column
+* V0.18     Joe     01/12/16    added getMultiplayerDataByUserID method
 *
 **/
 
@@ -240,6 +241,19 @@ class User {
                 ORDER BY totalPlayingTime desc
                 LIMIT 10";
         $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
+	}
+
+    //Function to execute a query, getting the users multiplayer statistics displayed on their room
+   	function getMultiplayerDataByUserID($userID) {
+        $sql = "SELECT highScore, gamesPlayed, incompleteGames
+				FROM userstatistics us
+				WHERE us.difficultyID = 4 AND us.userID = ?
+				LIMIT 1";
+        $values = array($userID);
 		
 		$this->db->query($sql, $values);
 
