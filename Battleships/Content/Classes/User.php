@@ -12,6 +12,8 @@
 * V0.14     Joe     14/11/16    added query to update score
 * V0.15     Joe     14/11/16    updated new user query to reflect addition of multiplayer statistics
 * V0.16     Joe     14/11/16    updated queries to reflect addition of new "incompleteGames" column
+* V0.17     Joe     01/12/16    updated methods + added method to reflect the addition of a new "highScore" column
+* V0.18     Joe     01/12/16    added getMultiplayerDataByUserID method
 *
 **/
 
@@ -44,12 +46,12 @@ class User {
         $this->db->query($sql, $values);
 
         // User statistics setup
-        $sql = "INSERT INTO userstatistics (userID, difficultyID, score, wins, gamesPlayed, incompleteGames,
+        $sql = "INSERT INTO userstatistics (userID, difficultyID, score, highScore, wins, gamesPlayed, incompleteGames,
                                             totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime)
-                VALUES  (?, '1', '0', '0', '0', '0', '0', '0', '0', '0'),
-                        (?, '2', '0', '0', '0', '0', '0', '0', '0', '0'),
-                        (?, '3', '0', '0', '0', '0', '0', '0', '0', '0'),
-                        (?, '4', '0', '0', '0', '0', '0', '0', '0', '0')";
+                VALUES  (?, '1', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '2', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '3', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+                        (?, '4', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
         $values = array($userID, $userID, $userID, $userID);
 
         $this->db->query($sql, $values);
@@ -82,7 +84,7 @@ class User {
 
     //Function to execute a query, getting the user statistics from the database with the entered userID
    	function getUserStatisticsByUserIDAndDifficulty($userID, $difficulty) {
-        $sql = "SELECT score, wins, gamesPlayed, incompleteGames, totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime
+        $sql = "SELECT score, highScore, wins, gamesPlayed, incompleteGames, totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime
 				FROM userstatistics us
                     JOIN difficulties d
                         ON us.difficultyID = d.difficultyID
@@ -113,6 +115,24 @@ class User {
         return $this->db->getResults();
 	}
 
+    //Function to execute a query, getting the top ten users and high scores by difficulty
+   	function getTopTenUsersHighScoresByDifficulty($difficulty) {
+        $sql = "SELECT u.userID, firstName, lastName, highScore
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficultyID = ?
+                ORDER BY highScore desc
+                LIMIT 10";
+        $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
+	}
+
     //Function to execute a query, getting the top ten users and wins by difficulty
    	function getTopTenUsersWinsByDifficulty($difficulty)
 	{
@@ -122,7 +142,7 @@ class User {
                         ON us.difficultyID = d.difficultyID
                     JOIN users u
                         ON u.userID = us.userID
-                WHERE d.difficulty = ?
+                WHERE d.difficultyID = ?
                 ORDER BY wins desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -141,7 +161,7 @@ class User {
                         ON us.difficultyID = d.difficultyID
                     JOIN users u
                         ON u.userID = us.userID
-                WHERE d.difficulty = ?
+                WHERE d.difficultyID = ?
                 ORDER BY gamesPlayed desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -160,7 +180,7 @@ class User {
                         ON us.difficultyID = d.difficultyID
                     JOIN users u
                         ON u.userID = us.userID
-                WHERE d.difficulty = ?
+                WHERE d.difficultyID = ?
                 ORDER BY totalShotsFired desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -179,7 +199,7 @@ class User {
                         ON us.difficultyID = d.difficultyID
                     JOIN users u
                         ON u.userID = us.userID
-                WHERE d.difficulty = ?
+                WHERE d.difficultyID = ?
                 ORDER BY totalShotsHit desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -198,7 +218,7 @@ class User {
                         ON us.difficultyID = d.difficultyID
                     JOIN users u
                         ON u.userID = us.userID
-                WHERE d.difficulty = ?
+                WHERE d.difficultyID = ?
                 ORDER BY totalHitsReceived desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -217,10 +237,23 @@ class User {
                         ON us.difficultyID = d.difficultyID
                     JOIN users u
                         ON u.userID = us.userID
-                WHERE d.difficulty = ?
+                WHERE d.difficultyID = ?
                 ORDER BY totalPlayingTime desc
                 LIMIT 10";
         $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
+	}
+
+    //Function to execute a query, getting the users multiplayer statistics displayed on their room
+   	function getMultiplayerDataByUserID($userID) {
+        $sql = "SELECT highScore, gamesPlayed, incompleteGames
+				FROM userstatistics us
+				WHERE us.difficultyID = 4 AND us.userID = ?
+				LIMIT 1";
+        $values = array($userID);
 		
 		$this->db->query($sql, $values);
 
@@ -238,6 +271,17 @@ class User {
 				SET score = score + ?
                 WHERE userID = ? AND difficultyID = ?";
         $values = array($gameScore, $userID, $difficulty);
+
+        $this->db->query($sql, $values);
+    }
+
+    // Function updates the score of the player with the specified difficulty
+    function updateHighScore($userID, $difficulty, $gameScore)
+	{
+		$sql = "UPDATE userstatistics
+				SET highScore = ?
+                WHERE userID = ? AND difficultyID = ? AND ? > highScore";
+        $values = array($gameScore, $userID, $difficulty, $gameScore);
 
         $this->db->query($sql, $values);
     }

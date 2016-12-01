@@ -9,7 +9,8 @@
 * V0.11     Nick    01/11/16    added total playing time
 * V0.12     Nick    13/11/16    added increment games played
 * V0.13     Joe     14/11/16    added update score
-* V0.14     Joe     14/11/2016  altered call names + added methods to reflect addition of incomplete games statistic
+* V0.14     Joe     14/11/16    altered call names + added methods to reflect addition of incomplete games statistic
+* V0.15     Joe     01/12/16    added updateHighScore ajax to recordShots method
 *
 **/
 
@@ -96,6 +97,7 @@ function recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime, 
         $user->updateScore($userId, $difficultyId, $gameScore);
         $user->incrementGamesPlayed($userId, $difficultyId);
         $user->decrementIncompleteGames($userId, $difficultyId);
+        $user->updateHighScore($userId, $difficultyId, $gameScore);
     }
 }
 

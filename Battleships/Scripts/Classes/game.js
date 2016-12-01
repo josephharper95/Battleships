@@ -7,6 +7,7 @@
 * V0.11     Dave    05/10/16    Added comments
 * V0.12     Dave    29/11/16    Added methods to track perks available
 * V0.13     Nick    01/12/16    changed BounceBomb to Bounce_Bomb so other files can add a space in between
+* V0.14     Dave    01/12/16    Fixed bug with perks not showing on large boards.
 *
 **/
 
@@ -43,6 +44,7 @@ function Game(size) {
             _playerPerks['Bounce_Bomb'] = {
                 "usesLeft": 2
             }
+            break;
         default:
             _playerPerks = null;
     }
