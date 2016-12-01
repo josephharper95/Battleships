@@ -20,13 +20,14 @@
  * V0.9     Nick        28/11/16    added scoring modal
  * V0.91    Nick        28/11/16    scoring bug
  * V0.92    Nick        29/11/16    added incrementIncompleteGames
+ * v0.93    Dave        30/11/16    added more info to games list
  * 
  */
 
 // Connecting to socket.io //var socket = io.connect('http://40.68.102.207:3000');
-var socket = io.connect('https://battleships.online:3000', {secure: true});
-//var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
-// UNCOMMENT FOR PREPROD //var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
+//var socket = io.connect('https://battleships.online:3000', {secure: true});
+var socket = io.connect('https://battleships-preprod.tk:3000', {secure: true});
+//var socket = io.connect('http://localhost:3000'); // UNCOMMENT FOR LOCALHOST DEV
 
 
 var game;
@@ -150,6 +151,9 @@ socket.on('gameList', function (data) {
 
                 returnText += "<span>";
                 returnText += data[game].name;
+                returnText += "<br> Board Size: " + data[game].boardSize;
+                returnText += "<br> Players High Score: " +data[game].hostHighScore;
+                returnText += "<br> Players Game Completion Rate: "+data[game].hostCompletionRate;
                 returnText += "</span>";
 
                 if (data[game].name != session.id) {
@@ -180,7 +184,13 @@ socket.on('gameList', function (data) {
 });
 
 function createRoom() {
-    socket.emit("createGame", session.id);
+    data = {
+        "name": session.id,
+        "boardSize": 10,
+        "highScore": 200,
+        "completionRate": 100
+    };
+    socket.emit("createGame", data);
 }
 
 socket.on("createGameResponse", function (data) {
