@@ -65,7 +65,7 @@ END OF SERVER SETUP FOR LOCALHOST/HTTP
 /***********************************************
 SERVER SSL/HTTPS SETUP FOR PREPRODUCTION
 ************************************************/
-/*var https = require('https'), 
+var https = require('https'), 
 	path = require('path'),
     fs = require('fs'),
 	express = require('express'),
@@ -81,7 +81,7 @@ var options =
 var server = https.createServer(options, app);
 var io = require('socket.io').listen(server);     //socket.io server listens to https connections
 
-server.listen(3000);*/
+server.listen(3000)
 /*************************************************
 END OF SERVER SSL/HTTPS SETUP FOR PREPRODUCTION
 *************************************************/
@@ -89,7 +89,7 @@ END OF SERVER SSL/HTTPS SETUP FOR PREPRODUCTION
 /*********************************************** 
 SERVER SSL/HTTPS SETUP FOR PRODUCTION 
 ************************************************/ 
-var https = require('https'),
+/*var https = require('https'),
     path = require('path'),
     fs = require('fs'),
     express = require('express'),
@@ -105,7 +105,7 @@ var options =
 var server = https.createServer(options, app); 
 var io = require('socket.io').listen(server);     //socket.io server listens to https connections 
 
-server.listen(3000); 
+server.listen(3000); */
 /************************************************* 
 END OF SERVER SSL/HTTPS SETUP FOR PRODUCTION 
 *************************************************/
@@ -139,9 +139,10 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
 
         var gameID = null;
 
+        console.log(usernames[username]);
         //Check the user is not already connected
-        if(usernames[username]){
-            socket.emit("alert", "You are already connected on a different session.");
+        if(typeof(usernames[username]) !== 'undefined'){
+            socket.emit("alert", "You are already connected on a different session(!!!!!).");
             socket.emit("joinServerRepsonse", false);
             return;
         }
@@ -188,7 +189,7 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
             }
 
             var username = player.username;
-
+            delete usernames[player.username];
             //Remove the client from the client array.
             io.sockets.emit("alert", username + " has gone offline.");
             delete clients[socket.id];
