@@ -658,7 +658,6 @@ function twoItemTableCell(item1, item2) {
     tableHTML += "<label>";
     tableHTML += item1;
     tableHTML += "</label>";
-    tableHTML += "---"
     tableHTML += "<span>";
     tableHTML += item2;
     tableHTML += "</span>";
