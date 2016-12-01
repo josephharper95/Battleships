@@ -124,7 +124,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
-                ORDER BY score desc
+                ORDER BY highScore desc
                 LIMIT 10";
         $values = array($difficulty);
 		
