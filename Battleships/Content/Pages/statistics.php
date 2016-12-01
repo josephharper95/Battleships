@@ -10,6 +10,7 @@
 *   V0.12   Nick    01/11/16    added total playing time
 *   V0.13   Nick    01/11/16    added accuracy percentage and styling
 *   V0.14   Joe     14/11/16    added table entry for multiplayer statistics
+*   V0.15   Joe     01/12/16    added leaderboard tables
 */
 
 // include the setup file if it has not been included
@@ -115,6 +116,24 @@ function convertPercentage($small, $large) {
 
             <tr>
                 <td>
+                    Highest Scoring Game
+                </td>
+                <td>
+                    <?= $playerEasy->highScore; ?>
+                </td>
+                <td>
+                    <?= $playerMedium->highScore; ?>
+                </td>
+                <td>
+                    <?= $playerHard->highScore; ?>
+                </td>
+                <td>
+                    <?= $playerMultiplayer->highScore; ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
                     Wins
                 </td>
                 <td>
@@ -205,19 +224,19 @@ function convertPercentage($small, $large) {
 
             <tr>
                 <td>
-                    Incomplete Game Rate Percentage
+                    Complete Game Rate Percentage
                 </td>
                 <td>
-                    <?= convertPercentage($playerEasy->incompleteGames, $playerEasy->gamesPlayed + $playerEasy->incompleteGames); ?>
+                    <?= convertPercentage($playerEasy->gamesPlayed, $playerEasy->gamesPlayed + $playerEasy->incompleteGames); ?>
                 </td>
                 <td>
-                    <?= convertPercentage($playerMedium->incompleteGames, $playerMedium->gamesPlayed + $playerMedium->incompleteGames); ?>
+                    <?= convertPercentage($playerMedium->gamesPlayed, $playerMedium->gamesPlayed + $playerMedium->incompleteGames); ?>
                 </td>
                 <td>
-                    <?= convertPercentage($playerHard->incompleteGames, $playerHard->gamesPlayed + $playerHard->incompleteGames); ?>
+                    <?= convertPercentage($playerHard->gamesPlayed, $playerHard->gamesPlayed + $playerHard->incompleteGames); ?>
                 </td>
                 <td>
-                    <?= convertPercentage($playerMultiplayer->incompleteGames, $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames); ?>
+                    <?= convertPercentage($playerMultiplayer->gamesPlayed, $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames); ?>
                 </td>
             </tr>
 
@@ -314,7 +333,9 @@ function convertPercentage($small, $large) {
     
     </table>
     <br/>
-    <table id="topTenScore">
+    
+    <h3>Top Ten Scores</h3>
+    <table id="topTenScores">
         <thead>
             <tr>
                 <th>
@@ -333,4 +354,160 @@ function convertPercentage($small, $large) {
         </thead>
         <tbody></tbody>
     </table>
+    <br/>
+
+    <h3>Top Ten High Scores</h3>
+    <table id="topTenHighScores">
+        <thead>
+            <tr>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+                <th>
+                    Multiplayer
+                </th>
+            </tr>
+        </thead>
+    <tbody></tbody>
+    </table>
+    <br/>
+
+    <h3>Top Ten Wins</h3>
+    <table id="topTenWins">
+        <thead>
+            <tr>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+                <th>
+                    Multiplayer
+                </th>
+            </tr>
+        </thead>
+    <tbody></tbody>
+    </table>
+    <br/>
+
+    <h3>Top Ten Games Played</h3>
+    <table id="topTenGamesPlayed">
+        <thead>
+            <tr>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+                <th>
+                    Multiplayer
+                </th>
+            </tr>
+        </thead>
+    <tbody></tbody>
+    </table>
+    <br/>
+
+    <h3>Top Ten Total Shots Fired</h3>
+    <table id="topTenTotalShotsFired">
+        <thead>
+            <tr>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+                <th>
+                    Multiplayer
+                </th>
+            </tr>
+        </thead>
+    <tbody></tbody>
+    </table>
+    <br/>
+
+    <h3>Top Ten Total Shots Hit</h3>
+    <table id="topTenTotalShotsHit">
+        <thead>
+            <tr>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+                <th>
+                    Multiplayer
+                </th>
+            </tr>
+        </thead>
+    <tbody></tbody>
+    </table>
+    <br/>
+
+    <h3>Top Ten Total Hits Received</h3>
+    <table id="topTenTotalHitsReceived">
+        <thead>
+            <tr>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+                <th>
+                    Multiplayer
+                </th>
+            </tr>
+        </thead>
+    <tbody></tbody>
+    </table>
+    <br/>
+
+    <h3>Top Ten Total Playing Time</h3>
+    <table id="topTenTotalPlayingTime">
+        <thead>
+            <tr>
+                <th>
+                    Easy
+                </th>
+                <th>
+                    Medium
+                </th>
+                <th>
+                    Hard
+                </th>
+                <th>
+                    Multiplayer
+                </th>
+            </tr>
+        </thead>
+    <tbody></tbody>
+    </table>
+    <br/>
+
 </div>
