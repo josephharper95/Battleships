@@ -244,7 +244,7 @@ function createRoom() {
 
     $(createRoomButtonConf).unbind("click").one("click", function () {
 
-        var completionRate = userStats.gamesPlayed / (userStats.gamesPlayed + userStats.incompleteGames) * 100;
+        var completionRate = (userStats.gamesPlayed / (userStats.gamesPlayed + userStats.incompleteGames) * 100).toFixed(2);
         var size = $("[name=size]:checked").val();
         var sizeInt = convertBoardSizeStrToInt(size);
         boardSize = sizeInt;
