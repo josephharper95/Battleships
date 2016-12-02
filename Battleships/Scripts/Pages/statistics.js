@@ -195,7 +195,6 @@ function populateTopTenUsersScoresByDifficultyTable(data)
     var hard = data["hard"];
     var multiplayer = data["multiplayer"];
     var tableHTML = "";
-    console.log(easy.length);
 
     for (var i = 0; i < 10; i++)
     {
@@ -253,7 +252,6 @@ function populateTopTenUsersHighScoresByDifficultyTable(data)
     var hard = data["hard"];
     var multiplayer = data["multiplayer"];
     var tableHTML = "";
-    console.log(easy.length);
 
     for (var i = 0; i < 10; i++)
     {
@@ -311,7 +309,6 @@ function populateTopTenUsersWinsByDifficultyTable(data)
     var hard = data["hard"];
     var multiplayer = data["multiplayer"];
     var tableHTML = "";
-    console.log(easy.length);
 
     for (var i = 0; i < 10; i++)
     {
@@ -369,7 +366,6 @@ function populateTopTenUsersGamesPlayedByDifficultyTable(data)
     var hard = data["hard"];
     var multiplayer = data["multiplayer"];
     var tableHTML = "";
-    console.log(easy.length);
 
     for (var i = 0; i < 10; i++)
     {
@@ -427,7 +423,6 @@ function populateTopTenUsersTotalShotsFiredByDifficultyTable(data)
     var hard = data["hard"];
     var multiplayer = data["multiplayer"];
     var tableHTML = "";
-    console.log(easy.length);
 
     for (var i = 0; i < 10; i++)
     {
@@ -485,7 +480,6 @@ function populateTopTenUsersTotalShotsHitByDifficultyTable(data)
     var hard = data["hard"];
     var multiplayer = data["multiplayer"];
     var tableHTML = "";
-    console.log(easy.length);
 
     for (var i = 0; i < 10; i++)
     {
@@ -543,7 +537,6 @@ function populateTopTenUsersTotalHitsReceivedByDifficultyTable(data)
     var hard = data["hard"];
     var multiplayer = data["multiplayer"];
     var tableHTML = "";
-    console.log(easy.length);
 
     for (var i = 0; i < 10; i++)
     {
@@ -601,7 +594,6 @@ function populateTopTenUsersTotalPlayingTimeByDifficultyTable(data)
     var hard = data["hard"];
     var multiplayer = data["multiplayer"];
     var tableHTML = "";
-    console.log(easy.length);
 
     for (var i = 0; i < 10; i++)
     {
