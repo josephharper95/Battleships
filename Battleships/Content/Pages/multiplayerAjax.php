@@ -99,6 +99,7 @@ function recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime, 
         $user->updateScore($userId, $difficultyId, $gameScore);
         $user->incrementGamesPlayed($userId, $difficultyId);
         $user->decrementIncompleteGames($userId, $difficultyId);
+        $user->updateHighScore($userId, $difficultyId, $gameScore);
     }
 }
 
