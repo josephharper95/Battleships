@@ -15,6 +15,7 @@
  * V0.38    Dave            25/11/16    users cannot join on different sessions anymore.
  * V0.39    Dave            28/11/16    added methods required for sonar perk
  * V0.4     Dave            1/12/16     Added more info to the games class and returned gamesList
+ * V0.41    Dave            2/12/16     Updated perk methods to be dynamic
  */
 
  /******************************
@@ -384,19 +385,19 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     });
 
     /**
-     * Tells the opponent to run sonar at x,y
+     * Tells the opponent to run the given perk at x,y
      */
-    socket.on("sonar", function(coord){
+    socket.on("usePerk", function(perk, coord){
         var opponent = getOpponent();
-        io.sockets.to(opponent).emit("runSonar", coord);
+        io.sockets.to(opponent).emit("runPerk", perk, coord);
     });
 
     /**
-     * Waits for response from oppenent of a recorded hit, transmits the data back to the client (hit/miss)
+     * Waits for response from oppenent of perk results, transmits the data back to the client (hit/miss)
      */
-    socket.on("runSonarResponse", function (data) {
+    socket.on("runPerkResponse", function (data) {
         var opponent = getOpponent();
-        io.sockets.to(opponent).emit("sonarResponse", data);
+        io.sockets.to(opponent).emit("usePerkResponse", data);
     });
 
 
