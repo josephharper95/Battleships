@@ -16,8 +16,6 @@ function initBounceBombPerk() {
 
     $(bbRotate).on("click", function () {
         bbOrientation = bbOrientation == 1 ? 0 : 1;
-
-        console.log(bbOrientation);
     });
 
     $(page + " " + opponentBoard + " td").unbind("mouseenter");

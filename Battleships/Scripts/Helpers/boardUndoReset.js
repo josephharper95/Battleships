@@ -41,9 +41,6 @@ function undoLastShip() {
         $cell.removeAttr("data-orientation");
         $cell.removeAttr("data-ship-part");
     }
-
-    console.log(numShips);
-    console.log(shipsToPlace.length);
     
     if (numShips > 0) {
         $(undoLastShipButton).unbind("click").one("click", function () {

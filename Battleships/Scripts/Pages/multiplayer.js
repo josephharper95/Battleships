@@ -158,18 +158,15 @@ socket.on("playersOnline", function (num) {
 });
 
 socket.on("opponentName", function(data){
-    //console.log("Opponent: " + data);
     $("#opponentName").html("Opponent: " + data);
 });
 
 //To show alerts from server
 socket.on('alert', function(message){ // listens for alert emit from server.js
-    console.log(message);
+    //console.log(message);
 });
 
 socket.on('gameList', function (data) {
-
-    //console.log("Games");
 
     var returnText = "";
     
@@ -178,12 +175,8 @@ socket.on('gameList', function (data) {
         if (data.hasOwnProperty(game)) {
 
             if (data[game].players.length != 2) {
-
-                console.log(data[game]);
                 
                 returnText += "<tr>";
-
-                //console.log(game + " -> " + data[game].name);
 
                 // username
                 returnText += "<td>";
@@ -380,11 +373,9 @@ socket.on("gameReady", function (data) {
 
 socket.on("playerToStart", function(data) {
 
-    //console.log("playerToStart");
     showWaiting(false);
     
     if (data) {
-         //console.log("You are going first!!!");
          playerMove();
     }
 });
@@ -399,7 +390,7 @@ socket.on("playerToStart", function(data) {
  * Function to populate the ships that can be placed into an array and into the reamining ships container in the HTML
  */
 function populateShips() {
-    //console.log("populating ships");
+
     var remainingShipsHtml = "";
 
     for (i = 0; i < shipDetails.length; i++) {
@@ -430,9 +421,7 @@ function shipsPlaced() {
         $(undoLastShipButton).fadeOut(500).unbind("click");
 
         // emit to server that player is ready
-        showWaiting(true, "You're ready to play!<br/><br/>Please wait for your opponent to place their ships")
-
-        //console.log("Host: " + host);
+        showWaiting(true, "You're ready to play!<br/><br/>Please wait for your opponent to place their ships");
 
         var myShipObjs = playerBoardClass.getShipsPlaced();
         var myShips = new Array();
@@ -634,7 +623,7 @@ function updatePerks() {
     $("#playerContainer .perks").html(perkHtml);
 
     $("#playerContainer .perk:not(:disabled)").off("click").one("click", function () {
-        console.log("PERK");
+        
         var cell = $(this);
         var perk = $(cell).data("perk");
 
@@ -864,9 +853,6 @@ function showRemainingShips() {
 }
 
 function resetMultiplayerBoard() {
-
-    console.log(boardSize);
-    console.log(boardSizeStr);
 
     $(".board").attr("data-size", boardSizeStr);
 

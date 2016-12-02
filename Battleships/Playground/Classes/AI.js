@@ -95,7 +95,6 @@ AI.prototype = {
         var cell = Math.floor((Math.random() * _cellsNotYetHit.length));
         var temp = _cellsNotYetHit[cell];
         
-        //console.log(_name +" fireing at: "+ temp.getCoordinates());
         _opponentBoard.fire(temp.getX(), temp.getY());
         _cellsNotYetHit.splice(cell, 1);
         this.lastHit = temp;
