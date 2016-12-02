@@ -192,7 +192,8 @@ socket.on('gameList', function (data) {
 
                 // high score
                 returnText += "<td>";
-                returnText += data[game].name;
+                console.log(data[game]);
+                returnText += data[game].hostHighScore;
                 returnText += "</td>";
 
                 // completion rate
