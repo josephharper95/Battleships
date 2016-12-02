@@ -16,6 +16,7 @@
  * V0.39    Dave            28/11/16    added methods required for sonar perk
  * V0.4     Dave            1/12/16     Added more info to the games class and returned gamesList
  * V0.41    Dave            2/12/16     Updated perk methods to be dynamic
+ * V0.42    Nick            02/12/16    updated perk functionality
  */
 
  /******************************
@@ -387,9 +388,9 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
     /**
      * Tells the opponent to run the given perk at x,y
      */
-    socket.on("usePerk", function(perk, coord){
+    socket.on("usePerk", function(data){
         var opponent = getOpponent();
-        io.sockets.to(opponent).emit("runPerk", perk, coord);
+        io.sockets.to(opponent).emit("runPerk", data);
     });
 
     /**

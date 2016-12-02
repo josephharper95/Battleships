@@ -22,6 +22,7 @@
  * V0.92    Nick        29/11/16    added incrementIncompleteGames
  * V0.93    Dave        30/11/16    added more info to games list
  * V1.0     Nick        02/12/16    dynamic board sizes and initial perks
+ * V1.1     Nick        02/12/16    sonar perk integration
  * 
  */
 
@@ -652,9 +653,94 @@ function runPlayerPerk(perk) {
     }
 }
 
-function endPlayerPerk() {
+function endPlayerPerk(skipTurn, perk) {
+
+    var x = game.updatePlayerPerks(perk);
+
     updatePerks();
-    playerMove();
+
+    if (!skipTurn) {
+        playerMove();
+    } else {
+        AIMove();
+    }
+}
+
+/******************************
+ * 
+ *        PERK ACTIONS
+ * 
+******************************/
+
+socket.on("runPerk", function (data) {
+
+    switch (data.perk) {
+        case "Sonar":
+            runSonarPerk(data.x, data.y);
+            break;
+        case "Bounce_Bomb":
+            runBounceBombPerk(data.x, data.y);
+            break;
+    }
+});
+
+socket.on("usePerkResponse", function (data) {
+
+    switch (data.perk) {
+        case "Sonar":
+            responseSonarPerk(data.x, data.y);
+            break;
+        case "Bounce_Bomb":
+            responseBounceBombPerk(data.x, data.y);
+            break;
+    }
+});
+
+function sonarAction(x, y) {
+
+    var data = {
+        perk: "Sonar",
+        x: x,
+        y: y
+    };
+
+    socket.emit("userPerk", data);
+}
+
+function runSonarPerk(x, y) {
+
+    var sonar = new Sonar(opponentBoardClass);
+
+    var cell = sonar.action(x, y);
+
+    var data = {
+        perk: "Sonar",
+        x: cell ? cell.getX() : null,
+        y: cell ? cell.getY() : null 
+    };
+
+    if (cell) {
+        $(page + " " + playerBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
+    }
+
+    socket.emit("runPerkResponse", data)
+}
+
+function responseSonarPerk(x, y) {
+
+    if (x != null && y != null) {
+
+        $(page + " " + opponentBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
+    } else {
+
+        alert("No moves found :(");
+    }
+
+    endPlayerPerk(false, "Sonar");
+}
+
+function bounceBombAction(x, y) {
+
 }
 
 /******************************

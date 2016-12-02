@@ -26,7 +26,8 @@
  * V0.9     Nick    28/11/16    added scoring modal
  * V0.91    Nick    28/11/16    fade bug
  * V1.0     Nick    01/12/16    overhaul to perks so that they are now dynamic by board size
- * V0.11    Nick    02/12/16    added perk actions to file
+ * V1.1     Nick    02/12/16    added perk actions to file
+ * V1.11    Nick    02/12/16    removed console.log
  * 
  */
 
@@ -205,8 +206,6 @@ function runPlayerPerk(perk) {
 function endPlayerPerk(skipTurn, perk) {
 
     var x = game.updatePlayerPerks(perk);
-
-    console.log("Perk removed: " + perk + " " + x); 
 
     updatePerks();
 
