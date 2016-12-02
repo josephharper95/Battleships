@@ -221,8 +221,7 @@ function bounceBombAction(x, y, bbOrientation) {
 
     var num = bounceBomb.action(x, y, bbOrientation);
 
-        //opponentBoardClass.fire(x, y);
-        boardFireAtOpponentCoordinate(x, y);
+    boardFireAtOpponentCoordinate(x, y);
 
     if (num == 2) {
 

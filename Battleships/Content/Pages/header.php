@@ -15,6 +15,7 @@
 * V0.41     Nick                10/11/16    renamed multiplayer pages
 * V0.5      Nick                12/11/16    added version to header
 * V0.51     Nick                15/11/16    rejigged loaders
+* V0.6      Nick                02/12/16    added logo to header
 *
 */ 
 
@@ -53,11 +54,13 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 1.14.0
+            Version: 1.15.0
         </div>
 
         <div id="headerBar">
             <h1 id="headerTitle">BattleShips Online</h1>
+
+            <div class="logo"></div>
 
 <?php
 

@@ -3,6 +3,7 @@
  * Last Modified By: Nick Holdsworth
  * 
  * V0.1     Nick    02/12/16    initial creation
+ * V0.11    Nick    02/12/16    hard should have been large
  * 
  */
 
@@ -24,6 +25,6 @@ function convertBoardSizeIntToStr(size) {
         case 15:
             return "medium";
         case 20:
-            return "hard";
+            return "large";
     }
 }

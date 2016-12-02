@@ -23,6 +23,7 @@
  * V0.93    Dave        30/11/16    added more info to games list
  * V1.0     Nick        02/12/16    dynamic board sizes and initial perks
  * V1.1     Nick        02/12/16    sonar perk integration
+ * V1.2     Nick        02/12/16    bounce bomb perk integration
  * 
  */
 
@@ -504,30 +505,16 @@ function fireAtPlayer($cell) {
 }
 
 socket.on("recordHit", function (data) {
-    
-    if (data) {
+
+    if (data == "skip") {
+        playerMove();
+        showWaiting(false);
+    } else if (data) {
 
         var x = data.x;
         var y = data.y;
 
-        var hit = playerBoardClass.fire(x, y);
-
-        if (hit) {
-            totalHitsReceived++;
-        }
-        
-        var coord = playerBoardClass.getCoordinateAt(x, y);
-        var coordinate = coord.toObject();
-
-        $(page + " " + playerBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
-
-        var ship = coord.getShip(x, y);
-
-        if (ship) {
-            if (ship.isDestroyed()) {
-                $("#playerContainer .boardExtrasContainer ul.remainingShips li." + ship.getName()).addClass("destroyed");
-            }
-        }
+        var coordinate = boardFireAtSelf(x, y);
 
         socket.emit("recordHitResponse", {
             coordinate: coordinate
@@ -543,23 +530,53 @@ socket.on("recordHit", function (data) {
     }
 });
 
+function boardFireAtSelf(x, y) {
+
+    var hit = playerBoardClass.fire(x, y);
+
+    if (hit) {
+        totalHitsReceived++;
+    }
+    
+    var coord = playerBoardClass.getCoordinateAt(x, y);
+    var coordinate = coord.toObject();
+
+    $(page + " " + playerBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
+
+    var ship = coord.getShip(x, y);
+
+    if (ship) {
+        if (ship.isDestroyed()) {
+            $("#playerContainer .boardExtrasContainer ul.remainingShips li." + ship.getName()).addClass("destroyed");
+        }
+    }
+
+    return coordinate;
+}
+
 socket.on("fireResponse", function (data) {
     showWaiting(false);
 
     var coord = data.coordinate;
 
     // fire at board
-    var hit = opponentBoardClass.fire(coord.x, coord.y);
+    boardFireAtOpponent(coord.x, coord.y);
 
-    $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("hit");
+    showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!", 0.4);
+});
+
+function boardFireAtOpponent(x, y) {
+    var hit = opponentBoardClass.fire(x, y);
+
+    $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
 
     if (hit) {
 
         totalHits++;
 
-        $(page + " " + opponentBoard + " tr:eq(" + coord.y + ") > td:eq(" + coord.x + ")").addClass("containsShip");
+        $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("containsShip");
 
-        var coordObj = opponentBoardClass.getCoordinateAt(coord.x, coord.y);
+        var coordObj = opponentBoardClass.getCoordinateAt(x, y);
 
         var ship = coordObj.getShip();
 
@@ -573,9 +590,7 @@ socket.on("fireResponse", function (data) {
             }
         }
     }
-
-    showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!", 0.4);
-});
+}
 
 /******************************
  * 
@@ -633,7 +648,7 @@ function updatePerks() {
  * Make buttons look disabled
  */
 function disablePerks() {
-    $(".perkContainer .perk").attr("disabled", "disabled");
+    $("#playerContainer .perk").attr("disabled", "disabled");
 }
 
 /**
@@ -662,7 +677,8 @@ function endPlayerPerk(skipTurn, perk) {
     if (!skipTurn) {
         playerMove();
     } else {
-        AIMove();
+        socket.emit("fire", "skip");
+        showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!", 0.4);
     }
 }
 
@@ -679,7 +695,7 @@ socket.on("runPerk", function (data) {
             runSonarPerk(data.x, data.y);
             break;
         case "Bounce_Bomb":
-            runBounceBombPerk(data.x, data.y);
+            runBounceBombPerk(data.x, data.y, data.orientation);
             break;
     }
 });
@@ -691,7 +707,7 @@ socket.on("usePerkResponse", function (data) {
             responseSonarPerk(data.x, data.y);
             break;
         case "Bounce_Bomb":
-            responseBounceBombPerk(data.x, data.y);
+            responseBounceBombPerk(data);
             break;
     }
 });
@@ -704,7 +720,7 @@ function sonarAction(x, y) {
         y: y
     };
 
-    socket.emit("userPerk", data);
+    socket.emit("usePerk", data);
 }
 
 function runSonarPerk(x, y) {
@@ -730,7 +746,7 @@ function responseSonarPerk(x, y) {
 
     if (x != null && y != null) {
 
-        $(page + " " + opponentBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
+        $(page + " " + opponentBoard + " tr:eq(" + x + ") > td:eq(" + y + ")").addClass("sonarShipLocation");
     } else {
 
         alert("No moves found :(");
@@ -739,8 +755,60 @@ function responseSonarPerk(x, y) {
     endPlayerPerk(false, "Sonar");
 }
 
-function bounceBombAction(x, y) {
+function bounceBombAction(x, y, orientation) {
 
+    var data = {
+        perk: "Bounce_Bomb",
+        x: x,
+        y: y,
+        orientation: orientation
+    };
+
+    socket.emit("usePerk", data);
+}
+
+function runBounceBombPerk(x, y, orientation) {
+
+    var bounceBomb = new BouncingBomb(opponentBoardClass);
+
+    var num = bounceBomb.action(x, y, orientation);
+
+    boardFireAtSelf(x, y);
+
+    if (num == 2) {
+
+        if (orientation == 1) {
+            boardFireAtSelf(x, y - 1);
+        } else {
+            boardFireAtSelf(x + 1, y);
+        }
+    }
+
+    var data = {
+        perk: "Bounce_Bomb",
+        num: num,
+        orientation: orientation,
+        x: x,
+        y: y
+    };
+
+    socket.emit("runPerkResponse", data);
+}
+
+function responseBounceBombPerk(data) {
+
+    boardFireAtOpponent(data.x, data.y);
+
+    if (data.num == 2) {
+
+        if (data.orientation == 1) {
+            boardFireAtOpponent(data.x, data.y - 1);
+        } else {
+            boardFireAtOpponent(data.x + 1, data.y);
+        }
+    }
+
+    endPlayerPerk(true, "Bounce_Bomb");
 }
 
 /******************************
