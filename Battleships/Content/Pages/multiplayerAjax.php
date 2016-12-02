@@ -31,6 +31,9 @@ if (Input::itemExists("action")) {
         case "incrementIncompleteGames":
             incrementIncompleteGames();
             break;
+        case "decrementIncompleteGames":
+            decrementIncompleteGames();
+            break;
         case "recordWin":
             recordWin();
             break;

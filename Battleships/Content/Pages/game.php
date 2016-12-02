@@ -102,7 +102,8 @@ require_once("header.php");
     <div id="pageSinglePlayerCont"
             class="pageContainer">
 
-        <div id="pageSinglePlayer">
+        <div id="pageSinglePlayer"
+                class="gameContainer">
 
             <div id="playerContainer" class="sideContainer">
 
@@ -143,7 +144,9 @@ require_once("header.php");
                     <div style="width: 100%; text-align: center; margin-top:7px;">
                         <button class="button" 
                                 style="display:none;"
-                                id="startGame" >Start!</button>
+                                id="startGame" >
+                                Start!
+                        </button>
 
                         <button class="button"
                                 style="display:none;"
@@ -165,10 +168,9 @@ require_once("header.php");
                         </button>
 
                         <h3 id="gameMessage"></h3>
+
                     </div>
-
                 </div>
-
             </div>
 
             <!-- container for the remaining ships for the opponent -->
@@ -199,6 +201,19 @@ require_once("header.php");
                     <table id="computerBoard" class="board" data-size="<?= $sizeClass; ?>" >
                         <?php echo createBoard(); ?>
                     </table>
+
+                    <div style="width: 100%; text-align: center; margin-top:7px;">
+
+                        <button class="button"
+                                style="display:none;"
+                                id="rotateBounceBomb"
+                                title="Or press 'r' to rotate">
+                            Rotate
+                        </button>
+
+                        <h3 id="gameMessage"></h3>
+                        
+                    </div>
                 </div>
             </div>
 

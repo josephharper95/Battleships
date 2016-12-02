@@ -87,13 +87,17 @@ function Game(size) {
     /**
      * Decrements the given perk by 1
      */
-    this.updatePlayerPerks = function(perk){
-        if(typeof(perk) != "string"){
+    this.updatePlayerPerks = function(perk) {
+
+
+        if (typeof(perk) != "string") {
             return false;
         }
-        if(perk!="Sonar" || perk!= "Bounce_Bomb"){
+
+        if (!_playerPerks[perk]) {
             return false;
         }
+
         _playerPerks[perk].usesLeft -= 1;
         return true;
     }

@@ -33,20 +33,7 @@ function initSonarPerk() {
             // remove all hover classes
             cleanupHoverClasses();
 
-            var sonar = new Sonar(opponentBoardClass);
-
-            var cell = sonar.action(x, y);
-
-            if (cell) {
-
-                $(page + " " + opponentBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
-
-            } else {
-                alert("no moves found :(");
-            }
-
-            // allow player to now make a move
-            endPlayerPerk();
+            sonarAction(x, y);
         });
         //}
     });

@@ -45,8 +45,8 @@ BouncingBomb.prototype.action = function(x, y, orientation){
         return 1; // calls fire on first coordinate from Game
     }
     
-    if(orientation == 1)
-    { // If the orientation of the shot is vertical
+    // If the orientation of the shot is vertical
+    if (orientation == 1) { 
         col = col + 1;
 
         if ((this.getTarget().getCoordinateAt(row, col).containsShip())

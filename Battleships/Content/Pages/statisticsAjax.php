@@ -43,6 +43,9 @@ if (Input::itemExists("action")) {
         case "getTopTenUsersTotalPlayingTimeByDifficulty":
             getTopTenUsersTotalPlayingTimeByDifficulty();
             break;
+        case "multiplayerStats":
+            getMultiplayersStats();
+            break;
     }
 }
 
@@ -132,6 +135,12 @@ function getTopTenUsersTotalPlayingTimeByDifficulty() {
         $returnVal["multiplayer"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(4);
 
         echo json_encode($returnVal);
+}
+
+function getMultiplayersStats() {
+    global $statistics;
+
+    echo json_encode($statistics->getMultiplayerDataByUserID(Session::get("userID")));
 }
 
 ?>

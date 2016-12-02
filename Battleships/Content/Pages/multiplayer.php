@@ -38,16 +38,22 @@ require_once("header.php");
 <script src="../../Scripts/Helpers/placePlayerShips.js" type="text/javascript"></script>
 <script src="../../Scripts/Helpers/cleanups.js" type="text/javascript"></script>
 <script src="../../Scripts/Helpers/perkSonar.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/bounceBomb.js" type="text/javascript"></script>
 <script src="../../Scripts/Helpers/rotateShip.js" type="text/javascript" ></script>
 <script src="../../Scripts/Helpers/setShipAttributes.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/conversions.js" type="text/javascript" ></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
 <script src="../../Scripts/Classes/ship.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/board.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/coordinate.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Perk.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
 
-<div id="pageMultiplayer">
+<div id="pageMultiplayer"
+        class="pageContainer">
     
     <div class="standardWidth">
         <h1 class="pageTitle">Multiplayer</h1>
@@ -59,23 +65,100 @@ require_once("header.php");
     </div>
 
     <div id="subPageRoom"
-         class="subPage standardWidth">
+         class="subPage pageContainer">
 
-        <button id="createGame">
-            Create Room
-        </button>
+         <div id="availableGamesCont">
 
-        <div class="clear"></div>
+             <h2>Available Games</h2>
 
-        <h3>Available Games</h3>
+             <button id="createGame">
+                Create Room
+            </button>
 
-        <ul id="availableRooms"
-            class="blank"></ul>
+            <table id="availableRooms">
+                <thead>
+                    <tr>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Board Size
+                        </th>
+                        <th>
+                            High Score
+                        </th>
+                        <th>
+                            Completion Rate
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="4">
+                            No games found!
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+         </div>
+
+         <div id="createGameCont">
+
+             <h2>Board Size</h2>
+
+            <ul class="blank">
+
+                <li>
+                    <input type="radio" 
+                            id="small" 
+                            name="size"
+                            value="small"
+                            checked />
+                    <label for="small">
+                        <span></span>
+                        Small (10x10)
+                    </label>
+                </li>
+
+                <li>
+                    <input type="radio" 
+                            id="medium" 
+                            name="size"
+                            value="medium" />
+                    <label for="medium">
+                        <span></span>
+                        Medium (15x15)
+                    </label>
+                </li>
+
+                <li>
+                    <input type="radio" 
+                            id="large" 
+                            name="size"
+                            value="large" />
+                    <label for="large">
+                        <span></span>
+                        Large (20x20)
+                    </label>
+                </li>
+            </ul>
+
+            <button id="createRoomButtonConf">
+                Create
+            </button>
+
+            <button id="createRoomButtonCancel">
+                Cancel
+            </button>
+
+         </div>
 
     </div>
 
     <div id="subPagePlayGame"
-         class="subPage wideWidth"
+         class="subPage gameContainer pageContainer"
          style="display:none;clear:both;">
 
          <!-- container for all player related items -->
@@ -84,24 +167,24 @@ require_once("header.php");
             <!-- container for the remaining ships for the player -->
             <div class="boardExtrasContainer">
 
-                <h4>Ships Remaining</h4>
+                <div class="boardExtras">
 
-                <!-- container to be populated by ships involved in the game -->
-                <ul class="blank remainingShips"></ul>
+                    <div class="shipsRemainingCont">
 
-                <!-- TODO NEH: not implemented yet -->
-                <!--<ul class="blank perkContainer">
-                    <li>
-                        <h3>Perks</h3>
-                    </li>
-                    <li>
-                        <div class="button perk"
-                             data-perk="sonar">
-                             Sonar
-                        </div>
-                    </li>
-                </ul>-->
+                        <h4>Ships Remaining</h4>
 
+                        <!-- container to be populated by ships involved in the game -->
+                        <ul class="blank remainingShips"></ul>
+
+                    </div>
+
+                    <div class="perksCont">
+
+                        <h4>Perks</h4>
+
+                        <ul class="blank perks"></ul>
+                    </div>
+                </div>
             </div>
 
             <!-- container for player board -->
@@ -110,9 +193,7 @@ require_once("header.php");
                 <h3>Player</h3>
 
                 <!-- players board, populated relating to the size -->
-                <table id="playerBoard" class="board" data-size="small" >
-                    <?php echo createBoard(); ?>
-                </table>
+                <table id="playerBoard" class="board" data-size="small" ></table>
 
                 <!-- button to start game, hidden at first -->
                 <div style="width: 100%; text-align: center; margin-top:7px;">
@@ -142,10 +223,9 @@ require_once("header.php");
                     </button>
 
                     <h3 id="gameMessage"></h3>
+
                 </div>
-
             </div>
-
         </div>
 
         <!-- container for the remaining ships for the opponent -->
@@ -154,10 +234,17 @@ require_once("header.php");
             <!-- container for the remaining ships for the opponent -->
             <div class="boardExtrasContainer">
 
-                <h4>Ships Remaining</h4>
+                <div class="boardExtras">
 
-                <!-- container to be populated by the ships involved in the game -->
-                <ul class="blank remainingShips"></ul>
+                    <div class="shipsRemainingCont">
+
+                        <h4>Ships Remaining</h4>
+
+                        <!-- container to be populated by ships involved in the game -->
+                        <ul class="blank remainingShips"></ul>
+
+                    </div>
+                </div>
             </div>
 
             <!-- container for opponent board -->
@@ -166,11 +253,11 @@ require_once("header.php");
                 <h3 id="opponentName" >Opponent</h3>
 
                 <!-- opponents board, populated relating to the size -->
-                <table id="opponentBoard" class="board" data-size="small" >
-                    <?php echo createBoard(); ?>
-                </table>
+                <table id="opponentBoard" class="board" data-size="small" ></table>
             </div>
         </div>
+
+        <div class="map"></div>
 
         <div id="scoreModalOverlay"
                 class="overlay"></div>
@@ -235,33 +322,3 @@ require_once("header.php");
         </div>
     </div>
 </div>
-
-<?php
-
-// function to create board
-function createBoard() {
-
-    $size = 10;
-    $sizeClass = "small";
-
-    // initialise return string
-    $str = "<tbody>";
-
-    // create board table elements in relation to the size
-    for ($i = 0; $i < $size; $i++) {
-        $str .= "<tr>";
-
-        for ($x = 0; $x < $size; $x++) {
-            $str .= "<td class='$sizeClass'></td>";
-        }
-
-        $str .= "</tr>";
-    }
-
-    $str.= "</tbody>";
-
-    // return string
-    return $str;
-}
-
-?>

@@ -34,15 +34,24 @@ var game;
 var host = false; //******* this is updated if they create a game ******
 var playerBoardClass;
 var opponentBoardClass;
-var boardSize = 10; // static for the moment
+var boardSizeStr;
+var boardSize;
+
+var userStats = null;
 
 var page = "#subPagePlayGame";
 var playerBoard = "#playerBoard";
 var opponentBoard = "#opponentBoard";
 
 var createRoomButton = "#createGame";
+var createRoomButtonConf = "#createRoomButtonConf";
+var createRoomButtonCancel = "#createRoomButtonCancel";
+var createGameCont = "#createGameCont";
 var cancelGameButton = "#cancelGame";
+
 var backToMultiplayerButton = "#backToMultiplayer";
+
+var boardExtras = ".boardExtras";
 
 var startGameButton = "#playerReady";
 var rotateShipButton = "#rotateShip";
@@ -112,8 +121,27 @@ $(document).ready(function() {
     $(createRoomButton).off("click").one("click", function () {
         createRoom();
     });
-
 });
+
+getUserStats();
+function getUserStats() {
+    
+    $.ajax({
+        url: "../../Content/Pages/statisticsAjax.php",
+        data: {
+            action: "multiplayerStats"
+        },
+        type: "post",
+        success: function (data) {
+            data = JSON.parse(data);
+
+            userStats = data[0];
+        },
+        error: function () {
+
+        }
+    });
+}
 
 function changePage(page) {
 
@@ -148,52 +176,90 @@ socket.on('gameList', function (data) {
 
             if (data[game].players.length != 2) {
                 
-                returnText += "<li>";
+                returnText += "<tr>";
 
                 //console.log(game + " -> " + data[game].name);
 
-                returnText += "<span>";
+                // username
+                returnText += "<td>";
                 returnText += data[game].name;
-                returnText += "<br> Board Size: " + data[game].boardSize;
-                returnText += "<br> Players High Score: " +data[game].hostHighScore;
-                returnText += "<br> Players Game Completion Rate: "+data[game].hostCompletionRate;
-                returnText += "</span>";
+                returnText += "</td>";
+
+                // board size
+                returnText += "<td>";
+                returnText += data[game].boardSize + " x " + data[game].boardSize;
+                returnText += "</td>";
+
+                // high score
+                returnText += "<td>";
+                returnText += data[game].name;
+                returnText += "</td>";
+
+                // completion rate
+                returnText += "<td>";
+                returnText += data[game].hostCompletionRate + "%";
+                returnText += "</td>";
 
                 if (data[game].name != session.id) {
 
                     // button markup
+                    returnText += "<td>";
                     returnText += "<button ";
                     returnText += "class='joinGame' "
-                    returnText += "data-game='" + data[game].id + "'"; 
+                    returnText += "data-game='" + data[game].id + "'";
+                    returnText += "data-size='" + data[game].boardSize + "'";
                     returnText += ">"
-                    returnText += "Join Game"
+                    returnText += "Battle"
                     returnText += "</button>";
+                    returnText += "</td>";
                 }
 
-                returnText += "</li>";
+                returnText += "</tr>";
             }
+        } else {
+            returnText += "<tr class='noGamesFound'><td colspan='4'>No games found!</td></tr>";
         }
     }
 
-    $(availableRooms).html(returnText);
+    $(availableRooms + " tbody").html(returnText);
 
     // click handlers for joining a game
     $(".joinGame").off("click").on("click", function () {
         
         var id = $(this).data("game");
+        var size = $(this).data("size");
 
-        joinGame(id);
+        joinGame(id, size);
     });
 });
 
 function createRoom() {
-    data = {
-        "name": session.id,
-        "boardSize": 10,
-        "highScore": 200,
-        "completionRate": 100
-    };
-    socket.emit("createGame", data);
+
+    $(createGameCont).fadeIn(500);
+
+    $(createRoomButtonConf).unbind("click").one("click", function () {
+
+        var completionRate = (userStats.gamesPlayed - userStats.incompleteGames) / userStats.gamesPlayed * 100;
+        var size = $("[name=size]:checked").val();
+        var sizeInt = convertBoardSizeStrToInt(size);
+        boardSize = sizeInt;
+        boardSizeStr = size;
+
+        data = {
+            "name": session.id,
+            "boardSize": sizeInt,
+            "highScore": userStats.highScore,
+            "completionRate": completionRate
+        };
+
+        socket.emit("createGame", data);
+
+        $(createGameCont).fadeOut(500);
+    });
+
+    $(createRoomButtonCancel).off("click").one("click", function() {
+        $(createGameCont).fadeOut(500);
+    });
 }
 
 socket.on("createGameResponse", function (data) {
@@ -228,9 +294,12 @@ socket.on("createGameResponse", function (data) {
     }
 });
 
-function joinGame(id) {
+function joinGame(id, size) {
 
     host = false;
+
+    boardSize = size;
+    boardSizeStr = convertBoardSizeIntToStr(size);
 
     // remove click handler
     $(".joinGame").off("click");
@@ -260,6 +329,8 @@ socket.on("joinGameResponse", function (joined) {
 
 function initGame() {
 
+    resetMultiplayerBoard();
+
     shipsToPlace = new Array();
 
     populateShips();
@@ -268,7 +339,6 @@ function initGame() {
     game = new Game(boardSize);
     playerBoardClass = game.getPlayerBoard();
     opponentBoardClass = game.getComputerBoard();
-
 }
 
 socket.on("gameReady", function (data) {
@@ -290,9 +360,10 @@ socket.on("gameReady", function (data) {
         opponentBoardClass.placeShip(shipObj, shipCoords[0].x, shipCoords[0].y);
     }
 
-    $(".boardExtrasContainer").fadeIn(500);
-
     showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!");
+
+    $(boardExtras).fadeIn(500);
+    updatePerks();
 
     totalShots = 0;
     totalHits = 0;
@@ -504,6 +575,87 @@ socket.on("fireResponse", function (data) {
 
 /******************************
  * 
+ *           PERKS
+ * 
+ ******************************/
+
+/**
+ * 
+ */
+function updatePerks() {
+    var perks = game.getPlayerPerksAvailable();
+
+    console.log(perks);
+
+    var perkHtml = "";
+
+    $.each(perks, function (i, val) {
+
+        var split = i.split("_");
+        split = i.join(" ");
+
+        perkHtml += "<li>";
+
+        perkHtml += "<button ";
+        perkHtml += "class='button perk' ";
+        perkHtml += "data-perk='" + i + "' ";
+
+        if (val.usesLeft == 0) {
+            perkHtml += "disabled ";
+        }
+
+        perkHtml += ">";
+
+        perkHtml += split;
+        perkHtml += " " + val.usesLeft;
+
+        perkHtml += "</button>";
+
+        perkHtml += "</li>";
+    });
+
+    $("#playerContainer .perks").html(perkHtml);
+
+    $("#playerContainer .perk:not(:disabled)").off("click").one("click", function () {
+        console.log("PERK");
+        var cell = $(this);
+        var perk = $(cell).data("perk");
+
+        runPlayerPerk(perk);
+    });
+}
+
+/**
+ * Make buttons look disabled
+ */
+function disablePerks() {
+    $(".perkContainer .perk").attr("disabled", "disabled");
+}
+
+/**
+ * Initial function that gets the perk and decides how to respond
+ */
+function runPlayerPerk(perk) {
+
+    disablePerks();
+
+    switch (perk) {
+        case "Sonar":
+            initSonarPerk();
+            break;
+        case "Bounce_Bomb":
+            initBounceBombPerk();
+            break;
+    }
+}
+
+function endPlayerPerk() {
+    updatePerks();
+    playerMove();
+}
+
+/******************************
+ * 
  *        GAME EVENTS
  * 
 ******************************/
@@ -542,6 +694,7 @@ socket.on("playerLeftResponse", function (data) {
         showWaiting(false);
 
         changePage("#subPageRoom");
+        resetMultiplayerBoard();
 
         alert("Your opponent has only gone and bladdy left!");
     }
@@ -557,15 +710,32 @@ function showRemainingShips() {
 
 function resetMultiplayerBoard() {
 
-    var $cell = $(page + " " + playerBoard + " td, " + page + " " + opponentBoard + " td")
-    
-    $cell.removeClass("hit");
-    $cell.removeClass("containsShip");
+    console.log(boardSize);
+    console.log(boardSizeStr);
 
-    $cell.removeAttr("data-ship");
-    $cell.removeAttr("data-orientation");
-    $cell.removeAttr("data-ship-part");
+    $(".board").attr("data-size", boardSizeStr);
 
+    var tableHtml = "<tbody>";
+
+    for (var i = 0; i < boardSize; i++) {
+
+        tableHtml += "<tr>";
+
+        for (var x = 0; x < boardSize; x++) {
+            tableHtml += "<td></td>";
+        }
+
+        tableHtml += "</tr>";
+    }
+
+    tableHtml += "</tbody>";
+
+    $(".board").html(tableHtml);
+
+    // allow user to once again create a room
+    $(createRoomButton).off("click").one("click", function () {
+        createRoom();
+    });
 }
 
 function statisticsAjax(won) {
@@ -607,29 +777,39 @@ function statisticsAjax(won) {
     showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus);
 
     $.ajax({
-            url: "../../Content/Pages/multiplayerAjax.php",
-            data: {
-                action: "recordShots",
-                totalHits: totalHits,
-                totalHitsReceived: totalHitsReceived,
-                totalShots: totalShots,
-                playingTime: playingTime,
-                gameScore: gameScore
-            },
-            type: "post"
-        });
+        url: "../../Content/Pages/multiplayerAjax.php",
+        data: {
+            action: "recordShots",
+            totalHits: totalHits,
+            totalHitsReceived: totalHitsReceived,
+            totalShots: totalShots,
+            playingTime: playingTime,
+            gameScore: gameScore
+        },
+        type: "post"
+    });
 
     window.onbeforeunload = null;
 }
 
 function incrementIncompleteGames() {
     $.ajax({
-            url: "../../Content/Pages/multiplayerAjax.php",
-            data: {
-                action: "incrementIncompleteGames"
-            },
-            type: "post"
-        });
+        url: "../../Content/Pages/multiplayerAjax.php",
+        data: {
+            action: "incrementIncompleteGames"
+        },
+        type: "post"
+    });
+}
+
+function decrementIncompleteGames() {
+    $.ajax({
+        url: "../../Content/Pages/multiplayerAjax.php",
+        data: {
+            action: "decrementIncompleteGames"
+        },
+        type: "post"
+    });
 }
 
 function winAjax() {

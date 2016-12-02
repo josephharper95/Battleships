@@ -140,14 +140,12 @@ function populateShips() {
 function updatePerks() {
     var perks = game.getPlayerPerksAvailable();
 
-    console.log(perks);
-
     var perkHtml = "";
 
     $.each(perks, function (i, val) {
 
-        i = i.split("_");
-        i = i.join(" ");
+        var split = i.split("_");
+        split = split.join(" ");
 
         perkHtml += "<li>";
 
@@ -161,7 +159,7 @@ function updatePerks() {
 
         perkHtml += ">";
 
-        perkHtml += i;
+        perkHtml += split;
         perkHtml += " " + val.usesLeft;
 
         perkHtml += "</button>";
@@ -183,15 +181,8 @@ function updatePerks() {
  * Make buttons look disabled
  */
 function disablePerks() {
-    $(".perkContainer .perk").attr("disabled", "disabled");
+    $("#playerContainer .perk").attr("disabled", "disabled");
 }
-
-// /**
-//  * Make buttons look enabled
-//  */
-// function enablePerks() {
-//     $(".perkContainer .perk.button").removeClass("disabled");
-// }
 
 /**
  * Initial function that gets the perk and decides how to respond
@@ -210,9 +201,59 @@ function runPlayerPerk(perk) {
     }
 }
 
-function endPlayerPerk() {
+function endPlayerPerk(skipTurn, perk) {
+
+    var x = game.updatePlayerPerks(perk);
+
+    console.log("Perk removed: " + perk + " " + x); 
+
     updatePerks();
-    playerMove();
+
+    if (!skipTurn) {
+        playerMove();
+    } else {
+        AIMove();
+    }
+}
+
+function bounceBombAction(x, y, bbOrientation) {
+    var bounceBomb = new BouncingBomb(opponentBoardClass);
+
+    var num = bounceBomb.action(x, y, bbOrientation);
+
+        //opponentBoardClass.fire(x, y);
+        boardFireAtOpponentCoordinate(x, y);
+
+    if (num == 2) {
+
+        if (bbOrientation == 1) {
+            //opponentBoardClass.fire(x, y - 1);
+            boardFireAtOpponentCoordinate(x, y - 1);
+        } else {
+            //opponentBoardClass.fire(x + 1, y);
+            boardFireAtOpponentCoordinate(x + 1, y);
+        }
+    }
+
+    removeHovers();
+    endPlayerPerk(true, "Bounce_Bomb");
+}
+
+function sonarPerkAction(x, y) {
+    var sonar = new Sonar(opponentBoardClass);
+
+    var cell = sonar.action(x, y);
+
+    if (cell) {
+
+        $(page + " " + opponentBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
+
+    } else {
+        alert("no moves found :(");
+    }
+
+    // allow player to now make a move
+    endPlayerPerk(false, "Sonar");
 }
 
 /******************************

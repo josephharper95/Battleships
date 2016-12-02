@@ -16,7 +16,7 @@ function playerMove() {
     if (game.isViable()) {
 
         // add a mouseenter handler onto the computer's board cells
-        $(page + " " + opponentBoard + " td").bind("mouseenter", function () {
+        $(page + " " + opponentBoard + " td").unbind("mouseenter").bind("mouseenter", function () {
 
             // initialise cell
             var $cell = $(this);
@@ -45,7 +45,7 @@ function playerMove() {
             }
 
             // add mouseleave handler to cleanup any hovers
-            $cell.bind("mouseleave", function () {
+            $cell.unbind("mouseleave").bind("mouseleave", function () {
                 cleanupHoverClasses();
             });
         });
@@ -80,39 +80,43 @@ function boardFireAtOpponent($cell) {
         var $tr = $cell.closest('tr');
         var y = $tr.index();
 
-        // return boolean of whether player has hit a shit
-        var hit = opponentBoardClass.fire(x, y);
+        boardFireAtOpponentCoordinate(x, y);
+    }
+}
 
-        // if a ship was hit...
-        if (hit) {
+function boardFireAtOpponentCoordinate(x, y) {
+    // return boolean of whether player has hit a shit
+    var hit = opponentBoardClass.fire(x, y);
 
-            totalHits++;
+    // if a ship was hit...
+    if (hit) {
 
-            // add a class to the cell so that it knows that it contains a ship
-            $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("containsShip");
+        totalHits++;
 
-            // get the coordinate object at the coordinates
-            var coord = opponentBoardClass.getCoordinateAt(x, y);
+        // add a class to the cell so that it knows that it contains a ship
+        $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("containsShip");
 
-            // get the ship object at the coordinate
-            var ship = coord.getShip();
+        // get the coordinate object at the coordinates
+        var coord = opponentBoardClass.getCoordinateAt(x, y);
 
-            // validation check to make sure that the ship exists§
-            if (ship) {
+        // get the ship object at the coordinate
+        var ship = coord.getShip();
+
+        // validation check to make sure that the ship exists§
+        if (ship) {
+            
+            // check whether the ship has been destroyed
+            if (ship.isDestroyed()) {
+
+                setShipAttributesOnBoard(opponentBoard, ship);
                 
-                // check whether the ship has been destroyed
-                if (ship.isDestroyed()) {
-
-                    setShipAttributesOnBoard(opponentBoard, ship);
-                    
-                    // add a class to let the remaining ships container know that the ship has been destroyed
-                    $("#opponentContainer " + boardExtras + " ul.remainingShips li." + ship.getName()).addClass("destroyed");
-                }
+                // add a class to let the remaining ships container know that the ship has been destroyed
+                $("#opponentContainer " + boardExtras + " ul.remainingShips li." + ship.getName()).addClass("destroyed");
             }
         }
-        
-        // let the cell know it has been hit
-        totalShots++;
-        $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
     }
+    
+    // let the cell know it has been hit
+    totalShots++;
+    $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hit");
 }
