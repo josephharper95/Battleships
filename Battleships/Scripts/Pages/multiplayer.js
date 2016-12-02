@@ -592,7 +592,7 @@ function updatePerks() {
     $.each(perks, function (i, val) {
 
         var split = i.split("_");
-        split = i.join(" ");
+        split = split.join(" ");
 
         perkHtml += "<li>";
 
