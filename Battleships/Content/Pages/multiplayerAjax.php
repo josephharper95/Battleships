@@ -7,6 +7,7 @@
 *
 * V0.1      Nick    28/11/16    initial creation statistic
 * V0.11     Nick    28/11/16    difficulty is now an ID as it should have been
+* V0.12     Nick    02/12/17    added decrement incomplete games
 *
 **/
 

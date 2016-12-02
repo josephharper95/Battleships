@@ -4,6 +4,7 @@
  * V0.1     Nick    09/11/16    Initial creation
  * V0.2     Nick    10/11/16    update to endGame to add param
  * V0.21    Nick    01/12/16    updated variable
+ * V0.22    Nick    02/12/16    bug fix
  * 
  */
 

@@ -26,6 +26,7 @@
  * V0.9     Nick    28/11/16    added scoring modal
  * V0.91    Nick    28/11/16    fade bug
  * V1.0     Nick    01/12/16    overhaul to perks so that they are now dynamic by board size
+ * V0.11    Nick    02/12/16    added perk actions to file
  * 
  */
 
@@ -239,7 +240,8 @@ function bounceBombAction(x, y, bbOrientation) {
     endPlayerPerk(true, "Bounce_Bomb");
 }
 
-function sonarPerkAction(x, y) {
+function sonarAction(x, y) {
+
     var sonar = new Sonar(opponentBoardClass);
 
     var cell = sonar.action(x, y);

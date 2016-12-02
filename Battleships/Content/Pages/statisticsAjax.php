@@ -4,8 +4,9 @@
 * Last Modified By: Joe Harper
 * Current Version: 0.1
 *
-* V0.1      Joe    30/11/16    initial creation
-* V0.2      Joe    01/12/16    added all get methods
+* V0.1      Joe    30/11/16     initial creation
+* V0.2      Joe    01/12/16     added all get methods
+* V0.3      Nick   02/12/16     added multiplayer stats 
 *
 **/
 $statistics;

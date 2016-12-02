@@ -8,6 +8,7 @@
 * V0.12     Dave    29/11/16    Added methods to track perks available
 * V0.13     Nick    01/12/16    changed BounceBomb to Bounce_Bomb so other files can add a space in between
 * V0.14     Dave    01/12/16    Fixed bug with perks not showing on large boards.
+* V0.15     Nick    02/12/16    bug fix
 *
 **/
 

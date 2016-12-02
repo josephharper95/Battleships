@@ -20,7 +20,8 @@
  * V0.9     Nick        28/11/16    added scoring modal
  * V0.91    Nick        28/11/16    scoring bug
  * V0.92    Nick        29/11/16    added incrementIncompleteGames
- * v0.93    Dave        30/11/16    added more info to games list
+ * V0.93    Dave        30/11/16    added more info to games list
+ * V1.0     Nick        02/12/16    dynamic board sizes and initial perks
  * 
  */
 
@@ -175,6 +176,8 @@ socket.on('gameList', function (data) {
         if (data.hasOwnProperty(game)) {
 
             if (data[game].players.length != 2) {
+
+                console.log(data[game]);
                 
                 returnText += "<tr>";
 
@@ -192,7 +195,7 @@ socket.on('gameList', function (data) {
 
                 // high score
                 returnText += "<td>";
-                returnText += data[game].name;
+                returnText += data[game].hostHighScore;
                 returnText += "</td>";
 
                 // completion rate

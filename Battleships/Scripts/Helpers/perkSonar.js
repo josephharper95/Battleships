@@ -3,6 +3,7 @@
  * 
  * V0.1     Nick                Initial creation
  * V0.11    Nick    01/12/16    should have been calling a different function when the perk ends
+ * V0.2     Nick    02/12/16    extracted action to file
  * 
  */
 

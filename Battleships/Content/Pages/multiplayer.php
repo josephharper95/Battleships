@@ -13,6 +13,7 @@
 * V0.4      Nick    17/11/16    added back to multiplayer button
 * V0.41     Nick    28/11/16    update file locations - commented out perks
 * V0.5      Nick    28/11/16    added scoring HTML
+* V0.6      Nick    02/12/16    design integration and initial perks
 *
 */
 
