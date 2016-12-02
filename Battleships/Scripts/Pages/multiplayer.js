@@ -604,8 +604,6 @@ function boardFireAtOpponent(x, y) {
 function updatePerks() {
     var perks = game.getPlayerPerksAvailable();
 
-    console.log(perks);
-
     var perkHtml = "";
 
     $.each(perks, function (i, val) {
@@ -746,7 +744,7 @@ function responseSonarPerk(x, y) {
 
     if (x != null && y != null) {
 
-        $(page + " " + opponentBoard + " tr:eq(" + x + ") > td:eq(" + y + ")").addClass("sonarShipLocation");
+        $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("sonarShipLocation");
     } else {
 
         alert("No moves found :(");
