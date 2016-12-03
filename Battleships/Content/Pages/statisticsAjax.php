@@ -4,9 +4,10 @@
 * Last Modified By: Joe Harper
 * Current Version: 0.1
 *
-* V0.1      Joe    30/11/16     initial creation
-* V0.2      Joe    01/12/16     added all get methods
-* V0.3      Nick   02/12/16     added multiplayer stats 
+* V0.1      Joe     30/11/16    initial creation
+* V0.2      Joe     01/12/16    added all get methods
+* V0.3      Nick    02/12/16    added multiplayer stats 
+* V0.4      Nick    03/12/16    added top ten accuracy
 *
 **/
 $statistics;
@@ -43,6 +44,9 @@ if (Input::itemExists("action")) {
             break;
         case "getTopTenUsersTotalPlayingTimeByDifficulty":
             getTopTenUsersTotalPlayingTimeByDifficulty();
+            break;
+        case "getTopTenUsersHitAccuracyByDifficulty":
+            getTopTenUsersHitAccuracyByDifficulty();
             break;
         case "multiplayerStats":
             getMultiplayersStats();
@@ -129,13 +133,26 @@ function getTopTenUsersTotalHitsReceivedByDifficulty() {
 
 function getTopTenUsersTotalPlayingTimeByDifficulty() {
     global $statistics;
-        $returnVal = [];
-        $returnVal["easy"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(1);
-        $returnVal["medium"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(2);
-        $returnVal["hard"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(3);
-        $returnVal["multiplayer"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(4);
 
-        echo json_encode($returnVal);
+    $returnVal = [];
+    $returnVal["easy"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(1);
+    $returnVal["medium"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(2);
+    $returnVal["hard"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(3);
+    $returnVal["multiplayer"] = $statistics->getTopTenUsersTotalPlayingTimeByDifficulty(4);
+
+    echo json_encode($returnVal);
+}
+
+function getTopTenUsersHitAccuracyByDifficulty() {
+    global $statistics;
+    
+    $returnVal = [];
+    $returnVal["easy"] = $statistics->getTopTenUsersHitAccuracyByDifficulty(1);
+    $returnVal["medium"] = $statistics->getTopTenUsersHitAccuracyByDifficulty(2);
+    $returnVal["hard"] = $statistics->getTopTenUsersHitAccuracyByDifficulty(3);
+    $returnVal["multiplayer"] = $statistics->getTopTenUsersHitAccuracyByDifficulty(4);
+
+    echo json_encode($returnVal);
 }
 
 function getMultiplayersStats() {

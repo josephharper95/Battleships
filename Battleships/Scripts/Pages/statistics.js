@@ -6,6 +6,7 @@
  * V0.11    Nick        30/11/16    added helper method 
  * V0.2     Joe         01/12/16    created relevant get/populate methods and added them to .ready function
  * V0.3     Nick        03/12/16    added ability to change page   
+ * V0.4     Nick        03/12/16    added top ten accuracy
  * 
  */
 
@@ -18,6 +19,7 @@ $(document).ready(function(){
     getTopTenUsersTotalShotsHitByDifficulty();
     getTopTenUsersTotalHitsReceivedByDifficulty();
     getTopTenUsersTotalPlayingTimeByDifficulty();
+    getTopTenUsersHitAccuracyByDifficulty();
 
     $("#menu button[data-selected=false]").on("click", function () {
         
@@ -248,6 +250,26 @@ function getTopTenUsersTotalPlayingTimeByDifficulty(){
         success: function(data){
             var parsed = JSON.parse(data);
             populateTopTenUsersTotalPlayingTimeByDifficultyTable(parsed);
+        },
+        error: function(){
+            alert("Something went wrong");
+        },
+        complete: function(){
+            //TODO NEH - Hide table loader
+        }
+    });
+}
+
+function getTopTenUsersHitAccuracyByDifficulty() {
+    $.ajax({
+        url: "../../Content/Pages/statisticsAjax.php",
+        data: {
+            action: "getTopTenUsersHitAccuracyByDifficulty"
+        },
+        type: "post",
+        success: function(data){
+            var parsed = JSON.parse(data);
+            getTopTenUsersHitAccuracyByDifficultyTable(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -714,6 +736,59 @@ function populateTopTenUsersTotalPlayingTimeByDifficultyTable(data)
     $("#topTenTotalPlayingTime tbody").html(tableHTML);
 }
 
+function getTopTenUsersHitAccuracyByDifficultyTable(data)
+{
+    var easy = data["easy"];
+    var medium = data["medium"];
+    var hard = data["hard"];
+    var multiplayer = data["multiplayer"];
+    var tableHTML = "";
+
+    for (var i = 0; i < 10; i++)
+    {
+        tableHTML += "<tr>";
+        //Easy
+        if (!easy[i] || !easy[i].accuracy) {
+            tableHTML += "<td>N/A</td>";
+        }
+        else
+        {
+            tableHTML += twoItemTableCell(easy[i].userID, convertPercentage(easy[i].accuracy));
+        }
+
+        //Medium
+        if (!medium[i] || !medium[i].accuracy) {
+            tableHTML += "<td>N/A</td>";
+        }
+        else
+        {
+            tableHTML += twoItemTableCell(medium[i].userID, convertPercentage(medium[i].accuracy));
+        }
+
+        //Hard
+        if (!hard[i] || !hard[i].accuracy) {
+            tableHTML += "<td>N/A</td>";
+        }
+        else
+        {
+            tableHTML += twoItemTableCell(hard[i].userID, convertPercentage(hard[i].accuracy));
+        }
+
+        //Multiplayer
+        if (!multiplayer[i] || !multiplayer[i].accuracy) {
+            tableHTML += "<td>N/A</td>";
+        }
+        else
+        {
+            tableHTML += twoItemTableCell(multiplayer[i].userID, convertPercentage(multiplayer[i].accuracy));
+        }
+
+        tableHTML += "</tr>";
+    }
+
+    $("#topTenTotalAccuracy tbody").html(tableHTML);
+}
+
 function twoItemTableCell(item1, item2) {
     var tableHTML = "<td>";
 
@@ -734,4 +809,12 @@ function convertPlayingTime(seconds)
     var date = new Date(null);
     date.setSeconds(seconds); // specify value for SECONDS here
     return date.toISOString().substr(11, 8);
+}
+
+function convertPercentage(val) {
+    if (!val) {
+        return "N/A";
+    }
+
+    return parseFloat(val).toFixed(2) + "%";
 }

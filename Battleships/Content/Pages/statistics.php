@@ -12,6 +12,7 @@
 *   V0.14   Joe     14/11/16    added table entry for multiplayer statistics
 *   V0.15   Joe     01/12/16    added leaderboard tables
 *   V0.2    Nick    03/12/16    updated design
+*   V0.3    Nick    03/12/16    added accuracy top 10
 */
 
 // include the setup file if it has not been included
@@ -530,6 +531,7 @@ function convertPercentage($small, $large) {
                         <option value="fired">Total Fired</option>
                         <option value="hit">Total Hit</option>
                         <option value="received">Total Hits Received</option>
+                        <option value="accuracy">Accuracy</option>
                     </select>
 
                     <div data-table="fired"
@@ -594,6 +596,34 @@ function convertPercentage($small, $large) {
                         <h2>Top Ten Total Hits Received</h2>
 
                         <table id="topTenTotalHitsReceived">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Easy
+                                    </th>
+                                    <th>
+                                        Medium
+                                    </th>
+                                    <th>
+                                        Hard
+                                    </th>
+                                    <th>
+                                        Multiplayer
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                    <div data-table="accuracy"
+                            class="tableCont"
+                            style="display:none;">
+
+                        <h2>Top Ten Accuracy</h2>
+
+                        <table id="topTenTotalAccuracy">
                             <thead>
                                 <tr>
                                     <th>

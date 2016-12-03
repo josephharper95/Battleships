@@ -14,6 +14,7 @@
 * V0.16     Joe     14/11/16    updated queries to reflect addition of new "incompleteGames" column
 * V0.17     Joe     01/12/16    updated methods + added method to reflect the addition of a new "highScore" column
 * V0.18     Joe     01/12/16    added getMultiplayerDataByUserID method
+* V0.2      Nick    03/12/16    added accuracy top 10, made it so stats must be above 0
 *
 **/
 
@@ -106,6 +107,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
+                AND score > 0
                 ORDER BY score desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -124,6 +126,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
+                AND highScore > 0
                 ORDER BY highScore desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -143,6 +146,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
+                AND wins > 0
                 ORDER BY wins desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -162,6 +166,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
+                AND gamesPlayer > 0
                 ORDER BY gamesPlayed desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -181,6 +186,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
+                AND totalShotsFired > 0
                 ORDER BY totalShotsFired desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -200,6 +206,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
+                AND totalShotsHit > 0
                 ORDER BY totalShotsHit desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -208,6 +215,25 @@ class User {
 
         return $this->db->getResults();
 	}
+
+    function getTopTenUsersHitAccuracyByDifficulty($difficulty) {
+        $sql = "SELECT u.userID, firstName, lastName, ((totalShotsHit / totalShotsFired) * 100) as 'accuracy'
+                FROM userstatistics us
+                    JOIN difficulties d
+                        ON us.difficultyID = d.difficultyID
+                    JOIN users u
+                        ON u.userID = us.userID
+                WHERE d.difficultyID = ?
+                AND totalShotsHit > 0
+                ORDER BY accuracy desc
+                LIMIT 10";
+
+        $values = array($difficulty);
+		
+		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
+    }
 
     //Function to execute a query, getting the top ten users and total hits received by difficulty
    	function getTopTenUsersTotalHitsReceivedByDifficulty($difficulty)
@@ -219,6 +245,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
+                AND totalHitsReceived > 0
                 ORDER BY totalHitsReceived desc
                 LIMIT 10";
         $values = array($difficulty);
@@ -238,6 +265,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
+                AND totalPlayingTime > 0
                 ORDER BY totalPlayingTime desc
                 LIMIT 10";
         $values = array($difficulty);
