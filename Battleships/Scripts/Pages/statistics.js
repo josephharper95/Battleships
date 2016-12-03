@@ -4,7 +4,8 @@
  * 
  * V0.1     Nick / Joe  30/11/16    initial creation
  * V0.11    Nick        30/11/16    added helper method 
- * V0.2    Joe         01/12/16    created relevant get/populate methods and added them to .ready function   
+ * V0.2     Joe         01/12/16    created relevant get/populate methods and added them to .ready function
+ * V0.3     Nick        03/12/16    added ability to change page   
  * 
  */
 
@@ -17,7 +18,35 @@ $(document).ready(function(){
     getTopTenUsersTotalShotsHitByDifficulty();
     getTopTenUsersTotalHitsReceivedByDifficulty();
     getTopTenUsersTotalPlayingTimeByDifficulty();
+
+    $("#menu button[data-selected=false]").on("click", function () {
+        
+        var button = $(this);
+        var page = button.data("page");
+
+        changePage(page);
+    });
 });
+
+function changePage(page) {
+
+    $(".subPage:visible").fadeOut(200, function () {
+        $(".subPage[data-page=" + page + "]").fadeIn(200);
+    });
+
+    $("#menu button").attr("data-selected", "false");
+    $("#menu button[data-page=" + page + "]").attr("data-selected", "true");
+
+    $("#menu button[data-selected=false]").off("click").on("click", function () {
+        
+        var button = $(this);
+        var page = button.data("page");
+
+        changePage(page);
+    });
+
+    dropdowns();
+}
 
 
 function getTopTenUsersScoresByDifficulty(){
@@ -38,6 +67,47 @@ function getTopTenUsersScoresByDifficulty(){
         complete: function(){
             //TODO NEH - Hide table loader
         }
+    });
+}
+
+function dropdowns() {
+    $("[data-page=all-scores] select").change(function () {
+        allScoresDropDownChange();
+    });
+
+    $("[data-page=all-games] select").change(function () {
+        allGamesDropDownChange();
+    });
+
+    $("[data-page=all-shots] select").change(function () {
+        allShotsDropDownChange();
+    });
+}
+
+function allScoresDropDownChange() {
+
+    var toShow = $("[data-page=all-scores] select").val();
+
+    $("[data-page=all-scores] .tableCont:visible").fadeOut(200, function () {
+        $("[data-page=all-scores] .tableCont[data-table=" + toShow + "]").fadeIn(200);
+    });
+}
+
+function allGamesDropDownChange() {
+
+    var toShow = $("[data-page=all-games] select").val();
+
+    $("[data-page=all-games] .tableCont:visible").fadeOut(200, function () {
+        $("[data-page=all-games] .tableCont[data-table=" + toShow + "]").fadeIn(200);
+    });
+}
+
+function allShotsDropDownChange() {
+
+    var toShow = $("[data-page=all-shots] select").val();
+
+    $("[data-page=all-shots] .tableCont:visible").fadeOut(200, function () {
+        $("[data-page=all-shots] .tableCont[data-table=" + toShow + "]").fadeIn(200);
     });
 }
 
