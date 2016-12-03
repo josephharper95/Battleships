@@ -168,7 +168,7 @@ require_once("header.php");
                             Reset Board
                         </button>
 
-                        <h3 id="gameMessage"></h3>
+                        <h4 id="gameMessage"></h4>
 
                     </div>
                 </div>
@@ -211,8 +211,6 @@ require_once("header.php");
                                 title="Or press 'r' to rotate">
                             Rotate
                         </button>
-
-                        <h3 id="gameMessage"></h3>
                         
                     </div>
                 </div>

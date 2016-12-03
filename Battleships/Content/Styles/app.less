@@ -870,9 +870,9 @@ html {
 
                 #menu {
                     height: 30px;
-                    width: 100%;
                     z-index: 300;
                     position: relative;
+                    left: 15px;
 
                     /*.box {
                         border-bottom: 30px solid #f2e4bd;
@@ -928,6 +928,7 @@ html {
                     z-index: 250;
                     position: relative;
                     top: -2px;
+                    border-radius: 20px;
 
                     select {
                         position: absolute;
@@ -1075,6 +1076,11 @@ html {
                     max-height: 39px;
                 }
 
+                h4 {
+                    font-size: 1.5em;
+                    color: #fff;
+                }
+
                 div.boardExtrasContainer {
                     display: inline-block;
                     width: 150px;
@@ -1091,6 +1097,7 @@ html {
                             text-align: center;
                             font-size: 1.5em;
                             padding-top: 5px;
+                            color: #222;
                         }
 
                         .shipsRemainingCont,
@@ -1200,9 +1207,15 @@ html {
                     > table.board {
                         border-collapse: collapse;
                         border-spacing: 0;
-                        background-image: @board-outline;
-                        background-size: 400px;
                         background-repeat: no-repeat;
+                        position: relative;
+                        display: inline-block;
+
+                        top: -5px;
+                        left: -5px;
+                        padding: 5px;
+                        background-size: 410px;
+                        background-image: @board-outline;
 
                         > tbody {
                             > tr {
@@ -1682,6 +1695,17 @@ html {
             }
 
             .map {
+                /*height: 480px;
+                width: 883px;
+                position: absolute;
+                top: 10px;
+                left: 152px;
+                z-index: 250;
+                background-position: center;
+                background-image: @texture-map;
+                background-size: 883px 480px;
+                background-repeat: no-repeat;*/
+
                 background-image: @texture-map;
                 height: 399px;
                 width: 813px;
