@@ -24,6 +24,7 @@
  * V1.0     Nick        02/12/16    dynamic board sizes and initial perks
  * V1.1     Nick        02/12/16    sonar perk integration
  * V1.2     Nick        02/12/16    bounce bomb perk integration
+ * V1.21    Nick        03/12/16    bug fix where you couldn't create a game after cancelling
  * 
  */
 
@@ -257,6 +258,11 @@ function createRoom() {
 
     $(createRoomButtonCancel).off("click").one("click", function() {
         $(createGameCont).fadeOut(500);
+
+        // re-add handler
+        $(createRoomButton).off("click").one("click", function () {
+            createRoom();
+        });
     });
 }
 
@@ -664,7 +670,7 @@ function endPlayerPerk(skipTurn, perk) {
     if (!skipTurn) {
         playerMove();
     } else {
-        socket.emit("fire", "skip");
+        socket.emit("fire", "skip")
         showWaiting(true, "Your opponent is making their move.<br/><br/>Get ready to make yours!", 0.4);
     }
 }
