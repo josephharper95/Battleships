@@ -50,8 +50,6 @@ ScatterShot.prototype.action = function(x, y){
             // checks
             if (!(nextCol < 0 || nextCol >= size || nextRow < 0 || nextCol >= size)
                 &&
-                (this.getTarget().getCoordinateAt(nextRow, nextCol).containsShip())
-                &&
                 (!this.getTarget().getCoordinateAt(nextRow, nextCol).isHit())) {
 
                 locations.push(this.getTarget().getCoordinateAt(nextRow, nextCol));
