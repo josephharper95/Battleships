@@ -26,7 +26,8 @@
  * V1.2     Nick        02/12/16    bounce bomb perk integration
  * V1.21    Nick        03/12/16    bug fix where you couldn't create a game after cancelling
  * V1.22    Dave        05/12/16    bug fix where gameList wasn't being updated when a room was full
- * V1.223    Nick        05/12/16    bug fix - decrement incomplete games when your opponent leaves
+ * V1.23    Nick        05/12/16    bug fix - decrement incomplete games when your opponent leaves
+ * V1.24    Nick        05/12/16    sonar multiplayer bug fix
  * 
  */
 
@@ -720,7 +721,7 @@ function sonarAction(x, y) {
 
 function runSonarPerk(x, y) {
 
-    var sonar = new Sonar(opponentBoardClass);
+    var sonar = new Sonar(playerBoardClass);
 
     var cell = sonar.action(x, y);
 
