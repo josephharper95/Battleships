@@ -133,16 +133,16 @@ function convertPercentage($small, $large) {
                                         Accumulative Score
                                     </td>
                                     <td>
-                                        <?= $playerEasy->score; ?>
+                                        <?= $playerEasy ? $playerEasy->score : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->score; ?>
+                                        <?= $playerMedium ? $playerMedium->score : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->score; ?>
+                                        <?= $playerHard ? $playerHard->score : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->score; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->score : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -151,16 +151,16 @@ function convertPercentage($small, $large) {
                                         Highest Scoring Game
                                     </td>
                                     <td>
-                                        <?= $playerEasy->highScore; ?>
+                                        <?= $playerEasy ? $playerEasy->highScore : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->highScore; ?>
+                                        <?= $playerMedium ? $playerMedium->highScore : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->highScore; ?>
+                                        <?= $playerHard ? $playerHard->highScore : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->highScore; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->highScore : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -169,16 +169,16 @@ function convertPercentage($small, $large) {
                                         Wins
                                     </td>
                                     <td>
-                                        <?= $playerEasy->wins; ?>
+                                        <?= $playerEasy ? $playerEasy->wins : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->wins; ?>
+                                        <?= $playerMedium ? $playerMedium->wins : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->wins; ?>
+                                        <?= $playerHard ? $playerHard->wins : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->wins; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->wins : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
