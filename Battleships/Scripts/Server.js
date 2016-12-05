@@ -17,6 +17,7 @@
  * V0.4     Dave            1/12/16     Added more info to the games class and returned gamesList
  * V0.41    Dave            2/12/16     Updated perk methods to be dynamic
  * V0.42    Nick            02/12/16    updated perk functionality
+ * V0.43    Dave            05/12/16    fixed bug with gameList not being updated
  */
 
  /******************************
@@ -284,6 +285,7 @@ io.sockets.on('connection', function (socket, username) { //emited from multipla
 
             var opponent = getOpponent();
             io.sockets.to(opponent).emit("opponentName", players[socket.id].username);//Joinee
+            io.sockets.emit("gameList", games);//Update available games
             socket.emit("opponentName", players[opponent].username);//Host
         }
     });
