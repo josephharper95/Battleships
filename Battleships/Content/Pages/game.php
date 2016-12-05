@@ -258,6 +258,12 @@ require_once("header.php");
                         <span></span>
                     </li>
 
+                    <li id="difficultyMultiplier">
+                        <label>Difficulty Multiplier</label>
+                        <span></span>
+                    </li>
+
+
                     <li class="line"></li>
 
                     <li id="total">
