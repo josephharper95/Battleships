@@ -330,11 +330,25 @@ function endGame(winner, finished) {
         var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
        
         /*** SCORING ***/
+        var difficultyMultiplier = 1;
+        switch (difficulty)
+        {
+            case "easy":
+                difficultyMultiplier = 1;
+                break;
+            case "medium":
+                difficultyMultiplier = 2;
+                break;
+            case "hard":
+                difficultyMultiplier = 3;
+                break;
+        }
+
         var baseScore = 100;
         var negativeScorePerHitReceived = 5;
         var negativeScorePerShotMissed = 1;
         var positiveScorePerShotHit = 5;
-        var winBonus = 0;
+        var winBonus = 100;
         var timeBonusPerSecond = 2;
 
         var shotsMissed = totalShots - totalHits;
@@ -344,23 +358,24 @@ function endGame(winner, finished) {
             var timeBonus = (120 - playingTime) * timeBonusPerSecond;
         }
 
-        if (winner == "player") {
-            winBonus = 100;
+        if (winner != "player") {
+            winBonus = 0;
         }
 
         var totalHitRScore = (totalHitsReceived * negativeScorePerHitReceived);
         var shotsMissedScore = (shotsMissed * negativeScorePerShotMissed);
         var totalHitScore = (totalHits * positiveScorePerShotHit);
 
-        var gameScore = baseScore 
+        var gameScore = (baseScore 
                         - totalHitRScore
                         - shotsMissedScore
                         + totalHitScore 
                         + timeBonus 
-                        + winBonus;
+                        + winBonus)
+                        * difficultyMultiplier;
         /*** END SCORING ***/
 
-        showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus);
+        showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, difficultyMultiplier);
 
         // alert appropriate message
         if (winner == "player") {
@@ -409,7 +424,7 @@ function showOpponentShips() {
     }
 }
 
-function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus) {
+function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, difficultyMultiplier) {
 
     var won = false;
 
@@ -448,8 +463,12 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
     }, 2500);
 
     setTimeout(function () {
-        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+        $(scoreModal + " #difficultyMultiplier span").html("x " + difficultyMultiplier).fadeIn(500);
     }, 3000);
+
+    setTimeout(function () {
+        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+    }, 3500);
 
     $("#closeModal").off("click").one("click", function () {
         $(scoreModalOverlay).fadeOut(200);
