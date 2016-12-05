@@ -187,16 +187,16 @@ function convertPercentage($small, $large) {
                                         Losses
                                     </td>
                                     <td>
-                                        <?= $playerEasy->gamesPlayed - $playerEasy->wins; ?>
+                                        <?= $playerEasy ? $playerEasy->gamesPlayed - $playerEasy->wins : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->gamesPlayed - $playerMedium->wins; ?>
+                                        <?= $playerMedium ? $playerMedium->gamesPlayed - $playerMedium->wins : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->gamesPlayed - $playerHard->wins; ?>
+                                        <?= $playerHard ? $playerHard->gamesPlayed - $playerHard->wins : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->gamesPlayed - $playerMultiplayer->wins; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->gamesPlayed - $playerMultiplayer->wins : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -205,16 +205,16 @@ function convertPercentage($small, $large) {
                                         Completed Games
                                     </td>
                                     <td>
-                                        <?= $playerEasy->gamesPlayed; ?>
+                                        <?= $playerEasy ? $playerEasy->gamesPlayed : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->gamesPlayed; ?>
+                                        <?= $playerMedium ? $playerMedium->gamesPlayed : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->gamesPlayed; ?>
+                                        <?= $playerHard ? $playerHard->gamesPlayed : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->gamesPlayed; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->gamesPlayed : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -223,16 +223,16 @@ function convertPercentage($small, $large) {
                                         Incomplete Games
                                     </td>
                                     <td>
-                                        <?= $playerEasy->incompleteGames; ?>
+                                        <?= $playerEasy ? $playerEasy->incompleteGames : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->incompleteGames; ?>
+                                        <?= $playerMedium ? $playerMedium->incompleteGames : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->incompleteGames; ?>
+                                        <?= $playerHard ? $playerHard->incompleteGames : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->incompleteGames; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->incompleteGames : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -241,16 +241,16 @@ function convertPercentage($small, $large) {
                                         Total Games Started
                                     </td>
                                     <td>
-                                        <?= $playerEasy->gamesPlayed + $playerEasy->incompleteGames; ?>
+                                        <?= $playerEasy ? $playerEasy->gamesPlayed + $playerEasy->incompleteGames : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->gamesPlayed + $playerMedium->incompleteGames; ?>
+                                        <?= $playerMedium ? $playerMedium->gamesPlayed + $playerMedium->incompleteGames : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->gamesPlayed + $playerHard->incompleteGames; ?>
+                                        <?= $playerHard ? $playerHard->gamesPlayed + $playerHard->incompleteGames : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -259,16 +259,16 @@ function convertPercentage($small, $large) {
                                         Complete Game Rate Percentage
                                     </td>
                                     <td>
-                                        <?= convertPercentage($playerEasy->gamesPlayed, $playerEasy->gamesPlayed + $playerEasy->incompleteGames); ?>
+                                        <?= $playerEasy ? convertPercentage($playerEasy->gamesPlayed, $playerEasy->gamesPlayed + $playerEasy->incompleteGames) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPercentage($playerMedium->gamesPlayed, $playerMedium->gamesPlayed + $playerMedium->incompleteGames); ?>
+                                        <?= $playerMedium ? convertPercentage($playerMedium->gamesPlayed, $playerMedium->gamesPlayed + $playerMedium->incompleteGames) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPercentage($playerHard->gamesPlayed, $playerHard->gamesPlayed + $playerHard->incompleteGames); ?>
+                                        <?= $playerHard ? convertPercentage($playerHard->gamesPlayed, $playerHard->gamesPlayed + $playerHard->incompleteGames) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPercentage($playerMultiplayer->gamesPlayed, $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames); ?>
+                                        <?= $playerMultiplayer ? convertPercentage($playerMultiplayer->gamesPlayed, $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames) : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -277,16 +277,16 @@ function convertPercentage($small, $large) {
                                         Total Shots Fired
                                     </td>
                                     <td>
-                                        <?= $playerEasy->totalShotsFired; ?>
+                                        <?= $playerEasy ? $playerEasy->totalShotsFired : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->totalShotsFired; ?>
+                                        <?= $playerMedium ? $playerMedium->totalShotsFired : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->totalShotsFired; ?>
+                                        <?= $playerHard ? $playerHard->totalShotsFired : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->totalShotsFired; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->totalShotsFired : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -295,16 +295,16 @@ function convertPercentage($small, $large) {
                                         Total Shots Hit
                                     </td>
                                     <td>
-                                        <?= $playerEasy->totalShotsHit; ?>
+                                        <?= $playerEasy ? $playerEasy->totalShotsHit : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->totalShotsHit; ?>
+                                        <?= $playerMedium ? $playerMedium->totalShotsHit : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->totalShotsHit; ?>
+                                        <?= $playerHard ? $playerHard->totalShotsHit : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->totalShotsHit; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->totalShotsHit : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -313,16 +313,16 @@ function convertPercentage($small, $large) {
                                         Accuracy
                                     </td>
                                     <td>
-                                        <?= convertPercentage($playerEasy->totalShotsHit, $playerEasy->totalShotsFired); ?>
+                                        <?= $playerEasy ? convertPercentage($playerEasy->totalShotsHit, $playerEasy->totalShotsFired) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPercentage($playerMedium->totalShotsHit, $playerMedium->totalShotsFired); ?>
+                                        <?= $playerMedium ? convertPercentage($playerMedium->totalShotsHit, $playerMedium->totalShotsFired) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPercentage($playerHard->totalShotsHit, $playerHard->totalShotsFired); ?>
+                                        <?= $playerHard ? convertPercentage($playerHard->totalShotsHit, $playerHard->totalShotsFired) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPercentage($playerMultiplayer->totalShotsHit, $playerMultiplayer->totalShotsFired); ?>
+                                        <?= $playerMultiplayer ? convertPercentage($playerMultiplayer->totalShotsHit, $playerMultiplayer->totalShotsFired) : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -331,16 +331,16 @@ function convertPercentage($small, $large) {
                                         Total Shots Received
                                     </td>
                                     <td>
-                                        <?= $playerEasy->totalHitsReceived; ?>
+                                        <?= $playerEasy ? $playerEasy->totalHitsReceived : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMedium->totalHitsReceived; ?>
+                                        <?= $playerMedium ? $playerMedium->totalHitsReceived : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerHard->totalHitsReceived; ?>
+                                        <?= $playerHard ? $playerHard->totalHitsReceived : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= $playerMultiplayer->totalHitsReceived; ?>
+                                        <?= $playerMultiplayer ? $playerMultiplayer->totalHitsReceived : 'Data Error'; ?>
                                     </td>
                                 </tr>
 
@@ -349,16 +349,16 @@ function convertPercentage($small, $large) {
                                         Total Playing Time
                                     </td>
                                     <td>
-                                        <?= convertPlayingTime($playerEasy->totalPlayingTime); ?>
+                                        <?= $playerEasy ? convertPlayingTime($playerEasy->totalPlayingTime) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPlayingTime($playerMedium->totalPlayingTime); ?>
+                                        <?= $playerMedium ? convertPlayingTime($playerMedium->totalPlayingTime) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPlayingTime($playerHard->totalPlayingTime); ?>
+                                        <?= $playerHard ? convertPlayingTime($playerHard->totalPlayingTime) : 'Data Error'; ?>
                                     </td>
                                     <td>
-                                        <?= convertPlayingTime($playerMultiplayer->totalPlayingTime); ?>
+                                        <?= $playerMultiplayer ? convertPlayingTime($playerMultiplayer->totalPlayingTime) : 'Data Error'; ?>
                                     </td>
                                 </tr>
                             </tbody>
