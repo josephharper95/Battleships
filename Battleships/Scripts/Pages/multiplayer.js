@@ -326,7 +326,6 @@ socket.on("joinGameResponse", function (joined) {
 
         changePage("#subPagePlayGame");
         $(backToMultiplayerButton).hide();
-        
         initGame();
 
     } else {
@@ -338,6 +337,7 @@ socket.on("joinGameResponse", function (joined) {
 function initGame() {
 
     resetMultiplayerBoard();
+    incrementIncompleteGames();
 
     shipsToPlace = new Array();
 
@@ -377,8 +377,6 @@ socket.on("gameReady", function (data) {
     totalHits = 0;
     totalHitsReceived = 0;
     startTime = new Date();
-
-    incrementIncompleteGames();
 });
 
 socket.on("playerToStart", function(data) {
