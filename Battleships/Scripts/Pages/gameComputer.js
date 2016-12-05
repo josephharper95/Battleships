@@ -271,7 +271,7 @@ function shipsPlaced() {
     setTimeout(function () {
         // show the start game button
         $(startGameButton).fadeIn(500);
-    }, 500);
+    }, 200);
     
     // add click handler to the button at this point
     $(startGameButton).unbind("click").one("click", function () {
