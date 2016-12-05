@@ -166,7 +166,7 @@ class User {
                     JOIN users u
                         ON u.userID = us.userID
                 WHERE d.difficultyID = ?
-                AND gamesPlayer > 0
+                AND gamesPlayed > 0
                 ORDER BY gamesPlayed desc
                 LIMIT 10";
         $values = array($difficulty);
