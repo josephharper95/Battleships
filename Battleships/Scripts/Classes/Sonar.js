@@ -4,8 +4,6 @@
  * 
  * V0.1     Dave    24/10/16    initial creation  
  * V0.11    Nick    29/10/16    slight tweaks from integration with UI
- * V0.12    Nick    05/12/16    bug fix
- * 
  */
 
 function Sonar(targetBoard){
@@ -27,7 +25,8 @@ Sonar.prototype.constructor = Sonar;
  */
 Sonar.prototype.action = function(x, y){
 
-    if (typeof(x)!='number' || typeof(y)!= 'number') {
+    if(typeof(x)!='number' || typeof(y)!= 'number')
+    {
         return false;
     }
 
@@ -52,7 +51,7 @@ Sonar.prototype.action = function(x, y){
             var nextCol = col + y;
 
             // checks
-            if (!(nextCol < 0 && nextCol >= size && nextRow < 0 && nextRow >= size)
+            if (!(nextCol < 0 || nextCol >= size || nextRow < 0 || nextCol >= size)
                 &&
                 (this.getTarget().getCoordinateAt(nextRow, nextCol).containsShip())
                 &&
