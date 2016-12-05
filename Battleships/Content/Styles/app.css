@@ -31,6 +31,7 @@
 * V2.3      Nick    03/12/16    statistics page designed
 * V2.31     Nick    03/12/16    login / error messages now orange
 * V2.4      Nick    05/12/16    removed base 64 variables, added button designs
+* V2.41     Nick    05/12/16    missed login / registration buttons off design
 *
 **/
 /**
@@ -438,19 +439,32 @@ html body div#pageLoginCont #pageLogin ul li input {
   color: inherit;
 }
 html body div#pageLoginCont #pageLogin ul li button {
-  border: none;
   background: none;
-  font-family: 'Erasdust';
-  font-size: 150%;
-  min-width: 0;
+  font-family: "Erasdust";
+  font-size: 1em;
+  text-decoration: none;
+  display: inline-block;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  width: 100px;
+  padding: 5px 10px;
+  height: 30px;
+  line-height: 1em;
+  cursor: pointer;
+  white-space: nowrap;
 }
 html body div#pageLoginCont #pageLogin ul li button:hover {
-  color: #ccc;
-  text-decoration: underline;
+  background-color: #fff;
+  opacity: .9;
+  color: #222;
 }
 html body div#pageLoginCont #pageLogin ul li.notRegistered {
   text-align: right;
   font-size: 80%;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 html body div#pageLoginCont #pageLogin ul li.notRegistered a {
   text-decoration: none;
@@ -538,23 +552,36 @@ html body div#pageRegistrationCont #pageRegistration ul li input {
   font-family: 'Erasdust';
   background: none;
   border: none;
-  font-size: 120%;
+  font-size: 1.1em;
   color: inherit;
 }
 html body div#pageRegistrationCont #pageRegistration ul li button {
-  border: none;
   background: none;
-  font-family: 'Erasdust';
-  font-size: 150%;
-  min-width: 0;
+  font-family: "Erasdust";
+  font-size: .9em;
+  text-decoration: none;
+  display: inline-block;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  width: 100px;
+  padding: 5px 10px;
+  height: 30px;
+  line-height: 1em;
+  cursor: pointer;
+  white-space: nowrap;
 }
 html body div#pageRegistrationCont #pageRegistration ul li button:hover {
-  color: #ccc;
-  text-decoration: underline;
+  background-color: #fff;
+  opacity: .9;
+  color: #222;
 }
 html body div#pageRegistrationCont #pageRegistration ul li.alreadyRegistered {
   text-align: right;
   font-size: 80%;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 html body div#pageRegistrationCont #pageRegistration ul li.alreadyRegistered a {
   text-decoration: none;
