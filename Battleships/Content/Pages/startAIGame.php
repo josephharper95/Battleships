@@ -10,6 +10,7 @@
 * V0.12     Nick    09/11/16    page redirection bug
 * V0.2      Nick    29/11/16    changed start AI to be new design - PENDING HEADER
 * V0.21     Nick    01/12/16    removed header from page
+* V0.22     Nick    05/12/16    added button spacer
 *
 **/
 
@@ -129,6 +130,8 @@ if(!Session::get("userID"))
                         <br />
 
                         <a href="home.php">Home</a>
+
+                        <div class="buttonSpacer"></div>
 
                         <button style="clear:both;"
                                 type="submit">

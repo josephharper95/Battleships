@@ -10,6 +10,7 @@
 * V0.12     Nick    10/11/16    changed home text
 * V1.0      Nick    27/11/16    updated for new design
 * V1.1      Nick    01/12/16    updated to textual links on home page
+* V1.11     Nick    05/12/16    updated text to statistics
 *
 */
 
@@ -58,7 +59,7 @@ if(!Session::get("userID"))
                 </li>
 
                 <li>
-                    <a href="statistics.php">View your Battle Log</a>
+                    <a href="statistics.php">View your Statistics</a>
                 </li>
 
             </ul>

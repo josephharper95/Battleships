@@ -21,6 +21,7 @@
 * V0.40     Nick    28/11/16    added scoring HTML
 * V0.5      Nick    01/12/16    updated design for whole page
 * V0.51     Nick    02/12/16    bounce bomb integration
+* V0.52     Nick    05/12/16    update for buttons
 *
 **/
 
@@ -142,27 +143,28 @@ require_once("header.php");
                     </table>
 
                     <!-- button to start game, hidden at first -->
-                    <div style="width: 100%; text-align: center; margin-top:7px;">
-                        <button class="button" 
+                    <div class="buttonContainer">
+
+                        <button class="start" 
                                 style="display:none;"
                                 id="startGame" >
                                 Start!
                         </button>
 
-                        <button class="button"
+                        <button class="rotate"
                                 style="display:none;"
                                 id="rotateShip"
                                 title="Or press 'r' to rotate">
                             Rotate Ship
                         </button>
 
-                        <button class="button"
+                        <button class="undo"
                                 style="display:none;"
                                 id="undoLastShip">
                             Undo Last Ship
                         </button>
 
-                        <button class="button"
+                        <button class="reset"
                                 style="display:none;"
                                 id="resetBoard">
                             Reset Board
@@ -203,9 +205,9 @@ require_once("header.php");
                         <?php echo createBoard(); ?>
                     </table>
 
-                    <div style="width: 100%; text-align: center; margin-top:7px;">
+                    <div class="buttonContainer">
 
-                        <button class="button"
+                        <button class="rotate"
                                 style="display:none;"
                                 id="rotateBounceBomb"
                                 title="Or press 'r' to rotate">

@@ -14,6 +14,7 @@
 * V0.41     Nick    28/11/16    update file locations - commented out perks
 * V0.5      Nick    28/11/16    added scoring HTML
 * V0.6      Nick    02/12/16    design integration and initial perks
+* V0.7      Nick    05/12/16    bounce bomb rotation, button design
 *
 */
 
@@ -197,27 +198,27 @@ require_once("header.php");
                 <table id="playerBoard" class="board" data-size="small" ></table>
 
                 <!-- button to start game, hidden at first -->
-                <div style="width: 100%; text-align: center; margin-top:7px;">
-                    <button class="button" 
+                <div class="buttonContainer">
+                    <button class="start" 
                             style="display:none;"
                             id="playerReady" >
                             Ready
                     </button>
 
-                    <button class="button"
+                    <button class="rotate"
                             style="display:none;"
                             id="rotateShip"
                             title="Or press 'r' to rotate">
                         Rotate Ship
                     </button>
 
-                    <button class="button"
+                    <button class="undo"
                             style="display:none;"
                             id="undoLastShip">
                         Undo Last Ship
                     </button>
 
-                    <button class="button"
+                    <button class="reset"
                             style="display:none;"
                             id="resetBoard">
                         Reset Board
@@ -255,6 +256,17 @@ require_once("header.php");
 
                 <!-- opponents board, populated relating to the size -->
                 <table id="opponentBoard" class="board" data-size="small" ></table>
+
+                <div class="buttonContainer">
+
+                    <button class="rotate"
+                            style="display:none;"
+                            id="rotateBounceBomb"
+                            title="Or press 'r' to rotate">
+                        Rotate
+                    </button>
+                        
+                </div>
             </div>
         </div>
 

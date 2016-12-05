@@ -268,8 +268,10 @@ function shipsPlaced() {
     removeHovers();
     $(window).unbind("keydown");
 
-    // show the start game button
-    $(startGameButton).fadeIn(500);
+    setTimeout(function () {
+        // show the start game button
+        $(startGameButton).fadeIn(500);
+    }, 500);
     
     // add click handler to the button at this point
     $(startGameButton).unbind("click").one("click", function () {

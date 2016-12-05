@@ -28,6 +28,7 @@
  * V1.22    Dave        05/12/16    bug fix where gameList wasn't being updated when a room was full
  * V1.23    Nick        05/12/16    bug fix - decrement incomplete games when your opponent leaves
  * V1.24    Nick        05/12/16    sonar multiplayer bug fix
+ * V1.25    Nick        05/12/16    hide board extras on the reset board
  * 
  */
 
@@ -882,6 +883,8 @@ function resetMultiplayerBoard() {
     tableHtml += "</tbody>";
 
     $(".board").html(tableHtml);
+
+    $(boardExtras).hide();
 
     // allow user to once again create a room
     $(createRoomButton).off("click").one("click", function () {
