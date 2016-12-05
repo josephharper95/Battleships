@@ -25,6 +25,7 @@
  * V1.1     Nick        02/12/16    sonar perk integration
  * V1.2     Nick        02/12/16    bounce bomb perk integration
  * V1.21    Nick        03/12/16    bug fix where you couldn't create a game after cancelling
+ * V1.22    Nick        05/12/16    bug fix - decrement incomplete games when your opponent leaves
  * 
  */
 
@@ -844,6 +845,7 @@ socket.on("playerLeftResponse", function (data) {
         showWaiting(false);
 
         changePage("#subPageRoom");
+        decrementIncompleteGames();
         resetMultiplayerBoard();
 
         alert("Your opponent has only gone and bladdy left!");
