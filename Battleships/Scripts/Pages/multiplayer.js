@@ -898,6 +898,20 @@ function statisticsAjax(won) {
     var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
     
     /*** SCORING ***/
+    var boardSizeBonus = 0;
+    switch (boardSize)
+    {
+        case 10:
+            boardSizeBonus = 0;
+            break;
+        case 15:
+            difficultyMultiplier = 100;
+            break;
+        case 20:
+            difficultyMultiplier = 200;
+            break;
+    }
+
     var baseScore = 100;
     var negativeScorePerHitReceived = 5;
     var negativeScorePerShotMissed = 1;
@@ -925,10 +939,11 @@ function statisticsAjax(won) {
                     - shotsMissedScore
                     + totalHitScore 
                     + timeBonus 
-                    + winBonus;
+                    + winBonus
+                    + boardSizeBonus;
     /*** END SCORING ***/
 
-    showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus);
+    showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, boardSizeBonus);
 
     $.ajax({
         url: "../../Content/Pages/multiplayerAjax.php",
@@ -976,7 +991,7 @@ function winAjax() {
     });
 }
 
-function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus) {
+function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, boardSizeBonus) {
 
     won = winBonus != 0;
 
@@ -1010,8 +1025,12 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
     }, 2500);
 
     setTimeout(function () {
-        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+        $(scoreModal + " #boardSizeBonusBonus span").html("+ " + boardSizeBonus + "pts").fadeIn(500);
     }, 3000);
+
+    setTimeout(function () {
+        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+    }, 3500);
 
     $("#closeModal").off("click").one("click", function () {
         $(scoreModalOverlay).fadeOut(200);

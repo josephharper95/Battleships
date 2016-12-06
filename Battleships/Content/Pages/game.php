@@ -265,6 +265,11 @@ require_once("header.php");
                         <span></span>
                     </li>
 
+                    <li id="boardSizeBonus">
+                        <label>Board Size Bonus</label>
+                        <span></span>
+                    </li>
+
                     <li class="line"></li>
 
                     <li id="total">
