@@ -41,6 +41,8 @@ if(Input::itemExists("userID") && Input::itemExists("password")) { // If user ha
         Session::set("userID", $user->userID); // Setting the user in the session allows them to play the game
         Session::set("firstName", $user->firstName);
         Session::set("lastName", $user->lastName);
+        
+        session_regenerate_id();
 
         header("Location: ../../index.php");
         exit();
