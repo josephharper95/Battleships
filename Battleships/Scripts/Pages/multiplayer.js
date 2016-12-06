@@ -922,8 +922,8 @@ function statisticsAjax(won) {
     var shotsMissed = totalShots - totalHits;
     var timeBonus = 0;
 
-    if (playingTime < 120) {
-        var timeBonus = (120 - playingTime) * timeBonusPerSecond;
+    if (playingTime < 300) {
+        var timeBonus = (300 - playingTime) * timeBonusPerSecond;
     }
 
     if (won) {
@@ -1025,7 +1025,7 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
     }, 2500);
 
     setTimeout(function () {
-        $(scoreModal + " #boardSizeBonusBonus span").html("+ " + boardSizeBonus + "pts").fadeIn(500);
+        $(scoreModal + " #boardSizeBonus span").html("+ " + boardSizeBonus + "pts").fadeIn(500);
     }, 3000);
 
     setTimeout(function () {
