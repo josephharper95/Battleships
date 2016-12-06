@@ -3,7 +3,7 @@
  * V0.1     Dave    03/12/16    initial creation  
  */
 
-function ScatterShot(targetBoard){
+function Mortar(targetBoard){
 
     var target = targetBoard;
 
@@ -13,14 +13,14 @@ function ScatterShot(targetBoard){
 }
 
 // Inherit from Perk
-ScatterShot.prototype = Object.create(Perk.prototype);
-ScatterShot.prototype.constructor = ScatterShot;
+Mortar.prototype = Object.create(Perk.prototype);
+Mortar.prototype.constructor = Mortar;
 
 /**
  * Fires 3 random shots on adjacent locations to the given coordinate.
  * @return {Array[coordinate]}
  */
-ScatterShot.prototype.action = function(x, y){
+Mortar.prototype.action = function(x, y){
 
     if(typeof(x)!='number' || typeof(y)!= 'number')
     {
@@ -67,8 +67,8 @@ ScatterShot.prototype.action = function(x, y){
        //Find 3 shots at random from the given locations.
         while(shots.length < 3 && count > 0){
             var shot = Math.floor(Math.random() * count);
+            shots.push(locations[shot]);
             locations.splice(shot, 1);
-            shots.push(shot);
             count--;
         }
         return shots;

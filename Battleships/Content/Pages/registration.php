@@ -10,6 +10,7 @@
 * V0.21     Joe     06/10/16    added comments, moved message to formatted tags
 * V0.22     Joe     21/10/16    altered code to reflect movement of user queries to User class from Database class
 * V1.0 		Nick 	27/11/16 	updated for new design
+* V1.1 		Nick 	06/12/16 	added social media links
 *
 **/
 
@@ -158,6 +159,16 @@ if (Input::itemExists("register")) {
 				</ul>
 
 			</form>
+
+			<div class="logoCont">
+
+                <div class="logo"></div>
+
+<?php
+                require("socialMedia.php");
+?>
+
+            </div>
 
 		</div>
 	</div>

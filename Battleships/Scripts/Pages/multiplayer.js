@@ -29,6 +29,7 @@
  * V1.23    Nick        05/12/16    bug fix - decrement incomplete games when your opponent leaves
  * V1.24    Nick        05/12/16    sonar multiplayer bug fix
  * V1.25    Nick        05/12/16    hide board extras on the reset board
+ * V1.3     Nick        06/12/16    added mortar
  * 
  */
 
@@ -662,6 +663,9 @@ function runPlayerPerk(perk) {
         case "Bounce_Bomb":
             initBounceBombPerk();
             break;
+        case "Mortar":
+            initMortarPerk();
+            break;
     }
 }
 
@@ -694,6 +698,9 @@ socket.on("runPerk", function (data) {
         case "Bounce_Bomb":
             runBounceBombPerk(data.x, data.y, data.orientation);
             break;
+        case "Mortar":
+            runMortarPerk(data);
+            break;
     }
 });
 
@@ -705,6 +712,9 @@ socket.on("usePerkResponse", function (data) {
             break;
         case "Bounce_Bomb":
             responseBounceBombPerk(data);
+            break;
+        case "Mortar":
+            responseMortarPerk(data);
             break;
     }
 });
@@ -736,7 +746,7 @@ function runSonarPerk(x, y) {
         $(page + " " + playerBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
     }
 
-    socket.emit("runPerkResponse", data)
+    socket.emit("runPerkResponse", data);
 }
 
 function responseSonarPerk(x, y) {
@@ -749,7 +759,7 @@ function responseSonarPerk(x, y) {
         alert("No moves found :(");
     }
 
-    endPlayerPerk(false, "Sonar");
+    endPlayerPerk(true, "Sonar");
 }
 
 function bounceBombAction(x, y, orientation) {
@@ -806,6 +816,51 @@ function responseBounceBombPerk(data) {
     }
 
     endPlayerPerk(true, "Bounce_Bomb");
+}
+
+function mortarAction(x, y) {
+    
+    var data = {
+        perk: "Mortar",
+        x: x,
+        y: y
+    };
+
+    socket.emit("usePerk", data);
+}
+
+function runMortarPerk(data) {
+
+    var mortar = new Mortar(playerBoardClass);
+
+    var cellObjs = mortar.action(data.x, data.y);
+
+    var cells = new Array();
+
+    for (var i = 0; i < cellObjs.length; i++) {
+
+        cells.push(cellObjs[i].toObject());
+
+        boardFireAtSelf(cellObjs[i].getX(), cellObjs[i].getY());
+    }
+
+    var data = {
+        perk: "Mortar",
+        cells: cells
+    };
+
+    socket.emit("runPerkResponse", data);
+}
+
+function responseMortarPerk(data) {
+
+    var cells = data.cells;
+
+    for (var i = 0; i < cells.length; i++) {
+        boardFireAtOpponent(cells[i].x, cells[i].y);
+    }
+
+    endPlayerPerk(true, "Mortar");
 }
 
 /******************************

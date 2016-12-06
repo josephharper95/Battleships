@@ -28,6 +28,7 @@
  * V1.0     Nick    01/12/16    overhaul to perks so that they are now dynamic by board size
  * V1.1     Nick    02/12/16    added perk actions to file
  * V1.11    Nick    02/12/16    removed console.log
+ * V1.2     Nick    06/12/16    added mortar
  * 
  */
 
@@ -200,6 +201,9 @@ function runPlayerPerk(perk) {
         case "Bounce_Bomb":
             initBounceBombPerk();
             break;
+        case "Mortar":
+            initMortarPerk();
+            break;
     }
 }
 
@@ -253,7 +257,27 @@ function sonarAction(x, y) {
     }
 
     // allow player to now make a move
-    endPlayerPerk(false, "Sonar");
+    endPlayerPerk(true, "Sonar");
+}
+
+function mortarAction(x, y) {
+
+    var mortar = new Mortar(opponentBoardClass);
+
+    var cells = mortar.action(x, y);
+
+    console.log(cells);
+
+    if (cells && cells.length == 3) {
+        
+        for (var i = 0; i < cells.length; i++) {
+
+            boardFireAtOpponentCoordinate(cells[i].getX(), cells[i].getY());
+        }
+    }
+
+    removeHovers();
+    endPlayerPerk(true, "Mortar");
 }
 
 /******************************

@@ -13,6 +13,7 @@
 * V0.24     Nick    10/11/16    updated redirection
 * V1.0      Nick    27/11/16    updated for new design
 * V1.1      Nick    01/12/16    social media links now brought in from file
+* V1.11     Nick    06/12/16    style tweaks
 *
 **/
 
@@ -115,12 +116,15 @@ if(Input::itemExists("userID") && Input::itemExists("password")) { // If user ha
 
             </form>
 
-            <div class="logo"></div>
+            <div class="logoCont">
+
+                <div class="logo"></div>
 
 <?php
-            require("socialMedia.php");
+                require("socialMedia.php");
 ?>
 
+            </div>
         </div>
 
     </div>

@@ -9,6 +9,7 @@
 * V0.13     Nick    01/12/16    changed BounceBomb to Bounce_Bomb so other files can add a space in between
 * V0.14     Dave    01/12/16    Fixed bug with perks not showing on large boards.
 * V0.15     Nick    02/12/16    bug fix
+* V0.2      Nick    06/12/16    added mortar and updated quantities
 *
 **/
 
@@ -28,21 +29,30 @@ function Game(size) {
             }
             _playerPerks['Bounce_Bomb'] = {
                 "usesLeft": 1
+            },
+            _playerPerks["Mortar"] = {
+                "usesLeft": 1
             }
             break;
         case 15:
             _playerPerks['Sonar'] = {
-                "usesLeft": 1
+                "usesLeft": 2
             }
             _playerPerks['Bounce_Bomb'] = {
+                "usesLeft": 2
+            },
+            _playerPerks["Mortar"] = {
                 "usesLeft": 1
             }
             break;
         case 20:
             _playerPerks['Sonar'] = {
-                "usesLeft": 2
+                "usesLeft": 4
             }
             _playerPerks['Bounce_Bomb'] = {
+                "usesLeft": 4
+            },
+            _playerPerks["Mortar"] = {
                 "usesLeft": 2
             }
             break;

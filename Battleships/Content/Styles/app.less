@@ -32,6 +32,7 @@
 * V2.31     Nick    03/12/16    login / error messages now orange
 * V2.4      Nick    05/12/16    removed base 64 variables, added button designs
 * V2.41     Nick    05/12/16    missed login / registration buttons off design
+* V2.42     Nick    06/12/16    style tweaks to login / register
 *
 **/
 
@@ -85,6 +86,10 @@ html {
     //         cursor: default;
     //     }
     // }
+
+    button {
+        outline: none;
+    }
 
     body {
 
@@ -503,42 +508,45 @@ html {
                         }
 
                         &.loginError {
-                            margin-top: 20px;
+                            margin-top: 15px;
                             text-align: center;
                             color: orange;
                         }
                     }
                 }
 
-                .logo {
-                    background-image: @logo;
-                    background-size: 50px;
-                    height: 50px;
-                    width: 50px;
+                .logoCont {
                     position: absolute;
-                    top: 190px;
-                }
+                    bottom: 10px;
 
-                .socialMedia {
-                    width: 20px;
-                    height: 20px;
-                    position: absolute;
-                    top: 220px;
-                    background-size: 20px;
-
-                    &.facebook {
-                        background-image: @facebook;
-                        left: 65px;
+                    .logo {
+                        background-image: @logo;
+                        background-size: 50px;
+                        height: 50px;
+                        width: 50px;
                     }
 
-                    &.twitter {
-                        background-image: @twitter;
-                        left: 90px;
-                    }
+                    .socialMedia {
+                        width: 20px;
+                        height: 20px;
+                        position: absolute;
+                        background-size: 20px;
+                        bottom: 0px;
 
-                    &.youtube {
-                        background-image: @youtube;
-                        left: 115px;
+                        &.facebook {
+                            background-image: @facebook;
+                            left: 55px;
+                        }
+
+                        &.twitter {
+                            background-image: @twitter;
+                            left: 80px;
+                        }
+
+                        &.youtube {
+                            background-image: @youtube;
+                            left: 105px;
+                        }
                     }
                 }
             }
@@ -642,20 +650,46 @@ html {
                         }
 
                         &.registrationError {
-                            margin-top: 20px;
+                            margin-top: 15px;
                             text-align: center;
                             color: orange;
                         }
                     }
                 }
 
-                .logo {
-                    background-image: @logo;
-                    background-size: 50px;
-                    height: 50px;
-                    width: 50px;
+                .logoCont {
                     position: absolute;
-                    top: 190px;
+                    bottom: 10px;
+
+                    .logo {
+                        background-image: @logo;
+                        background-size: 50px;
+                        height: 50px;
+                        width: 50px;
+                    }
+
+                    .socialMedia {
+                        width: 20px;
+                        height: 20px;
+                        position: absolute;
+                        background-size: 20px;
+                        bottom: 0px;
+
+                        &.facebook {
+                            background-image: @facebook;
+                            left: 55px;
+                        }
+
+                        &.twitter {
+                            background-image: @twitter;
+                            left: 80px;
+                        }
+
+                        &.youtube {
+                            background-image: @youtube;
+                            left: 105px;
+                        }
+                    }
                 }
             }
         }
@@ -1376,8 +1410,8 @@ html {
                             background: none;
                             border: none;
                             width: 130px;
-                            height: 70px;
-                            background-size: 130px 70px;
+                            height: 50px;
+                            background-size: 130px 50px;
                             font-family: "Handwriting";
                             font-size: 1.1em;
                             cursor: pointer;
@@ -1402,7 +1436,6 @@ html {
 
                         h4 {
                             position: relative;
-                            top: -5px;
                         }
                     }
                 }

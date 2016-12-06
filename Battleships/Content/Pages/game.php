@@ -22,6 +22,7 @@
 * V0.5      Nick    01/12/16    updated design for whole page
 * V0.51     Nick    02/12/16    bounce bomb integration
 * V0.52     Nick    05/12/16    update for buttons
+* V0.53     Nick    06/12/16    added mortar scripts
 *
 **/
 
@@ -88,6 +89,7 @@ require_once("header.php");
 <script src="../../Scripts/Helpers/rotateShip.js" type="text/javascript" ></script>
 <script src="../../Scripts/Helpers/setShipAttributes.js" type="text/javascript" ></script>
 <script src="../../Scripts/Helpers/bounceBomb.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/perkMortar.js" type="text/javascript" ></script>
 
 <!-- Classes -->
 <script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
@@ -100,6 +102,7 @@ require_once("header.php");
 <script src="../../Scripts/Classes/Perk.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
 
     <div id="pageSinglePlayerCont"
             class="pageContainer">
@@ -278,7 +281,7 @@ require_once("header.php");
 
                     <a href="home.php">Home</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="game.php">Back to Single Player</a>
+                    <a href="game.php">Play Again</a>
 
                 </div>
 

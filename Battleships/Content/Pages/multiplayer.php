@@ -41,6 +41,7 @@ require_once("header.php");
 <script src="../../Scripts/Helpers/cleanups.js" type="text/javascript"></script>
 <script src="../../Scripts/Helpers/perkSonar.js" type="text/javascript"></script>
 <script src="../../Scripts/Helpers/bounceBomb.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/perkMortar.js" type="text/javascript"></script>
 <script src="../../Scripts/Helpers/rotateShip.js" type="text/javascript" ></script>
 <script src="../../Scripts/Helpers/setShipAttributes.js" type="text/javascript" ></script>
 <script src="../../Scripts/Helpers/conversions.js" type="text/javascript" ></script>
@@ -53,6 +54,7 @@ require_once("header.php");
 <script src="../../Scripts/Classes/Perk.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
 
 <div id="pageMultiplayer"
         class="pageContainer">
