@@ -29,6 +29,7 @@
  * V1.1     Nick    02/12/16    added perk actions to file
  * V1.11    Nick    02/12/16    removed console.log
  * V1.2     Nick    06/12/16    added mortar
+ * V1.21    Nick    06/12/16    fixed bug for scoring
  * 
  */
 
@@ -354,17 +355,31 @@ function endGame(winner, finished) {
         var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
        
         /*** SCORING ***/
-        var difficultyMultiplier = 1;
-        switch (difficulty)
-        {
+        var difficultyMultiplier = 0.75;
+
+        switch (difficulty) {
             case "easy":
-                difficultyMultiplier = 1;
+                difficultyMultiplier = 0.75;
                 break;
             case "medium":
-                difficultyMultiplier = 2;
+                difficultyMultiplier = 1;
                 break;
             case "hard":
-                difficultyMultiplier = 3;
+                difficultyMultiplier = 1.25;
+                break;
+        }
+
+        var boardSizeBonus = 0;
+
+        switch (boardSize) {
+            case 10:
+                boardSizeBonus = 0;
+                break;
+            case 15:
+                boardSizeBonus = 100;
+                break;
+            case 20:
+                boardSizeBonus = 200;
                 break;
         }
 
@@ -390,16 +405,17 @@ function endGame(winner, finished) {
         var shotsMissedScore = (shotsMissed * negativeScorePerShotMissed);
         var totalHitScore = (totalHits * positiveScorePerShotHit);
 
-        var gameScore = (baseScore 
+        var gameScore = ((baseScore 
                         - totalHitRScore
                         - shotsMissedScore
                         + totalHitScore 
                         + timeBonus 
                         + winBonus)
-                        * difficultyMultiplier;
+                        * difficultyMultiplier)
+                        + boardSizeBonus;
         /*** END SCORING ***/
 
-        showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, difficultyMultiplier);
+        showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, difficultyMultiplier, boardSizeBonus);
 
         // alert appropriate message
         if (winner == "player") {
@@ -448,7 +464,7 @@ function showOpponentShips() {
     }
 }
 
-function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, difficultyMultiplier) {
+function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, difficultyMultiplier, boardSizeBonus) {
 
     var won = false;
 
@@ -491,8 +507,12 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
     }, 3000);
 
     setTimeout(function () {
-        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+        $(scoreModal + " #boardSizeBonus span").html("+ " + boardSizeBonus).fadeIn(500);
     }, 3500);
+
+    setTimeout(function () {
+        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+    }, 4000);
 
     $("#closeModal").off("click").one("click", function () {
         $(scoreModalOverlay).fadeOut(200);

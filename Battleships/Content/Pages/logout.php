@@ -14,6 +14,7 @@
 require_once("../Classes/setup.php");
 
 // destroy the session
+session_regenerate_id();
 session_destroy();
 
 // reroute user back to login page

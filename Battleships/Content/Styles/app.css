@@ -33,6 +33,7 @@
 * V2.4      Nick    05/12/16    removed base 64 variables, added button designs
 * V2.41     Nick    05/12/16    missed login / registration buttons off design
 * V2.42     Nick    06/12/16    style tweaks to login / register
+* V2.43     Nick    06/12/16    scoring modal tweaks
 *
 **/
 /**
@@ -1194,7 +1195,7 @@ html body .gameContainer .map {
 html body .gameContainer #scoreModal {
   border: 4px solid #754524;
   border-radius: 5px;
-  height: 410px;
+  height: 450px;
   width: 400px;
   top: 0;
   bottom: 0;
@@ -1263,7 +1264,7 @@ html body div#pageSinglePlayerCont {
   z-index: 100;
 }
 html body div#pageSinglePlayerCont #pageSinglePlayer #scoreModal {
-  height: 450px;
+  height: 490px;
 }
 html body div#pageMultiplayer div#subPageRoom div#availableGamesCont {
   min-height: 200px;
