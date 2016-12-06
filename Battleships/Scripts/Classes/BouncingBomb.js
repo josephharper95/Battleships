@@ -42,7 +42,7 @@ BouncingBomb.prototype.action = function(x, y, orientation){
     &&(!this.getTarget().getCoordinateAt(row, col).isHit()))
     { // If the given coordinates contain a ship and haven't been hit yet...
         //return getCoordinateAt(row, col); // Use the returned coordinate to fire upon....
-        return 1; // calls fire on first coordinate from Game
+        return 2; // calls fire on first coordinate from Game
     }
     
     // If the orientation of the shot is vertical
