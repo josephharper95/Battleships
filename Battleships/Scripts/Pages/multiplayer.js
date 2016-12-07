@@ -960,10 +960,10 @@ function statisticsAjax(won) {
             boardSizeBonus = 0;
             break;
         case 15:
-            difficultyMultiplier = 100;
+            boardSizeBonus = 100;
             break;
         case 20:
-            difficultyMultiplier = 200;
+            boardSizeBonus = 200;
             break;
     }
 
