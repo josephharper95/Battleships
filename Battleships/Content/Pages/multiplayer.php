@@ -15,6 +15,7 @@
 * V0.5      Nick    28/11/16    added scoring HTML
 * V0.6      Nick    02/12/16    design integration and initial perks
 * V0.7      Nick    05/12/16    bounce bomb rotation, button design
+* V0.71     Nick    07/12/16    added class for birds eye view
 *
 */
 
@@ -162,7 +163,7 @@ require_once("header.php");
     </div>
 
     <div id="subPagePlayGame"
-         class="subPage gameContainer pageContainer"
+         class="subPage gameContainer pageContainer birdsEyeView"
          style="display:none;clear:both;">
 
          <!-- container for all player related items -->

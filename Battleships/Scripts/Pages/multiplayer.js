@@ -30,6 +30,7 @@
  * V1.24    Nick        05/12/16    sonar multiplayer bug fix
  * V1.25    Nick        05/12/16    hide board extras on the reset board
  * V1.3     Nick        06/12/16    added mortar
+ * V1.4     Nick        07/12/16    changed alerts to new functionality, fixed bug where new players showed NAN% for completion rate
  * 
  */
 
@@ -175,6 +176,10 @@ socket.on('alert', function(message){ // listens for alert emit from server.js
 socket.on('gameList', function (data) {
 
     var returnText = "";
+
+    if (data == null || data.length == 0) {
+        returnText = "<tr><td colspan='4'>No games found!</td></tr>";
+    }
     
     for (var game in data) {
 
@@ -244,6 +249,9 @@ function createRoom() {
     $(createRoomButtonConf).unbind("click").one("click", function () {
 
         var completionRate = ((parseInt(userStats.gamesPlayed) / (parseInt(userStats.gamesPlayed) + parseInt(userStats.incompleteGames)))*100).toFixed(2);
+        if (userStats.gamesPlayed == 0) {
+            completionRate = 100;
+        }
         var size = $("[name=size]:checked").val();
         var sizeInt = convertBoardSizeStrToInt(size);
         boardSize = sizeInt;
@@ -295,7 +303,7 @@ socket.on("createGameResponse", function (data) {
         });
     } else {
 
-        alert("FAILED TO CREATE GAME");
+        showMessageTimeout("Failed to Create Game! Please try again...", 2000);
 
         $(createRoomButton).off("click").one("click", function () {
             createRoom();
@@ -331,7 +339,7 @@ socket.on("joinGameResponse", function (joined) {
 
     } else {
 
-        alert("Couldn't join you to the game :(");
+        showMessageTimeout("We couldn't join you to the game! Please try again...");
     }
 });
 
@@ -756,7 +764,7 @@ function responseSonarPerk(x, y) {
         $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("sonarShipLocation");
     } else {
 
-        alert("No moves found :(");
+        showMessageTimeout("No moves found! Better luck next time...", 3000);
     }
 
     endPlayerPerk(true, "Sonar");
@@ -906,7 +914,7 @@ socket.on("playerLeftResponse", function (data) {
         decrementIncompleteGames();
         resetMultiplayerBoard();
 
-        alert("Your opponent has only gone and bladdy left!");
+        showMessageTimeout("Your opponent has left the game! Taking you back to the menu", 3000);
     }
 });
 

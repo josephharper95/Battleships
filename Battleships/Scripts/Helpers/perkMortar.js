@@ -3,6 +3,7 @@
  * Last Modified By: Nick Holdsworth
  * 
  * V0.1     Nick    06/12/16    initial creation
+ * V0.2     Nick    07/12/16    updated validation bug
  * 
  */
 
@@ -55,15 +56,21 @@ function mortarPerkHover(x, y) {
 
         if (lowX) {
             $(page + " " + opponentBoard + " tr:eq(" + (y + 1) + ") > td:eq(" + (x - 1) + ")").addClass("hover");
-            available += opponentBoardClass.getCoordinateAt(y + 1, x - 1).isHit() ? 0 : 1;
+            
+            var isHit = opponentBoardClass.getCoordinateAt((x - 1), (y + 1)).isHit();
+            available += isHit ? 0 : 1;
         }
 
         $(page + " " + opponentBoard + " tr:eq(" + (y + 1) + ") > td:eq(" + x + ")").addClass("hover");
-        available += opponentBoardClass.getCoordinateAt(y + 1, x).isHit() ? 0 : 1;
+        
+        var isHit = opponentBoardClass.getCoordinateAt(x, (y + 1)).isHit();
+        available += isHit ? 0 : 1;
         
         if (highX) {
             $(page + " " + opponentBoard + " tr:eq(" + (y + 1) + ") > td:eq(" + (x + 1) + ")").addClass("hover");
-            available += opponentBoardClass.getCoordinateAt(y + 1, x + 1).isHit() ? 0 : 1;
+            
+            var isHit = opponentBoardClass.getCoordinateAt((x + 1), (y + 1)).isHit();
+            available += isHit ? 0 : 1;
         }
 
     }
@@ -71,15 +78,21 @@ function mortarPerkHover(x, y) {
     // MIDDLE ROW
     if (lowX) {
         $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + (x - 1) + ")").addClass("hover");
-        available += opponentBoardClass.getCoordinateAt(y, x - 1).isHit() ? 0 : 1;
+        
+        var isHit = opponentBoardClass.getCoordinateAt((x - 1), y).isHit();
+        available += isHit ? 0 : 1;
     }
 
     $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hover");
-    available += opponentBoardClass.getCoordinateAt(y, x).isHit() ? 0 : 1;
+        
+    var isHit = opponentBoardClass.getCoordinateAt(x, y).isHit();
+    available += isHit ? 0 : 1;
 
     if (highX) {
         $(page + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + (x + 1) + ")").addClass("hover");
-        available += opponentBoardClass.getCoordinateAt(y, x + 1).isHit() ? 0 : 1;
+        
+        var isHit = opponentBoardClass.getCoordinateAt((x + 1), y).isHit();
+        available += isHit ? 0 : 1;
     }
 
     // BOTTOM ROW
@@ -87,15 +100,21 @@ function mortarPerkHover(x, y) {
 
         if (lowX) {
             $(page + " " + opponentBoard + " tr:eq(" + (y - 1) + ") > td:eq(" + (x - 1) + ")").addClass("hover");
-            available += opponentBoardClass.getCoordinateAt(y - 1, x - 1).isHit() ? 0 : 1;
+            
+            var isHit = opponentBoardClass.getCoordinateAt((x - 1), (y - 1)).isHit();
+            available += isHit ? 0 : 1;
         }
 
         $(page + " " + opponentBoard + " tr:eq(" + (y - 1) + ") > td:eq(" + x + ")").addClass("hover");
-        available += opponentBoardClass.getCoordinateAt(y - 1, x).isHit() ? 0 : 1;
+        
+        var isHit = opponentBoardClass.getCoordinateAt(x, (y - 1)).isHit();
+        available += isHit ? 0 : 1;
 
         if (highX) {
             $(page + " " + opponentBoard + " tr:eq(" + (y - 1) + ") > td:eq(" + (x + 1) + ")").addClass("hover");
-            available += opponentBoardClass.getCoordinateAt(y - 1, x + 1).isHit() ? 0 : 1;
+            
+            var isHit = opponentBoardClass.getCoordinateAt((x + 1), (y - 1)).isHit();
+            available += isHit ? 0 : 1;
         }
     }
 

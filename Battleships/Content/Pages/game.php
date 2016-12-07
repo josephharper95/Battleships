@@ -23,6 +23,7 @@
 * V0.51     Nick    02/12/16    bounce bomb integration
 * V0.52     Nick    05/12/16    update for buttons
 * V0.53     Nick    06/12/16    added mortar scripts
+* V0.54     Nick    07/12/16    added class for birds eye view
 *
 **/
 
@@ -105,7 +106,7 @@ require_once("header.php");
 <script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
 
     <div id="pageSinglePlayerCont"
-            class="pageContainer">
+            class="pageContainer birdsEyeView">
 
         <div id="pageSinglePlayer"
                 class="gameContainer">

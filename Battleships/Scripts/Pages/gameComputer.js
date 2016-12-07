@@ -30,6 +30,7 @@
  * V1.11    Nick    02/12/16    removed console.log
  * V1.2     Nick    06/12/16    added mortar
  * V1.21    Nick    06/12/16    fixed bug for scoring
+ * V1.3     Nick    07/12/16    changed alerts to new timeout message functionality
  * 
  */
 
@@ -254,7 +255,7 @@ function sonarAction(x, y) {
         $(page + " " + opponentBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
 
     } else {
-        alert("no moves found :(");
+        showMessageTimeout("No moves found! Better luck next time...", 2000);
     }
 
     // allow player to now make a move

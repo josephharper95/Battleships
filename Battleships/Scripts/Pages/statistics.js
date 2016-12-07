@@ -7,8 +7,11 @@
  * V0.2     Joe         01/12/16    created relevant get/populate methods and added them to .ready function
  * V0.3     Nick        03/12/16    added ability to change page   
  * V0.4     Nick        03/12/16    added top ten accuracy
+ * V0.41    Nick        07/12/16    updated menu to be variable
  * 
  */
+
+var menu = "#folderMenu";
 
 $(document).ready(function(){
     getTopTenUsersScoresByDifficulty();
@@ -21,7 +24,7 @@ $(document).ready(function(){
     getTopTenUsersTotalPlayingTimeByDifficulty();
     getTopTenUsersHitAccuracyByDifficulty();
 
-    $("#menu button[data-selected=false]").on("click", function () {
+    $(menu + " button[data-selected=false]").on("click", function () {
         
         var button = $(this);
         var page = button.data("page");
@@ -32,14 +35,14 @@ $(document).ready(function(){
 
 function changePage(page) {
 
-    $(".subPage:visible").fadeOut(200, function () {
-        $(".subPage[data-page=" + page + "]").fadeIn(200);
+    $(".subPage:visible").fadeOut(100, function () {
+        $(".subPage[data-page=" + page + "]").fadeIn(100);
     });
 
-    $("#menu button").attr("data-selected", "false");
-    $("#menu button[data-page=" + page + "]").attr("data-selected", "true");
+    $(menu + " button").attr("data-selected", "false");
+    $(menu + " button[data-page=" + page + "]").attr("data-selected", "true");
 
-    $("#menu button[data-selected=false]").off("click").on("click", function () {
+    $(menu + " button[data-selected=false]").off("click").on("click", function () {
         
         var button = $(this);
         var page = button.data("page");

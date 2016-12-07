@@ -34,6 +34,7 @@
 * V2.41     Nick    05/12/16    missed login / registration buttons off design
 * V2.42     Nick    06/12/16    style tweaks to login / register
 * V2.43     Nick    06/12/16    scoring modal tweaks
+* V2.5      Nick    07/12/16    cleanups and added objects to statistics page and floor texture implemented to birds eye view pages
 *
 **/
 
@@ -59,34 +60,6 @@
 }
 
 html {
-
-    // .button,
-    // button {
-    //     min-width: 100px;
-    //     color: #fff;
-    //     border: 1px solid #fff;
-    //     background-color: @mainColour;
-    //     padding: 5px 7px;
-    //     display: inline-block;
-    //     text-align: center;
-    //     border-radius: 3px;
-    //     cursor: pointer;
-    //     font-size: 80%;
-    //     text-decoration: none;
-
-    //     &:hover {
-    //         color: @mainColour;
-    //         border-color: @mainColour;
-    //         background-color: white;
-    //     }
-
-    //     &.disabled {
-    //         background-color: #ccc;
-    //         color: #fff;
-    //         border-color: #ccc;
-    //         cursor: default;
-    //     }
-    // }
 
     button {
         outline: none;
@@ -254,6 +227,11 @@ html {
             background-image: @brick-texture;
             z-index: 1;
             overflow: auto;
+
+            &.birdsEyeView {
+                background-image: @floor-texture;
+                background-size: 250px;
+            }
         }
 
         div#pageHomeCont {
@@ -1760,66 +1738,167 @@ html {
         div#pageStatisticsCont {
 
             div#pageStatistics {
+
+                height: 550px;
+                width: 1100px;
+                background-image: @wood-texture;
+                background-size: 1100px;
+
                 display: inline-block;
                 position: absolute;
                 top: 150px;
                 left: 0;
                 right: 0;
                 margin: auto;
-                width: 800px;
                 min-height: 300px;
                 font-family: "Handwriting";
 
-                #menu {
-                    height: 30px;
-                    z-index: 300;
+                #folderCont {
                     position: relative;
-                    left: 15px;
+                    height: 100%;
+                    width: 100%;
+                    z-index: 200;
 
-                    /*.box {
-                        border-bottom: 30px solid #f2e4bd;
-                        border-left: 20px solid transparent;
-                        border-right: 20px solid transparent;
-                        height: 0;
-                        width: 100px;
-                        display: inline-block;
-
-                        button {
-                            border: none;
-                            background: none;
-                        }
-                    }*/
-
-                    button {
-                        border: none;
-                        background: none;
-                        z-index: 300;
+                    #folder {
 
                         display: inline-block;
-                        background-size: 150px 30px;
-                        height: 30px;
-                        width: 150px;
-                        background-repeat: no-repeat;
-                        background-image: @texture-paper-tab;
+                        height: 500px;
+                        width: 800px;
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        margin: auto;
 
-                        font-family: "Handwriting";
-                        color: #222;
-                        font-size: 1.4em;
-                        line-height: 0.5em;
+                        #folderMenu {
+                            height: 30px;
+                            z-index: 300;
+                            position: relative;
+                            left: 15px;
 
-                        &[data-selected=true] {
-                            color: brown;
-                            font-style: italic;
-                            cursor: default;
-                        }
+                            button {
+                                border: none;
+                                background: none;
+                                z-index: 300;
 
-                        &[data-selected=false] {
+                                display: inline-block;
+                                background-size: 150px 30px;
+                                height: 30px;
+                                width: 150px;
+                                background-repeat: no-repeat;
+                                background-image: @texture-paper-tab;
 
-                            &:hover {
-                                cursor: pointer;
-                                color: brown;
+                                font-family: "Handwriting";
+                                color: #222;
+                                font-size: 1.4em;
+                                line-height: 0.5em;
+
+                                &[data-selected=true] {
+                                    color: brown;
+                                    font-style: italic;
+                                    cursor: default;
+                                }
+
+                                &[data-selected=false] {
+
+                                    &:hover {
+                                        cursor: pointer;
+                                        color: brown;
+                                    }
+                                }
                             }
                         }
+
+                    }
+                }
+
+                .object {
+                    z-index: 500;
+                    display: inline-block;
+                    position: absolute;
+
+                    &.telephone {
+
+                        width: 125px;
+                        height: 104px;
+                        background-image: @telephone;
+                        background-size: 125px;
+                        top: 15px;
+                        right: 15px;
+                        transform: rotate(20deg);
+                    }
+
+                    &.teacup {
+
+                        width: 80px;
+                        height: 76px;
+                        background-image: @tea-cup;
+                        background-size: 80px;
+                        top: 150px;
+                        left: 20px;
+                    }
+
+                    &.slider {
+
+                        width: 79px;
+                        height: 400px;
+                        background-image: @slider;
+                        background-size: 79px;
+                        bottom: 20px;
+                        right: 60px;
+                        transform: rotate(-15deg);
+                    }
+
+                    &.destroyer {
+
+                        background-image: @destroyer-v;
+                        height: 100px;
+                        width: 50px;
+                        background-size: 50px;
+                        bottom: 20px;
+                        right: 70px;
+                        transform: rotate(20deg);
+                    }
+
+                    &.submarine {
+                        background-image: @submarine-h;
+                        width: 150px;
+                        height: 50px;
+                        background-size: 150px;
+                        transform: rotate(20deg);
+                        top: 30px;
+                        right: 150px;
+                    }
+
+                    &.cruiser {
+                        background-image: @cruiser-v;
+                        width: 50px;
+                        height: 150px;
+                        background-size: 50px;
+                        transform: rotate(-20deg);
+                        bottom: 10px;
+                        left: 30px;
+                    }
+
+                    &.battleship {
+                        background-image: @battleship-v;
+                        width: 50px;
+                        height: 200px;
+                        background-size: 50px;
+                        transform: rotate(-20deg);
+                        bottom: 70px;
+                        left: 60px;
+                    }
+
+                    &.carrier {
+                        background-image: @carrier-h;
+                        width: 250px;
+                        height: 50px;
+                        background-size: 250px;
+                        transform: rotate(-15deg);
+                        top: 70px;
+                        left: 0px;
                     }
                 }
 
@@ -2152,6 +2231,36 @@ html {
             }
         }
     }
+}
+
+#messageTimeout {
+    border: 4px solid #754524;
+    border-radius: 5px;
+    height: 150px;
+    width: 400px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+    background-image: @blackboard-texture;
+    font-family: "Erasdust";
+    z-index: 9000;
+    color: #fff;
+    display: none;
+
+    h2 {
+        width: 100%;
+        text-align: center;
+    }
+
+    #message {
+        text-align: center;
+        padding: 5px 10px;
+        font-size: 1.1em;
+    }
+
 }
 
 #loaderCont {

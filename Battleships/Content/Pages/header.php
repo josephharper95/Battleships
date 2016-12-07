@@ -16,6 +16,7 @@
 * V0.5      Nick                12/11/16    added version to header
 * V0.51     Nick                15/11/16    rejigged loaders
 * V0.6      Nick                02/12/16    added logo to header
+* V0.7      Nick                07/12/16    added timeout message
 *
 */ 
 
@@ -50,11 +51,16 @@ require_once("../Classes/setup.php");
     <div id="loader"></div></div>
 </div>
 
+<div id="messageTimeout">
+    <h2>Message!</h2>
+    <div id="message"></div>
+</div>
+
 <body>
     <div id="header">
 
         <div class="version">
-            Version: 1.18.3
+            Version: 1.19.0
         </div>
 
         <div id="headerBar">
