@@ -442,7 +442,7 @@ function convertPercentage($small, $large) {
                     <div data-table="wins"
                             class="tableCont">
 
-                        <h2>Top Ten Number of Games Wons</h2>
+                        <h2>Top Ten Number of Games Won</h2>
 
                         <table id="topTenWins">
                             <thead>
