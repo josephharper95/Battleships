@@ -175,17 +175,17 @@ socket.on('alert', function(message){ // listens for alert emit from server.js
 
 socket.on('gameList', function (data) {
 
-    var returnText = "";
+    var games = false;
 
-    if (data == null || data.length == null) {
-        returnText = "<tr><td colspan='4'>No games found!</td></tr>";
-    }
+    var returnText = "";
     
     for (var game in data) {
 
         if (data.hasOwnProperty(game)) {
 
             if (data[game].players.length != 2 && data[game].status == "available") {
+
+                games = true;
                 
                 returnText += "<tr>";
 
@@ -228,6 +228,10 @@ socket.on('gameList', function (data) {
         } else {
             returnText += "<tr class='noGamesFound'><td colspan='4'>No games found!</td></tr>";
         }
+    }
+
+    if (!games) {
+        returnText = "<tr><td colspan='4'>No games found!</td></tr>";
     }
 
     $(availableRooms + " tbody").html(returnText);
