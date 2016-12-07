@@ -177,7 +177,7 @@ socket.on('gameList', function (data) {
 
     var returnText = "";
 
-    if (data == null || data.length == 0) {
+    if (data == null || data.length == null) {
         returnText = "<tr><td colspan='4'>No games found!</td></tr>";
     }
     
