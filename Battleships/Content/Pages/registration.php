@@ -112,7 +112,7 @@ if (Input::itemExists("register")) {
 
 					<li>
 						<input type="text"
-								placeholder="Forename(s)"
+								placeholder="Forename"
 								name="firstName"
 								<?= Input::itemExists("firstName") ? "value='" . Input::post("firstName") . "'" : ""; ?>
 								 />
