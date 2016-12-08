@@ -59,9 +59,11 @@ if(Input::itemExists("userID") && Input::itemExists("password")) { // If user ha
 //Session::set("loginMessage", "The entered username and password combination could not be found.");
 ?>
 
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>BattleShips Online - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
     <script type="text/javascript" src="../../Scripts/Pages/login.js"></script>
