@@ -1079,31 +1079,37 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
     $("#baseScore span").fadeIn(500);
 
     setTimeout(function () {
-        $(scoreModal + " #hitsReceived span").html("- " + totalHitRScore + "pts").fadeIn(500);
+        var sign = totalHitRScore < 0 ? "" : "- ";
+        $(scoreModal + " #hitsReceived span").html(sign + totalHitRScore + "pts").fadeIn(500);
     }, 500);
 
     setTimeout(function () {
-        $(scoreModal + " #shotsMissed span").html("- " + shotsMissedScore + "pts").fadeIn(500);
+        var sign = shotsMissedScore < 0 ? "" : "- ";
+        $(scoreModal + " #shotsMissed span").html(sign + shotsMissedScore + "pts").fadeIn(500);
     }, 1000);
 
     setTimeout(function () {
-        $(scoreModal + " #shotsHit span").html("+ " + totalHitScore + "pts").fadeIn(500);
+        var sign = totalHitScore < 0 ? "" : "+ ";
+        $(scoreModal + " #shotsHit span").html(sign + totalHitScore + "pts").fadeIn(500);
     }, 1500);
 
     setTimeout(function () {
-        $(scoreModal + " #timeBonus span").html("+ " + timeBonus.toFixed(2) + "pts").fadeIn(500);
+        var sign = timeBonus.toFixed(2) < 0 ? "" : "+ ";
+        $(scoreModal + " #timeBonus span").html(sign + timeBonus.toFixed(2) + "pts").fadeIn(500);
     }, 2000);
 
     setTimeout(function () {
-        $(scoreModal + " #winBonus span").html("+ " + winBonus + "pts").fadeIn(500);
+        var sign = winBonus < 0 ? "" : "+ ";
+        $(scoreModal + " #winBonus span").html(sign + winBonus + "pts").fadeIn(500);
     }, 2500);
 
     setTimeout(function () {
-        $(scoreModal + " #boardSizeBonus span").html("+ " + boardSizeBonus + "pts").fadeIn(500);
+        var sign = boardSizeBonus < 0 ? "" : "+ ";
+        $(scoreModal + " #boardSizeBonus span").html(sign + boardSizeBonus + "pts").fadeIn(500);
     }, 3000);
 
     setTimeout(function () {
-        $(scoreModal + " #total span").html("+ " + gameScore.toFixed(2) + "pts").fadeIn(500);
+        $(scoreModal + " #total span").html(gameScore.toFixed(2) + "pts").fadeIn(500);
     }, 3500);
 
     $("#closeModal").off("click").one("click", function () {
@@ -1126,5 +1132,4 @@ function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, t
         $(scoreModalOverlay).fadeOut(200);
         $(scoreModal).fadeOut(500);
     });
-
 }
