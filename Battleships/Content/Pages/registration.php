@@ -27,7 +27,7 @@ if (Input::itemExists("register")) {
 	if (Input::itemExists("username") && Input::itemExists("firstName") && Input::itemExists("lastName") && Input::post("password") && Input::itemExists("passwordMatch")) {
 
 		$userID = trim(Input::post("username"));
-		if(preg_match("/^[a-zA-Z0-9]{1,20}$/", $userID)) { // If username is alphanumeric and 1-20 characters long
+		if(preg_match("/^[a-zA-Z0-9\.\_\-]{1,20}$/", $userID)) { // If username is alphanumeric and 1-20 characters long
 
 			$firstName = Input::post("firstName");
 			$lastName = Input::post("lastName");
