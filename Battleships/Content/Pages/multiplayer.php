@@ -163,7 +163,7 @@ require_once("header.php");
     </div>
 
     <div id="subPagePlayGame"
-         class="subPage gameContainer pageContainer birdsEyeView"
+         class="subPage gameContainer pageContainer"
          style="display:none;clear:both;">
 
          <!-- container for all player related items -->

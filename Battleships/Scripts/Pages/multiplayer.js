@@ -156,6 +156,13 @@ function getUserStats() {
 function changePage(page) {
 
     $(".subPage:not(" + page +")").fadeOut(200).promise().done(function () {
+
+        if (page == "#subPagePlayGame") {
+            $("#pageMultiplayer").addClass("birdsEyeView");
+        } else {
+            $("#pageMultiplayer").removeClass("birdsEyeView");
+        }
+
         $(page).fadeIn(500);
     });
 }
