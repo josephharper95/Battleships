@@ -79,6 +79,7 @@ if (Input::itemExists("register")) {
 <html>
 <head>
     <title>BattleShips Online - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
     <script type="text/javascript" src="../../Scripts/Pages/registration.js"></script>

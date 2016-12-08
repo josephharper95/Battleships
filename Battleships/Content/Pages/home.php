@@ -30,6 +30,7 @@ if(!Session::get("userID"))
 <html>
 <head>
     <title>BattleShips Online - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
 </head>
 <body>

@@ -30,7 +30,7 @@ require_once("../Classes/setup.php");
     <title>BattleShips Online!</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- default files needed -->
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
@@ -60,7 +60,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 1.19.4
+            Version: 1.19.5
         </div>
 
         <div id="headerBar">
