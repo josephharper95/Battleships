@@ -991,7 +991,7 @@ function statisticsAjax(won) {
     var negativeScorePerShotMissed = 1;
     var positiveScorePerShotHit = 5;
     var winBonus = 0;
-    var timeBonusPerSecond = 2;
+    var timeBonusPerSecond = 1;
 
     var shotsMissed = totalShots - totalHits;
     var timeBonus = 0;
