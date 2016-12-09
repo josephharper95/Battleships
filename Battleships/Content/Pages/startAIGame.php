@@ -11,6 +11,7 @@
 * V0.2      Nick    29/11/16    changed start AI to be new design - PENDING HEADER
 * V0.21     Nick    01/12/16    removed header from page
 * V0.22     Nick    05/12/16    added button spacer
+* V0.23     Nick    09/12/16    added responsive line
 *
 **/
 
@@ -30,6 +31,7 @@ if(!Session::get("userID"))
 <html>
 <head>
     <title>BattleShips Online - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
 </head>
 <body>

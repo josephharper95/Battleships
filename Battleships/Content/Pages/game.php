@@ -24,6 +24,7 @@
 * V0.52     Nick    05/12/16    update for buttons
 * V0.53     Nick    06/12/16    added mortar scripts
 * V0.54     Nick    07/12/16    added class for birds eye view
+* V0.55     Nick    09/12/16    added responsiveness pieces
 *
 **/
 
@@ -146,6 +147,11 @@ require_once("header.php");
                         <?php echo createBoard(); ?>
                     </table>
 
+                    <div class="mapCont"
+                            style="display:none">
+                        <div class="map"></div>
+                    </div>
+
                     <!-- button to start game, hidden at first -->
                     <div class="buttonContainer">
 
@@ -165,7 +171,7 @@ require_once("header.php");
                         <button class="undo"
                                 style="display:none;"
                                 id="undoLastShip">
-                            Undo Last Ship
+                            Undo Ship
                         </button>
 
                         <button class="reset"
@@ -209,6 +215,11 @@ require_once("header.php");
                         <?php echo createBoard(); ?>
                     </table>
 
+                    <div class="mapCont"
+                            style="display:none">
+                        <div class="map"></div>
+                    </div>
+
                     <div class="buttonContainer">
 
                         <button class="rotate"
@@ -222,7 +233,11 @@ require_once("header.php");
                 </div>
             </div>
 
-            <div class="map"></div>
+            <div class="mapCont"
+                    style="height:0;width:0;overflow:visible;">
+                <div class="map"></div>
+                <div class="map2"></div>
+            </div>
 
             <div id="scoreModalOverlay"
                     class="overlay"></div>
