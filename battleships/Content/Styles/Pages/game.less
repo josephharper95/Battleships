@@ -2,7 +2,8 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+* V0.1  Nick    10/12/16    initial creation
+* V0.2  Nick    12/12/16    added responsive items
 * 
 */
 
@@ -902,6 +903,218 @@ html {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@media only screen
+    and(max-width:1200px)
+    and(min-width:1001px) {
+    
+    html {
+        body {
+            .gameContainer {
+                height: 460px;
+                width: 1040px;
+                background-size: 1040px;
+
+                div.sideContainer {
+
+                    h3 {
+                        font-size: 25px;
+                        max-height: 35px;
+                    }
+
+                    h4 {
+                        font-size: 1.4em;
+                    }
+
+                    div.boardExtrasContainer {
+                        width: 150px;
+                        margin-top: 10px;
+
+                        .shipsRemainingCont,
+                        .perksCont {
+                            background-size: 100px;
+                            height: 150px;
+                        }
+                    }
+
+                    div.boardContainer {
+                        width: 345px;
+
+                        > table.board {
+                            height: 345px;
+                            background-size: 345px 345px;
+
+                            &[data-size=small] {
+                                > tbody {
+                                    > tr {
+                                        > td {
+                                            @size: 31px;
+                                            height: @size;
+                                            width: @size;
+
+                                            &[data-ship=Destroyer] {
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 2.2) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 2.2);
+                                                }
+                                            }
+
+                                            &[data-ship=Submarine] {
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 3.5) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 3.5);
+                                                }
+                                            }
+
+                                            &[data-ship=Cruiser] {
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 3.5) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 3.5);
+                                                }
+                                            }
+
+                                            &[data-ship=BattleShip] {
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 4.6) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 4.6);
+                                                }
+                                            }
+
+                                            &[data-ship=Carrier] {
+
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 5.8) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 5.8);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &[data-size=medium] {
+                                > tbody {
+                                    > tr {
+                                        > td {
+                                            @size: 19.55555px;
+                                            height: @size;
+                                            width: @size;
+
+                                            &[data-ship=Destroyer] {
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 2.2) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 2.2);
+                                                }
+                                            }
+
+                                            &[data-ship=Submarine] {
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 3.5) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 3.5);
+                                                }
+                                            }
+
+                                            &[data-ship=Cruiser] {
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 3.5) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 3.5);
+                                                }
+                                            }
+
+                                            &[data-ship=BattleShip] {
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 4.6) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 4.6);
+                                                }
+                                            }
+
+                                            &[data-ship=Carrier] {
+
+                                                &[data-orientation=Horizontal] {
+                                                    background-size: calc(@size * 5.8) @size;
+                                                }
+
+                                                &[data-orientation=Vertical] {
+                                                    background-size: @size calc(@size * 5.8);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &[data-size=large] {
+                                > tbody {
+                                    > tr {
+                                        > td {
+                                            @size: 14px;
+                                            height: @size;
+                                            width: @size;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .buttonContainer {
+
+                            button {
+                                font-size: 1em;
+                                width: 110px;
+                                height: 40px;
+                                background-size: 110px 40px;
+                                padding-left: 25px;
+                            }
+                        }
+                    }
+
+                    &#playerContainer {
+
+                        .boardExtrasContainer {
+
+                            padding-right: 15px;
+                            margin-left: 10px;
+                        }
+                    }
+                }
+
+                .map {
+                    height: 333px;
+                    width: 680px;
+                    top: 34px;
+                    left: 175px;
                 }
             }
         }
