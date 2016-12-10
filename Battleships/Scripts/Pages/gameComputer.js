@@ -31,6 +31,7 @@
  * V1.2     Nick    06/12/16    added mortar
  * V1.21    Nick    06/12/16    fixed bug for scoring
  * V1.3     Nick    07/12/16    changed alerts to new timeout message functionality
+ * V1.31    Nick    12/12/16    updated updatePerks() so if it is zero or less insted of just zero
  * 
  */
 
@@ -158,8 +159,9 @@ function updatePerks() {
         perkHtml += "class='button perk' ";
         perkHtml += "data-perk='" + i + "' ";
 
-        if (val.usesLeft == 0) {
+        if (val.usesLeft <= 0) {
             perkHtml += "disabled ";
+            val.usesLeft = 0;
         }
 
         perkHtml += ">";
