@@ -17,6 +17,7 @@
 * V0.7      Nick    05/12/16    bounce bomb rotation, button design
 * V0.71     Nick    07/12/16    added class for birds eye view
 * V0.72     Nick    09/12/16    extra pieces for responsiveness
+* V0.73     Nick    12/12/16    added individual CSS file
 *
 */
 
@@ -57,6 +58,9 @@ require_once("header.php");
 <script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
+
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/multiplayer.css" />
 
 <div id="pageMultiplayer"
         class="pageContainer">

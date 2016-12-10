@@ -14,6 +14,7 @@
 * V1.0      Nick    27/11/16    updated for new design
 * V1.1      Nick    01/12/16    social media links now brought in from file
 * V1.11     Nick    06/12/16    style tweaks
+* V1.12     Nick    12/12/16    added individual CSS file
 *
 **/
 
@@ -64,7 +65,10 @@ if(Input::itemExists("userID") && Input::itemExists("password")) { // If user ha
 <head>
     <title>BattleShips Online - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/Pages/login.css" />
+
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
     <script type="text/javascript" src="../../Scripts/Pages/login.js"></script>
 </head>

@@ -2,9 +2,6 @@
 
 /**
 *
-* Last Modified By: Nick Holdsworth
-* Current Version: 0.34
-*
 * V0.1      Nick    01/10/16    initial creation
 * V0.11     Nick    04/10/16    commented code
 * V0.2      Nick    07/10/16    changes to implement undo / reset board
@@ -25,6 +22,7 @@
 * V0.53     Nick    06/12/16    added mortar scripts
 * V0.54     Nick    07/12/16    added class for birds eye view
 * V0.55     Nick    09/12/16    added responsiveness pieces
+* V0.56     Nick    12/12/16    added individual CSS file
 *
 **/
 
@@ -105,6 +103,8 @@ require_once("header.php");
 <script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
 <script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
+
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.css" />
 
     <div id="pageSinglePlayerCont"
             class="pageContainer birdsEyeView">

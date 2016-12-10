@@ -2,9 +2,6 @@
 
 /**
 *
-* Last Modified By: Nick Holdsworth
-* Current Version: 0.1
-*
 * V0.1      Nick    13/10/16    initial creation
 * V0.11     Nick    13/10/16    enabled sizing options that were previously disabled
 * V0.12     Nick    09/11/16    page redirection bug
@@ -12,6 +9,7 @@
 * V0.21     Nick    01/12/16    removed header from page
 * V0.22     Nick    05/12/16    added button spacer
 * V0.23     Nick    09/12/16    added responsive line
+* V0.24     Nick    12/12/16    added individual CSS file
 *
 **/
 
@@ -33,6 +31,8 @@ if(!Session::get("userID"))
     <title>BattleShips Online - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
+
+    <link rel="stylesheet" type="text/css" href="../Styles/Pages/startAI.css" />
 </head>
 <body>
 

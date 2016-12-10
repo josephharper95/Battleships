@@ -11,6 +11,7 @@
 * V0.22     Joe     21/10/16    altered code to reflect movement of user queries to User class from Database class
 * V1.0 		Nick 	27/11/16 	updated for new design
 * V1.1 		Nick 	06/12/16 	added social media links
+* V1.12 	Nick 	12/12/16 	added individual CSS file
 *
 **/
 
@@ -80,7 +81,10 @@ if (Input::itemExists("register")) {
 <head>
     <title>BattleShips Online - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
+	<link rel="stylesheet" type="text/css" href="../Styles/Pages/registration.css" />
+
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
     <script type="text/javascript" src="../../Scripts/Pages/registration.js"></script>
 </head>
