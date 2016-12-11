@@ -31,6 +31,7 @@
  * V1.25    Nick        05/12/16    hide board extras on the reset board
  * V1.3     Nick        06/12/16    added mortar
  * V1.4     Nick        07/12/16    changed alerts to new functionality, fixed bug where new players showed NAN% for completion rate
+ * V1.41    Nick        11/12/16    changed ajax links
  * 
  */
 
@@ -137,7 +138,7 @@ getUserStats();
 function getUserStats() {
     
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "multiplayerStats"
         },
@@ -1020,7 +1021,7 @@ function statisticsAjax(won) {
     showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, boardSizeBonus);
 
     $.ajax({
-        url: "../../Content/Pages/multiplayerAjax.php",
+        url: "../../Content/Ajax/multiplayerAjax.php",
         data: {
             action: "recordShots",
             totalHits: totalHits,
@@ -1037,7 +1038,7 @@ function statisticsAjax(won) {
 
 function incrementIncompleteGames() {
     $.ajax({
-        url: "../../Content/Pages/multiplayerAjax.php",
+        url: "../../Content/Ajax/multiplayerAjax.php",
         data: {
             action: "incrementIncompleteGames"
         },
@@ -1047,7 +1048,7 @@ function incrementIncompleteGames() {
 
 function decrementIncompleteGames() {
     $.ajax({
-        url: "../../Content/Pages/multiplayerAjax.php",
+        url: "../../Content/Ajax/multiplayerAjax.php",
         data: {
             action: "decrementIncompleteGames"
         },
@@ -1057,7 +1058,7 @@ function decrementIncompleteGames() {
 
 function winAjax() {
     $.ajax({
-        url: "../../Content/Pages/multiplayerAjax.php",
+        url: "../../Content/Ajax/multiplayerAjax.php",
         data: {
             action: "recordWin"
         },

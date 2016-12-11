@@ -8,6 +8,7 @@
  * V0.3     Nick        03/12/16    added ability to change page   
  * V0.4     Nick        03/12/16    added top ten accuracy
  * V0.41    Nick        07/12/16    updated menu to be variable
+ * V0.42    Nick        11/12/16    changed ajax links
  * 
  */
 
@@ -57,7 +58,7 @@ function changePage(page) {
 function getTopTenUsersScoresByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersScoresByDifficulty"
         },
@@ -119,7 +120,7 @@ function allShotsDropDownChange() {
 function getTopTenUsersHighScoresByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersHighScoresByDifficulty"
         },
@@ -140,7 +141,7 @@ function getTopTenUsersHighScoresByDifficulty(){
 function getTopTenUsersWinsByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersWinsByDifficulty"
         },
@@ -161,7 +162,7 @@ function getTopTenUsersWinsByDifficulty(){
 function getTopTenUsersGamesPlayedByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersGamesPlayedByDifficulty"
         },
@@ -182,7 +183,7 @@ function getTopTenUsersGamesPlayedByDifficulty(){
 function getTopTenUsersTotalShotsFiredByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersTotalShotsFiredByDifficulty"
         },
@@ -203,7 +204,7 @@ function getTopTenUsersTotalShotsFiredByDifficulty(){
 function getTopTenUsersTotalShotsHitByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersTotalShotsHitByDifficulty"
         },
@@ -224,7 +225,7 @@ function getTopTenUsersTotalShotsHitByDifficulty(){
 function getTopTenUsersTotalHitsReceivedByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersTotalHitsReceivedByDifficulty"
         },
@@ -245,7 +246,7 @@ function getTopTenUsersTotalHitsReceivedByDifficulty(){
 function getTopTenUsersTotalPlayingTimeByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersTotalPlayingTimeByDifficulty"
         },
@@ -265,7 +266,7 @@ function getTopTenUsersTotalPlayingTimeByDifficulty(){
 
 function getTopTenUsersHitAccuracyByDifficulty() {
     $.ajax({
-        url: "../../Content/Pages/statisticsAjax.php",
+        url: "../../Content/Ajax/statisticsAjax.php",
         data: {
             action: "getTopTenUsersHitAccuracyByDifficulty"
         },

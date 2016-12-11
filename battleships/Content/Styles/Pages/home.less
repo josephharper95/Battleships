@@ -2,7 +2,8 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+* V1.0      Nick    10/12/16    initial creation
+* V0.11     Nick    11/12/16    bug fixes
 * 
 */
 
@@ -26,7 +27,7 @@ html {
             div#pageHome {
                 border: 4px solid #754524;
                 border-radius: 5px;
-                height: 350px;
+                height: 450px;
                 width: 700px;
                 top: 0;
                 bottom: 0;
@@ -93,8 +94,8 @@ html {
                         width: 110px;
                         background-size: 110px;
                         position: absolute;
-                        top: 110px;
-                        right: 15px;
+                        bottom: 130px;
+                        right: 25px;
                         background-repeat: no-repeat;
 
                         -ms-transform: rotate(5deg); /* IE 9 */
@@ -143,9 +144,10 @@ html {
 
                 #menu {
                     position: absolute;
-                    top: 100px;
+                    top: 90px;
                     left: 50px;
                     font-size: 150%;
+                    margin: 0;
 
                     li {
                         margin-bottom: 20px;
@@ -188,30 +190,21 @@ html {
     }
 }
 
-@media only screen and (max-width: 500px) {
-
+@media only screen and (max-height: 460px) {
     html {
         body {
 
-            div#pageStartAICont {
+            div#pageHomeCont {
 
-                div#pageStartAI {
+                position: fixed;
+                overflow-y: auto;
 
-                    width: 90%;
-                    height: 460px;
+                div#pageHome {
 
-                    form {
-
-                        ul {
-                            width: 90%;
-                            margin: 0 5%;
-                            text-align: center;
-
-                            &:nth-child(2) {
-                                margin-bottom: 10px;
-                            }
-                        }
-                    }
+                    @margin: 20px;
+                    bottom: auto;
+                    margin-top: @margin;
+                    margin-bottom: @margin;
                 }
             }
         }

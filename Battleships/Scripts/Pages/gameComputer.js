@@ -31,7 +31,8 @@
  * V1.2     Nick    06/12/16    added mortar
  * V1.21    Nick    06/12/16    fixed bug for scoring
  * V1.3     Nick    07/12/16    changed alerts to new timeout message functionality
- * V1.31    Nick    12/12/16    updated updatePerks() so if it is zero or less insted of just zero
+ * V1.31    Nick    10/12/16    updated updatePerks() so if it is zero or less insted of just zero
+ * V1.32    Nick    11/12/16    changed page links to ajax files
  * 
  */
 
@@ -318,7 +319,7 @@ function startGame() {
     window.onbeforeunload = confirmExit;
 
     $.ajax({
-        url: "../../Content/Pages/gameAjax.php",
+        url: "../../Content/Ajax/gameAjax.php",
         data: {
             action: "incrementIncompleteGames"
         },
@@ -423,7 +424,7 @@ function endGame(winner, finished) {
         // alert appropriate message
         if (winner == "player") {
             $.ajax({
-                url: "../../Content/Pages/gameAjax.php",
+                url: "../../Content/Ajax/gameAjax.php",
                 data: {
                     action: "recordWin"
                 },
@@ -435,7 +436,7 @@ function endGame(winner, finished) {
     }
 
     $.ajax({
-            url: "../../Content/Pages/gameAjax.php",
+            url: "../../Content/Ajax/gameAjax.php",
             data: {
                 action: "recordShots",
                 totalHits: totalHits,

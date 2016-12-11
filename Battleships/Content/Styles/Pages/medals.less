@@ -1,0 +1,82 @@
+/**
+* 
+* Last Modified By: Nick Holdsworth
+* 
+* V.01  Nick    10/12/16    initial creation
+* 
+*/
+
+@import "../textures.less";
+@import "../images.less";
+
+html {
+
+    body {
+
+        div#pageMedalsCont {
+
+            position: fixed;
+
+            div#pageMedals {
+
+                width: 90%;
+                max-width: 1000px;
+                min-height: 200px;
+                margin: auto;
+                padding: 0 10px;
+                color: #e0e0e0;
+                border-radius: 5px;
+                top: 150px;
+                position: relative;
+                margin-bottom: 50px;
+
+                ul {
+
+                    text-align: center;
+
+                    li {
+
+                        vertical-align: top;
+                        text-align: center;
+                        display: inline-block;
+                        margin-bottom: 30px;
+
+                        div.medal {
+
+                            display: inline-block;
+                            width: 52px;
+                            height: 100px;
+                            background-size: 52px 100px;
+                            background-image: @medal-1;
+
+                            &.locked {
+                                background: none;
+                            }
+                        }
+
+                        div.shelf {
+
+                            display: inline-block;
+                            width: 200px;
+                            height: 36px;
+                            background-size: 200px 36px;
+                            background-image: @texture-shelf-1;
+                        }
+
+                        div.blackboard {
+
+                            width: 200px;
+                            display: inline-block;
+                            background-image: @blackboard-texture;
+                            color: #e0e0e0;
+                            font-family: 'Erasdust';
+                            border: 4px solid #754524;
+                            border-radius: 5px;
+                            padding: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

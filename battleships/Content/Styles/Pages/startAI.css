@@ -2,7 +2,8 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+* V0.1  Nick    10/12/16    initial creation
+* V0.1  Nick    11/12/16    added more responsive styling
 * 
 */
 /**
@@ -11,6 +12,7 @@
 *
 * V0.1      Nick    05/12/16    initial creation
 * V0.2      Nick    07/12/16    added floor texture
+* V0.3      Nick    11/12/16    added shelf texture
 *
 **/
 /**
@@ -25,6 +27,7 @@
 * Last Modified By: Nick Holdsworth
 *
 * V0.1      Nick    05/12/16    initial creation
+* V0.2      Nick    11/12/16    added items for mission list and medal page
 *
 **/
 html body div#pageStartAICont #pageStartAI {
@@ -115,4 +118,29 @@ html body div#pageStartAICont #pageStartAI .logo {
   height: 75px;
   width: 75px;
   background-size: 75px;
+}
+@media only screen and (max-width: 500px) {
+  html body div#pageStartAICont div#pageStartAI {
+    width: 90%;
+    height: 460px;
+  }
+  html body div#pageStartAICont div#pageStartAI form ul {
+    width: 90%;
+    margin: 0 5%;
+    text-align: center;
+  }
+  html body div#pageStartAICont div#pageStartAI form ul:nth-child(2) {
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (max-height: 360px) {
+  html body div#pageStartAICont {
+    position: fixed;
+    overflow-y: auto;
+  }
+  html body div#pageStartAICont div#pageStartAI {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    bottom: auto;
+  }
 }

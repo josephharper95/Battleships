@@ -17,7 +17,8 @@
 * V0.51     Nick                15/11/16    rejigged loaders
 * V0.6      Nick                02/12/16    added logo to header
 * V0.7      Nick                07/12/16    added timeout message
-* V0.8      Nick                12/12/16    added hamburger menu
+* V0.8      Nick                10/12/16    added hamburger menu
+* V0.9      Nick                11/12/16    added social media to header
 *
 */ 
 
@@ -61,7 +62,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 1.21.1
+            Version: 1.22.0
         </div>
 
         <div id="headerBar">
@@ -69,7 +70,11 @@ require_once("../Classes/setup.php");
 
             <div class="logo"></div>
 
+            <div class="socialMedia">
+
 <?php
+
+include("socialMedia.php");
 
 // if the user is logged in, provide menu items
 if (Session::exists("userID")) {
@@ -85,6 +90,8 @@ if (Session::exists("userID")) {
     };
 
 </script>
+
+            </div>
 
             <div id="navigationHeaderHamburger"></div>
 

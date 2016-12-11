@@ -36,8 +36,9 @@
 * V2.43     Nick    06/12/16    scoring modal tweaks
 * V2.5      Nick    07/12/16    cleanups and added objects to statistics page and floor texture implemented to birds eye view pages
 * V3.0      Nick    09/12/16    responsive design
-* V3.1      Nick    12/12/16    REMOVED everything but common CSS
-* V3.2      Nick    12/12/16    added hamburger menu, removed more lines to page specific
+* V3.1      Nick    10/12/16    REMOVED everything but common CSS
+* V3.2      Nick    10/12/16    added hamburger menu, removed more lines to page specific
+* V3.21     Nick    11/12/16    added social media styling to header
 *
 **/
 
@@ -135,6 +136,30 @@ html {
                     position: absolute;
                     top: 5px;
                     left: 0;
+                }
+
+                .socialMedia {
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    background-size: 20px;
+                    top: 2px;
+                    left: 15px;
+
+                    &.facebook {
+                        background-image: @facebook;
+                        left: 55px;
+                    }
+
+                    &.twitter {
+                        background-image: @twitter;
+                        left: 80px;
+                    }
+
+                    &.youtube {
+                        background-image: @youtube;
+                        left: 105px;
+                    }
                 }
 
                 #headerTitle {

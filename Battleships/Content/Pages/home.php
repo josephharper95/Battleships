@@ -8,7 +8,8 @@
 * V1.0      Nick    27/11/16    updated for new design
 * V1.1      Nick    01/12/16    updated to textual links on home page
 * V1.11     Nick    05/12/16    updated text to statistics
-* V1.12     Nick    12/12/16    added individual css file
+* V1.12     Nick    10/12/16    added individual css file
+* V1.2      Nick    11/12/16    added new page links
 *
 */
 
@@ -56,11 +57,27 @@ if(!Session::get("userID"))
                 </li>
 
                 <li>
+                    <a href="missionList.php">Battle in Mission-Mode</a>
+                </li>
+
+                <li>
                     <a href="multiplayer.php">Battle in Multi-Player</a>
                 </li>
 
                 <li>
                     <a href="statistics.php">View your Statistics</a>
+                </li>
+
+                <li>
+                    <a href="medals.php">Medal Cabinet</a>
+                </li>
+
+                <li>
+                    <a href="help.php">Help</a>
+                </li>
+
+                <li>
+                    <a href="about.php">About</a>
                 </li>
 
             </ul>
