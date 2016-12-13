@@ -269,7 +269,7 @@ Board.prototype.moveShip = function(ship, x, y){
         var orientation = ship.getOrientation();
         var xCoord = x;
         var yCoord = y;
-        //Check new placement
+        //Check new placement is valid
         for (i = 0; i < shipSize; i++) {
         
             if (xCoord > this.getWidth() - 1 || xCoord < 0 || yCoord > this.getHeight() - 1 || yCoord < 0) {
