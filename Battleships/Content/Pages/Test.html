@@ -24,18 +24,11 @@
 
 
             $(document).ready(function () { 
-                var ai2 = new AI("Easy", targetBoard, playerBoard);
-                ai2.placeShips();
-                var ai = new AIHard("Medium", playerBoard, targetBoard);
-                ai.fire();
-                ai.fire();
-                ai.fire();
-                ai.fire();
-                ai.fire();
-                ai.fire();
-                ai.toString();
-                targetBoard.toString();
-
+                playerBoard.placeShip(patrol, 1, 1);
+                playerBoard.fire(4,4);
+                playerBoard.toString();
+                playerBoard.moveShip(patrol, 4, 4);
+                playerBoard.toString();
                 
                 
 

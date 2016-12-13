@@ -16,6 +16,7 @@
 * V0.29     Nick                09/11/16    returning objects instead of arrays
 * V0.30     Nick                17/11/16    fixed bug in get floating ships
 * V0.30     Dave                22/11/16    added further validation and exeptions
+* V0.31     Dave                13/12/16    added method to move ship
 *
 **/
 
@@ -256,6 +257,47 @@ Board.prototype.resetBoard = function() {
     
     while(this.getShipsPlaced().length > 0) {
         this.undoPlaceShip();
+    }
+}
+
+/**
+ * Moves a ship on the board, if it hasn't been hit.
+ */
+Board.prototype.moveShip = function(ship, x, y){
+    if(ship.isPlaced() && ship.getNumberOfHits() == 0){
+        var shipSize = ship.getSize();
+        var orientation = ship.getOrientation();
+        var xCoord = x;
+        var yCoord = y;
+        //Check new placement
+        for (i = 0; i < shipSize; i++) {
+        
+            if (xCoord > this.getWidth() - 1 || xCoord < 0 || yCoord > this.getHeight() - 1 || yCoord < 0) {
+                return false;
+            }
+
+            var coordinate = this.getCoordinateAt(xCoord, yCoord);
+
+            if (coordinate.containsShip() || coordinate.isHit()) {
+                return false;
+            }
+
+            if (orientation == 0){
+                yCoord++;
+            } else {
+                xCoord++;
+            }
+        }
+        var coords = ship.getCoordinates();
+        for(var i = 0; i< shipSize; i++){
+            coords[i].removeShip();
+        }
+        ship.reset();
+        //Remove the ship from the placed array.
+        var index = this.getShipsPlaced().indexOf(ship);
+        this.getShipsPlaced().splice(index, 1);
+
+        this.placeShip(ship, x, y);
     }
 }
 
