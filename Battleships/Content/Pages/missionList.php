@@ -3,6 +3,7 @@
 /**
 *
 * V0.1  Nick    10/12/16    initial creation
+* V0.2  Nick    19/12/16    updates to mission list to go to new page
 *
 */
 
@@ -49,12 +50,12 @@ require_once("header.php");
                     </p>
                 </td>
                 <td>
-                    <form action="game.php"
+                    <form action="mission.php"
                             method="POST">
 
                         <input type="hidden"
                                 name="missionName"
-                                value="fogOfWar" />
+                                value="fog-of-war" />
 
                         <button type="submit"
                                 value="mission">
@@ -82,9 +83,18 @@ require_once("header.php");
                 </td>
 
                 <td>
-                    <button>
-                        Battle
-                    </button>
+                    <form action="mission.php"
+                            method="POST">
+
+                        <input type="hidden"
+                                name="missionName"
+                                value="hardcore" />
+
+                        <button type="submit"
+                                value="mission">
+                            Battle
+                        </button>
+                    </form>
                 </td>
             </tr>
 
@@ -103,9 +113,18 @@ require_once("header.php");
                 </td>
                 
                 <td>
-                    <button>
-                        Battle
-                    </button>
+                    <form action="mission.php"
+                            method="POST">
+
+                        <input type="hidden"
+                                name="missionName"
+                                value="last-stand" />
+
+                        <button type="submit"
+                                value="mission">
+                            Battle
+                        </button>
+                    </form>
                 </td>
             </tr>
         </table>

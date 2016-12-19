@@ -1,6 +1,4 @@
 /**
- * Last Modified By: Nick Holdsworth
- * Current Version: 0.61
  *
  * V0.1     Nick    01/10/16    initial creation
  * V0.11    Nick    04/10/16    made code stricter and tightened validation and commented
@@ -436,17 +434,17 @@ function endGame(winner, finished) {
     }
 
     $.ajax({
-            url: "../../Content/Ajax/gameAjax.php",
-            data: {
-                action: "recordShots",
-                totalHits: totalHits,
-                totalHitsReceived: totalHitsReceived,
-                totalShots: totalShots,
-                playingTime: playingTime,
-                gameScore: gameScore
-            },
-            type: "post"
-        });
+        url: "../../Content/Ajax/gameAjax.php",
+        data: {
+            action: "recordShots",
+            totalHits: totalHits,
+            totalHitsReceived: totalHitsReceived,
+            totalShots: totalShots,
+            playingTime: playingTime,
+            gameScore: gameScore
+        },
+        type: "post"
+    });
 
     window.onbeforeunload = null;
 }
