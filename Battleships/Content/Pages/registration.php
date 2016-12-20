@@ -34,29 +34,35 @@ if (Input::itemExists("register")) {
 			$lastName = Input::post("lastName");
 			if(preg_match("/^[a-zA-Z0-9\'\-]{1,50}$/", $firstName) && preg_match("/^[a-zA-Z0-9\'\-]{1,50}$/", $lastName)) {
 
-				if(Input::post("password") === Input::post("passwordMatch")) {
+				$emailAddress = Input::post("emailAddress");
+				if(validEmail($emailAddress)) { // If the email address is a valid email address input
 
-					$hashedPassword = hash("sha256", Input::post("password"));
+					if(Input::post("password") === Input::post("passwordMatch")) {
 
-					$userQuery = new User();
-					$userQuery->getUserByID($userID);
-					if($userQuery->db->getRowCount() > 0) { // If the user already exists in the database... error
+						$hashedPassword = hash("sha256", Input::post("password"));
 
-						Session::set("registrationMessage", "That username is taken, please pick another.");
+						$userQuery = new User();
+						$userQuery->getUserByID($userID);
+						if($userQuery->db->getRowCount() > 0) { // If the user already exists in the database... error
+
+							Session::set("registrationMessage", "That username is taken, please pick another.");
+							//header("Location: registration.php");
+							//exit();
+						} else { // No issues with input, user inserted into DB and redirected
+
+							$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName, $emailAddress);
+							Session::set("loginMessage", "User successfully registered with pending email confirmation. Enter your credentials to log in.");
+							header("Location: login.php");
+							exit();
+						}
+					} else { // Password fields did not match, redirect back to registration page with error
+
+						Session::set("registrationMessage", "Please ensure both your password fields match.");
 						//header("Location: registration.php");
 						//exit();
-					} else { // No issues with input, user inserted into DB and redirected
-
-						$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName);
-						Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
-						header("Location: login.php");
-						exit();
 					}
-				} else { // Password fields did not match, redirect back to registration page with error
-
-					Session::set("registrationMessage", "Please ensure both your password fields match.");
-					//header("Location: registration.php");
-					//exit();
+				} else { // Email address was not valid
+					Session::set("registrationMessage", "Please ensure you are using a valid email address.");
 				}
 			} else {
 				Session::set("registrationMessage", "Please ensure your first name and last name are up to 50 characters long and do not contain special characters.");
@@ -132,6 +138,14 @@ if (Input::itemExists("register")) {
 					</li>
 
 					<li>
+						<input type="text"
+								placeholder="Email Address"
+								name="emailAddress"
+								<?= Input::itemExists("emailAddress") ? "value='" . Input::post("emailAddress") . "'" : ""; ?>
+								 />
+					</li>
+
+					<li>
 						<input type="password"
 								placeholder="Password"
 								name="password" />
@@ -187,5 +201,8 @@ if (Input::itemExists("register")) {
 </html>
 
 <?php 
+	function validEmail($email) {
+        return !!filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
     Session::delete("registrationMessage");
 ?>
