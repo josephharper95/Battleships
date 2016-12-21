@@ -5,6 +5,7 @@
 * V0.1      Nick    10/12/16    initial creation
 * V0.2      Nick    19/12/16    updates to mission list to go to new page
 * V0.21     Ncik    21/12/16    slight wording tweaks
+* V0.3      Nick    21/12/16    added rest of missions
 *
 */
 
@@ -47,7 +48,7 @@ require_once("header.php");
                     <p>
                         You have lost communications with your allies on shore. 
                         Your sonar system has been damaged by a recent attack so you are unaware if you have sunk your enemy ships.
-                        You will need to re-align your strategy to ensure that you defeat the enemy before they beat you!
+                        The fog has limited your ability to fire shots so you can only user your mortar shot.
                     </p>
                 </td>
                 <td>
@@ -121,6 +122,118 @@ require_once("header.php");
                         <input type="hidden"
                                 name="missionName"
                                 value="last-stand" />
+
+                        <button type="submit"
+                                value="mission">
+                            Battle
+                        </button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+
+                <td>
+                    <h3>Against the Clock</h3>
+
+                    <p>
+                        Time is running out.
+                        You need to sink the enemy ships before the countdown finishes.
+                    </p>
+                </td>
+                
+                <td>
+                    <form action="mission.php"
+                            method="POST">
+
+                        <input type="hidden"
+                                name="missionName"
+                                value="against-the-clock" />
+
+                        <button type="submit"
+                                value="mission">
+                            Battle
+                        </button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+
+                <td>
+                    <h3>Pearl Harbour</h3>
+
+                    <p>
+                        The enemy has called in a squadron to aid their attack.
+                        You need to defeat the enemy including their squadron.
+                    </p>
+                </td>
+                
+                <td>
+                    <form action="mission.php"
+                            method="POST">
+
+                        <input type="hidden"
+                                name="missionName"
+                                value="pearl-harbour" />
+
+                        <button type="submit"
+                                value="mission">
+                            Battle
+                        </button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+
+                <td>
+                    <h3>Island Warfare</h3>
+
+                    <p>
+                        Your battle field contains islands.
+                        You need to place your ships around these islands and defeat your enemy.
+                    </p>
+                </td>
+                
+                <td>
+                    <form action="mission.php"
+                            method="POST">
+
+                        <input type="hidden"
+                                name="missionName"
+                                value="against-the-clock" />
+
+                        <button type="submit"
+                                value="mission">
+                            Battle
+                        </button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+
+                <td>
+                    <h3>Waves</h3>
+
+                    <p>
+                        How long can you survive?
+                        Each wave of enemy you defeat, a stronger, more determined AI will do their best to defeat you!
+                    </p>
+                </td>
+                
+                <td>
+                    <form action="mission.php"
+                            method="POST">
+
+                        <input type="hidden"
+                                name="missionName"
+                                value="waves" />
 
                         <button type="submit"
                                 value="mission">

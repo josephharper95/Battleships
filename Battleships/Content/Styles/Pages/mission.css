@@ -456,6 +456,7 @@ html body .gameContainer div.sideContainer div.boardContainer > table.board[data
 }
 html body .gameContainer div.sideContainer div.boardContainer .buttonContainer {
   width: 100%;
+  display: inline-block;
   text-align: center;
   position: relative;
   top: -5px;

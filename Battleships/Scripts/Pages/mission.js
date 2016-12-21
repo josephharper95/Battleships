@@ -3,6 +3,7 @@
  *  V0.1    Nick    19/12/16    initial creation, last-stand mode
  *  V0.2    Nick    21/12/16    added hardcore mode
  *  V0.3    Nick    21/12/16    added fog of war mode
+ *  V0.4    Nick    21/12/16    added against the clock mode
  * 
  */
 
@@ -10,6 +11,7 @@
 var page = "#pageMission";
 var playerBoard = "#playerBoard";
 var opponentBoard = "#computerBoard";
+var opponentContainer = "#opponentContainer";
 
 var startGameButton = "#startGame";
 var rotateShipButton = "#rotateShip";
@@ -106,6 +108,10 @@ function initialise() {
             case "hardcore":
                 initHardcore();
                 break;
+
+            case "against-the-clock":
+                initAgainstTheClock();
+                break;
         }
     }
 }
@@ -143,6 +149,11 @@ function initFogOfWar() {
     $.getScript("../../Scripts/Overrides/playerFireAtComputer.js");
 }
 
+function initAgainstTheClock() {
+
+    $.getScript("../../Scripts/Overrides/againstTheClock.js");
+}
+
 function runIntro() {
 
     runText();
@@ -155,8 +166,6 @@ function runText() {
 
     var chars = mission.text.split("");
 
-    console.log(chars[0]);
-
     var text = "";
     var i = 0;
 
@@ -168,10 +177,8 @@ function runText() {
 
         text += chars[i];
         $("#intro #message p").html(text);
-
         i++;
     }, 50);
-
 }
 
 function runButtons() {
@@ -248,14 +255,6 @@ function startGame() {
 
     window.onbeforeunload = confirmExit;
 
-    // $.ajax({
-    //     url: "../../Content/Ajax/gameAjax.php",
-    //     data: {
-    //         action: "incrementIncompleteGames"
-    //     },
-    //     type: "post"
-    // });
-
     // set the variable so other methods know the game has begun
     gameStarted = true;
 
@@ -267,6 +266,8 @@ function startGame() {
     // place the ships for the AI
     placeAIShips();
 
+    startGameExtra();
+
     // let the player have the first move
     updatePerks();
     playerMove();
@@ -277,6 +278,8 @@ function confirmExit() {
 }
 
 function endGame(winner, finished) {
+
+    endGameExtra();
 
     if (finished) {
 
@@ -459,3 +462,13 @@ function showOpponentShips() {
         setShipAttributesOnBoard(opponentBoard, remainingShips[i]);
     }
 }
+
+/******************************
+ * 
+ *      BLANK FUNCTIONS
+ * 
+******************************/
+
+function startGameExtra() {}
+
+function endGameExtra() {}
