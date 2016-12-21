@@ -39,10 +39,10 @@ class User {
     }
 
     //Function to insert new user into database
-    function insertNewUser($userID, $hashedPassword, $firstName, $lastName) {
-        $sql = "INSERT INTO users (userID, password, firstName, lastName)
-                VALUES (?, ?, ?, ?)";
-        $values = array($userID, $hashedPassword, $firstName, $lastName);
+    function insertNewUser($userID, $hashedPassword, $firstName, $lastName, $emailAddress) {
+        $sql = "INSERT INTO users (userID, password, firstName, lastName, emailAddress)
+                VALUES (?, ?, ?, ?, ?)";
+        $values = array($userID, $hashedPassword, $firstName, $lastName, $emailAddress);
 
         $this->db->query($sql, $values);
 

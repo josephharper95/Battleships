@@ -132,3 +132,6 @@ CREATE TABLE `battleships`.`medals` ( `medalID` INT NOT NULL AUTO_INCREMENT , `m
 CREATE TABLE `battleships`.`usermedals` ( `usermedalID` INT NOT NULL , `userID` VARCHAR(20) NOT NULL , `medalID` INT NOT NULL , INDEX `User FK` (`userID`), INDEX `Medal FK` (`medalID`)) ENGINE = InnoDB;
 ALTER TABLE `usermedals` ADD PRIMARY KEY(`usermedalID`);
 ALTER TABLE `usermedals` ADD CONSTRAINT `Medal ID` FOREIGN KEY (`medalID`) REFERENCES `battleships`.`medals`(`medalID`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `usermedals` ADD CONSTRAINT `User ID` FOREIGN KEY (`userID`) REFERENCES `battleships`.`users`(`userID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+/*Added 20/12/2016 - Email address field*/
+ALTER TABLE `users` ADD `emailAddress` VARCHAR(255) NOT NULL AFTER `lastName`;
