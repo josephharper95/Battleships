@@ -1,6 +1,7 @@
 /**
  * 
  *  V0.1    Nick    19/12/16    initial creation
+ *  V0.2    Nick    21/12/16    added hardcore mode
  * 
  */
 
@@ -101,7 +102,7 @@ function initialise() {
                 break;
             case "hardcore":
 
-                alert("TBD");
+                initHardcore();
                 break;
         }
     }
@@ -118,6 +119,17 @@ function initLastStand() {
             size: 2
         }
     ];
+}
+
+function initHardcore() {
+
+    // hardcore removes perks
+    // all other aspects are as normal
+
+    $(".perksCont").remove();
+    $("#opponentContainer .shipsRemainingCont").remove();
+
+    $.getScript("../../Scripts/Overrides/playerFireAtComputer.js");
 }
 
 function runIntro() {
@@ -163,8 +175,6 @@ function runButtons() {
             initPlaceShips();
 
             difficulty = mission.difficulty.toLowerCase();
-
-            console.log(difficulty);
 
             game = new Game(mission.boardSize);
             playerBoardClass = game.getPlayerBoard();

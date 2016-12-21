@@ -1,0 +1,3 @@
+function setShipAttributesOnBoard(board, ship) {
+    
+}

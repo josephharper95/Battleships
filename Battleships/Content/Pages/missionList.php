@@ -2,8 +2,9 @@
 
 /**
 *
-* V0.1  Nick    10/12/16    initial creation
-* V0.2  Nick    19/12/16    updates to mission list to go to new page
+* V0.1      Nick    10/12/16    initial creation
+* V0.2      Nick    19/12/16    updates to mission list to go to new page
+* V0.21     Ncik    21/12/16    slight wording tweaks
 *
 */
 
@@ -77,8 +78,9 @@ require_once("header.php");
                         You have suffered a tremendous hit.
                         None of your perks are available anymore.
                         Only your main cannon works.
-                        You need to choose your shots wisely without your extra abilities.
-                        Good luck!
+                        On top of this, your sonar ship detection has broken.
+                        You will be able to see the fire from the hit ship, but you won't know if you have sunk a ship and what ship you have sunk!
+                        Good luck Corporal.
                     </p>
                 </td>
 

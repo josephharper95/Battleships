@@ -3,6 +3,7 @@
 /**
 *
 *   V0.1    Nick    19/12/16    initial creation
+*   V0.2    Nick    21/12/16    hardcore pieces added into switch
 *
 */
 
@@ -40,6 +41,15 @@ switch ($mission) {
         $size = 15;
         $difficultyText = "Hard";
         break;
+
+    case "hardcore":
+        $character = "enemy";
+        $missionTitle = "Hardcore";
+        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $sizeClass = "medium";
+        $size = 15;
+        $difficultyText = "Hard";
+        break;
 }
 
 require_once("header.php");
@@ -49,7 +59,7 @@ require_once("header.php");
 <script type="text/javascript">
 
     var mission = {
-        name: <?= json_encode(Input::post("missionName")); ?>,
+        name: <?= json_encode($mission); ?>,
         title: <?= json_encode($missionTitle); ?>,
         text: <?= json_encode($missionText); ?>,
         boardSize: <?= json_encode($size); ?>,
