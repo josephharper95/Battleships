@@ -1,7 +1,8 @@
 /**
  * 
- *  V0.1    Nick    19/12/16    initial creation
+ *  V0.1    Nick    19/12/16    initial creation, last-stand mode
  *  V0.2    Nick    21/12/16    added hardcore mode
+ *  V0.3    Nick    21/12/16    added fog of war mode
  * 
  */
 
@@ -88,20 +89,21 @@ $(document).ready(function () {
 
 function initialise() {
 
+    boardSize = mission.boardSize;
+
     if (mission != null) {
 
         switch (mission.name) {
 
             case "last-stand":
-                
                 initLastStand();
                 break;
+
             case "fog-of-war":
-
-                alert("TBD");
+                initFogOfWar();
                 break;
-            case "hardcore":
 
+            case "hardcore":
                 initHardcore();
                 break;
         }
@@ -129,6 +131,15 @@ function initHardcore() {
     $(".perksCont").remove();
     $("#opponentContainer .shipsRemainingCont").remove();
 
+    $.getScript("../../Scripts/Overrides/playerFireAtComputer.js");
+}
+
+function initFogOfWar() {
+
+    // fog of war perk
+    // removes the ability of seeing what enemy ships have been sunk
+
+    $("#opponentContainer .shipsRemainingCont").remove();
     $.getScript("../../Scripts/Overrides/playerFireAtComputer.js");
 }
 

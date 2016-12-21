@@ -4,6 +4,7 @@
 *
 *   V0.1    Nick    19/12/16    initial creation
 *   V0.2    Nick    21/12/16    hardcore pieces added into switch
+*   V0.3    Nick    21/12/16    fog of war pieces added into switch
 *
 */
 
@@ -45,6 +46,15 @@ switch ($mission) {
     case "hardcore":
         $character = "enemy";
         $missionTitle = "Hardcore";
+        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $sizeClass = "medium";
+        $size = 15;
+        $difficultyText = "Hard";
+        break;
+
+    case "fog-of-war":
+        $character = "friendly";
+        $missionTitle = "Fog of War";
         $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
         $sizeClass = "medium";
         $size = 15;
