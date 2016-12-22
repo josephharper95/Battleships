@@ -1,7 +1,5 @@
 /**
 *
-* Last Modified By: Dave MacDonald
-* Current Version: 0.1
 *
 * V0.1      Dave / Nick / Joe   01/10/16    initial creation
 * V0.11     Dave                06/10/16    commented code
@@ -9,7 +7,7 @@
 * V0.21     Dave                17/10/16    added method getNumberOfHits
 * V0.22     Joe                 26/10/16    renamed methods to match pattern
 * V0.3      Nick                15/11/16    added toObject method
-*
+* V0.4      Dave                22/12/16    Added heal method
 **/
 
 function Ship(name, size) {
@@ -93,6 +91,13 @@ function Ship(name, size) {
 
         if (_numberOfHits == _size) {
             _isDestroyed = true;
+        }
+    }
+
+    this.heal = function(){
+        if(_numberOfHits > 0){
+            _numberOfHits -= 1;
+            _isDestroyed = false;
         }
     }
 
