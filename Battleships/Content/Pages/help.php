@@ -2,7 +2,8 @@
 
 /**
 *
-* V0.1  Nick    10/12/16    initial creation
+* V0.1      Nick    10/12/16    initial creation
+* V0.11     Nick    22/12/16    responsiveness
 *
 */
 
@@ -29,20 +30,23 @@ require_once("header.php");
 
     <div id="pageHelp">
 
-        <h1>Help</h1>
+        <div>
 
-        <p>If you are struggling with understanding the game, we have provided a few videos and hints below. Alternatively, head to our YouTube page to find more.</p>
+            <h1>Help</h1>
 
-        <p>If you want to make a suggestion, please write on our Facebook page or Tweet us! We'd love to hear your feedback.</p>
+            <p>If you are struggling with understanding the game, we have provided a few videos and hints below. Alternatively, head to our YouTube page to find more.</p>
 
-        <h3>Here is a short tutorial...</h3>
+            <p>If you want to make a suggestion, please write on our Facebook page or Tweet us! We'd love to hear your feedback.</p>
 
-        <div class="youtube">
+            <h3>Here is a short tutorial...</h3>
 
-            <iframe src="https://www.youtube.com/embed/FscQZ1LPt48" 
-                    frameborder="0" 
-                    allowfullscreen
-                    style="display: inline-block;"></iframe>
+            <div class="youtube">
+
+                <iframe src="https://www.youtube.com/embed/FscQZ1LPt48" 
+                        frameborder="0" 
+                        allowfullscreen
+                        style="display: inline-block;"></iframe>
+            </div>
         </div>
     </div>
 </div>

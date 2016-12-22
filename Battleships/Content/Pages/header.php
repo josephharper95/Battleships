@@ -19,6 +19,7 @@
 * V0.7      Nick                07/12/16    added timeout message
 * V0.8      Nick                10/12/16    added hamburger menu
 * V0.9      Nick                11/12/16    added social media to header
+* V1.0      Nick                22/12/16    hamburger menu is now static
 *
 */ 
 
@@ -62,7 +63,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 2.5.0
+            Version: 2.6.0
         </div>
 
         <div id="headerBar">
@@ -145,6 +146,36 @@ if (Session::exists("userID")) {
     </div>
 
     <ul id="hamburgerMenu"
-        class="blank"></ul>
+        class="blank">
+
+        <li>
+            <a href="game.php">Battle in Single-Player</a>
+        </li>
+
+        <li>
+            <a href="missionList.php">Battle in Mission-Mode</a>
+        </li>
+
+        <li>
+            <a href="multiplayer.php">Battle in Multi-Player</a>
+        </li>
+
+        <li>
+            <a href="statistics.php">View your Statistics</a>
+        </li>
+
+        <li>
+            <a href="medals.php">Medal Cabinet</a>
+        </li>
+
+        <li>
+            <a href="help.php">Help</a>
+        </li>
+
+        <li>
+            <a href="about.php">About</a>
+        </li>
+
+    </ul>
 
     <div class="body">

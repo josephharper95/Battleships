@@ -6,6 +6,7 @@
  * V0.3     Nick    15/11/16    added ability to set opacity of loader
  * V0.4     Nick    07/12/16    added timeout message
  * V0.5     Nick    12/12/16    added hamburger JS
+ * V0.51    Nick    22/12/16    made the hamburger menu static
  * 
  */
 
@@ -58,7 +59,6 @@ function hamburgerIcon() {
 
     $("#navigationHeaderHamburger").click(function () {
 
-        $("#hamburgerMenu").html($("#navigationHeader").html());
         $("#hamburgerMenu").fadeIn(500, function () {
 
            $("body").one("click", function () {

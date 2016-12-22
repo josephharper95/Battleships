@@ -2,7 +2,8 @@
 
 /**
 *
-* V0.1  Nick    10/12/16    initial creation
+* V0.1      Nick    10/12/16    initial creation
+* V0.11     Nick    22/12/16    responsiveness fix
 *
 */
 
@@ -29,45 +30,48 @@ require_once("header.php");
 
     <div id="pageAbout">
 
-        <h1>About</h1>
+        <div>
 
-        <p>Insert schpiel about what we have created and why we have created it.</p>
+            <h1>About</h1>
 
-        <div id="releaseNotes">
+            <p>Insert schpiel about what we have created and why we have created it.</p>
 
-            <h2>Release Notes</h2>
+            <div id="releaseNotes">
 
-            <h3>V2.0.0</h3>
+                <h2>Release Notes</h2>
 
-            <p>
-                Our second release includes the following:
-                <ul>
-                    <li>
-                        Multi-Player
-                    </li>
-                    <li>
-                        Statistics    
-                    </li>
-                    <li>
-                        Scoring    
-                    </li>
-                    <li>
-                        Perks
-                    </li>
-                </ul>
-                That's right! You can know battle against your friends on different sized boards in our new multiplayer mode.
-                You can create a room for them to join, or you can battle against anyone in the world!
-                We have implemented a scoring model so that you can see if you are improving in your strategy.
-                All new statistics tracking means you can now see how good you are across all difficulties. 
-                Public leadboards allow you to take pride, or shame, in your score.
-            </p>
+                <h3>V2.0.0</h3>
 
-            <h3>V1.0.0</h3>
+                <p>
+                    Our second release includes the following:
+                    <ul>
+                        <li>
+                            Multi-Player
+                        </li>
+                        <li>
+                            Statistics    
+                        </li>
+                        <li>
+                            Scoring    
+                        </li>
+                        <li>
+                            Perks
+                        </li>
+                    </ul>
+                    That's right! You can know battle against your friends on different sized boards in our new multiplayer mode.
+                    You can create a room for them to join, or you can battle against anyone in the world!
+                    We have implemented a scoring model so that you can see if you are improving in your strategy.
+                    All new statistics tracking means you can now see how good you are across all difficulties. 
+                    Public leadboards allow you to take pride, or shame, in your score.
+                </p>
 
-            <p>
-                This is our first release! Challenge our AI in Single-Player and see how well you do!
-            </p>
+                <h3>V1.0.0</h3>
 
+                <p>
+                    This is our first release! Challenge our AI in Single-Player and see how well you do!
+                </p>
+
+            </div>
         </div>
     </div>
 </div>
