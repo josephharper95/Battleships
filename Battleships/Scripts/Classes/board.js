@@ -17,6 +17,7 @@
 * V0.30     Nick                17/11/16    fixed bug in get floating ships
 * V0.30     Dave                22/11/16    added further validation and exeptions
 * V0.31     Dave                13/12/16    added method to move ship
+* V0.32     Dave                22/12/16    added healShipCoord method
 *
 **/
 
@@ -299,6 +300,18 @@ Board.prototype.moveShip = function(ship, x, y){
 
         this.placeShip(ship, x, y);
     }
+}
+
+/**
+ * Heals a single ship coordinate that has been hit
+ */
+Board.prototype.healShipCoord = function(x, y){
+    var coordinate = this.getCoordinateAt(x, y);
+    if(!coordinate.containsShip() || !coordinate.isHit()){
+        return false;
+    }
+    coordinate.healShip();
+    return true;
 }
 
 /******************************

@@ -1,11 +1,13 @@
 /**
 *
 * Last Modified By: Dave MacDonald
-* Current Version: 0.12
+*
+* Motivation for this algorithm came from the following blog: http://www.datagenetics.com/blog/december32011/
 *
 * V0.1      Dave    17/10/2016    initial creation
 * V0.11     Joe     26/10/2016    renamed methods
 * v0.12     Dave    29/10/2016    renamed methods
+* V1.0      Dave    10/12/1026    Added further comments
 *
 **/
 
@@ -171,6 +173,7 @@ function AIHard(name, board, targetBoard){
             var size = ship.getSize();
             var i = ships.length -1;
 
+            //If hit, find and remove that ship from the array
             if (ship.isDestroyed()) {
 
                 for (i = 0; i < ships.length; i++) {
@@ -183,6 +186,7 @@ function AIHard(name, board, targetBoard){
             }
 
             var coords = ship.getCoordinates();
+            //set the probabilityDensity to 0;
             for (var i = 0; i < coords.length; i++) {
                 probabilityDensity[coords[i].getX()][coords[i].getY()] = 0;
             }
@@ -257,7 +261,7 @@ function AIHard(name, board, targetBoard){
         // return the coordinates back
         return coords;
     }
-
+    //Test method to print the probability density grid
     this.toString = function(){
         document.write("<table>");
         for (var i = 0; i < probabilityDensity.length; i++) {

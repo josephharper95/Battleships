@@ -1,13 +1,12 @@
 /**
 *
-* Last Modified By: Dave MacDonald
-* Current Version: 0.1
 *
 * V0.1      Dave / Nick / Joe   01/10/16    initial creation
 * V0.11     Dave                05/10/16    Added comments
 * V0.2      Dave                06/10/16    Added removeShip method.
 * V0.21     Nick                07/10/16    uncommented record hit code
 * V0.3      Nick                15/11/16    added toObject method
+* V0.4      Dave                22/12/16    Added heal ship method
 *
 **/
 
@@ -80,6 +79,18 @@ function Coordinate(x, y) {
      */
     this.isHit = function() {
         return _isHit;
+    }
+
+    /**
+     * Heals a single ship coordinate
+     */
+    this.healShip = function(){
+        if(_isHit && _containsShip){
+            _isHit = false;
+            _ship.heal();
+            return true;
+        }
+        return false;
     }
 
     /**
