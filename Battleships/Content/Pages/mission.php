@@ -5,7 +5,8 @@
 *   V0.1    Nick    19/12/16    initial creation
 *   V0.2    Nick    21/12/16    hardcore pieces added into switch
 *   V0.3    Nick    21/12/16    fog of war pieces added into switch
-*   V0.4    Nick    21/12/16    
+*   V0.4    Nick    21/12/16    against the clock implemented
+*   V0.5    Nick    22/12/16    added piece to add image on ship hit, and included game.css
 *
 */
 
@@ -120,6 +121,8 @@ require_once("header.php");
 <script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
 
 <script src="../../Scripts/Pages/mission.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.css" />
 <link rel="stylesheet" type="text/css" href="../Styles/Pages/mission.css" />
 
 <div id="pageMissionCont"
@@ -296,7 +299,7 @@ function createBoard() {
         $str .= "<tr>";
 
         for ($x = 0; $x < $size; $x++) {
-            $str .= "<td></td>";
+            $str .= "<td><i class='hit'></i></td>";
         }
 
         $str .= "</tr>";

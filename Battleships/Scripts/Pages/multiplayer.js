@@ -32,6 +32,7 @@
  * V1.3     Nick        06/12/16    added mortar
  * V1.4     Nick        07/12/16    changed alerts to new functionality, fixed bug where new players showed NAN% for completion rate
  * V1.41    Nick        11/12/16    changed ajax links
+ * V1.42    Nick        22/12/16    added hit <i> for destroy ship
  * 
  */
 
@@ -949,7 +950,7 @@ function resetMultiplayerBoard() {
         tableHtml += "<tr>";
 
         for (var x = 0; x < boardSize; x++) {
-            tableHtml += "<td></td>";
+            tableHtml += "<td><i class='hit'></i></td>";
         }
 
         tableHtml += "</tr>";

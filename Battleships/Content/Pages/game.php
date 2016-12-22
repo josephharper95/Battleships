@@ -23,6 +23,7 @@
 * V0.54     Nick    07/12/16    added class for birds eye view
 * V0.55     Nick    09/12/16    added responsiveness pieces
 * V0.56     Nick    12/12/16    added individual CSS file
+* V0.57     Nick    22/12/16    added class into board td to allow for image to show on destroy
 *
 **/
 
@@ -333,7 +334,7 @@ function createBoard() {
         $str .= "<tr>";
 
         for ($x = 0; $x < $size; $x++) {
-            $str .= "<td></td>";
+            $str .= "<td><i class='hit'></i></td>";
         }
 
         $str .= "</tr>";

@@ -4,6 +4,7 @@
 * 
 * V0.1  Nick    10/12/16    initial creation
 * V0.2  Nick    12/12/16    added responsive items
+* V0.3  Nick    22/12/16    changed hit from red colour to image
 * 
 */
 
@@ -208,8 +209,18 @@ html {
                                         opacity: 0.6;
 
                                         &.containsShip {
-                                            background-color: red;
+                                            
+                                            background-color: transparent;
                                             opacity: 1;
+
+                                            .hit {
+
+                                                display: inline-block;
+                                                height: 100%;
+                                                width: 100%;
+                                                background-image: @ship-hit;
+                                                background-size: calc(100%) calc(100%);
+                                            }
                                         }
                                     }
 
