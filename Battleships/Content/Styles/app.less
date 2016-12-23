@@ -41,6 +41,7 @@
 * V3.21     Nick    11/12/16    added social media styling to header
 * V3.22     Nick    19/12/16    changed z-index of the header
 * V3.23     Nick    22/12/16    moved the burger down a bit
+* V3.24     Nick    22/12/16    header updates
 *
 **/
 
@@ -646,7 +647,27 @@ html {
 
                     #headerTitle {
 
-                        display: none;
+                        font-size: 2.0em;
+                        line-height: 1.8em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+
+    html {
+        body {
+            #header {
+                
+                #headerBar {
+
+                    #headerTitle {
+
+                        font-size: 1.7em;
+                        line-height: 2.2em;
                     }
                 }
             }
