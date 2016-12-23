@@ -155,12 +155,14 @@ html {
 
                     &.twitter {
                         background-image: @twitter;
-                        left: 80px;
+                        left: 55px;
+                        top: 28px;
                     }
 
                     &.youtube {
                         background-image: @youtube;
-                        left: 105px;
+                        left: 55px;
+                        top: 53px;
                     }
                 }
 
@@ -214,15 +216,15 @@ html {
                     background-size: @size;
                     background-image: @button-hamburger;
                     position: absolute;
-                    top: 27px;
-                    left: 80px;
+                    top: 20px;
+                    left: 100px;
                     cursor: pointer;
                 }
 
                 ul#navigationHeader {
                     position: absolute;
                     top: 50px;
-                    left: 60px;
+                    left: 80px;
                     margin: 0;
                     
                     li {
@@ -570,6 +572,14 @@ html {
                 
                 #headerBar {
 
+                    #headerTitle {
+
+                        display: inline-block;
+                        position: relative;
+                        top: 10px;
+                        left: 150px;
+                    }
+
                     #navigationHeader {
 
                         display: none;
@@ -614,12 +624,30 @@ html {
     }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
     html {
         body {
             #header {
-                #headerTitle {
+                #userDetails {
                     display: none;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 450px) {
+
+    html {
+        body {
+            #header {
+                
+                #headerBar {
+
+                    #headerTitle {
+
+                        display: none;
+                    }
                 }
             }
         }

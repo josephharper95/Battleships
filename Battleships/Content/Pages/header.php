@@ -63,7 +63,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 2.6.0
+            Version: 2.6.1
         </div>
 
         <div id="headerBar">
@@ -147,6 +147,10 @@ if (Session::exists("userID")) {
 
     <ul id="hamburgerMenu"
         class="blank">
+
+        <li>
+            <a href="home.php">Home</a>
+        </li>
 
         <li>
             <a href="game.php">Battle in Single-Player</a>

@@ -11,6 +11,7 @@
 *
 * V0.1      Nick    05/12/16    initial creation
 * V0.2      Nick    07/12/16    added floor texture
+* V0.3      Nick    11/12/16    added shelf texture
 *
 **/
 /**
@@ -18,6 +19,9 @@
 * Last Modified By: Nick Holdsworth
 *
 * V0.1      Nick    05/12/16    initial creation
+* V0.2      Nick    11/12/16    added items for mission list and medal page
+* V0.3      Nick    19/12/16    added first character
+* V0.4      Nick    21/12/16    added second character
 *
 **/
 html body div#pageMissionListCont {
@@ -91,4 +95,12 @@ html body div#pageMissionListCont div#pageMissionList table tr td button:hover {
   background-color: #fff;
   opacity: .9;
   color: #222;
+}
+@media only screen and (max-width: 600px) {
+  html body div#pageMissionListCont div#pageMissionList table tr td:nth-child(1) {
+    width: 0;
+  }
+  html body div#pageMissionListCont div#pageMissionList table tr td:nth-child(1) i {
+    display: none;
+  }
 }
