@@ -9,12 +9,17 @@
  * V0.4     Nick        03/12/16    added top ten accuracy
  * V0.41    Nick        07/12/16    updated menu to be variable
  * V0.42    Nick        11/12/16    changed ajax links
+ * V0.5     Nick        25/12/16    responsiveness and refactoring
  * 
  */
 
 var menu = "#folderMenu";
 
+var difficulties = ["easy", "medium", "hard", "multiplayer"];
+
 $(document).ready(function(){
+
+    getTopTenUserStatsByUserIdAndDifficulty();
     getTopTenUsersScoresByDifficulty();
     getTopTenUsersHighScoresByDifficulty();
     getTopTenUsersWinsByDifficulty();
@@ -24,6 +29,8 @@ $(document).ready(function(){
     getTopTenUsersTotalHitsReceivedByDifficulty();
     getTopTenUsersTotalPlayingTimeByDifficulty();
     getTopTenUsersHitAccuracyByDifficulty();
+
+    populateDifficultyDropdowns();
 
     $(menu + " button[data-selected=false]").on("click", function () {
         
@@ -54,28 +61,6 @@ function changePage(page) {
     dropdowns();
 }
 
-
-function getTopTenUsersScoresByDifficulty(){
-    //TODO NEH - Show table loader
-    $.ajax({
-        url: "../../Content/Ajax/statisticsAjax.php",
-        data: {
-            action: "getTopTenUsersScoresByDifficulty"
-        },
-        type: "post",
-        success: function(data){
-            var parsed = JSON.parse(data);
-            populateTopTenUsersScoresByDifficultyTable(parsed);
-        },
-        error: function(){
-            alert("Something went wrong");
-        },
-        complete: function(){
-            //TODO NEH - Hide table loader
-        }
-    });
-}
-
 function dropdowns() {
     $("[data-page=all-scores] select").change(function () {
         allScoresDropDownChange();
@@ -87,6 +72,42 @@ function dropdowns() {
 
     $("[data-page=all-shots] select").change(function () {
         allShotsDropDownChange();
+    });
+}
+
+function populateDifficultyDropdowns() {
+
+    var html = "";
+
+    html += "<select>";
+
+    for (var i = 0; i < difficulties.length; i++) {
+
+        html += "<option";
+        html += " value='" + difficulties[i] + "'";
+        html += ">";
+
+        html += capitaliseFirstChar(difficulties[i]);
+
+        html += "</option>";
+    }
+
+    html+= "</select>";
+
+    $(".difficultyOptions").html(html);
+    $(".difficultyOptions").off("change");
+
+    $(".folderArea").on('change', ".difficultyOptions", function() {
+        
+        var dropdown = $(this);
+
+        var grid = "#" + $(dropdown).attr("data-grid");
+        var value = $(dropdown).val();
+
+        $(grid + " table:not(." + value + ")").fadeOut(200).promise().done(function () {
+
+            $(grid + " table." + value).fadeIn(200);
+        });
     });
 }
 
@@ -117,6 +138,55 @@ function allShotsDropDownChange() {
     });
 }
 
+function getTopTenUserStatsByUserIdAndDifficulty() {
+
+    //TODO NEH - Show table loader
+    $.ajax({
+        url: "../../Content/Ajax/statisticsAjax.php",
+        data: {
+            action: "getTopTenUserStatsByUserIdAndDifficulty"
+        },
+        type: "post",
+        success: function(data) {
+
+            var parsed = JSON.parse(data);
+            populateTopTenUserStatsByUserIdAndDifficultyTable(parsed);
+            populateTopTenUserStatsByUserIdAndDifficultyTableMobile(parsed);
+        },
+        error: function(){
+
+            alert("Something went wrong");
+        },
+        complete: function(){
+
+            //TODO NEH - Hide table loader
+        }
+    });
+}
+
+function getTopTenUsersScoresByDifficulty() {
+    //TODO NEH - Show table loader
+    $.ajax({
+        url: "../../Content/Ajax/statisticsAjax.php",
+        data: {
+            action: "getTopTenUsersScoresByDifficulty"
+        },
+        type: "post",
+        success: function(data) {
+
+            var parsed = JSON.parse(data);
+            populateTopTenUsersScoresByDifficultyTable(parsed);
+            populateTopTenUsersScoresByDifficultyTableMobile(parsed);
+        },
+        error: function(){
+            alert("Something went wrong");
+        },
+        complete: function(){
+            //TODO NEH - Hide table loader
+        }
+    });
+}
+
 function getTopTenUsersHighScoresByDifficulty(){
     //TODO NEH - Show table loader
     $.ajax({
@@ -125,9 +195,11 @@ function getTopTenUsersHighScoresByDifficulty(){
             action: "getTopTenUsersHighScoresByDifficulty"
         },
         type: "post",
-        success: function(data){
+        success: function(data) {
+
             var parsed = JSON.parse(data);
             populateTopTenUsersHighScoresByDifficultyTable(parsed);
+            populateTopTenUsersHighScoresByDifficultyTableMobile(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -147,8 +219,10 @@ function getTopTenUsersWinsByDifficulty(){
         },
         type: "post",
         success: function(data){
+
             var parsed = JSON.parse(data);
             populateTopTenUsersWinsByDifficultyTable(parsed);
+            populateTopTenUsersWinsByDifficultyTableMobile(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -167,9 +241,11 @@ function getTopTenUsersGamesPlayedByDifficulty(){
             action: "getTopTenUsersGamesPlayedByDifficulty"
         },
         type: "post",
-        success: function(data){
+        success: function(data) {
+
             var parsed = JSON.parse(data);
             populateTopTenUsersGamesPlayedByDifficultyTable(parsed);
+            populateTopTenUsersGamesPlayedByDifficultyTableMobile(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -188,9 +264,11 @@ function getTopTenUsersTotalShotsFiredByDifficulty(){
             action: "getTopTenUsersTotalShotsFiredByDifficulty"
         },
         type: "post",
-        success: function(data){
+        success: function(data) {
+
             var parsed = JSON.parse(data);
             populateTopTenUsersTotalShotsFiredByDifficultyTable(parsed);
+            populateTopTenUsersTotalShotsFiredByDifficultyTableMobile(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -209,9 +287,11 @@ function getTopTenUsersTotalShotsHitByDifficulty(){
             action: "getTopTenUsersTotalShotsHitByDifficulty"
         },
         type: "post",
-        success: function(data){
+        success: function(data) {
+
             var parsed = JSON.parse(data);
             populateTopTenUsersTotalShotsHitByDifficultyTable(parsed);
+            populateTopTenUsersTotalShotsHitByDifficultyTableMobile(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -230,9 +310,11 @@ function getTopTenUsersTotalHitsReceivedByDifficulty(){
             action: "getTopTenUsersTotalHitsReceivedByDifficulty"
         },
         type: "post",
-        success: function(data){
+        success: function(data) {
+
             var parsed = JSON.parse(data);
             populateTopTenUsersTotalHitsReceivedByDifficultyTable(parsed);
+            populateTopTenUsersTotalHitsReceivedByDifficultyTableMobile(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -251,9 +333,11 @@ function getTopTenUsersTotalPlayingTimeByDifficulty(){
             action: "getTopTenUsersTotalPlayingTimeByDifficulty"
         },
         type: "post",
-        success: function(data){
+        success: function(data) {
+
             var parsed = JSON.parse(data);
             populateTopTenUsersTotalPlayingTimeByDifficultyTable(parsed);
+            populateTopTenUsersTotalPlayingTimeByDifficultyTableMobile(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -271,9 +355,11 @@ function getTopTenUsersHitAccuracyByDifficulty() {
             action: "getTopTenUsersHitAccuracyByDifficulty"
         },
         type: "post",
-        success: function(data){
+        success: function(data) {
+
             var parsed = JSON.parse(data);
             getTopTenUsersHitAccuracyByDifficultyTable(parsed);
+            getTopTenUsersHitAccuracyByDifficultyTableMobile(parsed);
         },
         error: function(){
             alert("Something went wrong");
@@ -284,517 +370,371 @@ function getTopTenUsersHitAccuracyByDifficulty() {
     });
 }
 
-function populateTopTenUsersScoresByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUserStatsByUserIdAndDifficultyTable(data) {
+
     var tableHTML = "";
+    var attrs = ["score", "highScore", "wins", "losses", "gamesPlayed", "incompleteGames", "gamesStarted", "completionRate", "totalShotsFired", "totalShotsHit", "accuracy", "totalHitsReceived", "totalPlayingTime"];
+    var attrNames = ["Accumulative Score", "High Score", "Wins", "Losses", "Games Played", "Incomplete Games", "Games Started", "Completion Rate", "Total Shots Fired", "Total Shots Hit", "Accuracy", "Total Hits Received", "Total Playing Time"];
 
-    for (var i = 0; i < 10; i++)
-    {
+    tableHTML += difficultyTableRow(true);
+
+    tableHTML += "<tbody>";
+
+    for (var a = 0; a < attrs.length; a++) {
+
         tableHTML += "<tr>";
-        //Easy
-        if(!easy[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, easy[i].score);
-        }
 
-        //Medium
-        if(!medium[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, medium[i].score);
-        }
+        tableHTML += "<td>";
+        tableHTML += attrNames[a];
+        tableHTML += "</td>";
 
-        //Hard
-        if(!hard[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, hard[i].score);
-        }
+        for (var i = 0; i < difficulties.length; i++) {
 
-        //Multiplayer
-        if(!multiplayer[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, multiplayer[i].score);
+            var item = data[difficulties[i]];
+
+            tableHTML += "<td>";
+
+            var attr = attrs[a];
+
+            if (attr == "losses") {
+
+                tableHTML += item["gamesPlayed"] - item["wins"];
+            } else if (attr == "gamesStarted") {
+
+                tableHTML += parseInt(item["gamesPlayed"]) + parseInt(item["incompleteGames"]);
+            } else if (attr == "completionRate") {
+
+                var val = item["gamesPlayed"] / (parseInt(item["gamesPlayed"]) + parseInt(item["incompleteGames"])) * 100;
+                tableHTML += convertPercentage(val);
+            } else if (attr == "accuracy") {
+
+                var val = (item["totalShotsHit"] / item["totalShotsFired"]) * 100;
+                tableHTML += convertPercentage(val);
+            } else if (attr == "totalPlayingTime") {
+
+                tableHTML += convertPlayingTime(item[attr]);
+            } else {
+
+                tableHTML += item[attr];
+            }
+
+            tableHTML += "</td>";
         }
 
         tableHTML += "</tr>";
     }
 
-    $("#topTenScores tbody").html(tableHTML);
+    tableHTML += "</tbody>";
+
+    $("#playerStatistics").html(tableHTML);
+}
+function populateTopTenUserStatsByUserIdAndDifficultyTableMobile(data) {
+
+    var html = "";
+    var attrs = ["score", "highScore", "wins", "losses", "gamesPlayed", "incompleteGames", "gamesStarted", "completionRate", "totalShotsFired", "totalShotsHit", "accuracy", "totalHitsReceived", "totalPlayingTime"];
+    var attrNames = ["Accumulative Score", "High Score", "Wins", "Losses", "Games Played", "Incomplete Games", "Games Started", "Completion Rate", "Total Shots Fired", "Total Shots Hit", "Accuracy", "Total Hits Received", "Total Playing Time"];
+
+    for (var d = 0; d < difficulties.length; d++) {
+
+        html += "<table";
+        html += " class='" + difficulties[d] + "'";
+        html += ">";
+
+        html += "<thead>";
+        html += "<th></th>";
+        html += "<th>";
+        html += capitaliseFirstChar(difficulties[d]);
+        html += "</th>";
+        html += "</thead>";
+
+        html += "<tbody>";
+
+        for (var a = 0; a < attrs.length; a++) {
+
+            html += "<tr>";
+
+            html += "<td>";
+            html += attrNames[a];
+            html += "</td>";
+
+            var item = data[difficulties[d]];
+
+            html += "<td>";
+
+            var attr = attrs[a];
+
+            if (attr == "losses") {
+
+                html += item["gamesPlayed"] - item["wins"];
+            } else if (attr == "gamesStarted") {
+
+                html += parseInt(item["gamesPlayed"]) + parseInt(item["incompleteGames"]);
+            } else if (attr == "completionRate") {
+
+                var val = item["gamesPlayed"] / (parseInt(item["gamesPlayed"]) + parseInt(item["incompleteGames"])) * 100;
+                html += convertPercentage(val);
+            } else if (attr == "accuracy") {
+
+                var val = (item["totalShotsHit"] / item["totalShotsFired"]) * 100;
+                html += convertPercentage(val);
+            } else if (attr == "totalPlayingTime") {
+
+                html += convertPlayingTime(item[attr]);
+            } else {
+
+                html += item[attr];
+            }
+
+            html += "</td>";
+
+            html += "</tr>";
+        }
+
+        html += "</tbody>";
+    }
+
+    $("#playerStatisticsMobile .tables").html(html);
+    $("#playerStatisticsMobile .difficultyOptions").trigger("change");
 }
 
-function populateTopTenUsersHighScoresByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUsersScoresByDifficultyTable(data) {
+
     var tableHTML = "";
 
-    for (var i = 0; i < 10; i++)
-    {
-        tableHTML += "<tr>";
-        //Easy
-        if(!easy[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, easy[i].highScore);
-        }
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "score");
 
-        //Medium
-        if(!medium[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, medium[i].highScore);
-        }
+    $("#topTenScores").html(tableHTML);
+}
+function populateTopTenUsersScoresByDifficultyTableMobile(data) {
 
-        //Hard
-        if(!hard[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, hard[i].highScore);
-        }
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "score");
 
-        //Multiplayer
-        if(!multiplayer[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, multiplayer[i].highScore);
-        }
-
-        tableHTML += "</tr>";
-    }
-
-    $("#topTenHighScores tbody").html(tableHTML);
+    $("#topTenScoresMobile .tables").html(html);
+    $("#topTenScoresMobile .difficultyOptions").trigger("change");
 }
 
-function populateTopTenUsersWinsByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUsersHighScoresByDifficultyTable(data) {
+
     var tableHTML = "";
 
-    for (var i = 0; i < 10; i++)
-    {
-        tableHTML += "<tr>";
-        //Easy
-        if(!easy[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, easy[i].wins);
-        }
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "highScore");
 
-        //Medium
-        if(!medium[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, medium[i].wins);
-        }
+    $("#topTenHighScores").html(tableHTML);
+}
+function populateTopTenUsersHighScoresByDifficultyTableMobile(data) {
 
-        //Hard
-        if(!hard[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, hard[i].wins);
-        }
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "highScore");
 
-        //Multiplayer
-        if(!multiplayer[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, multiplayer[i].wins);
-        }
-
-        tableHTML += "</tr>";
-    }
-
-    $("#topTenWins tbody").html(tableHTML);
+    $("#topTenHighScoresMobile .tables").html(html);
+    $("#topTenHighScoresMobile .difficultyOptions").trigger("change");
 }
 
-function populateTopTenUsersGamesPlayedByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUsersWinsByDifficultyTable(data) {
+
     var tableHTML = "";
 
-    for (var i = 0; i < 10; i++)
-    {
-        tableHTML += "<tr>";
-        //Easy
-        if(!easy[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, easy[i].gamesPlayed);
-        }
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "wins");
 
-        //Medium
-        if(!medium[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, medium[i].gamesPlayed);
-        }
+    $("#topTenWins").html(tableHTML);
+}
+function populateTopTenUsersWinsByDifficultyTableMobile(data) {
 
-        //Hard
-        if(!hard[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, hard[i].gamesPlayed);
-        }
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "wins");
 
-        //Multiplayer
-        if(!multiplayer[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, multiplayer[i].gamesPlayed);
-        }
-
-        tableHTML += "</tr>";
-    }
-
-    $("#topTenGamesPlayed tbody").html(tableHTML);
+    $("#topTenWinsMobile .tables").html(html);
+    $("#topTenWinsMobile .difficultyOptions").trigger("change");
 }
 
-function populateTopTenUsersTotalShotsFiredByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUsersGamesPlayedByDifficultyTable(data) {
+
     var tableHTML = "";
 
-    for (var i = 0; i < 10; i++)
-    {
-        tableHTML += "<tr>";
-        //Easy
-        if(!easy[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, easy[i].totalShotsFired);
-        }
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "gamesPlayed");
 
-        //Medium
-        if(!medium[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, medium[i].totalShotsFired);
-        }
+    $("#topTenGamesPlayed").html(tableHTML);
+}
+function populateTopTenUsersGamesPlayedByDifficultyTableMobile(data) {
 
-        //Hard
-        if(!hard[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, hard[i].totalShotsFired);
-        }
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "gamesPlayed");
 
-        //Multiplayer
-        if(!multiplayer[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, multiplayer[i].totalShotsFired);
-        }
-
-        tableHTML += "</tr>";
-    }
-
-    $("#topTenTotalShotsFired tbody").html(tableHTML);
+    $("#topTenGamesPlayedMobile .tables").html(html);
+    $("#topTenGamesPlayedMobile .difficultyOptions").trigger("change");
 }
 
-function populateTopTenUsersTotalShotsHitByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUsersTotalShotsFiredByDifficultyTable(data) {
+
     var tableHTML = "";
 
-    for (var i = 0; i < 10; i++)
-    {
-        tableHTML += "<tr>";
-        //Easy
-        if(!easy[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, easy[i].totalShotsHit);
-        }
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "totalShotsFired");
 
-        //Medium
-        if(!medium[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, medium[i].totalShotsHit);
-        }
+    $("#topTenTotalShotsFired").html(tableHTML);
+}
+function populateTopTenUsersTotalShotsFiredByDifficultyTableMobile(data) {
 
-        //Hard
-        if(!hard[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, hard[i].totalShotsHit);
-        }
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "totalShotsFired");
 
-        //Multiplayer
-        if(!multiplayer[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, multiplayer[i].totalShotsHit);
-        }
-
-        tableHTML += "</tr>";
-    }
-
-    $("#topTenTotalShotsHit tbody").html(tableHTML);
+    $("#topTenTotalShotsFiredMobile .tables").html(html);
+    $("#topTenTotalShotsFiredMobile .difficultyOptions").trigger("change");
 }
 
-function populateTopTenUsersTotalHitsReceivedByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUsersTotalShotsHitByDifficultyTable(data) {
+
     var tableHTML = "";
 
-    for (var i = 0; i < 10; i++)
-    {
-        tableHTML += "<tr>";
-        //Easy
-        if(!easy[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, easy[i].totalHitsReceived);
-        }
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "totalShotsHit");
 
-        //Medium
-        if(!medium[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, medium[i].totalHitsReceived);
-        }
+    $("#topTenTotalShotsHit ").html(tableHTML);
+}
+function populateTopTenUsersTotalShotsHitByDifficultyTableMobile(data) {
 
-        //Hard
-        if(!hard[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, hard[i].totalHitsReceived);
-        }
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "totalShotsHit");
 
-        //Multiplayer
-        if(!multiplayer[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, multiplayer[i].totalHitsReceived);
-        }
-
-        tableHTML += "</tr>";
-    }
-
-    $("#topTenTotalHitsReceived tbody").html(tableHTML);
+    $("#topTenTotalShotsHitMobile .tables").html(html);
+    $("#topTenTotalShotsHitMobile .difficultyOptions").trigger("change");
 }
 
-function populateTopTenUsersTotalPlayingTimeByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUsersTotalHitsReceivedByDifficultyTable(data) {
+
     var tableHTML = "";
 
-    for (var i = 0; i < 10; i++)
-    {
-        tableHTML += "<tr>";
-        //Easy
-        if(!easy[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, convertPlayingTime(easy[i].totalPlayingTime));
-        }
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "totalHitsReceived");
 
-        //Medium
-        if(!medium[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, convertPlayingTime(medium[i].totalPlayingTime));
-        }
+    $("#topTenTotalHitsReceived").html(tableHTML);
+}
+function populateTopTenUsersTotalHitsReceivedByDifficultyTableMobile(data) {
 
-        //Hard
-        if(!hard[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, convertPlayingTime(hard[i].totalPlayingTime));
-        }
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "totalHitsReceived");
 
-        //Multiplayer
-        if(!multiplayer[i])
-        {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, convertPlayingTime(multiplayer[i].totalPlayingTime));
-        }
-
-        tableHTML += "</tr>";
-    }
-
-    $("#topTenTotalPlayingTime tbody").html(tableHTML);
+    $("#topTenTotalHitsReceivedMobile .tables").html(html);
+    $("#topTenTotalHitsReceivedMobile .difficultyOptions").trigger("change");
 }
 
-function getTopTenUsersHitAccuracyByDifficultyTable(data)
-{
-    var easy = data["easy"];
-    var medium = data["medium"];
-    var hard = data["hard"];
-    var multiplayer = data["multiplayer"];
+function populateTopTenUsersTotalPlayingTimeByDifficultyTable(data) {
+
     var tableHTML = "";
 
-    for (var i = 0; i < 10; i++)
-    {
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "totalPlayingTime", "playingTime");
+
+    $("#topTenTotalPlayingTime").html(tableHTML);
+}
+function populateTopTenUsersTotalPlayingTimeByDifficultyTableMobile(data) {
+
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "totalPlayingTime", "playingTime");
+
+    $("#topTenTotalPlayingTimeMobile .tables").html(html);
+    $("#topTenTotalPlayingTimeMobile .difficultyOptions").trigger("change");
+}
+
+function getTopTenUsersHitAccuracyByDifficultyTable(data) {
+
+    var tableHTML = "";
+
+    tableHTML += difficultyTableRow(false);
+    tableHTML += tbodyTopTenTwoItemCell(data, "userID", "accuracy", "percentage");
+
+    $("#topTenTotalAccuracy").html(tableHTML);
+}
+function getTopTenUsersHitAccuracyByDifficultyTableMobile(data) {
+
+    var html = mobileIndividualTablesByDifficultyTopTen(data, "userID", "accuracy", "percentage");
+
+    $("#topTenTotalAccuracyMobile .tables").html(html);
+    $("#topTenTotalAccuracyMobile .difficultyOptions").trigger("change");
+}
+
+function tbodyTopTenTwoItemCell(data, item1, item2, extra) {
+
+    var tableHTML = "";
+
+    for (var i = 0; i < 10; i++) {
+
         tableHTML += "<tr>";
-        //Easy
-        if (!easy[i] || !easy[i].accuracy) {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(easy[i].userID, convertPercentage(easy[i].accuracy));
-        }
 
-        //Medium
-        if (!medium[i] || !medium[i].accuracy) {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(medium[i].userID, convertPercentage(medium[i].accuracy));
-        }
+        for (var d = 0; d < difficulties.length; d++) {
 
-        //Hard
-        if (!hard[i] || !hard[i].accuracy) {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(hard[i].userID, convertPercentage(hard[i].accuracy));
-        }
+            var item = data[difficulties[d]][i];
 
-        //Multiplayer
-        if (!multiplayer[i] || !multiplayer[i].accuracy) {
-            tableHTML += "<td>N/A</td>";
-        }
-        else
-        {
-            tableHTML += twoItemTableCell(multiplayer[i].userID, convertPercentage(multiplayer[i].accuracy));
+            if (extra == "playingTime" && item) {
+
+                tableHTML += twoItemTableCell(item[item1], convertPlayingTime(item[item2]));
+            }
+            else if (extra == "percentage" && item) {
+
+                tableHTML += twoItemTableCell(item[item1], convertPercentage(item[item2]));
+            }
+            else if (item) {
+
+                tableHTML += twoItemTableCell(item[item1], item[item2]);
+            } else {
+
+                tableHTML += "<td>N/A</td>";
+            }
         }
 
         tableHTML += "</tr>";
     }
 
-    $("#topTenTotalAccuracy tbody").html(tableHTML);
+    return tableHTML;
+}
+
+function mobileIndividualTablesByDifficultyTopTen(data, item1, item2, extra) {
+
+    var html = "";
+
+    for (var d = 0; d < difficulties.length; d++) {
+
+        html += "<table";
+        html += " class='" + difficulties[d] + "'";
+        html += ">";
+
+        html += "<thead>";
+        html += "<th>";
+        html += capitaliseFirstChar(difficulties[d]);
+        html += "</th>";
+        html += "</thead>";
+
+        for (var i = 0; i < 10; i++) {
+
+            html += "<tr>";
+
+            var item = data[difficulties[d]][i];
+
+            if (extra == "playingTime" && item) {
+
+                html += twoItemTableCell(item[item1], convertPlayingTime(item[item2]));
+            }
+            else if (extra == "percentage" && item) {
+
+                html += twoItemTableCell(item[item1], convertPercentage(item[item2]));
+            }
+            else if (item) {
+
+                html += twoItemTableCell(item[item1], item[item2]);
+            } else {
+
+                html += "<td>N/A</td>";
+            }
+
+            html += "</tr>";
+        }
+
+        html += "</table>";
+    }
+
+    return html;
 }
 
 function twoItemTableCell(item1, item2) {
-    var tableHTML = "<td>";
+
+    var tableHTML = "<td><div>";
 
     tableHTML += "<label>";
     tableHTML += item1;
@@ -803,22 +743,64 @@ function twoItemTableCell(item1, item2) {
     tableHTML += item2;
     tableHTML += "</span>";
 
-    tableHTML += "</td>";
+    tableHTML += "</div></td>";
 
     return tableHTML;
 }
 
-function convertPlayingTime(seconds)
-{
+function convertPlayingTime(seconds) {
+
     var date = new Date(null);
     date.setSeconds(seconds); // specify value for SECONDS here
     return date.toISOString().substr(11, 8);
 }
 
 function convertPercentage(val) {
+
     if (!val) {
         return "N/A";
     }
 
     return parseFloat(val).toFixed(2) + "%";
+}
+
+function capitaliseFirstChar(input) {
+
+    var split = input.split(" ");
+
+    for (var i = 0; i < split.length; i++) {
+
+        var chars = split[i].split("");
+        
+        chars[0] = chars[0].toUpperCase();
+
+        split[i] = chars.join("");
+    }
+
+    return split.join(" ");
+}
+
+function difficultyTableRow(extraCol) {
+
+    var tableHTML = "";
+
+    tableHTML += "<thead>";
+    tableHTML += "<tr>";
+
+    if (extraCol) {
+
+        tableHTML += "<th></th>";
+    }
+
+    for (var d = 0; d < difficulties.length; d++) {
+
+        tableHTML += "<th>";
+        tableHTML += capitaliseFirstChar(difficulties[d]);
+        tableHTML += "</th>";
+    }
+
+    tableHTML += "</tr>";
+    tableHTML += "</thead>";
+
+    return tableHTML;
 }

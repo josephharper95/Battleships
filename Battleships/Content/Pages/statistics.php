@@ -12,6 +12,7 @@
 *   V0.3    Nick    03/12/16    added accuracy top 10
 *   V0.4    Nick    07/12/16    tweaked HTML and added objects
 *   V0.41   Nick    12/12/16    added individual CSS file
+*   V0.5    Nick    25/12/16    stats page now responsive
 */
 
 // include the setup file if it has not been included
@@ -27,22 +28,6 @@ if(!Session::get("userID")) {
 
 // include the header file if it has not been included before
 require_once("header.php");
-
-$user = new User();
-$userId = Session::get("userID");
-
-$difficulties = $user->getDifficulties();
-$easy = $difficulties[0];
-$medium = $difficulties[1];
-$hard = $difficulties[2];
-$multiplayer = $difficulties[3];
-
-$playerEasy = $user->getUserStatisticsByUserIDAndDifficulty($userId, $easy->id)[0];
-$playerMedium = $user->getUserStatisticsByUserIDAndDifficulty($userId, $medium->id)[0];
-$playerHard = $user->getUserStatisticsByUserIDAndDifficulty($userId, $hard->id)[0];
-$playerMultiplayer = $user->getUserStatisticsByUserIDAndDifficulty($userId, $multiplayer->id)[0];
-
-//print_r($playerEasy);
 
 function convertPlayingTime($seconds) {
     $hours = $seconds / 3600  % 24;
@@ -112,263 +97,17 @@ function convertPercentage($small, $large) {
 
                                 <h2>Player Statistics</h2>
 
-                                <table id="playerStatistics">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                Accumulative Score
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->score : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->score : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->score : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->score : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
+                                <table id="playerStatistics"
+                                        class="full"></table>
 
-                                        <tr>
-                                            <td>
-                                                Highest Scoring Game
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->highScore : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->highScore : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->highScore : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->highScore : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
+                                <div id="playerStatisticsMobile"
+                                        class="mobile">
 
-                                        <tr>
-                                            <td>
-                                                Wins
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->wins : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->wins : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->wins : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->wins : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
+                                    <select class="difficultyOptions"
+                                            data-grid="playerStatisticsMobile"></select>
 
-                                        <tr>
-                                            <td>
-                                                Losses
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->gamesPlayed - $playerEasy->wins : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->gamesPlayed - $playerMedium->wins : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->gamesPlayed - $playerHard->wins : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->gamesPlayed - $playerMultiplayer->wins : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Completed Games
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->gamesPlayed : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->gamesPlayed : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->gamesPlayed : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->gamesPlayed : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Incomplete Games
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->incompleteGames : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->incompleteGames : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->incompleteGames : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->incompleteGames : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Total Games Started
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->gamesPlayed + $playerEasy->incompleteGames : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->gamesPlayed + $playerMedium->incompleteGames : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->gamesPlayed + $playerHard->incompleteGames : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Complete Game Rate Percentage
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? convertPercentage($playerEasy->gamesPlayed, $playerEasy->gamesPlayed + $playerEasy->incompleteGames) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? convertPercentage($playerMedium->gamesPlayed, $playerMedium->gamesPlayed + $playerMedium->incompleteGames) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? convertPercentage($playerHard->gamesPlayed, $playerHard->gamesPlayed + $playerHard->incompleteGames) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? convertPercentage($playerMultiplayer->gamesPlayed, $playerMultiplayer->gamesPlayed + $playerMultiplayer->incompleteGames) : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Total Shots Fired
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->totalShotsFired : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->totalShotsFired : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->totalShotsFired : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->totalShotsFired : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Total Shots Hit
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->totalShotsHit : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->totalShotsHit : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->totalShotsHit : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->totalShotsHit : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Accuracy
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? convertPercentage($playerEasy->totalShotsHit, $playerEasy->totalShotsFired) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? convertPercentage($playerMedium->totalShotsHit, $playerMedium->totalShotsFired) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? convertPercentage($playerHard->totalShotsHit, $playerHard->totalShotsFired) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? convertPercentage($playerMultiplayer->totalShotsHit, $playerMultiplayer->totalShotsFired) : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Total Shots Received
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? $playerEasy->totalHitsReceived : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? $playerMedium->totalHitsReceived : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? $playerHard->totalHitsReceived : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? $playerMultiplayer->totalHitsReceived : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                Total Playing Time
-                                            </td>
-                                            <td>
-                                                <?= $playerEasy ? convertPlayingTime($playerEasy->totalPlayingTime) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMedium ? convertPlayingTime($playerMedium->totalPlayingTime) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerHard ? convertPlayingTime($playerHard->totalPlayingTime) : 'Data Error'; ?>
-                                            </td>
-                                            <td>
-                                                <?= $playerMultiplayer ? convertPlayingTime($playerMultiplayer->totalPlayingTime) : 'Data Error'; ?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                
-                                </table>
-
+                                    <div class="tables"></div>
+                                </div>
                         </div>
 
                         <div data-page="all-scores"
@@ -376,61 +115,44 @@ function convertPercentage($small, $large) {
                                 style="display:none;">
 
                             <select>
-                                <option value="accumulative">Accumulative Score</option>
                                 <option value="high">High Score</option>
+                                <option value="accumulative">Accumulative Score</option>
                             </select>
-
-                            <div data-table="accumulative"
-                                    class="tableCont">
-                                <h2>Top Ten Accumulative Scores</h2>
-
-                                <table id="topTenScores">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
 
                             <div data-table="high"
                                     class="tableCont"
                                     style="display: none;">
                                 <h2>Top Ten High Scores</h2>
 
-                                <table id="topTenHighScores">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                <tbody></tbody>
-                                </table>
+                                <table id="topTenHighScores"
+                                        class="full"></table>
+
+                                <div id="topTenHighScoresMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenHighScoresMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
                             </div>
 
+                            <div data-table="accumulative"
+                                    class="tableCont">
+                                <h2>Top Ten Accumulative Scores</h2>
+
+                                <table id="topTenScores"
+                                        class="full"></table>
+
+                                <div id="topTenScoresMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenScoresMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div data-page="all-games"
@@ -448,25 +170,17 @@ function convertPercentage($small, $large) {
 
                                 <h2>Top Ten Number of Games Won</h2>
 
-                                <table id="topTenWins">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <table id="topTenWins"
+                                        class="full"></table>
+
+                                <div id="topTenWinsMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenWinsMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
                             </div>
 
                             <div data-table="played"
@@ -475,26 +189,17 @@ function convertPercentage($small, $large) {
 
                                 <h2>Top Ten Games Played</h2>
 
-                                <table id="topTenGamesPlayed">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <table id="topTenGamesPlayed"
+                                        class="full"></table>
 
+                                <div id="topTenGamesPlayedMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenGamesPlayedMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
                             </div>
 
                             <div data-table="playingTime"
@@ -503,28 +208,18 @@ function convertPercentage($small, $large) {
 
                                 <h2>Top Ten Total Playing Time</h2>
 
-                                <table id="topTenTotalPlayingTime">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <table id="topTenTotalPlayingTime"
+                                        class="full"></table>
 
+                                <div id="topTenTotalPlayingTimeMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenTotalPlayingTimeMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
                             </div>
-
                         </div>
 
                         <div data-page="all-shots"
@@ -543,26 +238,17 @@ function convertPercentage($small, $large) {
 
                                 <h2>Top Ten Total Shots Fired</h2>
 
-                                <table id="topTenTotalShotsFired">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <table id="topTenTotalShotsFired"
+                                        class="full"></table>
 
+                                <div id="topTenTotalShotsFiredMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenTotalShotsFiredMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
                             </div>
 
                             <div data-table="hit"
@@ -571,26 +257,17 @@ function convertPercentage($small, $large) {
 
                                 <h2>Top Ten Total Shots Hit</h2>
 
-                                <table id="topTenTotalShotsHit">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <table id="topTenTotalShotsHit"
+                                        class="full"></table>
 
+                                <div id="topTenTotalShotsHitMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenTotalShotsHitMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
                             </div>
 
                             <div data-table="received"
@@ -599,26 +276,17 @@ function convertPercentage($small, $large) {
 
                                 <h2>Top Ten Total Hits Received</h2>
 
-                                <table id="topTenTotalHitsReceived">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <table id="topTenTotalHitsReceived"
+                                        class="full"></table>
 
+                                <div id="topTenTotalHitsReceivedMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenTotalHitsReceivedMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
                             </div>
 
                             <div data-table="accuracy"
@@ -627,32 +295,20 @@ function convertPercentage($small, $large) {
 
                                 <h2>Top Ten Accuracy</h2>
 
-                                <table id="topTenTotalAccuracy">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Easy
-                                            </th>
-                                            <th>
-                                                Medium
-                                            </th>
-                                            <th>
-                                                Hard
-                                            </th>
-                                            <th>
-                                                Multiplayer
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <table id="topTenTotalAccuracy"
+                                        class="full"></table>
 
+                                <div id="topTenTotalAccuracyMobile"
+                                        class="mobile">
+
+                                    <select class="difficultyOptions"
+                                            data-grid="topTenTotalAccuracyMobile"></select>
+
+                                    <div class="tables"></div>
+                                </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
 

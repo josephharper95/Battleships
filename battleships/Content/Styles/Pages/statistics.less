@@ -2,7 +2,8 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+* V0.1      Nick    10/12/16    initial creation
+* V0.2      Nick    25/12/16    responsiveness
 * 
 */
 
@@ -189,11 +190,19 @@ html {
                     top: -2px;
                     border-radius: 20px;
 
-                    select {
-                        position: absolute;
-                        top: 10px;
-                        right: 10px;
-                        width: 150px;
+                    div.mobile {
+
+                        display: none;
+                    }
+
+                    table.full {
+
+                        select {
+                            position: absolute;
+                            top: 10px;
+                            right: 10px;
+                            width: 150px;
+                        }
                     }
 
                     h2 {
@@ -307,6 +316,150 @@ html {
                     &:nth-child(4) {
                         background-image: @texture-paper-1-large-landscape;
                         height: 390px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+
+    html {
+
+        body {
+
+            div#pageStatisticsCont {
+
+                div#pageStatistics {
+
+                    width: 850px;
+                    
+                    .object {
+
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 860px) {
+
+    html {
+
+        body {
+
+            div#pageStatisticsCont {
+
+                div#pageStatistics {
+
+                    width: 100%;
+                    height: 510px;
+                    top: 100px;
+
+                    #folderCont {
+
+                        #folder {
+
+                            width: 100%;
+
+                            #folderMenu {
+
+                                display: inline-block;
+                                width: 90%;
+                                left: 23px;
+                                top: 5px;
+                                overflow-x: auto;
+                                white-space: nowrap;
+                            }
+                        }
+                    }
+                    
+                    .folderArea {
+
+                        width: 100%;
+
+                        .subPage {
+
+                            width: 100%;
+                            height: 410px;
+
+                            &[data-page=player-stats] {
+
+                                height: 490px;
+                            }
+
+                            table.full {
+
+                                display: none;
+                            }
+
+                            > select {
+
+                                position: absolute;
+                                top: 55px;
+                                right: 120px;
+                            }
+
+                            div.mobile {
+
+                                display: inline-block;
+                                width: 100%;
+
+                                select {
+
+                                    width: 150px;
+
+                                    &.difficultyOptions {
+
+                                        width: 100px;
+                                        position: absolute;
+                                        top: 55px;
+                                        right: 10px;
+                                    }
+                                }
+
+                                .tables {
+                                    
+                                    display: block;
+                                    width: 90%;
+                                    margin: auto;
+                                }
+
+                                table {
+
+                                    width: 100%;
+                                    display: inline-table;
+                                    position: relative;
+                                    top: 20px;
+
+                                    tr {
+
+                                        td {
+
+                                            text-align: center;
+
+                                            > div {
+                                                display: inline-block;
+
+                                                label {
+
+                                                    padding-right: 10px;
+                                                    width: auto;
+                                                }
+
+                                                span {
+                                                    
+                                                    width: auto;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
