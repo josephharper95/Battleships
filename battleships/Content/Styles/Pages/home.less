@@ -4,6 +4,7 @@
 * 
 * V1.0      Nick    10/12/16    initial creation
 * V0.11     Nick    11/12/16    bug fixes
+* V0.2      Nick    28/12/16    fixed CSS bug where title spanned 2 lines
 * 
 */
 
@@ -183,6 +184,24 @@ html {
 
                     .poster {
                         display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    html {
+        body {
+
+            div#pageHomeCont {
+
+                div#pageHome {
+
+                    h1 {
+
+                        font-size: 2.5em;
                     }
                 }
             }

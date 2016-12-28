@@ -4,6 +4,7 @@
 *
 * V0.1      Nick    10/12/16    initial creation
 * V0.11     Nick    22/12/16    responsiveness fix
+* V0.12     Nick    28/12/16    spelling mistake
 *
 */
 
@@ -58,7 +59,7 @@ require_once("header.php");
                             Perks
                         </li>
                     </ul>
-                    That's right! You can know battle against your friends on different sized boards in our new multiplayer mode.
+                    That's right! You can now battle against your friends on different sized boards in our new multiplayer mode.
                     You can create a room for them to join, or you can battle against anyone in the world!
                     We have implemented a scoring model so that you can see if you are improving in your strategy.
                     All new statistics tracking means you can now see how good you are across all difficulties. 

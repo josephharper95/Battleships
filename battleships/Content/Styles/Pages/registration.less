@@ -2,7 +2,8 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+* V0.1  Nick    10/12/16    initial creation
+* V0.2  Nick    28/12/16    register page is now responsive
 * 
 */
 
@@ -150,6 +151,43 @@ html {
                             left: 105px;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 320px) {
+
+    html {
+        body {
+
+            div#pageRegistrationCont {
+
+                div#pageRegistration {
+                    width: 90%;
+
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-height: 370px) {
+    html {
+        body {
+
+            div#pageRegistrationCont {
+
+                position: fixed;
+                overflow-y: auto;
+
+                div#pageRegistration {
+
+                    @margin: 20px;
+                    bottom: auto;
+                    margin-top: @margin;
+                    margin-bottom: @margin;
                 }
             }
         }

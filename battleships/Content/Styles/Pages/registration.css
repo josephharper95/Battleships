@@ -2,7 +2,8 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+* V0.1  Nick    10/12/16    initial creation
+* V0.2  Nick    28/12/16    register page is now responsive
 * 
 */
 /**
@@ -11,6 +12,7 @@
 *
 * V0.1      Nick    05/12/16    initial creation
 * V0.2      Nick    07/12/16    added floor texture
+* V0.3      Nick    11/12/16    added shelf texture
 *
 **/
 /**
@@ -18,6 +20,9 @@
 * Last Modified By: Nick Holdsworth
 *
 * V0.1      Nick    05/12/16    initial creation
+* V0.2      Nick    11/12/16    added items for mission list and medal page
+* V0.3      Nick    19/12/16    added first character
+* V0.4      Nick    21/12/16    added second character
 *
 **/
 html body div#pageRegistrationCont {
@@ -138,4 +143,20 @@ html body div#pageRegistrationCont div#pageRegistration .logoCont .socialMedia.t
 html body div#pageRegistrationCont div#pageRegistration .logoCont .socialMedia.youtube {
   background-image: url('data:image/png;base64,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');
   left: 105px;
+}
+@media only screen and (max-width: 320px) {
+  html body div#pageRegistrationCont div#pageRegistration {
+    width: 90%;
+  }
+}
+@media only screen and (max-height: 370px) {
+  html body div#pageRegistrationCont {
+    position: fixed;
+    overflow-y: auto;
+  }
+  html body div#pageRegistrationCont div#pageRegistration {
+    bottom: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 }

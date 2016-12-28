@@ -2,7 +2,8 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+* V0.1  Nick    10/12/16    initial creation
+* V0.2  Nick    28/12/16    fixed issue where inputs looked weird with autocomplete in chrome
 * 
 */
 /**
@@ -11,6 +12,7 @@
 *
 * V0.1      Nick    05/12/16    initial creation
 * V0.2      Nick    07/12/16    added floor texture
+* V0.3      Nick    11/12/16    added shelf texture
 *
 **/
 /**
@@ -18,6 +20,9 @@
 * Last Modified By: Nick Holdsworth
 *
 * V0.1      Nick    05/12/16    initial creation
+* V0.2      Nick    11/12/16    added items for mission list and medal page
+* V0.3      Nick    19/12/16    added first character
+* V0.4      Nick    21/12/16    added second character
 *
 **/
 html body #pageLoginCont {
@@ -59,7 +64,7 @@ html body #pageLoginCont #pageLogin ul li {
 }
 html body #pageLoginCont #pageLogin ul li input {
   display: inline-block;
-  width: 100%;
+  width: 95%;
   font-family: 'Erasdust';
   background: none;
   border: none;
