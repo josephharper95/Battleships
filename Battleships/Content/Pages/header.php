@@ -41,6 +41,10 @@ require_once("../Classes/setup.php");
     <script type="text/javascript" src="../../Scripts/app.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
+
+    <?php
+        require_once("favicon.html");
+    ?>
 </head>
 
 <!-- Loader markup -->
