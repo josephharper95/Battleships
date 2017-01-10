@@ -93,6 +93,7 @@ if (Input::itemExists("register")) {
 
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
     <script type="text/javascript" src="../../Scripts/Pages/registration.js"></script>
+
 </head>
 <body>
 
@@ -100,6 +101,9 @@ if (Input::itemExists("register")) {
 
         <div id="pageRegistration"
 <?php
+
+	require_once("favicon.html");
+	
     if (Session::exists("registrationMessage")) {
         echo "class='extra'";
     }

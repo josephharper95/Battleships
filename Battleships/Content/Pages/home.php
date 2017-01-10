@@ -24,6 +24,8 @@ if(!Session::get("userID"))
 
 //require_once("header.php");
 
+require_once("favicon.html");
+
 ?>
 
 <html>

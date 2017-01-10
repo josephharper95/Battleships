@@ -56,6 +56,7 @@ if(Input::itemExists("userID") && Input::itemExists("password")) { // If user ha
     }
 }
 
+require_once("favicon.html");
 //require_once("header.php"); // Runs header.php file
 //Session::set("loginMessage", "The entered username and password combination could not be found.");
 ?>
