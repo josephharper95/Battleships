@@ -2,12 +2,14 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+*   V0.1    Nick    10/12/16    initial creation
+*   V0.2    Nick    10/01/17    added mission icons
 * 
 */
 
 @import "../textures.less";
 @import "../images.less";
+@import "../Images/missions.less";
 
 html {
 
@@ -61,21 +63,43 @@ html {
                             i {
                                 background-repeat: no-repeat;
                                 display: inline-block;
+                                height: 100px;
+                                width: 100px;
+                                background-size: 100px;
 
                                 &.fog {
 
-                                    background-image: @fog;
-                                    background-size: 130px 80px;
-                                    width: 130px;
-                                    height: 80px;
+                                    background-image: @mission-fog-of-war;
                                 }
 
                                 &.hardcore {
 
-                                    background-image: @hardcore;
-                                    background-size: 100px 100px;
-                                    height: 100px;
-                                    width: 100px;
+                                    background-image: @mission-hardcore;
+                                }
+
+                                &.last-stand {
+
+                                    background-image: @mission-last-stand;
+                                }
+
+                                &.against-the-clock {
+
+                                    background-image: @mission-against-the-clock;
+                                }
+
+                                &.pearl-harbour {
+
+                                    background-image: @mission-pearl-harbour;
+                                }
+
+                                &.island-warfare {
+
+                                    background-image: @mission-island-warfare;
+                                }
+
+                                &.waves {
+
+                                    background-image: @mission-wave;
                                 }
                             }
 

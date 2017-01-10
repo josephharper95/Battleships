@@ -6,6 +6,7 @@
 * V0.2      Nick    19/12/16    updates to mission list to go to new page
 * V0.21     Ncik    21/12/16    slight wording tweaks
 * V0.3      Nick    21/12/16    added rest of missions
+* V0.4      Nick    10/01/17    added icons
 *
 */
 
@@ -102,7 +103,9 @@ require_once("header.php");
             </tr>
 
             <tr>
-                <td></td>
+                <td>
+                    <i class="last-stand"></i>
+                </td>
 
                 <td>
                     <h3>Last - Stand</h3>
@@ -132,7 +135,9 @@ require_once("header.php");
             </tr>
 
             <tr>
-                <td></td>
+                <td>
+                    <i class="against-the-clock"></i>
+                </td>
 
                 <td>
                     <h3>Against the Clock</h3>
@@ -160,7 +165,9 @@ require_once("header.php");
             </tr>
 
             <tr>
-                <td></td>
+                <td>
+                    <i class="pearl-harbour"></i>
+                </td>
 
                 <td>
                     <h3>Pearl Harbour</h3>
@@ -188,7 +195,9 @@ require_once("header.php");
             </tr>
 
             <tr>
-                <td></td>
+                <td>
+                    <i class="island-warfare"></i>
+                </td>
 
                 <td>
                     <h3>Island Warfare</h3>
@@ -216,7 +225,9 @@ require_once("header.php");
             </tr>
 
             <tr>
-                <td></td>
+                <td>
+                    <i class="waves"></i>
+                </td>
 
                 <td>
                     <h3>Waves</h3>

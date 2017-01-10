@@ -6,6 +6,7 @@
  *  V0.1    Dave    03/10/16    initial creation
  *  V0.2    Dave    13/10.16    overidden fire method from the super class.
  *  V0.3    Nick    20/10/16    refactoring following code review
+ *  V0.31   Nick    10/01/17    bug fix - splice should have been passed an integer, not object
  * 
  */
 
@@ -46,7 +47,7 @@ AIMedium.prototype.fire = function() {
         opponentBoard.fire(coordinate.getX(), coordinate.getY());
 
         // remove the coordinate hit from the list of cells left
-        _cellsNotYetHit.splice(coordinate, 1);
+        _cellsNotYetHit.splice(rand, 1);
 
         // push the coordinate to the last hit stack
         this.lastHit.push(coordinate);

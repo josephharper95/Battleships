@@ -6,6 +6,7 @@
 * V0.1      Dave    01/10/16    initial creation
 * V0.11     Dave    05/10/16    Added comments
 * V0.2      Dave    13/10/16    Changed pattern to use methods attached to the prototype.
+* V0.3      Nick    10/01/16    Added the ability to pass custom ships
 *
 **/
 
@@ -48,11 +49,26 @@ AI.prototype = {
     /**
     * Funciton to randomly place ships on the board.
     */
-    placeShips: function(){
+    placeShips: function() {
+
         var _shipsPlaced = 0;
         var _ships = this.getShips();
         var _board = this.getBoard();
-        for(var i=0; i<_ships.length;i++){
+
+        if (opponentShipDetails) {
+
+            var x = new Array();
+
+            for (var i = 0; i < opponentShipDetails.length; i++) {
+                
+                x.push(new Ship(opponentShipDetails[i].name, opponentShipDetails[i].size));
+            }
+
+            // specify what ships the computer can place
+            _ships = x;
+        }
+
+        for (var i=0; i<_ships.length;i++) {
             //generate random coordinates
             var ori = Math.round((Math.random()));
             if(ori == 0){
@@ -74,32 +90,43 @@ AI.prototype = {
      * Function to fire on the enemy board. 
      * For the hack this will only include 'easy mode' in which the targeting is random.
      */
-    fire: function(){
+    fire: function() {
+
         var _cellsNotYetHit = this.getCellsNotYetHit();
         var _opponentBoard = this.getOpponentBoard();
-        if(this.lastHit!= null && this.lastHit.containsShip()){
+
+        if (this.lastHit!= null && this.lastHit.containsShip()) {
+
             var moves = _opponentBoard.getMovesAtAdjacentLocations(this.lastHit.getX(), this.lastHit.getY());
             var point = moves[0];
-            if(moves[0]){
-            _opponentBoard.fire(point.getX(), point.getY());
-            this.lastHit = point;
-            for (var i = 0; i < _cellsNotYetHit.length; i++) {
-                if (_cellsNotYetHit[i] == point) {         
-                    _cellsNotYetHit.splice(i, 1);
-                    i--;
+
+            if (moves[0]) {
+
+                _opponentBoard.fire(point.getX(), point.getY());
+                this.lastHit = point;
+                
+                for (var i = 0; i < _cellsNotYetHit.length; i++) {
+                
+                    if (_cellsNotYetHit[i] == point) {         
+                        _cellsNotYetHit.splice(i, 1);
+                        i--;
+                    }
                 }
-            }
-            return point;
+
+                return point;
             }
         }
         var cell = Math.floor((Math.random() * _cellsNotYetHit.length));
         var temp = _cellsNotYetHit[cell];
         
+        if (!_opponentBoard.canFire(temp.getX(), temp.getY())) {
+            alert("fuck");
+        }
+
         _opponentBoard.fire(temp.getX(), temp.getY());
         _cellsNotYetHit.splice(cell, 1);
         this.lastHit = temp;
-        return temp; 
-        
 
+        return temp;
     }
 }

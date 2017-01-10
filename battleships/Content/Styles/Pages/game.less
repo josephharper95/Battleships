@@ -5,6 +5,7 @@
 * V0.1  Nick    10/12/16    initial creation
 * V0.2  Nick    12/12/16    added responsive items
 * V0.3  Nick    22/12/16    changed hit from red colour to image
+* V0.4  Nick    10/01/17    added plane images
 * 
 */
 
@@ -64,8 +65,15 @@ html {
 
                         .shipsRemainingCont,
                         .perksCont {
+
                             background-size: 150px;
                             height: 190px;
+
+                            &.pearlHarbour {
+
+                                background-size: 230px;
+                                height: 300px;
+                            }
                         }
 
                         .perksCont {
@@ -156,6 +164,17 @@ html {
 
                                     &.destroyed {
                                         background-image: @carrier-side-on-destroyed;
+                                    }
+                                }
+
+                                &.Fighter-1,
+                                &.Fighter-2,
+                                &.Fighter-3,
+                                &.Fighter-4 {
+                                    background-image: @plane-side-on;
+
+                                    &.destroyed {
+                                        background-image: @plane-side-on-destroyed;
                                     }
                                 }
                             }
@@ -287,6 +306,20 @@ html {
                                             background-image: @carrier-v;
                                         }
                                     }
+
+                                    &[data-ship=Fighter-1],
+                                    &[data-ship=Fighter-2],
+                                    &[data-ship=Fighter-3],
+                                    &[data-ship=Fighter-4] {
+
+                                        &[data-orientation=Horizontal] {
+                                            background-image: @plane-h;
+                                        }
+
+                                        &[data-orientation=Vertical] {
+                                            background-image: @plane-v;
+                                        }
+                                    }
                                 }
 
                                 &:first-child {
@@ -352,6 +385,16 @@ html {
 
                                             &[data-orientation=Vertical] {
                                                 background-size: @size calc(@size * 5);
+                                            }
+                                        }
+
+                                        &[data-ship=Fighter] {
+                                            &[data-orientation=Horizontal] {
+                                                background-size: @size @size;
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-size: @size @size;
                                             }
                                         }
 
@@ -461,6 +504,19 @@ html {
                                             }
                                         }
 
+                                        &[data-ship=Fighter-1],
+                                        &[data-ship=Fighter-2],
+                                        &[data-ship=Fighter-3],
+                                        &[data-ship=Fighter-4] {
+                                            &[data-orientation=Horizontal] {
+                                                background-size: @size @size;
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-size: @size @size;
+                                            }
+                                        }
+
                                         &[data-ship-part="0"] {
                                             &[data-orientation=Horizontal] {
                                                 background-position-x: 0;
@@ -564,6 +620,19 @@ html {
 
                                             &[data-orientation=Vertical] {
                                                 background-size: @size calc(@size * 5);
+                                            }
+                                        }
+
+                                        &[data-ship=Fighter-1],
+                                        &[data-ship=Fighter-2],
+                                        &[data-ship=Fighter-3],
+                                        &[data-ship=Fighter-4] {
+                                            &[data-orientation=Horizontal] {
+                                                background-size: @size @size;
+                                            }
+
+                                            &[data-orientation=Vertical] {
+                                                background-size: @size @size;
                                             }
                                         }
 

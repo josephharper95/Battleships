@@ -4,6 +4,7 @@
  *  V0.2    Nick    21/12/16    added hardcore mode
  *  V0.3    Nick    21/12/16    added fog of war mode
  *  V0.4    Nick    21/12/16    added against the clock mode
+ *  V0.5    Nick    10/01/17    added pearl harbour
  * 
  */
 
@@ -97,10 +98,6 @@ function initialise() {
 
         switch (mission.name) {
 
-            case "last-stand":
-                initLastStand();
-                break;
-
             case "fog-of-war":
                 initFogOfWar();
                 break;
@@ -109,8 +106,16 @@ function initialise() {
                 initHardcore();
                 break;
 
+            case "last-stand":
+                initLastStand();
+                break;
+
             case "against-the-clock":
                 initAgainstTheClock();
+                break;
+
+            case "pearl-harbour":
+                initPearlHarbour();
                 break;
         }
     }
@@ -152,6 +157,50 @@ function initFogOfWar() {
 function initAgainstTheClock() {
 
     $.getScript("../../Scripts/Overrides/againstTheClock.js");
+}
+
+function initPearlHarbour() {
+
+    opponentShipDetails = [
+        {
+            name: "Destroyer",
+            size: 2
+        },
+        {
+            name: "Submarine",
+            size: 3
+        },
+        {
+            name: "Cruiser",
+            size: 3
+        },
+        {
+            name: "BattleShip",
+            size: 4
+        },
+        {
+            name: "Carrier",
+            size: 5
+        },
+        {
+            name: "Fighter-1",
+            size: 1
+        },
+        {
+            name: "Fighter-2",
+            size: 1
+        },
+        {
+            name: "Fighter-3",
+            size: 1
+        },
+        {
+            name: "Fighter-4",
+            size: 1
+        }
+    ];
+
+    $(opponentContainer + " .shipsRemainingCont").addClass("pearlHarbour");
 }
 
 function runIntro() {
