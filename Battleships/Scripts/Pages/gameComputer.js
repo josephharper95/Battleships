@@ -31,6 +31,7 @@
  * V1.3     Nick    07/12/16    changed alerts to new timeout message functionality
  * V1.31    Nick    10/12/16    updated updatePerks() so if it is zero or less insted of just zero
  * V1.32    Nick    11/12/16    changed page links to ajax files
+ * V2.0     Dave    16/01/17    added ajax to check medal unlocks
  * 
  */
 
@@ -442,6 +443,18 @@ function endGame(winner, finished) {
             totalShots: totalShots,
             playingTime: playingTime,
             gameScore: gameScore
+        },
+        type: "post"
+    });
+
+    //Check if medal conditions are met
+    $.ajax({
+        url: "../../Content/Ajax/medalAjax.php",
+        data: {
+            action: "checkMedalConditions",
+            difficulty: difficulty,
+            winner: winner,
+            boardSize: boardSize
         },
         type: "post"
     });

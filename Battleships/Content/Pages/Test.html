@@ -29,13 +29,18 @@
                 playerBoard.toString();
                 playerBoard.healShipCoord(1,1);
                 playerBoard.toString();
+            
+
+            $.ajax({
+                url: "../../Content/Ajax/medalAjax.php",
+                data: {
+                    action: "checkMedalConditions",
+                    difficulty: "easy",
+                    winner: "player"
+                },
+                type: "post"
+            });
                 
-                
-
-
-
-
-
             });
         </script>
     </body>
