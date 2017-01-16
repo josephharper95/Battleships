@@ -1,7 +1,7 @@
 /**
 *
 * Last Modified By: Joe Harper
-* Current Version: 0.01
+* Current Version: 0.19
 *
 * V0.1    Joe   01/10/16    initial creation
 * V0.11   Joe   03/01/16    added first name / last name to user
@@ -9,7 +9,10 @@
 * V0.13   Nick  01/11/16    updated difficulties to be capitalised
 * V0.14   Joe   14/11/16    added "multiplayer" difficulty for stats and cleaned sql file
 * V0.15   Joe   14/11/16    added "incompleteGames" column to userstatistics
-*
+* V0.16   Joe   01/12/16    added high score
+* V0.17   Joe   14/12/16    added support for medals
+* V0.18   Joe   20/12/16    added email address field
+* V0.19   Joe   16/01/17    populated 6 medals
 **/
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -135,3 +138,9 @@ ALTER TABLE `usermedals` ADD CONSTRAINT `Medal ID` FOREIGN KEY (`medalID`) REFER
 
 /*Added 20/12/2016 - Email address field*/
 ALTER TABLE `users` ADD `emailAddress` VARCHAR(255) NOT NULL AFTER `lastName`;
+
+/*Added 16/01/2017 - Populated 6 medals*/
+INSERT INTO `medals` (`medalID`, `medalName`) VALUES (NULL, 'Win Easy Difficulty'), (NULL, 'Win Medium Difficulty'), (NULL, 'Win Hard Difficulty'), (NULL, 'Win Small Board'), (NULL, 'Win Medium Board'), (NULL, 'Win Large Board');
+
+/*Added 16/01/2017 - Added autoincrement to usermedalsID in usermedals table*/
+ALTER TABLE `usermedals` CHANGE `usermedalID` `usermedalID` INT(11) NOT NULL AUTO_INCREMENT;

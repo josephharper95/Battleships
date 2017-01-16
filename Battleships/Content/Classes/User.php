@@ -2,8 +2,8 @@
 
 /**
 *
-* Last Modified By: Nick Holdsworth
-* Current Version: 0.13
+* Last Modified By: Joe Harper
+* Current Version: 0.20
 *
 * V0.1      Joe     21/10/16    initial creation
 * V0.11     Joe     26/10/16    altered user statistics insert (now inserts a line per difficulty)
@@ -14,7 +14,8 @@
 * V0.16     Joe     14/11/16    updated queries to reflect addition of new "incompleteGames" column
 * V0.17     Joe     01/12/16    updated methods + added method to reflect the addition of a new "highScore" column
 * V0.18     Joe     01/12/16    added getMultiplayerDataByUserID method
-* V0.2      Nick    03/12/16    added accuracy top 10, made it so stats must be above 0
+* V0.19     Nick    03/12/16    added accuracy top 10, made it so stats must be above 0
+* V0.20     Joe     16/01/17  added medal queries
 *
 **/
 
@@ -54,6 +55,15 @@ class User {
                         (?, '3', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
                         (?, '4', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
         $values = array($userID, $userID, $userID, $userID);
+
+        $this->db->query($sql, $values);
+    }
+
+    //Function to unlock user medals by adding the userID and medalID into the link table
+    function unlockMedal($userID, $medalID) {
+        $sql = "INSERT INTO usermedals (userID, medalID)
+                VALUES (?, ?)";
+        $values = array($userID, $medalID);
 
         $this->db->query($sql, $values);
     }
@@ -281,6 +291,20 @@ class User {
 				FROM userstatistics us
 				WHERE us.difficultyID = 4 AND us.userID = ?
 				LIMIT 1";
+        $values = array($userID);
+		
+		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
+	}
+
+    //Function to execute a query, getting the users medals
+   	function getMedalsByUserID($userID) {
+        $sql = "SELECT m.medalID, m.medalName
+				FROM usermedals um
+                    JOIN medals m
+                        ON um.medalID = m.medalID
+				WHERE um.userID = ?";
         $values = array($userID);
 		
 		$this->db->query($sql, $values);
