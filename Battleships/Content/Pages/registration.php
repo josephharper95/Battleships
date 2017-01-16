@@ -3,7 +3,7 @@
 /**
 *
 * Last Modified By: Joe Harper
-* Current Version: 0.2
+* Current Version: 1.13
 *
 * V0.1      Joe  	01/10/16    initial creation
 * V0.2 		Nick 	03/10/16 	added first / last name
@@ -12,6 +12,8 @@
 * V1.0 		Nick 	27/11/16 	updated for new design
 * V1.1 		Nick 	06/12/16 	added social media links
 * V1.12 	Nick 	12/12/16 	added individual CSS file
+* V1.13     Joe     20/12/16    added  email address to registration
+* V1.14     Joe     16/01/17    favicon was loaded in pageRegistration div causing cosmetic bug, now loads after div
 *
 **/
 
@@ -100,15 +102,15 @@ if (Input::itemExists("register")) {
 	<div id="pageRegistrationCont">
 
         <div id="pageRegistration"
-<?php
-
-	require_once("favicon.html");
-	
+<?php	
     if (Session::exists("registrationMessage")) {
         echo "class='extra'";
     }
 ?>
         >
+<?php
+	require_once("favicon.html");
+?>
 		
 			<h1>BattleShips Online</h1>
 
