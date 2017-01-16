@@ -53,7 +53,8 @@ if (Input::itemExists("register")) {
 						} else { // No issues with input, user inserted into DB and redirected
 
 							$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName, $emailAddress);
-							Session::set("loginMessage", "User successfully registered with pending email confirmation. Enter your credentials to log in.");
+							confirmationEmail($userID, $firstName, $lastName, $emailAddress);
+							Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
 							header("Location: login.php");
 							exit();
 						}
@@ -207,8 +208,77 @@ if (Input::itemExists("register")) {
 </html>
 
 <?php 
-	function validEmail($email) {
+	function validEmail($email) 
+	{
         return !!filter_var($email, FILTER_VALIDATE_EMAIL);
     }
+
+	function confirmationEmail($userID, $firstName, $lastName, $emailAddress)
+	{
+		require("../../Scripts/PHPMailer/class.PHPMailer.php");
+
+		/*$mail = new PHPMailer();
+
+		$mail->IsSMTP(); // set mailer to use SMTP
+		$mail->SMTPDebug  = 1;
+		$mail->Host = "smtp-mail.outlook.com";  // specify main and backup server
+		$mail->SMTPAuth = true;     // turn on SMTP authentication
+		$mail->SMTPSecure = 'starttls';
+		$mail->Port = 587;
+		
+		$mail->Username = "battleshipsonlinetest@outlook.com";  // SMTP username
+		$mail->Password = "captainsinkswithhisship2017"; // SMTP password
+
+		$mail->SetFrom = "battleshipsonlinetest@outlook.com";
+		$mail->FromName = "BattleShips Online";
+		$mail->AddAddress($emailAddress);                  // name is optional
+		
+		//$mail->AddReplyTo("info@example.com", "Information");
+
+		$mail->WordWrap = 50;                                 // set word wrap to 50 characters
+		//$mail->AddAttachment("/var/tmp/file.tar.gz");         // add attachments
+		//$mail->AddAttachment("/tmp/image.jpg", "new.jpg");    // optional name
+		$mail->IsHTML(true);                                  // set email format to HTML
+
+		$mail->Subject = "Welcome to BattleShips Online!";
+		$mail->Body    = "Hello Captain ".$firstName." ".$lastName.", and welcome to BattleShips Online, the new and improved online version of the classic board game!";
+		$mail->AltBody = "Hello Captain ".$firstName." ".$lastName.", and welcome to BattleShips Online, the new and improved online version of the classic board game!"; */
+
+		$account="battleshipsonlinetest@outlook.com";
+		$password="captainsinkswithhisship2017";
+		$to="josephharper@live.co.uk";
+		$from="battleshipsonlinetest@outlook.com";
+		$from_name="BattleShips Online";
+		$msg="Hello Captain ".$firstName." ".$lastName.", and welcome to BattleShips Online, the new and improved online version of the classic board game!"; // HTML message
+		$subject="Welcome to BattleShips Online!";
+
+		$mail = new PHPMailer();
+		$mail->IsSMTP();
+		$mail->SMTPDebug  = 1;
+		$mail->CharSet = 'UTF-8';
+		$mail->Host = "smtp.live.com";
+		$mail->SMTPAuth= true;
+		$mail->Port = 587;
+		$mail->Username= $account;
+		$mail->Password= $password;
+		$mail->SMTPSecure = 'tls';
+		$mail->From = $from;
+		$mail->FromName= $from_name;
+		$mail->isHTML(true);
+		$mail->Subject = $subject;
+		$mail->Body = $msg;
+		$mail->addAddress($to);
+
+		if(!$mail->Send())
+		{
+		echo "Message could not be sent. <p>";
+		echo "Mailer Error: " . $mail->ErrorInfo;
+		exit;
+		}
+
+		echo "Message has been sent";
+	}
+
+
     Session::delete("registrationMessage");
 ?>
