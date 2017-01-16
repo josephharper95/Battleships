@@ -7,8 +7,11 @@
 * V0.11     Dave    05/10/16    Added comments
 * V0.2      Dave    13/10/16    Changed pattern to use methods attached to the prototype.
 * V0.3      Nick    10/01/16    Added the ability to pass custom ships
+* V0.31     Nick    16/01/16    Fixed bug where opponentShipDetails was not defined
 *
 **/
+
+var opponentShipDetails;
 
 function AI(name, board, opponentBoard){
     //Create ships
