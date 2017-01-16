@@ -269,14 +269,16 @@ if (Input::itemExists("register")) {
 		$mail->Body = $msg;
 		$mail->addAddress($to);
 
-		if(!$mail->Send())
+		$mail->Send();
+
+		/*if(!$mail->Send())
 		{
 		echo "Message could not be sent. <p>";
 		echo "Mailer Error: " . $mail->ErrorInfo;
 		exit;
 		}
 
-		echo "Message has been sent";
+		echo "Message has been sent";*/
 	}
 
 
