@@ -250,7 +250,7 @@ if (Input::itemExists("register")) {
 		$from="battleshipsonlinetest@outlook.com";
 		$from_name="BattleShips Online";
 		$msg="Hello Captain ".$firstName." ".$lastName.", and welcome to BattleShips Online, the new and improved online version of the classic board game!
-			<br> Your User ID is: ".$userID; // HTML message
+			<br/> Your User ID is: ".$userID; // HTML message
 		$subject="Welcome to BattleShips Online!";
 
 		$mail = new PHPMailer();
