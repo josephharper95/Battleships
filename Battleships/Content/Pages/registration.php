@@ -227,7 +227,7 @@ if (Input::itemExists("register")) {
 		$mail->Port = 587;
 		
 		$mail->Username = "battleshipsonlinetest@outlook.com";  // SMTP username
-		$mail->Password = "captainsinkswithhisship2017"; // SMTP password
+		$mail->Password = "captainsinkswithship2017"; // SMTP password
 
 		$mail->SetFrom = "battleshipsonlinetest@outlook.com";
 		$mail->FromName = "BattleShips Online";
@@ -245,7 +245,7 @@ if (Input::itemExists("register")) {
 		$mail->AltBody = "Hello Captain ".$firstName." ".$lastName.", and welcome to BattleShips Online, the new and improved online version of the classic board game!"; */
 
 		$account="battleshipsonlinetest@outlook.com";
-		$password="captainsinkswithhisship2017";
+		$password="captainsinkswithship2017";
 		$to="josephharper@live.co.uk";
 		$from="battleshipsonlinetest@outlook.com";
 		$from_name="BattleShips Online";
