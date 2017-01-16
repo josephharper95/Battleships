@@ -144,3 +144,7 @@ INSERT INTO `medals` (`medalID`, `medalName`) VALUES (NULL, 'Win Easy Difficulty
 
 /*Added 16/01/2017 - Added autoincrement to usermedalsID in usermedals table*/
 ALTER TABLE `usermedals` CHANGE `usermedalID` `usermedalID` INT(11) NOT NULL AUTO_INCREMENT;
+
+/*Added 16/01/2017 - Added pendingpasswordresets table*/
+CREATE TABLE `battleships`.`pendingpasswordresets` ( `pendingPasswordResetID` INT NOT NULL AUTO_INCREMENT , `userID` VARCHAR(20) NOT NULL , `resetNumber` INT NOT NULL , PRIMARY KEY (`pendingPasswordResetID`), INDEX `userID` (`userID`)) ENGINE = InnoDB;
+ALTER TABLE `pendingpasswordresets` ADD FOREIGN KEY (`userID`) REFERENCES `battleships`.`users`(`userID`) ON DELETE CASCADE ON UPDATE CASCADE;

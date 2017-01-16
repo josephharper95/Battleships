@@ -426,6 +426,17 @@ class User {
         $this->db->query($sql, $values);
     }
 
+    // Function sets new password for user with specified ID
+    function updatePasswordByUserID($userID, $encryptedPassword)
+	{
+		$sql = "UPDATE users
+				SET password = ?
+                WHERE userID = ?";
+        $values = array($encryptedPassword, $userID);
+
+        $this->db->query($sql, $values);
+    }
+
 #endregion
 
 }
