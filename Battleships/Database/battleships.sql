@@ -13,6 +13,7 @@
 * V0.17   Joe   14/12/16    added support for medals
 * V0.18   Joe   20/12/16    added email address field
 * V0.19   Joe   16/01/17    populated 6 medals
+* V0.2    Nick  17/01/17    added extra medals
 **/
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -143,7 +144,13 @@ ALTER TABLE `users` ADD `emailAddress` VARCHAR(255) NOT NULL AFTER `lastName`;
 ALTER TABLE `medals` ADD `medalCategory` VARCHAR(50) NOT NULL AFTER `medalName`;
 
 /*Added 16/01/2017 - Populated 6 medals*/
-INSERT INTO `medals` (`medalID`, `medalName`, `medalCategory`) VALUES ('1', 'Win Easy Difficulty', 'changeMe'), ('2', 'Win Medium Difficulty', 'changeMe'), ('3', 'Win Hard Difficulty', 'changeMe'), ('4', 'Win Small Board', 'changeMe'), ('5', 'Win Medium Board', 'changeMe'), ('6', 'Win Large Board', 'changeMe');
+INSERT INTO `medals` (`medalID`, `medalName`, `medalCategory`) 
+VALUES  ('1', 'Win Easy Difficulty', 'bronze'), 
+        ('2', 'Win Medium Difficulty', 'silver'), 
+        ('3', 'Win Hard Difficulty', 'gold'), 
+        ('4', 'Win Small Board', 'bronze'), 
+        ('5', 'Win Medium Board', 'silver'), 
+        ('6', 'Win Large Board', 'gold');
 
 /*Added 16/01/2017 - Added autoincrement to usermedalsID in usermedals table*/
 ALTER TABLE `usermedals` CHANGE `usermedalID` `usermedalID` INT(11) NOT NULL AUTO_INCREMENT;
@@ -153,4 +160,18 @@ CREATE TABLE `battleships`.`pendingpasswordresets` ( `pendingPasswordResetID` IN
 ALTER TABLE `pendingpasswordresets` ADD FOREIGN KEY (`userID`) REFERENCES `battleships`.`users`(`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*Added 17/01/2017 - Added a few more medals*/
-INSERT INTO `medals` (`medalID`, `medalName`, `medalCategory`) VALUES ('7', 'Win 10 Games', 'changeMe'), ('8', 'Win 50 Games', 'changeMe'), ('9', 'Win 100 Games', 'changeMe'), ('10', 'Complete Game With 80% Accuracy', 'changeMe'), ('11', 'Use No Perks', 'changeMe'), ('12', 'Receive No Hits', 'changeMe'), ('13', 'Complete Fog Of War', 'changeMe'), ('14', 'Complete Hardcore', 'changeMe'), ('15', 'Complete Last Stand', 'changeMe'), ('16', 'Complete Against The Clock', 'changeMe'), ('17', 'Complete Pearl Harbour', 'changeMe');
+INSERT INTO `medals` (`medalID`, `medalName`, `medalCategory`) 
+VALUES  ('7', 'Win 10 Games', 'bronze'), 
+        ('8', 'Win 50 Games', 'silver'), 
+        ('9', 'Win 100 Games', 'gold'), 
+        ('10', 'Complete Game With 80% Accuracy', 'purple-heart'), 
+        ('11', 'Win Without Using Perks', 'cross'), 
+        ('12', 'Receive No Hits', 'purple-heart'), 
+        ('13', 'Complete Fog Of War', 'fog-of-war'), 
+        ('14', 'Complete Hardcore', 'hardcore'), 
+        ('15', 'Complete Last Stand', 'last-stand'), 
+        ('16', 'Complete Against The Clock', 'against-the-clock'), 
+        ('17', 'Complete Pearl Harbour', 'pearl-harbour'),
+        ('18', 'Complete Island Warfare', 'island-warfare'),
+        ('19', 'Complete Waves', 'waves'),
+        ('20', 'Win a Multiplayer Game', 'waves');
