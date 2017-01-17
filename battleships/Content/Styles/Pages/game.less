@@ -6,6 +6,7 @@
 * V0.2  Nick    12/12/16    added responsive items
 * V0.3  Nick    22/12/16    changed hit from red colour to image
 * V0.4  Nick    10/01/17    added plane images
+* V0.5  Nick    17/01/17    changes to maps
 * 
 */
 
@@ -199,6 +200,13 @@ html {
                         height: 400px;
                         background-image: @board-outline;
 
+                        &[data-size=medium] {
+
+                            background-size: 415px 415px;
+                            height: 405px;
+                            width: 405px;
+                        }
+
                         > tbody {
                             > tr {
                                 > td {
@@ -234,7 +242,7 @@ html {
 
                                             .hit {
 
-                                                display: inline-block;
+                                                display: table;
                                                 height: 100%;
                                                 width: 100%;
                                                 background-image: @ship-hit;
@@ -697,6 +705,7 @@ html {
                         text-align: center;
                         position: relative;
                         top: -5px;
+                        min-height: 80px;
 
                         button {
 
@@ -730,6 +739,38 @@ html {
                         h4 {
                             position: relative;
                         }
+                    }
+
+                    .mapCont {
+                        z-index: 200;
+                        position: absolute;
+                        top: 40px;
+
+                        display: inline-block !important;
+                        height: 0;
+                        width: 0;
+                        overflow: visible;
+
+                        .map {
+                            display: inline-block;
+                            width: 395px;
+                            height: 395px;
+                            top: 0;
+                            left: 0;
+                            background-image: @texture-map;
+                            background-size: 395px;
+
+                            &[data-size=medium] {
+
+                                width: 400px;
+                                height: 400px;
+                                background-size: 400px;
+                            }
+                        }
+                    }
+
+                    .board {
+                        z-index: 300;
                     }
                 }
 
@@ -776,18 +817,6 @@ html {
                         float: left;
                     }
                 }
-            }
-
-            .map {
-
-                background-image: @texture-map;
-                height: 399px;
-                width: 813px;
-                position: absolute;
-                top: 39px;
-                left: 187px;
-                z-index: 250;
-                background-position: center;
             }
 
             #scoreModal {
@@ -898,22 +927,6 @@ html {
                     }
                 }
 
-                .map,
-                .map2 {
-                    display: inline-block;
-                    width: 395px;
-                    height: 395px;
-                    display: none;
-                }
-
-                .map2 {
-                    background-image: @texture-map;
-                    background-position-x: 395px;
-                    position: relative;
-                    top: -412px;
-                    left: @margin;
-                }
-
                 div.sideContainer {
 
                     div.boardExtrasContainer {
@@ -939,38 +952,6 @@ html {
                                     }
                                 }
                             }
-                        }
-                    }
-
-                    .boardContainer {
-                        .mapCont {
-                            z-index: 200;
-                            position: relative;
-                            top: -430px;
-
-
-                            display: inline-block !important;
-                            height: 0;
-                            width: 0;
-                            overflow: visible;
-
-                            .map {
-                                display: inline-block;
-                                width: 395px;
-                                height: 395px;
-                                top: 0;
-                                left: 0;
-                            }
-
-                            .map {
-                                background-image: @texture-map;
-                                // left: 11px;
-                                // top: 78px;
-                            }
-                        }
-
-                        .board {
-                            z-index: 300;
                         }
                     }
 
@@ -1189,13 +1170,6 @@ html {
                         }
                     }
                 }
-
-                .map {
-                    height: 333px;
-                    width: 680px;
-                    top: 34px;
-                    left: 175px;
-                }
             }
         }
     }
@@ -1227,23 +1201,7 @@ html {
                         margin-top: 35px;
                     }
                 }
-
-                .map,
-                .map2 {
-                    display: inline-block;
-                    width: 395px;
-                    height: 395px;
-                }
-
-                .map2 {
-                    background-image: @texture-map;
-                    background-position-x: 395px;
-                    position: relative;
-                    top: -412px;
-                    left: @margin;
-                }
             }
         }
     }
-
 }

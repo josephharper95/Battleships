@@ -8,6 +8,7 @@
 *   V0.4    Nick    21/12/16    against the clock implemented
 *   V0.5    Nick    22/12/16    added piece to add image on ship hit, and included game.css
 *   V0.6    Nick    10/01/17    added pearl harbour into switch
+*   V0.7    Nick    17/01/17    added initials to waves
 *
 */
 
@@ -86,7 +87,28 @@ switch ($mission) {
         $size = 15;
         $difficultyText = "Medium";
         break;
+
+    case "waves":
+
+        $character = "friendly";
+        $missionTitle = "Waves";
+        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $sizeClass = "large";
+        $size = 20;
+        $difficultyText = "Easy";
+        break;
 }
+
+$missionSplit = explode("-", $mission);
+
+for ($i = 0; $i < count($missionSplit); $i++) {
+
+    
+
+    $missionSplit[$i][0] = strtoupper($missionSplit[$i][0]);
+}
+
+$missionName = implode($missionSplit);
 
 require_once("header.php");
 
@@ -179,9 +201,9 @@ require_once("header.php");
                         <?php echo createBoard(); ?>
                     </table>
 
-                    <div class="mapCont"
-                            style="display:none">
-                        <div class="map"></div>
+                    <div class="mapCont">
+                        <div class="map"
+                                data-size="<?= $sizeClass; ?>"></div>
                     </div>
 
                     <!-- button to start game, hidden at first -->
@@ -240,14 +262,16 @@ require_once("header.php");
                 <!-- container for opponent board -->
                 <div class="boardContainer">
 
+                    <h3><?= $missionName; ?></h3>
+
                     <!-- opponents board, populated relating to the size -->
                     <table id="computerBoard" class="board" data-size="<?= $sizeClass; ?>" >
                         <?php echo createBoard(); ?>
                     </table>
 
-                    <div class="mapCont"
-                            style="display:none">
-                        <div class="map"></div>
+                    <div class="mapCont">
+                        <div class="map"
+                                data-size="<?= $sizeClass; ?>"></div>
                     </div>
 
                     <div class="buttonContainer">
@@ -263,13 +287,6 @@ require_once("header.php");
                     </div>
                 </div>
             </div>
-
-            <div class="mapCont"
-                    style="height:0;width:0;overflow:visible;">
-                <div class="map"></div>
-                <div class="map2"></div>
-            </div>
-
         </div>
 
         <div id="introOverlay"></div>
