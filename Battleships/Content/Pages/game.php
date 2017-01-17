@@ -24,6 +24,7 @@
 * V0.55     Nick    09/12/16    added responsiveness pieces
 * V0.56     Nick    12/12/16    added individual CSS file
 * V0.57     Nick    22/12/16    added class into board td to allow for image to show on destroy
+* V0.58     Nick    17/01/17    changed how maps are laid out on screen
 *
 **/
 
@@ -148,9 +149,9 @@ require_once("header.php");
                         <?php echo createBoard(); ?>
                     </table>
 
-                    <div class="mapCont"
-                            style="display:none">
-                        <div class="map"></div>
+                    <div class="mapCont">
+                        <div class="map"
+                                data-size="<?= $sizeClass; ?>"></div>
                     </div>
 
                     <!-- button to start game, hidden at first -->
@@ -216,9 +217,10 @@ require_once("header.php");
                         <?php echo createBoard(); ?>
                     </table>
 
-                    <div class="mapCont"
-                            style="display:none">
-                        <div class="map"></div>
+                    <div class="mapCont" >
+
+                        <div class="map"
+                                data-size="<?= $sizeClass; ?>"></div>
                     </div>
 
                     <div class="buttonContainer">
@@ -232,12 +234,6 @@ require_once("header.php");
                         
                     </div>
                 </div>
-            </div>
-
-            <div class="mapCont"
-                    style="height:0;width:0;overflow:visible;">
-                <div class="map"></div>
-                <div class="map2"></div>
             </div>
 
             <div id="scoreModalOverlay"

@@ -7,6 +7,7 @@
 * V0.21     Ncik    21/12/16    slight wording tweaks
 * V0.3      Nick    21/12/16    added rest of missions
 * V0.4      Nick    10/01/17    added icons
+* V0.41     Nick    17/01/17    fixed issue with naming
 *
 */
 
@@ -214,7 +215,7 @@ require_once("header.php");
 
                         <input type="hidden"
                                 name="missionName"
-                                value="against-the-clock" />
+                                value="island-warfare" />
 
                         <button type="submit"
                                 value="mission">

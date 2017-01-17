@@ -5,6 +5,7 @@
  *  V0.3    Nick    21/12/16    added fog of war mode
  *  V0.4    Nick    21/12/16    added against the clock mode
  *  V0.5    Nick    10/01/17    added pearl harbour
+ *  V0.6    Nick    17/01/17    initial waves
  * 
  */
 
@@ -117,6 +118,10 @@ function initialise() {
             case "pearl-harbour":
                 initPearlHarbour();
                 break;
+
+            case "waves":
+                initWaves();
+                break;
         }
     }
 }
@@ -201,6 +206,11 @@ function initPearlHarbour() {
     ];
 
     $(opponentContainer + " .shipsRemainingCont").addClass("pearlHarbour");
+}
+
+function initWaves() {
+
+    $.getScript("../../Scripts/Overrides/waves.js");
 }
 
 function runIntro() {

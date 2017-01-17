@@ -19,6 +19,7 @@
 * V0.72     Nick    09/12/16    extra pieces for responsiveness
 * V0.73     Nick    12/12/16    added individual CSS file
 * V0.74     Nick    28/12/16    CSS now loaded first to stop FoUC
+* V0.8      Nick    17/01/17    changed maps
 *
 */
 
@@ -206,9 +207,9 @@ require_once("header.php");
                 <!-- players board, populated relating to the size -->
                 <table id="playerBoard" class="board" data-size="small" ></table>
 
-                <div class="mapCont"
-                        style="display:none">
-                    <div class="map"></div>
+                <div class="mapCont">
+                    <div class="map"
+                            data-size="<?= $sizeClass; ?>"></div>
                 </div>
 
                 <!-- button to start game, hidden at first -->
@@ -271,9 +272,9 @@ require_once("header.php");
                 <!-- opponents board, populated relating to the size -->
                 <table id="opponentBoard" class="board" data-size="small" ></table>
 
-                <div class="mapCont"
-                        style="display:none">
-                    <div class="map"></div>
+                <div class="mapCont">
+                    <div class="map"
+                            data-size="<?= $sizeClass; ?>"></div>
                 </div>
 
                 <div class="buttonContainer">
@@ -288,9 +289,6 @@ require_once("header.php");
                 </div>
             </div>
         </div>
-
-        <div class="map"></div>
-        <div class="map2"></div>
 
         <div id="scoreModalOverlay"
                 class="overlay"></div>
