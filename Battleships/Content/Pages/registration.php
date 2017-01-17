@@ -217,16 +217,6 @@ if (Input::itemExists("register")) {
 	{
 		require("../../Scripts/PHPMailer/class.PHPMailer.php");
 
-		/*
-		$mail->SetFrom = "battleshipsonlinetest@outlook.com";
-		
-		//$mail->AddReplyTo("info@example.com", "Information");
-
-		$mail->WordWrap = 50;                                 // set word wrap to 50 characters
-		//$mail->AddAttachment("/var/tmp/file.tar.gz");         // add attachments
-		//$mail->AddAttachment("/tmp/image.jpg", "new.jpg");    // optional name
-		*/
-
 		$account="battleshipsonlinetest@outlook.com";
 		$password="captainsinkswithship2017";
 		$to=$emailAddress;
