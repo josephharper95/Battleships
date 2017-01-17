@@ -75,6 +75,10 @@ require_once("favicon.html");
                 </li>
 
                 <li>
+                    <a href="changePassword.php">Change Password</a>
+                </li>
+
+                <li>
                     <a href="help.php">Help</a>
                 </li>
 

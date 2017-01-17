@@ -111,6 +111,14 @@ require_once("../Classes/setup.php");
                     <a href="about.php">About</a>
                 </li>
 
+                <li>
+                    <a href="changePassword.php">Change Password</a>
+                </li>
+
+                <li>
+                    <a href="logout.php">Logout</a>
+                </li>
+
             </ul>
 
             <div class="logo"></div>
