@@ -19,12 +19,15 @@ if (Input::itemExists("action")) {
     
     $userId = Session::get("userID");
     $action = Input::post("action");
-    $winner = Input::post("winner");
-    $difficulty = Input::post("difficulty");
-    $boardSize = Input::post("boardSize");
+    
 
     switch ($action) {
         case "checkMedalConditions":
+            $winner = Input::post("winner");
+            $difficulty = Input::post("difficulty");
+            $boardSize = Input::post("boardSize");
+            $accuracy = Input::post("accuracy");
+            $numberOfHits = Input::post("numberOfHits");
             checkMedalConditions();
             break;
         case "unlockMedal":
@@ -54,7 +57,7 @@ function unlockMedal($medalId) {
 }
 
 function checkMedalConditions(){
-    global $userId, $user, $winner, $difficulty, $boardSize;
+    global $userId, $user, $winner, $difficulty, $boardSize, $numberOfHits, $accuracy;
 
     if (isset($userId) && isset($winner) && isset($difficulty)) {
         //Check medals for winning a game
@@ -84,6 +87,30 @@ function checkMedalConditions(){
                 case 20:
                     this.unlockMedal(6);
                     break;
+            }
+
+            //Check total number of games won
+            $numberOfWins = $user->getWinsByUserID($userId);
+            switch($numberOfWins){
+                case 10:
+                    this.unlockMedal(7);
+                    break;
+                case 50:
+                    this.unlockMedal(8);
+                    break;
+                case 100:
+                    this.unlockMedal(9);
+                    break;
+            }
+
+            //Check accuracy
+            if($accuracy >= 80){
+                this.unlockMedal(10);
+            }
+
+            //Check number of hits
+            if($numberOfHits == 0){
+                this.unlockMedal(12);
             }
         }
      }
