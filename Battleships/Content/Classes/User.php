@@ -300,11 +300,23 @@ class User {
 
     //Function to execute a query, getting the users medals
    	function getMedalsByUserID($userID) {
-        $sql = "SELECT m.medalID, m.medalName
+        $sql = "SELECT m.medalID, m.medalName, m.medalCategory
 				FROM usermedals um
                     JOIN medals m
                         ON um.medalID = m.medalID
 				WHERE um.userID = ?";
+        $values = array($userID);
+		
+		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
+	}
+
+    //Function to execute a query, getting the users total number of wins
+   	function getWinsByUserID($userID) {
+        $sql = "SELECT SUM(wins)
+				FROM userstatistics us
+				WHERE us.userID = $userID";
         $values = array($userID);
 		
 		$this->db->query($sql, $values);

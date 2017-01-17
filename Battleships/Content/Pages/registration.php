@@ -217,32 +217,15 @@ if (Input::itemExists("register")) {
 	{
 		require("../../Scripts/PHPMailer/class.PHPMailer.php");
 
-		/*$mail = new PHPMailer();
-
-		$mail->IsSMTP(); // set mailer to use SMTP
-		$mail->SMTPDebug  = 1;
-		$mail->Host = "smtp-mail.outlook.com";  // specify main and backup server
-		$mail->SMTPAuth = true;     // turn on SMTP authentication
-		$mail->SMTPSecure = 'starttls';
-		$mail->Port = 587;
-		
-		$mail->Username = "battleshipsonlinetest@outlook.com";  // SMTP username
-		$mail->Password = "captainsinkswithship2017"; // SMTP password
-
+		/*
 		$mail->SetFrom = "battleshipsonlinetest@outlook.com";
-		$mail->FromName = "BattleShips Online";
-		$mail->AddAddress($emailAddress);                  // name is optional
 		
 		//$mail->AddReplyTo("info@example.com", "Information");
 
 		$mail->WordWrap = 50;                                 // set word wrap to 50 characters
 		//$mail->AddAttachment("/var/tmp/file.tar.gz");         // add attachments
 		//$mail->AddAttachment("/tmp/image.jpg", "new.jpg");    // optional name
-		$mail->IsHTML(true);                                  // set email format to HTML
-
-		$mail->Subject = "Welcome to BattleShips Online!";
-		$mail->Body    = "Hello Captain ".$firstName." ".$lastName.", and welcome to BattleShips Online, the new and improved online version of the classic board game!";
-		$mail->AltBody = "Hello Captain ".$firstName." ".$lastName.", and welcome to BattleShips Online, the new and improved online version of the classic board game!"; */
+		*/
 
 		$account="battleshipsonlinetest@outlook.com";
 		$password="captainsinkswithship2017";

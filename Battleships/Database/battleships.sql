@@ -151,3 +151,6 @@ ALTER TABLE `pendingpasswordresets` ADD FOREIGN KEY (`userID`) REFERENCES `battl
 
 /*Added 16/01/2017 - Added medal category to medals table*/
 ALTER TABLE `medals` ADD `medalCategory` VARCHAR(50) NOT NULL AFTER `medalName`;
+
+/*Added 17/01/2017 - Added a few more medals*/
+INSERT INTO `medals` (`medalID`, `medalName`, `medalCategory`) VALUES ('7', 'Win Ten Games', ''), ('8', 'Win Fifty Games', ''), ('9', 'Win a Hundred Games', ''), ('10', 'Complete Game With 80% Accuracy', ''), ('11', 'Use No Perks', ''), ('12', 'Receive No Hits', ''), ('13', 'Complete Fog Of War', ''), ('14', 'Complete Hardcore', ''), ('15', 'Complete Last Stand', ''), ('16', 'Complete Against The Clock', ''), ('17', 'Complete Pearl Harbour', '');
