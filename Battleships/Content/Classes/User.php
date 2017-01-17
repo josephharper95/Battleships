@@ -316,7 +316,7 @@ class User {
    	function getWinsByUserID($userID) {
         $sql = "SELECT SUM(wins)
 				FROM userstatistics us
-				WHERE us.userID = $userID";
+				WHERE us.userID = ?";
         $values = array($userID);
 		
 		$this->db->query($sql, $values);
