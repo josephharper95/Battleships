@@ -468,12 +468,12 @@ class User {
     }
 
     // Function sets new password for user with specified ID
-    function updatePasswordByUserID($userID, $encryptedPassword)
+    function updatePasswordByUserID($userID, $hashedPassword)
 	{
 		$sql = "UPDATE users
 				SET password = ?
                 WHERE userID = ?";
-        $values = array($encryptedPassword, $userID);
+        $values = array($hashedPassword, $userID);
 
         $this->db->query($sql, $values);
     }

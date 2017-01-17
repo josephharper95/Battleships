@@ -394,6 +394,7 @@ function endGame(winner, finished) {
         var timeBonusPerSecond = 2;
 
         var shotsMissed = totalShots - totalHits;
+        var accuracy = (totalHits/totalShots) *100;
         var timeBonus = 0;
 
         if (playingTime < 120) {
@@ -447,6 +448,8 @@ function endGame(winner, finished) {
         type: "post"
     });
 
+    console.log(totalHitsReceived);
+
     //Check if medal conditions are met
     $.ajax({
         url: "../../Content/Ajax/medalAjax.php",
@@ -454,7 +457,9 @@ function endGame(winner, finished) {
             action: "checkMedalConditions",
             difficulty: difficulty,
             winner: winner,
-            boardSize: boardSize
+            boardSize: boardSize,
+            accuracy: accuracy,
+            numberOfHits: totalHitsReceived
         },
         type: "post"
     });

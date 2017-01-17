@@ -349,6 +349,43 @@ function endGame(winner, finished) {
         if (winner == "player") {
 
             alert("You win");
+
+            if (mission != null) {
+
+                var medalId;
+
+                switch (mission.name) {
+
+                    case "fog-of-war":
+                        medalId = 13;
+                        break;
+
+                    case "hardcore":
+                        medalId = 14;
+                        break;
+
+                    case "last-stand":
+                        medalId = 15;
+                        break;
+
+                    case "against-the-clock":
+                        medalId = 16;
+                        break;
+
+                    case "pearl-harbour":
+                        medalId = 17;
+                        break;
+                }
+
+                $.ajax({
+                    url: "../../Content/Ajax/medalAjax.php",
+                    data: {
+                        action: "unlockMedal",
+                        medalId: medalId,
+                    },
+                    type: "post"
+                });
+            }
         } else {
 
             showOpponentShips();
