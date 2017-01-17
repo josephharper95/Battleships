@@ -5,6 +5,7 @@
 * Current Version: 0.1
 *
 * V0.1      Dave    16/01/17    initial creation
+* V0.11     Nick    17/01/17    bug fix
 *
 **/
 
@@ -45,12 +46,17 @@ function unlockMedal($medalId) {
 
         $medals = $user->getMedalsByUserId($userId);
         $found = false;
-        foreach($medals as $medal){
-            if($medal->medalID == $medalId){
+
+        foreach ($medals as $medal) {
+
+            if ($medal->medalID == $medalId) {
+
                 $found = true;
             }
         }
-        if(!$found){
+
+        if (!$found) {
+
             $user->unlockMedal($userId, $medalId);
         }
     }
@@ -65,28 +71,33 @@ function checkMedalConditions(){
             //Check medals for difficulty
             switch($difficulty){
                 case "easy":
-                    this.unlockMedal(1);
+                    unlockMedal(1);
                     break;
+
                 case "medium":
-                    this.unlockMedal(2);
+                    unlockMedal(2);
                     break;
+
                 case "hard":
-                    this.unlockMedal(3);
+                    unlockMedal(3);
                 break;
+
                 case "multiplayer":
-                    this.unlockMedal(20);
+                    unlockMedal(20);
                 break;
             }
             //Check medals for board size
             switch($boardSize){
                 case 10:
-                    this.unlockMedal(4);
+                    unlockMedal(4);
                     break;
+
                 case 15:
-                    this.unlockMedal(5);
+                    unlockMedal(5);
                     break;
+
                 case 20:
-                    this.unlockMedal(6);
+                    unlockMedal(6);
                     break;
             }
 
@@ -94,24 +105,24 @@ function checkMedalConditions(){
             $numberOfWins = $user->getWinsByUserID($userId);
             switch($numberOfWins){
                 case 10:
-                    this.unlockMedal(7);
+                    unlockMedal(7);
                     break;
                 case 50:
-                    this.unlockMedal(8);
+                    unlockMedal(8);
                     break;
                 case 100:
-                    this.unlockMedal(9);
+                    unlockMedal(9);
                     break;
             }
 
             //Check accuracy
             if($accuracy >= 80){
-                this.unlockMedal(10);
+                unlockMedal(10);
             }
 
             //Check number of hits
             if($numberOfHits == 0){
-                this.unlockMedal(12);
+                unlockMedal(12);
             }
         }
      }

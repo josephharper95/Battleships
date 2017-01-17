@@ -63,6 +63,7 @@ class User {
     function unlockMedal($userID, $medalID) {
         $sql = "INSERT INTO usermedals (userID, medalID)
                 VALUES (?, ?)";
+                
         $values = array($userID, $medalID);
 
         $this->db->query($sql, $values);
