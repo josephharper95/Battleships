@@ -5,6 +5,7 @@
 * V1.0      Nick    10/12/16    initial creation
 * V0.11     Nick    11/12/16    bug fixes
 * V0.2      Nick    28/12/16    fixed CSS bug where title spanned 2 lines
+* V0.3      Nick    17/01/17    updates following additional items being added
 * 
 */
 /**
@@ -14,6 +15,9 @@
 * V0.1      Nick    05/12/16    initial creation
 * V0.2      Nick    07/12/16    added floor texture
 * V0.3      Nick    11/12/16    added shelf texture
+* V0.4      Nick    17/12/16    updated map
+* V0.5      Nick    17/01/17    removed vertical map, and changed existing map
+* V0.6      Nick    17/01/17    island map added
 *
 **/
 /**
@@ -24,6 +28,8 @@
 * V0.2      Nick    11/12/16    added items for mission list and medal page
 * V0.3      Nick    19/12/16    added first character
 * V0.4      Nick    21/12/16    added second character
+* V0.5      Nick    10/01/17    removed mission images as they shouldn't have been in here
+* V0.51     Nick    17/01/17    removed medal images as they shouldn't have been in here
 *
 **/
 /**
@@ -36,7 +42,7 @@
 html body div#pageHomeCont {
   height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   margin: 0;
@@ -46,7 +52,7 @@ html body div#pageHomeCont {
 html body div#pageHomeCont div#pageHome {
   border: 4px solid #754524;
   border-radius: 5px;
-  height: 450px;
+  height: 500px;
   width: 700px;
   top: 0;
   bottom: 0;
@@ -106,7 +112,7 @@ html body div#pageHomeCont div#pageHome .poster.multiplayer {
   width: 110px;
   background-size: 110px;
   position: absolute;
-  bottom: 130px;
+  top: 160px;
   right: 25px;
   background-repeat: no-repeat;
   -ms-transform: rotate(5deg);
