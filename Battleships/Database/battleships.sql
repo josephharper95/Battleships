@@ -143,7 +143,7 @@ ALTER TABLE `users` ADD `emailAddress` VARCHAR(255) NOT NULL AFTER `lastName`;
 ALTER TABLE `medals` ADD `medalCategory` VARCHAR(50) NOT NULL AFTER `medalName`;
 
 /*Added 16/01/2017 - Populated 6 medals*/
-INSERT INTO `medals` (`medalID`, `medalName`, 'medalCategory') VALUES ('1', 'Win Easy Difficulty', 'changeMe'), ('2', 'Win Medium Difficulty', 'changeMe'), ('3', 'Win Hard Difficulty', 'changeMe'), ('4', 'Win Small Board', 'changeMe'), ('5', 'Win Medium Board', 'changeMe'), ('6', 'Win Large Board', 'changeMe');
+INSERT INTO `medals` (`medalID`, `medalName`, `medalCategory`) VALUES ('1', 'Win Easy Difficulty', 'changeMe'), ('2', 'Win Medium Difficulty', 'changeMe'), ('3', 'Win Hard Difficulty', 'changeMe'), ('4', 'Win Small Board', 'changeMe'), ('5', 'Win Medium Board', 'changeMe'), ('6', 'Win Large Board', 'changeMe');
 
 /*Added 16/01/2017 - Added autoincrement to usermedalsID in usermedals table*/
 ALTER TABLE `usermedals` CHANGE `usermedalID` `usermedalID` INT(11) NOT NULL AUTO_INCREMENT;
