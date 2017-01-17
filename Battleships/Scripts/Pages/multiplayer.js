@@ -1009,6 +1009,7 @@ function statisticsAjax(won) {
     var totalHitRScore = (totalHitsReceived * negativeScorePerHitReceived);
     var shotsMissedScore = (shotsMissed * negativeScorePerShotMissed);
     var totalHitScore = (totalHits * positiveScorePerShotHit);
+    var accuracy = (totalHits/totalShots) *100;
 
     var gameScore = baseScore 
                     - totalHitRScore
@@ -1030,6 +1031,20 @@ function statisticsAjax(won) {
             totalShots: totalShots,
             playingTime: playingTime,
             gameScore: gameScore
+        },
+        type: "post"
+    });
+
+    //Check if medal conditions are met
+    $.ajax({
+        url: "../../Content/Ajax/medalAjax.php",
+        data: {
+            action: "checkMedalConditions",
+            difficulty: "multiplayer",
+            winner: "player",
+            boardSize: boardSize,
+            accuracy: accuracy,
+            numberOfHits: totalHitsReceived
         },
         type: "post"
     });
