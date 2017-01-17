@@ -479,6 +479,39 @@ class User {
     }
 
 #endregion
+    
+    // Function inserts pending reset row into DB
+    function insertPendingPasswordReset($userID, $resetNumber)
+	{
+		$sql = "INSERT INTO pendingpasswordresets (userID, resetNumber)
+                VALUES (?, ?)";
+        $values = array($userID, $resetNumber);
+
+        $this->db->query($sql, $values);
+    }
+
+    // Function checks if pending password reset exists
+    function checkForPendingPasswordReset($userID, $resetNumber)
+	{
+		$sql = "SELECT pendingPasswordResetID, userID, resetNumber
+                FROM pendingpasswordresets
+                WHERE userID = ? && resetNumber = ?";
+        $values = array($userID, $resetNumber);
+
+        $this->db->query($sql, $values);
+
+        return $this->db->getResults();
+    }
+
+    // Function deletes pending reset row from DB
+    function deletePendingPasswordReset($userID)
+	{
+		$sql = "DELETE FROM pendingpasswordresets
+                WHERE userID = ?";
+        $values = array($userID);
+
+        $this->db->query($sql, $values);
+    }
 
 }
 
