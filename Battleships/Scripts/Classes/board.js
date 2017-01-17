@@ -18,10 +18,11 @@
 * V0.30     Dave                22/11/16    added further validation and exeptions
 * V0.31     Dave                13/12/16    added method to move ship
 * V0.32     Dave                22/12/16    added healShipCoord method
+* V1.0      Dave                17/01/16    added logic to deal with land maps
 *
 **/
 
-function Board(size) {
+function Board(size, landCoords) {
     var _height = size;
     var _width = size;
     
@@ -73,6 +74,18 @@ function Board(size) {
         return _coordinates[x][y];
     }
 
+    //Mark land coords
+    if (typeof landCoords !== 'undefined'){
+        for(var i = 0; i < landCoords.length; i++){
+            var coordinate = this.getCoordinateAt(landCoords[i].x, landCoords[i].y);
+            if(coordinate){
+                console.log("land");
+                console.log(coordinate.getX());
+                coordinate.markAsLand();
+            }
+        }
+    }
+
     /**
      * Returns the coordinate multidimensional array as a list.
      * 
@@ -82,7 +95,9 @@ function Board(size) {
         var list = new Array();
         for (var h = 0; h < _height; h++) {
             for (var w = 0; w < _width; w++) {
-                list.push(_coordinates[h][w]);
+                if(!_coordinates[h][w].isLand()){
+                    list.push(_coordinates[h][w]);
+                }
             }
 
         }
@@ -177,7 +192,7 @@ Board.prototype.canPlaceShip = function(ship, x, y) {
         var coordinate = this.getCoordinateAt(x, y);
         coordinates.push(coordinate);
 
-        if (coordinate.containsShip()) {
+        if (coordinate.containsShip()||coordinate.isLand()) {
             //return [false, coordinates];
             passed = false;
         }
@@ -279,7 +294,7 @@ Board.prototype.moveShip = function(ship, x, y){
 
             var coordinate = this.getCoordinateAt(xCoord, yCoord);
 
-            if (coordinate.containsShip() || coordinate.isHit()) {
+            if (coordinate.containsShip() || coordinate.isHit() || coordinate.isLand()) {
                 return false;
             }
 
@@ -332,6 +347,10 @@ Board.prototype.canFire = function (x, y) {
         return false;
     }
     var coordinate = this.getCoordinateAt(x, y);
+    if(coordinate.isLand()){
+        console.log('land');
+        return false;
+    }
     
     return !coordinate.isHit();
 }
@@ -406,7 +425,7 @@ Board.prototype.getMovesAtAdjacentLocations = function(x, y) {
     var availMoveLocations = new Array();
 
     for (i = 0; i < locations.length; i++) {
-        if (!locations[i].isHit()) {
+        if (!locations[i].isHit() &&!locations[i].isLand()) {
             availMoveLocations.push(locations[i]);
         }
     }

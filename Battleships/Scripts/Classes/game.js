@@ -15,11 +15,14 @@
 
 function Game(size) {
     //initalise both boards.
-    var _playerBoard = new Board(size);
-    var _computerBoard = new Board(size);
+    var landCoords; //= [{x:0, y:0}, {x:1, y:5}, {x:2, y:5}, {x:3, y:5}, {x:4, y:5}, {x:5, y:5}, {x:6, y:5},
+    //{x:1, y:0}, {x:1, y:6}, {x:2, y:6}, {x:3, y:6}, {x:4, y:6}, {x:5, y:6}, {x:6, y:6}];
+    var _playerBoard = new Board(size, landCoords);
+    var _computerBoard = new Board(size, landCoords);
     var playerTurn = true;
     var _size = size;
     var _playerPerks = {};
+    
 
     //Initialise perks availble according to board size
     switch(_size) {

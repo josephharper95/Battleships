@@ -8,6 +8,7 @@
 * V0.11     Joe     26/10/2016    renamed methods
 * v0.12     Dave    29/10/2016    renamed methods
 * V1.0      Dave    10/12/1026    Added further comments
+* V1.1      Dave    17/01/17      Added logic to deal with land maps
 *
 **/
 
@@ -77,7 +78,7 @@ function AIHard(name, board, targetBoard){
                     ships[s].changeOrientation();
 
                     //hit cells are given a probability of 0 to ensure they are not targeted again.
-                    if (opponentBoardCoordinates[x][y].isHit()) {
+                    if (opponentBoardCoordinates[x][y].isHit()||opponentBoardCoordinates[x][y].isLand()) {
                         probabilityDensity[x][y] = 0;
                     }
                 }
@@ -246,7 +247,7 @@ function AIHard(name, board, targetBoard){
             coords.push(coordinate);
 
             // if we do not want to target AND the coordinate has already been hit...
-            if (!targetMode && coordinate.isHit()) {
+            if (!targetMode && coordinate.isHit() || coordinate.isLand()) {
                 return false;
             }
 
