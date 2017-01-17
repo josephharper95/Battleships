@@ -139,8 +139,11 @@ ALTER TABLE `usermedals` ADD CONSTRAINT `Medal ID` FOREIGN KEY (`medalID`) REFER
 /*Added 20/12/2016 - Email address field*/
 ALTER TABLE `users` ADD `emailAddress` VARCHAR(255) NOT NULL AFTER `lastName`;
 
+/*Added 16/01/2017 - Added medal category to medals table*/
+ALTER TABLE `medals` ADD `medalCategory` VARCHAR(50) NOT NULL AFTER `medalName`;
+
 /*Added 16/01/2017 - Populated 6 medals*/
-INSERT INTO `medals` (`medalID`, `medalName`) VALUES (NULL, 'Win Easy Difficulty'), (NULL, 'Win Medium Difficulty'), (NULL, 'Win Hard Difficulty'), (NULL, 'Win Small Board'), (NULL, 'Win Medium Board'), (NULL, 'Win Large Board');
+INSERT INTO `medals` (`medalID`, `medalName`, 'medalCategory') VALUES ('1', 'Win Easy Difficulty', 'changeMe'), ('2', 'Win Medium Difficulty', 'changeMe'), ('3', 'Win Hard Difficulty', 'changeMe'), ('4', 'Win Small Board', 'changeMe'), ('5', 'Win Medium Board', 'changeMe'), ('6', 'Win Large Board', 'changeMe');
 
 /*Added 16/01/2017 - Added autoincrement to usermedalsID in usermedals table*/
 ALTER TABLE `usermedals` CHANGE `usermedalID` `usermedalID` INT(11) NOT NULL AUTO_INCREMENT;
@@ -149,8 +152,5 @@ ALTER TABLE `usermedals` CHANGE `usermedalID` `usermedalID` INT(11) NOT NULL AUT
 CREATE TABLE `battleships`.`pendingpasswordresets` ( `pendingPasswordResetID` INT NOT NULL AUTO_INCREMENT , `userID` VARCHAR(20) NOT NULL , `resetNumber` INT NOT NULL , PRIMARY KEY (`pendingPasswordResetID`), INDEX `userID` (`userID`)) ENGINE = InnoDB;
 ALTER TABLE `pendingpasswordresets` ADD FOREIGN KEY (`userID`) REFERENCES `battleships`.`users`(`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-/*Added 16/01/2017 - Added medal category to medals table*/
-ALTER TABLE `medals` ADD `medalCategory` VARCHAR(50) NOT NULL AFTER `medalName`;
-
 /*Added 17/01/2017 - Added a few more medals*/
-INSERT INTO `medals` (`medalID`, `medalName`, `medalCategory`) VALUES ('7', 'Win Ten Games', ''), ('8', 'Win Fifty Games', ''), ('9', 'Win a Hundred Games', ''), ('10', 'Complete Game With 80% Accuracy', ''), ('11', 'Use No Perks', ''), ('12', 'Receive No Hits', ''), ('13', 'Complete Fog Of War', ''), ('14', 'Complete Hardcore', ''), ('15', 'Complete Last Stand', ''), ('16', 'Complete Against The Clock', ''), ('17', 'Complete Pearl Harbour', '');
+INSERT INTO `medals` (`medalID`, `medalName`, `medalCategory`) VALUES ('7', 'Win 10 Games', 'changeMe'), ('8', 'Win 50 Games', 'changeMe'), ('9', 'Win 100 Games', 'changeMe'), ('10', 'Complete Game With 80% Accuracy', 'changeMe'), ('11', 'Use No Perks', 'changeMe'), ('12', 'Receive No Hits', 'changeMe'), ('13', 'Complete Fog Of War', 'changeMe'), ('14', 'Complete Hardcore', 'changeMe'), ('15', 'Complete Last Stand', 'changeMe'), ('16', 'Complete Against The Clock', 'changeMe'), ('17', 'Complete Pearl Harbour', 'changeMe');

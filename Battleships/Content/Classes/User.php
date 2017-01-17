@@ -324,6 +324,35 @@ class User {
         return $this->db->getResults();
 	}
 
+    //Function to execute a query, getting all the medals
+   	function getAllMedals() {
+        $sql = "SELECT m.medalID, m.medalName, m.medalCategory
+				FROM medals m";
+        $values = array();
+		
+		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
+	}
+
+    //Function to execute a query, getting all the medals
+   	function getAllMedalsByUserID($userID) {
+        $sql = "SELECT m.medalName, m.medalCategory, CASE um.userID 
+										WHEN ? 
+                                        THEN TRUE 
+                                        ELSE FALSE 
+                                     END AS 'isUnlocked' 
+                FROM usermedals um 
+	                RIGHT JOIN medals m 
+    	                ON um.medalID = m.medalID 
+                WHERE um.userID = ? || um.userID is NULL";
+        $values = array($userID, $userID);
+		
+		$this->db->query($sql, $values);
+
+        return $this->db->getResults();
+	}
+
 #endregion
 
 #region SETTERS
