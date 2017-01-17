@@ -16,31 +16,27 @@
             var patrol = new Ship("Patrol", 2);
             var sub = new Ship("Submarine",3);
             var battleship = new Ship("BattleShip", 3);
-            var playerBoard = new Board(10);
-            var targetBoard = new Board(10);
+            
+
+            var targetCoords = [{x:0, y:0}, {x:5, y:5}];
+            var playerBoard = new Board(10, targetCoords);
+            var targetBoard = new Board(10, targetCoords);
+            var AIHard = new AIHard("comp",targetBoard, playerBoard);
+
 
             
 
 
 
             $(document).ready(function () { 
-                playerBoard.placeShip(patrol, 1, 1);
-                playerBoard.fire(1,1);
-                playerBoard.toString();
-                playerBoard.healShipCoord(1,1);
-                playerBoard.toString();
-            
+                playerBoard.placeShip(patrol, 4, 5);
+                AIHard.placeShips()
 
-            $.ajax({
-                url: "../../Content/Ajax/medalAjax.php",
-                data: {
-                    action: "checkMedalConditions",
-                    difficulty: "easy",
-                    winner: "player"
-                },
-                type: "post"
-            });
                 
+                playerBoard.fire(5,5);
+                playerBoard.toString();
+                AIHard.toString();
+
             });
         </script>
     </body>

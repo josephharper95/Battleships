@@ -375,6 +375,14 @@ function endGame(winner, finished) {
                     case "pearl-harbour":
                         medalId = 17;
                         break;
+                    
+                    case "waves":
+                        medalId = 19;
+                        break;
+
+                    case "island-warfare":
+                        medalId = 18;
+                        break;
                 }
 
                 $.ajax({

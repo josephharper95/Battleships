@@ -7,6 +7,7 @@
 * V0.21     Nick                07/10/16    uncommented record hit code
 * V0.3      Nick                15/11/16    added toObject method
 * V0.4      Dave                22/12/16    Added heal ship method
+* V1.0      Dave                17/01/17    Added logic to deal with land maps
 *
 **/
 
@@ -16,6 +17,7 @@ function Coordinate(x, y) {
     var _isHit = false;
     var _containsShip = false;
     var _ship;
+    var _isLand = false;
 
     /**
      * Returns a string of the coordinates
@@ -81,6 +83,10 @@ function Coordinate(x, y) {
         return _isHit;
     }
 
+    this.isLand = function(){
+        return _isLand;
+    }
+
     /**
      * Heals a single ship coordinate
      */
@@ -118,6 +124,10 @@ function Coordinate(x, y) {
         }
 
         return false;
+    }
+
+    this.markAsLand = function(){
+        _isLand = true;
     }
 
     this.toObject = function() {

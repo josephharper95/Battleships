@@ -73,7 +73,8 @@ function checkMedalConditions(){
                 case "hard":
                     this.unlockMedal(3);
                 break;
-                case 4:
+                case "multiplayer":
+                    this.unlockMedal(20);
                 break;
             }
             //Check medals for board size
