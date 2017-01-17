@@ -2,17 +2,8 @@
 
 /**
 *
-*   V0.1    Nick    30/10/16    initial creation
-*   V0.11   Nick    01/11/16    added initial data from db
-*   V0.12   Nick    01/11/16    added total playing time
-*   V0.13   Nick    01/11/16    added accuracy percentage and styling
-*   V0.14   Joe     14/11/16    added table entry for multiplayer statistics
-*   V0.15   Joe     01/12/16    added leaderboard tables
-*   V0.2    Nick    03/12/16    updated design
-*   V0.3    Nick    03/12/16    added accuracy top 10
-*   V0.4    Nick    07/12/16    tweaked HTML and added objects
-*   V0.41   Nick    12/12/16    added individual CSS file
-*   V0.5    Nick    25/12/16    stats page now responsive
+*   V0.1    Joe    17/01/17    initial creation
+*   
 */
 
 // include the setup file if it has not been included
