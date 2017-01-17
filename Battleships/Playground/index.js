@@ -78,7 +78,7 @@ io.sockets.on('connection', function (socket, username) {
         if (socket.id === game.owner) {
         socket.emit("alert", "You are the owner of this game and you have already been joined.");
         } 
-        else if(players[socket.id].game !== null){
+        else if(players[socket.id].game != null){
             socket.emit("alert", "You are already in a game");
         }
         else if(game.players.length >= 2){

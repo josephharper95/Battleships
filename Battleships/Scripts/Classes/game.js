@@ -10,15 +10,17 @@
 * V0.14     Dave    01/12/16    Fixed bug with perks not showing on large boards.
 * V0.15     Nick    02/12/16    bug fix
 * V0.2      Nick    06/12/16    added mortar and updated quantities
+* V0.3      Nick    17/01/17    altered land code so player and computer are separate
 *
 **/
 
-function Game(size) {
+function Game(size, playerLand, compLand) {
     //initalise both boards.
-    var landCoords; //= [{x:0, y:0}, {x:1, y:5}, {x:2, y:5}, {x:3, y:5}, {x:4, y:5}, {x:5, y:5}, {x:6, y:5},
-    //{x:1, y:0}, {x:1, y:6}, {x:2, y:6}, {x:3, y:6}, {x:4, y:6}, {x:5, y:6}, {x:6, y:6}];
-    var _playerBoard = new Board(size, landCoords);
-    var _computerBoard = new Board(size, landCoords);
+    var computerLandCoords = compLand || null;
+    var playerLandCoords = playerLand || null;
+    
+    var _playerBoard = new Board(size, playerLandCoords);
+    var _computerBoard = new Board(size, computerLandCoords);
     var playerTurn = true;
     var _size = size;
     var _playerPerks = {};

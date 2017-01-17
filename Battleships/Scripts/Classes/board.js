@@ -19,6 +19,7 @@
 * V0.31     Dave                13/12/16    added method to move ship
 * V0.32     Dave                22/12/16    added healShipCoord method
 * V1.0      Dave                17/01/16    added logic to deal with land maps
+* V1.01     Nick                17/01/16    small bug fix to land map code
 *
 **/
 
@@ -75,12 +76,14 @@ function Board(size, landCoords) {
     }
 
     //Mark land coords
-    if (typeof landCoords !== 'undefined'){
-        for(var i = 0; i < landCoords.length; i++){
+    if (landCoords != null) {
+
+        for (var i = 0; i < landCoords.length; i++) {
+            
             var coordinate = this.getCoordinateAt(landCoords[i].x, landCoords[i].y);
-            if(coordinate){
-                console.log("land");
-                console.log(coordinate.getX());
+
+            if (coordinate) {
+                
                 coordinate.markAsLand();
             }
         }

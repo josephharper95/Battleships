@@ -7,6 +7,7 @@
 * V0.3  Nick    22/12/16    changed hit from red colour to image
 * V0.4  Nick    10/01/17    added plane images
 * V0.5  Nick    17/01/17    changes to maps
+* V0.6  Nick    17/01/17    added island map css
 * 
 */
 
@@ -759,6 +760,12 @@ html {
                             left: 0;
                             background-image: @texture-map;
                             background-size: 395px;
+
+                            &.island {
+
+                                background: @texture-map-island;
+                                background-size: 395px;
+                            }
 
                             &[data-size=medium] {
 

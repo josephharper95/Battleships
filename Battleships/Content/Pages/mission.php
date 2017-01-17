@@ -9,6 +9,7 @@
 *   V0.5    Nick    22/12/16    added piece to add image on ship hit, and included game.css
 *   V0.6    Nick    10/01/17    added pearl harbour into switch
 *   V0.7    Nick    17/01/17    added initials to waves
+*   V0.8    Nick    17/01/17    island warfar added
 *
 */
 
@@ -88,6 +89,16 @@ switch ($mission) {
         $difficultyText = "Medium";
         break;
 
+    case "island-warfare":
+
+        $character = "friendly";
+        $missionTitle = "Island Warfare";
+        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $sizeClass = "medium";
+        $size = 15;
+        $difficultyText = "Hard";
+        break;
+
     case "waves":
 
         $character = "friendly";
@@ -98,17 +109,6 @@ switch ($mission) {
         $difficultyText = "Easy";
         break;
 }
-
-$missionSplit = explode("-", $mission);
-
-for ($i = 0; $i < count($missionSplit); $i++) {
-
-    
-
-    $missionSplit[$i][0] = strtoupper($missionSplit[$i][0]);
-}
-
-$missionName = implode($missionSplit);
 
 require_once("header.php");
 
@@ -262,7 +262,7 @@ require_once("header.php");
                 <!-- container for opponent board -->
                 <div class="boardContainer">
 
-                    <h3><?= $missionName; ?></h3>
+                    <h3><?= $missionTitle; ?></h3>
 
                     <!-- opponents board, populated relating to the size -->
                     <table id="computerBoard" class="board" data-size="<?= $sizeClass; ?>" >

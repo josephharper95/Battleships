@@ -6,11 +6,13 @@
  *  V0.4    Nick    21/12/16    added against the clock mode
  *  V0.5    Nick    10/01/17    added pearl harbour
  *  V0.6    Nick    17/01/17    initial waves
+ *  V0.7    Nick    17/01/17    island warfare added
  * 
  */
 
 // Global Variables
 var page = "#pageMission";
+var playerContainer = "#playerContainer";
 var playerBoard = "#playerBoard";
 var opponentBoard = "#computerBoard";
 var opponentContainer = "#opponentContainer";
@@ -87,8 +89,8 @@ var playerShipDetails = [
 
 $(document).ready(function () {
 
-    initialise();
     runIntro();
+    initialise();
 });
 
 function initialise() {
@@ -117,6 +119,10 @@ function initialise() {
 
             case "pearl-harbour":
                 initPearlHarbour();
+                break;
+
+            case "island-warfare":
+                initIslandWarfare();
                 break;
 
             case "waves":
@@ -206,6 +212,64 @@ function initPearlHarbour() {
     ];
 
     $(opponentContainer + " .shipsRemainingCont").addClass("pearlHarbour");
+}
+
+function initIslandWarfare() {
+
+    $(playerContainer + " .mapCont .map").addClass("island");
+
+    var landCoords = [
+        { x: 8, y: 3 },
+        { x: 9, y: 3 },
+        { x: 10, y: 3 },
+
+        { x: 6, y: 4 },
+        { x: 7, y: 4 },
+        { x: 8, y: 4 },
+        { x: 9, y: 4 },
+        { x: 10, y: 4 },
+
+        { x: 6, y: 5 },
+        { x: 7, y: 5 },
+        { x: 8, y: 5 },
+        { x: 9, y: 5 },
+        { x: 10, y: 5 },
+        { x: 11, y: 5 },
+
+        { x: 7, y: 6 },
+        { x: 8, y: 6 },
+        { x: 9, y: 6 },
+        { x: 10, y: 6 },
+        { x: 11, y: 6 },
+        { x: 12, y: 6 },
+
+        { x: 7, y: 7 },
+        { x: 8, y: 7 },
+        { x: 10, y: 7 },
+        { x: 11, y: 7 },
+        { x: 12, y: 7 },
+
+        { x: 11, y: 8 },
+        { x: 12, y: 8 },
+        { x: 13, y: 8 }
+    ];
+
+    $("#acceptMission").unbind("click").one("click", function () {
+
+        $("#intro").fadeOut(500).promise().done(function () {
+
+            $("#introOverlay").fadeOut(200);
+
+            populateShips();
+            initPlaceShips();
+
+            difficulty = mission.difficulty.toLowerCase();
+
+            game = new Game(mission.boardSize, landCoords);
+            playerBoardClass = game.getPlayerBoard();
+            opponentBoardClass = game.getComputerBoard();
+        });
+    });
 }
 
 function initWaves() {

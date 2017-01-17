@@ -21,6 +21,7 @@
 * V0.9      Nick                11/12/16    added social media to header
 * V1.0      Nick                22/12/16    hamburger menu is now static
 * V1.1      Nick                28/12/16    moved menu into header
+* V1.2      Joe                 17/01/17    added missing menu links
 *
 */ 
 
@@ -68,7 +69,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 2.9.3
+            Version: 2.10.0
         </div>
 
         <div id="headerBar">
