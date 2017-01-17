@@ -68,11 +68,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-<<<<<<< HEAD
-            Version: 2.8.14
-=======
-            Version: 2.8.13
->>>>>>> b217ad699a7caa447fbe82be6d43d2d16b88d9e7
+            Version: 2.9.0
         </div>
 
         <div id="headerBar">

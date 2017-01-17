@@ -3,11 +3,13 @@
 * Last Modified By: Nick Holdsworth
 * 
 * V.01  Nick    10/12/16    initial creation
+* V0.2  Nick    17/01/17    CSS now implemented now actual page is implemented
 * 
 */
 
 @import "../textures.less";
 @import "../images.less";
+@import "../Base64/medals.less";
 
 html {
 
@@ -36,43 +38,133 @@ html {
 
                     li {
 
+                        border: 4px solid #754524;
+                        background: @blackboard-texture;
                         vertical-align: top;
-                        text-align: center;
                         display: inline-block;
-                        margin-bottom: 30px;
-
-                        div.medal {
+                        margin: 5px;
+                        width: 200px;
+                        height: 200px;
+                        position: relative;
+                        
+                        .medal {
 
                             display: inline-block;
-                            width: 52px;
+                            margin: auto;
+                            margin-top: 20px;
+                            background-repeat: no-repeat;
+
+                            &.bronze {
+
+                                background: @medal-bronze;
+                            }
+
+                            &.silver {
+
+                                background: @medal-silver;
+                            }
+
+                            &.gold {
+
+                                background: @medal-gold;
+                            }
+
+                            &.against-the-clock {
+
+                                background: @medal-against-the-clock;
+                            }
+
+                            &.fog-of-war {
+
+                                background: @medal-fog-of-war;
+                            }
+
+                            &.hardcore {
+
+                                background: @medal-hardcore;
+                            }
+
+                            &.island-warfare {
+
+                                background: @medal-island-warfare;
+                            }
+
+                            &.last-stand {
+
+                                background: @medal-last-stand;
+                            }
+
+                            &.pearl-harbour {
+
+                                background: @medal-pearl-harbour;
+                            }
+
+                            &.waves {
+
+                                background: @medal-waves;
+                            }
+
+                            background-size: 65px;
                             height: 100px;
-                            background-size: 52px 100px;
-                            background-image: @medal-1;
+                            width: 65px;
 
                             &.locked {
-                                background: none;
+
+                                background: @medal-greyed-out;
+                            }
+
+                            &.cross {
+
+                                background: @medal-cross;
+                                height: 100px;
+                                width: 53px;
+                                background-size: 53px;
+
+                                &.locked {
+
+                                    background: @medal-cross-greyed-out;
+                                }
+                            }
+
+                            &.purple-heart {
+
+                                background: @medal-purple-heart;
+                                height: 100px;
+                                width: 52px;
+                                background-size: 52px;
+
+                                &.locked {
+
+                                    background: @medal-purple-heart-greyed-out;
+                                }
                             }
                         }
 
-                        div.shelf {
+                        .plaque {
 
+                            background: @plaque;
+                            background-repeat: no-repeat;
                             display: inline-block;
-                            width: 200px;
-                            height: 36px;
-                            background-size: 200px 36px;
-                            background-image: @texture-shelf-1;
-                        }
+                            width: 175px;
+                            height: 53px;
+                            background-size: 175px;
+                            color: #222;
+                            display: table;
+                            font-family: "Handwriting";
+                            line-height: 15px;
+                            margin: auto;
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            top: 130px;
 
-                        div.blackboard {
+                            p {
 
-                            width: 200px;
-                            display: inline-block;
-                            background-image: @blackboard-texture;
-                            color: #e0e0e0;
-                            font-family: 'Erasdust';
-                            border: 4px solid #754524;
-                            border-radius: 5px;
-                            padding: 5px;
+                                display: table-cell;
+                                vertical-align: middle;
+                                text-align: center;
+                            }
                         }
                     }
                 }

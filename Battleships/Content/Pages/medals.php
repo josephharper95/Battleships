@@ -2,20 +2,28 @@
 
 /*
 *
-* V0.1      Nick    13/10/16    initial creation
+*   V0.1    Nick    13/10/16    initial creation
+*   V0.2    Nick    17/01/17    medals now implemented
 *
 */
 
 require_once("../Classes/setup.php");
 
-if(!Session::get("userID"))
-{
+if (!Session::get("userID")) {
+
     // redirect to login page if user is not logged in already
     header("Location: login.php");
     exit();
 }
 
 require_once("header.php");
+
+$user = new User();
+$userId = Session::get("userID");
+
+$m = $user->getAllMedalsByUserID($userId);
+
+$medals = json_decode(json_encode($m), true);
 
 ?>
 
@@ -28,84 +36,28 @@ require_once("header.php");
 
         <ul class="blank">
 
-            <li>
+<?php
 
-                <div class="medal"></div>
-                <br/>
-                <div class="shelf"></div>
-                <br/>
-                <div class="blackboard">
-                    Win an Easy game in Single-Player
+foreach ($medals as $medal) {
+
+?>
+
+            <li>
+                <div class="medal <?= $medal['medalCategory']; ?> <?= $medal['isUnlocked'] ? '' : 'locked'; ?>"></div>
+
+                <div class="plaque">
+                    <p>
+                        <?= $medal['medalName']; ?>
+                    </p>
                 </div>
             </li>
 
-            <li>
+<?php
 
-                <div class="medal"></div>
-                <br/>
-                <div class="shelf"></div>
-                <br/>
-                <div class="blackboard">
-                    Win a Medium game in Single-Player
-                </div>
-            </li>
+}
 
-            <li>
+?>
 
-                <div class="medal locked"></div>
-                <br/>
-                <div class="shelf"></div>
-                <br/>
-                <div class="blackboard">
-                    Win a Hard game in Single-Player
-                </div>
-            </li>
-
-            <li>
-
-                <div class="medal locked"></div>
-                <br/>
-                <div class="shelf"></div>
-                <br/>
-                <div class="blackboard">
-                    Win a game in Multi-Player
-                </div>
-            </li>
-
-            <li>
-
-                <div class="medal"></div>
-                <br/>
-                <div class="shelf"></div>
-                <br/>
-                <div class="blackboard">
-                    Achieve an Accuracy of 75% or more on a Small board
-                </div>
-            </li>
-
-            <li>
-
-                <div class="medal locked"></div>
-                <br/>
-                <div class="shelf"></div>
-                <br/>
-                <div class="blackboard">
-                    Achieve an Accuracy of 65% or more on a Medium board
-                </div>
-            </li>
-
-            <li>
-
-                <div class="medal"></div>
-                <br/>
-                <div class="shelf"></div>
-                <br/>
-                <div class="blackboard">
-                    Achieve an Accuracy of 55% or more on a Large board
-                </div>
-            </li>
         </ul>
-
     </div>
-
 </div>
