@@ -72,7 +72,7 @@ class User {
 
     //Function to execute a query, getting the user details from the database with the entered userID
    	function getUserByID($userID) {
-        $sql = "SELECT userID, firstName, lastName
+        $sql = "SELECT userID, firstName, lastName, emailAddress
 				FROM users 
 				WHERE userID = ?
 				LIMIT 1";
