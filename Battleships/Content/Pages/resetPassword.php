@@ -33,8 +33,12 @@
                     $firstName = $row->firstName;
                     $lastName = $row->lastName;
                 }
+                
 
-                passwordResetEmail($userID, $firstName, $lastName, $emailAddress, "12345");
+                $resetCode = generateResetCode(8);
+                $userQuery->insertPendingPasswordReset($userID, $resetCode);
+
+                passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode);
                 Session::set("resetPasswordMessage", "Please check your emails and click the password reset link");
             }
             else
@@ -62,14 +66,31 @@
 <?php 
     Session::delete("resetPasswordMessage");
 
+    function generateResetCode($numberOfDigits)
+    {
+        $resetCode = '';
+        $count = 0;
+
+        while ($count < $numberOfDigits)
+        {
+            $nextDigit = mt_rand(0, 9);
+
+            $resetCode .= $nextDigit;
+            $count++;
+
+        }
+
+        return $resetCode;
+    }
+
     function passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode)
 	{
 		require("../../Scripts/PHPMailer/class.PHPMailer.php");
 
-		$account="battleshipsonlinetest@outlook.com";
-		$password="captainsinkswithship2017";
+		$account="battleshipsonline@outlook.com";
+		$password="zHU9BaxAeJVPJXhy";
 		$to=$emailAddress;
-		$from="battleshipsonlinetest@outlook.com";
+		$from="battleshipsonline@outlook.com";
 		$from_name="BattleShips Online";
 		$msg="Hello Captain ".$firstName." ".$lastName.", you recently requested a password reset...
 			<br/> Your User ID is: ".$userID.
