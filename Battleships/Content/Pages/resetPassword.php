@@ -2,8 +2,11 @@
 
 /**
 *
-*   V0.1    Joe     17/01/17    initial creation
-*   V0.2    Nick    18/01/17    made it pretty
+*   V0.1    Joe    17/01/17    initial creation
+*   V0.2    Joe    18/01/17    updated with queries and email
+*   V0.21   Joe    18/01/17    updated email address
+*   V0.22   Joe    18/01/17    added validation
+*   V0.3    Nick    18/01/17    made it pretty
 *   
 */
 
@@ -11,21 +14,23 @@
 require_once("../Classes/setup.php");
 
 // check if the user is logged in by checking the session variable
-if(Session::get("userID"))  {
+if (Session::get("userID")) {
     // redirect to home page if user is logged in already
     header("Location: home.php");
     exit();
 }
 
-if (Input::itemExists("resetPassword"))  {
+if (Input::itemExists("resetPassword")) {
 
     $userID = trim(Input::post("userID"));
-    if(preg_match("/^[a-zA-Z0-9\.\_\-]{1,20}$/", $userID)) { // If username is alphanumeric and 1-20 characters long
 
+    // If username is alphanumeric and 1-20 characters long
+    if ( preg_match("/^[a-zA-Z0-9\.\_\-]{1,20}$/", $userID)) { 
+        
         $userQuery = new User();
         $rows = $userQuery->getUserByID($userID);
 
-        if($userQuery->db->getRowCount() > 0) {
+        if ($userQuery->db->getRowCount() > 0) {
 
             foreach ($rows as $row) {
 
@@ -39,10 +44,18 @@ if (Input::itemExists("resetPassword"))  {
 
             passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode);
             Session::set("resetPasswordMessage", "Please check your emails and click the password reset link");
+
         } else {
+
             Session::set("resetPasswordMessage", "No user found with that user ID");
         }
+    } else {
+
+        Session::set("resetPasswordMessage", "Not a valid user");
     }
+} else {
+
+    Session::set("resetPasswordMessage", "Please ensure you have entered a user ID");
 }
 
 ?>
@@ -97,7 +110,6 @@ if (Input::itemExists("resetPassword"))  {
             </form>
         </div>
     </div>
-
 </body>
 </html>
 
@@ -110,13 +122,12 @@ function generateResetCode($numberOfDigits) {
     $resetCode = '';
     $count = 0;
 
-    while ($count < $numberOfDigits)
-    {
+    while ($count < $numberOfDigits) {
+
         $nextDigit = mt_rand(0, 9);
 
         $resetCode .= $nextDigit;
         $count++;
-
     }
 
     return $resetCode;
@@ -134,7 +145,7 @@ function passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $rese
     $msg="Hello Captain ".$firstName." ".$lastName.", you recently requested a password reset...
         <br/> Your User ID is: ".$userID.
         "<br/><br/> Please click the following link to reset your password: 
-        <br/> <a href='https://battleships.online/battleships/Content/Pages/confirmPasswordReset.php?resetCode=".$resetCode."&userID=".$userID."'>RESET PASSWORD</a>"; // HTML message
+        <br/> <a href='https://battleships-preprod.tk/battleships/Content/Pages/confirmPasswordReset.php?resetCode=".$resetCode."&userID=".$userID."'>RESET PASSWORD</a>"; // HTML message
     $subject="BattlesShips Online Password Reset!";
 
     $mail = new PHPMailer();
