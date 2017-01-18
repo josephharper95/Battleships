@@ -8,6 +8,7 @@
 * V0.3      Nick    21/12/16    added rest of missions
 * V0.4      Nick    10/01/17    added icons
 * V0.41     Nick    17/01/17    fixed issue with naming
+* V0.5      Nick    18/01/17    mission text removed for a cleaner look
 *
 */
 
@@ -46,12 +47,6 @@ require_once("header.php");
                 </td>
                 <td>
                     <h3>Fog of War</h3>
-
-                    <p>
-                        You have lost communications with your allies on shore. 
-                        Your sonar system has been damaged by a recent attack so you are unaware if you have sunk your enemy ships.
-                        The fog has limited your ability to fire shots so you can only user your mortar shot.
-                    </p>
                 </td>
                 <td>
                     <form action="mission.php"
@@ -76,15 +71,6 @@ require_once("header.php");
 
                 <td>
                     <h3>Hardcore</h3>
-
-                    <p>
-                        You have suffered a tremendous hit.
-                        None of your perks are available anymore.
-                        Only your main cannon works.
-                        On top of this, your sonar ship detection has broken.
-                        You will be able to see the fire from the hit ship, but you won't know if you have sunk a ship and what ship you have sunk!
-                        Good luck Corporal.
-                    </p>
                 </td>
 
                 <td>
@@ -110,13 +96,6 @@ require_once("header.php");
 
                 <td>
                     <h3>Last - Stand</h3>
-
-                    <p>
-                        Only your destroyer survived the last attack.
-                        You're in the ocean... alone.
-                        A new full wave of enemy ships is fast approaching you.
-                        Position your ship to fend off the enemy.
-                    </p>
                 </td>
                 
                 <td>
@@ -142,11 +121,6 @@ require_once("header.php");
 
                 <td>
                     <h3>Against the Clock</h3>
-
-                    <p>
-                        Time is running out.
-                        You need to sink the enemy ships before the countdown finishes.
-                    </p>
                 </td>
                 
                 <td>
@@ -172,11 +146,6 @@ require_once("header.php");
 
                 <td>
                     <h3>Pearl Harbour</h3>
-
-                    <p>
-                        The enemy has called in a squadron to aid their attack.
-                        You need to defeat the enemy including their squadron.
-                    </p>
                 </td>
                 
                 <td>
@@ -202,11 +171,6 @@ require_once("header.php");
 
                 <td>
                     <h3>Island Warfare</h3>
-
-                    <p>
-                        Your battle field contains islands.
-                        You need to place your ships around these islands and defeat your enemy.
-                    </p>
                 </td>
                 
                 <td>
@@ -232,11 +196,6 @@ require_once("header.php");
 
                 <td>
                     <h3>Waves</h3>
-
-                    <p>
-                        How long can you survive?
-                        Each wave of enemy you defeat, a stronger, more determined AI will do their best to defeat you!
-                    </p>
                 </td>
                 
                 <td>

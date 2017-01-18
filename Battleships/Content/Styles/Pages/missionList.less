@@ -5,6 +5,7 @@
 *   V0.1    Nick    10/12/16    initial creation
 *   V0.2    Nick    10/01/17    added mission icons
 *   V0.3    Nick    17/01/17    misc updates
+*   V0.31   Nick    18/01/17    tweaks to style
 * 
 */
 
@@ -23,7 +24,7 @@ html {
             div#pageMissionList {
 
                 width: 90%;
-                max-width: 800px;
+                max-width: 600px;
                 min-height: 200px;
                 margin: 0 auto;
                 background-image: @blackboard-texture;
@@ -34,7 +35,7 @@ html {
                 border-radius: 5px;
                 top: 150px;
                 position: relative;
-                margin-bottom: 200px;
+                margin-bottom: 50px;
 
                 h1 {
                     width: 100%;
@@ -46,7 +47,7 @@ html {
                 }
 
                 table {
-
+                    width: 100%;
                     margin-bottom: 20px;
 
                     tr {
@@ -58,7 +59,7 @@ html {
                             }
 
                             &:nth-child(3) {
-                                vertical-align: bottom;
+                                width: 150px;
                             }
 
                             i {
@@ -160,6 +161,10 @@ html {
 
                                         display :none;
                                     }
+                                }
+
+                                &:nth-child(3) {
+                                    width: 110px;   
                                 }
                             }
                         }

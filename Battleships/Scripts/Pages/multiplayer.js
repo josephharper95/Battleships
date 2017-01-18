@@ -33,6 +33,7 @@
  * V1.4     Nick        07/12/16    changed alerts to new functionality, fixed bug where new players showed NAN% for completion rate
  * V1.41    Nick        11/12/16    changed ajax links
  * V1.42    Nick        22/12/16    added hit <i> for destroy ship
+ * V1.43    Nick        18/01/17    class missing off no games found
  * 
  */
 
@@ -240,7 +241,7 @@ socket.on('gameList', function (data) {
     }
 
     if (!games) {
-        returnText = "<tr><td colspan='4'>No games found!</td></tr>";
+        returnText = "<tr class='noGamesFound'><td colspan='4'>No games found!</td></tr>";
     }
 
     $(availableRooms + " tbody").html(returnText);

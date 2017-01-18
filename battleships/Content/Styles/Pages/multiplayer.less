@@ -2,7 +2,8 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V.01  Nick    10/12/16    initial creation
+* V0.1  Nick    10/12/16    initial creation
+* V0.2  Nick    18/01/17    style tweaks
 * 
 */
 
@@ -19,7 +20,7 @@ html {
                 div#availableGamesCont {
                     min-height: 200px;
                     max-height: 500px;
-                    width: 600px;
+                    width: 800px;
                     overflow-y: auto;
                     margin: auto;
                     background-image: @blackboard-texture;
@@ -81,6 +82,16 @@ html {
 
                             &:nth-child(5) {
                                 width: 75px;
+                            }
+                        }
+
+                        th {
+                            font-size: 1em;
+                        }
+
+                        tr.noGamesFound {
+                            td {
+                                padding-top: 25px;
                             }
                         }
                     }

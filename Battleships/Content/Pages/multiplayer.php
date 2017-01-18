@@ -20,6 +20,7 @@
 * V0.73     Nick    12/12/16    added individual CSS file
 * V0.74     Nick    28/12/16    CSS now loaded first to stop FoUC
 * V0.8      Nick    17/01/17    changed maps
+* V0.81     Nick    18/01/17    slight wording update
 *
 */
 
@@ -94,7 +95,7 @@ require_once("header.php");
                             Username
                         </th>
                         <th>
-                            Board Size
+                            Size
                         </th>
                         <th>
                             High Score

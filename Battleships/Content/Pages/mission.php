@@ -12,6 +12,7 @@
 *   V0.8    Nick    17/01/17    island warfare added
 *   V0.9    Nick    18/01/17    outro modal
 *   V0.91   Nick    18/01/17    change to width of button
+*   V1.0    Nick    18/01/17    mission text updated
 *
 */
 
@@ -45,7 +46,10 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Last Stand";
-        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $missionText = "Only your destroyer survived the last attack.
+                        You're in the ocean... alone.
+                        A new full wave of enemy ships is fast approaching you.
+                        Position your ship to fend off the enemy.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -55,7 +59,11 @@ switch ($mission) {
 
         $character = "enemy";
         $missionTitle = "Hardcore";
-        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $missionText = "You have suffered a tremendous hit.
+                        Only your main cannon works.
+                        On top of this, your sonar ship detection has broken.
+                        You will know you have hit an enemy ship, but you won't know if that ship has been sunk.
+                        Good luck Corporal.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -65,7 +73,9 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Fog of War";
-        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $missionText = "You have lost communications with your allies on shore. 
+                        Your sonar system has been damaged by a recent attack so you are unaware if you have sunk your enemy ships.
+                        The fog has limited your ability to fire shots so you can only user your mortar shot.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -75,7 +85,8 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Against the Clock";
-        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $missionText = "Time is running out.
+                        You need to sink the enemy ships before the countdown finishes.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -85,7 +96,8 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Pearl Harbour";
-        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $missionText = "The enemy has called in a squadron to aid their attack.
+                        You need to defeat the enemy including their squadron.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Medium";
@@ -95,7 +107,8 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Island Warfare";
-        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $missionText = "Your battle field contains islands.
+                        You need to place your ships around these islands and defeat your enemy.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -105,7 +118,8 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Waves";
-        $missionText = "This is a lot of text so that we can simulate how the page will look. If you are reading this, you may have too much time on your hands...";
+        $missionText = "How long can you survive?
+                        Each wave of enemy you defeat, a stronger, more determined AI will do their best to defeat you!";
         $sizeClass = "large";
         $size = 20;
         $difficultyText = "Easy";
