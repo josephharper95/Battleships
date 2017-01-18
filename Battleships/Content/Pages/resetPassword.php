@@ -36,6 +36,7 @@
                 
 
                 $resetCode = generateResetCode(8);
+                $userQuery->insertPendingPasswordReset($userID, $resetCode);
 
                 passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode);
                 Session::set("resetPasswordMessage", "Please check your emails and click the password reset link");

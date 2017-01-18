@@ -9,12 +9,28 @@
 // include the setup file if it has not been included
 require_once("../Classes/setup.php");
 
-// check the user is logged in by checking the session variable
-if(!Session::get("userID")) {
+// check if the user is logged in by checking the session variable
+if(Session::get("userID")) {
 
-    // redirect to login page if user is not logged in already
-    header("Location: login.php");
+    // redirect to home page if user is logged in already
+    header("Location: home.php");
     exit();
 }
 
+if (Input::getItemExists("userID") && Input::getItemExists("resetCode"))
+{
+    $userID = Input::get("userID");
+    $resetCode = Input::get("resetCode");
+    Session::set("confirmPasswordResetMessage", "Got the stuff");
+}
+else
+{
+    Session::set("loginMessage", "No reset code provided.");
+    header("Location: login.php");
+}
+
 ?>
+
+<li class="confirmPasswordReset">
+    <?= Session::get("confirmPasswordResetMessage"); ?>
+</li>
