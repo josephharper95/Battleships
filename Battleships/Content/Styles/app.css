@@ -129,7 +129,7 @@
 **/
 @font-face {
   font-family: 'Erasdust';
-  src: url('../Fonts/chawp.ttf') format('ttf'), url('../Fonts/chawp.otf') format('otf'), url('../Fonts/handwriting-webfont.woff2') format('woff2'), url('../Fonts/handwriting-webfont.woff') format('woff');
+  src: url('../Fonts/chawp.ttf') format('ttf'), url('../Fonts/chawp.otf') format('otf'), url('../Fonts/chawp-webfont.woff2') format('woff2'), url('../Fonts/chawp-webfont.woff') format('woff');
 }
 @font-face {
   font-family: "Handwriting";
