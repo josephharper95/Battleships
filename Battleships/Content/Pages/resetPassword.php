@@ -33,8 +33,11 @@
                     $firstName = $row->firstName;
                     $lastName = $row->lastName;
                 }
+                
 
-                passwordResetEmail($userID, $firstName, $lastName, $emailAddress, "12345");
+                $resetCode = generateResetCode($numberOfDigits);
+
+                passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode);
                 Session::set("resetPasswordMessage", "Please check your emails and click the password reset link");
             }
             else
@@ -61,6 +64,23 @@
 
 <?php 
     Session::delete("resetPasswordMessage");
+
+    function generateResetCode($numberOfDigits)
+    {
+        $resetCode = '';
+        $count = 0;
+
+        while ($count < $numberOfDigits)
+        {
+            $nextDigit = mt_rand(0, 9);
+
+            $resetCode .= $nextDigit;
+            $count++;
+
+        }
+
+        return $resetCode;
+    }
 
     function passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode)
 	{
