@@ -15,6 +15,7 @@
 * V1.1      Nick    01/12/16    social media links now brought in from file
 * V1.11     Nick    06/12/16    style tweaks
 * V1.12     Nick    12/12/16    added individual CSS file
+* V1.13     Nick    18/01/17    wording changes
 *
 **/
 
@@ -112,12 +113,11 @@ require_once("favicon.html");
 
                         <li class="notRegistered">
                             <i>
-                                Forgotten login?
-                                <a href="resetPassword.php">Reset Password</a>
+                                <a href="resetPassword.php">Forgot Your Password?</a>
                             </i>
                         </li>
 
-                        <li class="notRegistered">
+                        <li class="forgotPassword">
                             <i>
                                 Need an account?
                                 <a href="registration.php">Register Now</a>

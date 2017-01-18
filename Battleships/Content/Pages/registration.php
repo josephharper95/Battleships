@@ -14,6 +14,7 @@
 * V1.12 	Nick 	12/12/16 	added individual CSS file
 * V1.13     Joe     20/12/16    added  email address to registration
 * V1.14     Joe     16/01/17    favicon was loaded in pageRegistration div causing cosmetic bug, now loads after div
+* V1.15 	Nick 	18/01/17 	changed wording
 *
 **/
 
@@ -173,7 +174,7 @@ if (Input::itemExists("register")) {
 
 					<li class="alreadyRegistered">
 						<i>
-							Already Registered?
+							Registered?
 							<a href="login.php">Login Here</a>
 						</i>
 					</li>

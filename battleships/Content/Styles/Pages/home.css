@@ -6,6 +6,7 @@
 * V0.11     Nick    11/12/16    bug fixes
 * V0.2      Nick    28/12/16    fixed CSS bug where title spanned 2 lines
 * V0.3      Nick    17/01/17    updates following additional items being added
+* V0.4      Nick    18/01/17    styling tweaks following font change and more responsive work
 * 
 */
 /**
@@ -68,7 +69,7 @@ html body div#pageHomeCont div#pageHome h1 {
   width: 100%;
   text-align: center;
   color: #fff;
-  font-size: 3em;
+  font-size: 2.8em;
   margin-top: .2em;
   margin-bottom: .2em;
 }
@@ -96,7 +97,7 @@ html body div#pageHomeCont div#pageHome .poster.statistics {
   height: 108px;
   width: 150px;
   position: absolute;
-  top: 30px;
+  top: 100px;
   right: 20px;
   background-size: 150px;
   background-repeat: no-repeat;
@@ -112,7 +113,7 @@ html body div#pageHomeCont div#pageHome .poster.multiplayer {
   width: 110px;
   background-size: 110px;
   position: absolute;
-  top: 160px;
+  top: 200px;
   right: 25px;
   background-repeat: no-repeat;
   -ms-transform: rotate(5deg);
@@ -159,7 +160,7 @@ html body div#pageHomeCont div#pageHome #menu {
   position: absolute;
   top: 90px;
   left: 50px;
-  font-size: 150%;
+  font-size: 120%;
   margin: 0;
 }
 html body div#pageHomeCont div#pageHome #menu li {
@@ -184,9 +185,10 @@ html body div#pageHomeCont div#pageHome #menu a:hover {
     display: none;
   }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 600px) {
   html body div#pageHomeCont div#pageHome h1 {
-    font-size: 2.5em;
+    margin-top: 10px;
+    font-size: 2.2em;
   }
 }
 @media only screen and (max-height: 460px) {
@@ -198,5 +200,17 @@ html body div#pageHomeCont div#pageHome #menu a:hover {
     bottom: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+}
+@media only screen and (max-width: 475px) {
+  html body div#pageHomeCont div#pageHome h1 {
+    margin-top: 10px;
+    font-size: 2em;
+  }
+}
+@media only screen and (max-width: 410px) {
+  html body div#pageHomeCont div#pageHome h1 {
+    margin-top: 15px;
+    font-size: 1.6em;
   }
 }

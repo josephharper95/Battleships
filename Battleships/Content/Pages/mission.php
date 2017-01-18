@@ -11,6 +11,7 @@
 *   V0.7    Nick    17/01/17    added initials to waves
 *   V0.8    Nick    17/01/17    island warfare added
 *   V0.9    Nick    18/01/17    outro modal
+*   V0.91   Nick    18/01/17    change to width of button
 *
 */
 
@@ -311,7 +312,7 @@ require_once("header.php");
                     style="display:none;">
 
                     <a href="missionList.php"
-                        style="width: 150px;">Back to Missions</a>
+                        style="width: 200px;">Back to Missions</a>
                 </div>
             </div>
         </div>
