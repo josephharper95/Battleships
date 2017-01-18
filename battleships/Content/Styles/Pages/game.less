@@ -2,14 +2,15 @@
 * 
 * Last Modified By: Nick Holdsworth
 * 
-* V0.1  Nick    10/12/16    initial creation
-* V0.2  Nick    12/12/16    added responsive items
-* V0.3  Nick    22/12/16    changed hit from red colour to image
-* V0.4  Nick    10/01/17    added plane images
-* V0.5  Nick    17/01/17    changes to maps
-* V0.6  Nick    17/01/17    added island map css
-* V0.61 Nick    18/01/17    responsive bug tweaks
-* V0.62 Nick    18/01/17    more tweaks to help multiplayer
+* V0.1      Nick    10/12/16    initial creation
+* V0.2      Nick    12/12/16    added responsive items
+* V0.3      Nick    22/12/16    changed hit from red colour to image
+* V0.4      Nick    10/01/17    added plane images
+* V0.5      Nick    17/01/17    changes to maps
+* V0.6      Nick    17/01/17    added island map css
+* V0.61     Nick    18/01/17    responsive bug tweaks
+* V0.62     Nick    18/01/17    more tweaks to help multiplayer
+* V0.63     Nick    18/01/17    fixed bug where hit image wasn't showing
 * 
 */
 
@@ -250,7 +251,7 @@ html {
                                                 height: 100%;
                                                 width: 100%;
                                                 background-image: @ship-hit;
-                                                background-size: calc(100%) calc(100%);
+                                                background-size: 100%;
                                             }
                                         }
                                     }
@@ -355,6 +356,15 @@ html {
                                         @size: 37px;
                                         width: @size;
                                         height: @size;
+
+                                        &.hit {
+                                            &.containsShip {
+                                                .hit {
+                                                    height: @size;
+                                                    width: @size;
+                                                }
+                                            }
+                                        }
 
                                         &[data-ship=Destroyer] {
                                             &[data-orientation=Horizontal] {
@@ -471,6 +481,15 @@ html {
                                         @size: 24px;
                                         width: @size;
                                         height: @size;
+
+                                        &.hit {
+                                            &.containsShip {
+                                                .hit {
+                                                    height: @size;
+                                                    width: @size;
+                                                }
+                                            }
+                                        }
 
                                         &[data-ship=Destroyer] {
                                             &[data-orientation=Horizontal] {
@@ -590,6 +609,15 @@ html {
                                         @size: 17px;
                                         width: @size;
                                         height: @size;
+
+                                        &.hit {
+                                            &.containsShip {
+                                                .hit {
+                                                    height: @size;
+                                                    width: @size;
+                                                }
+                                            }
+                                        }
 
                                         &[data-ship=Destroyer] {
                                             &[data-orientation=Horizontal] {
@@ -966,6 +994,15 @@ html {
                                             height: @size;
                                             width: @size;
 
+                                            &.hit {
+                                                &.containsShip {
+                                                    .hit {
+                                                        height: @size;
+                                                        width: @size;
+                                                    }
+                                                }
+                                            }
+
                                             &[data-ship=Destroyer] {
                                                 &[data-orientation=Horizontal] {
                                                     background-size: calc(@size * 2.2) @size;
@@ -1029,6 +1066,15 @@ html {
                                             height: @size;
                                             width: @size;
 
+                                            &.hit {
+                                                &.containsShip {
+                                                    .hit {
+                                                        height: @size;
+                                                        width: @size;
+                                                    }
+                                                }
+                                            }
+
                                             &[data-ship=Destroyer] {
                                                 &[data-orientation=Horizontal] {
                                                     background-size: calc(@size * 2.2) @size;
@@ -1091,6 +1137,15 @@ html {
                                             @size: 14px;
                                             height: @size;
                                             width: @size;
+
+                                            &.hit {
+                                                &.containsShip {
+                                                    .hit {
+                                                        height: @size;
+                                                        width: @size;
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
