@@ -204,13 +204,13 @@ require_once("header.php");
 
                 <h3>Player</h3>
 
-                <!-- players board, populated relating to the size -->
-                <table id="playerBoard" class="board" data-size="small" ></table>
-
                 <div class="mapCont">
                     <div class="map"
                             data-size="<?= $sizeClass; ?>"></div>
                 </div>
+
+                <!-- players board, populated relating to the size -->
+                <table id="playerBoard" class="board" data-size="small" ></table>
 
                 <!-- button to start game, hidden at first -->
                 <div class="buttonContainer">
@@ -269,13 +269,13 @@ require_once("header.php");
 
                 <h3 id="opponentName" >Opponent</h3>
 
-                <!-- opponents board, populated relating to the size -->
-                <table id="opponentBoard" class="board" data-size="small" ></table>
-
                 <div class="mapCont">
                     <div class="map"
                             data-size="<?= $sizeClass; ?>"></div>
                 </div>
+
+                <!-- opponents board, populated relating to the size -->
+                <table id="opponentBoard" class="board" data-size="small" ></table>
 
                 <div class="buttonContainer">
 
