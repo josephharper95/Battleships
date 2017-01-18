@@ -112,6 +112,13 @@ require_once("favicon.html");
 
                         <li class="notRegistered">
                             <i>
+                                Forgotten login?
+                                <a href="resetPassword.php">Reset Password</a>
+                            </i>
+                        </li>
+
+                        <li class="notRegistered">
+                            <i>
                                 Need an account?
                                 <a href="registration.php">Register Now</a>
                             </i>
