@@ -113,17 +113,6 @@ switch ($mission) {
         $size = 15;
         $difficultyText = "Hard";
         break;
-
-    case "waves":
-
-        $character = "friendly";
-        $missionTitle = "Waves";
-        $missionText = "How long can you survive?
-                        Each wave of enemy you defeat, a stronger, more determined AI will do their best to defeat you!";
-        $sizeClass = "large";
-        $size = 20;
-        $difficultyText = "Easy";
-        break;
 }
 
 require_once("header.php");

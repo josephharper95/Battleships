@@ -189,7 +189,7 @@ require_once("header.php");
                 </td>
             </tr>
 
-            <tr>
+            <!--<tr>
                 <td>
                     <i class="waves"></i>
                 </td>
@@ -212,7 +212,7 @@ require_once("header.php");
                         </button>
                     </form>
                 </td>
-            </tr>
+            </tr>-->
         </table>
     </div>
 </div>

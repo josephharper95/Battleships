@@ -173,5 +173,5 @@ VALUES  ('7', 'Win 10 Games', 'bronze'),
         ('16', 'Complete Against The Clock', 'against-the-clock'), 
         ('17', 'Complete Pearl Harbour', 'pearl-harbour'),
         ('18', 'Complete Island Warfare', 'island-warfare'),
-        ('19', 'Complete Waves', 'waves'),
-        ('20', 'Win a Multiplayer Game', 'waves');
+        --('19', 'Complete Waves', 'waves'),
+        ('20', 'Win a Multiplayer Game', 'bronze');

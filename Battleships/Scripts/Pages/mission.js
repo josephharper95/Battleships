@@ -125,10 +125,6 @@ function initialise() {
             case "island-warfare":
                 initIslandWarfare();
                 break;
-
-            case "waves":
-                initWaves();
-                break;
         }
     }
 }
@@ -273,11 +269,6 @@ function initIslandWarfare() {
     });
 }
 
-function initWaves() {
-
-    $.getScript("../../Scripts/Overrides/waves.js");
-}
-
 function runIntro() {
 
     runText();
@@ -316,7 +307,9 @@ function runButtons() {
             populateShips();
             initPlaceShips();
 
-            difficulty = mission.difficulty.toLowerCase();
+            if (difficulty != null) {
+                difficulty = mission.difficulty.toLowerCase();  
+            }
 
             game = new Game(mission.boardSize);
             playerBoardClass = game.getPlayerBoard();
@@ -403,7 +396,7 @@ function confirmExit() {
 
 function endGame(winner, finished) {
 
-    endGameExtra();
+    finished = endGameExtra(winner, finished);
 
     if (finished) {
 
@@ -441,9 +434,9 @@ function endGame(winner, finished) {
                         medalId = 17;
                         break;
                     
-                    case "waves":
-                        medalId = 19;
-                        break;
+                    // case "waves":
+                    //     medalId = 19;
+                    //     break;
 
                     case "island-warfare":
                         medalId = 18;
@@ -673,4 +666,6 @@ function showOpponentShips() {
 
 function startGameExtra() {}
 
-function endGameExtra() {}
+function endGameExtra(winner, finished) {
+    return finished
+}
