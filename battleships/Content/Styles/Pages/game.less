@@ -8,6 +8,7 @@
 * V0.4  Nick    10/01/17    added plane images
 * V0.5  Nick    17/01/17    changes to maps
 * V0.6  Nick    17/01/17    added island map css
+* V0.61 Nick    18/01/17    responsive bug tweaks
 * 
 */
 
@@ -907,76 +908,6 @@ html {
         }
     }
 }
-
-@media only screen and (max-width: 600px) {
-
-    html {
-        body {
-            
-            .gameContainer {
-
-                height: auto;
-                overflow: hidden;
-
-                padding-bottom: 10px;
-                margin-bottom: 50px;
-
-                @margin: 20px;
-
-                width: 420px;
-
-                background-image: @texture-wood-v;
-                background-size: 620px;
-                
-                .sideContainer {
-                    &:nth-child(2) {
-                        margin-left: @margin;
-                    }
-                }
-
-                div.sideContainer {
-
-                    div.boardExtrasContainer {
-                        display: inline-block;
-                        width: 100%;
-                        margin: 20px 0 0 0;
-
-                        .boardExtras {
-                            display: inline-block;
-                            text-align: center;
-
-                            > div {
-                                display: inline-block;
-                                width: 150px;
-                                vertical-align: top;
-                                margin-top: 0 !important;
-
-                                &.perksCont {
-                                    padding: 0;
-
-                                    ul {
-                                        padding: 0 10px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    &#opponentContainer {
-                        margin-left: 10px;
-
-                        .mapCont {
-                            .map {
-                                left: 1px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 @media only screen
     and(max-width:1200px)
     and(min-width:1001px) {
@@ -1011,11 +942,18 @@ html {
                     }
 
                     div.boardContainer {
-                        width: 345px;
+                        @boardWidth: 350px;
+                        width: @boardWidth;
 
                         > table.board {
                             height: 345px;
-                            background-size: 345px 345px;
+                            background-size: 350px 350px;
+
+                            &[data-size=medium] {
+                                background-size: 355px 340px;
+                                height: 345px;
+                                width: 355px;
+                            }
 
                             &[data-size=small] {
                                 > tbody {
@@ -1156,6 +1094,22 @@ html {
                             }
                         }
 
+                        .mapCont {
+                            top: 32px;
+
+                            .map {
+                                width: 340px;
+                                height: 340px;
+                                background-size: 340px;
+
+                                &[data-size=medium] {
+                                    width: 345px;
+                                    height: 330px;
+                                    background-size: 350px;
+                                }
+                            }
+                        }
+
                         .buttonContainer {
 
                             button {
@@ -1206,6 +1160,75 @@ html {
 
                     .boardExtrasContainer {
                         margin-top: 35px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    html {
+        body {
+            
+            .gameContainer {
+
+                height: auto;
+                overflow: hidden;
+
+                padding-bottom: 10px;
+                margin-bottom: 50px;
+
+                @margin: 20px;
+
+                width: 420px;
+
+                background-image: @texture-wood-v;
+                background-size: 620px;
+                
+                .sideContainer {
+                    &:nth-child(2) {
+                        margin-left: @margin;
+                    }
+                }
+
+                div.sideContainer {
+
+                    div.boardExtrasContainer {
+                        display: inline-block;
+                        width: 100%;
+                        margin: 20px 0 0 0;
+
+                        .boardExtras {
+                            display: inline-block;
+                            text-align: center;
+
+                            > div {
+                                display: inline-block;
+                                width: 150px;
+                                vertical-align: top;
+                                margin-top: 0 !important;
+
+                                &.perksCont {
+                                    padding: 0;
+
+                                    ul {
+                                        padding: 0 10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &#opponentContainer {
+                        margin-left: 10px;
+
+                        .mapCont {
+                            .map {
+                                left: 1px;
+                            }
+                        }
                     }
                 }
             }

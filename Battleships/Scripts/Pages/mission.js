@@ -7,6 +7,7 @@
  *  V0.5    Nick    10/01/17    added pearl harbour
  *  V0.6    Nick    17/01/17    initial waves
  *  V0.7    Nick    17/01/17    island warfare added
+ *  V0.8    Nick    18/01/17    outro implemented
  * 
  */
 
@@ -410,9 +411,9 @@ function endGame(winner, finished) {
         removeHovers();
         disablePerks();
 
-        if (winner == "player") {
+        runOutro(winner);
 
-            alert("You win");
+        if (winner == "player") {
 
             if (mission != null) {
 
@@ -465,6 +466,39 @@ function endGame(winner, finished) {
     }
 
     window.onbeforeunload = null;
+}
+
+function runOutro(winner) {
+
+    $("#introButtons").hide();
+    $("#outroButtons").show();
+
+    $("#introOverlay").fadeIn(200).promise().done(function() {
+
+        $("#intro").fadeIn(500).promise().done(function () {
+
+            var endText = winner == "player" ?
+                "You Won! <br/><br/> Insert motivational speech about how well you did"
+                :
+                "You Lost! <br/><br/> Insert motivational speech about how to get better";
+
+            var chars = endText.split("");
+
+            var text = "";
+            var i = 0;
+
+            var t = setInterval(function () {
+
+                if (i >= chars.length - 1) {
+                    clearInterval(t);
+                }
+
+                text += chars[i];
+                $("#intro #message p").html(text);
+                i++;
+            }, 50);
+        });
+    });
 }
 
 /******************************
