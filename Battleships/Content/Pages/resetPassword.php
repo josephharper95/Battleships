@@ -35,7 +35,7 @@
                 }
                 
 
-                $resetCode = generateResetCode($numberOfDigits);
+                $resetCode = generateResetCode(8);
 
                 passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode);
                 Session::set("resetPasswordMessage", "Please check your emails and click the password reset link");
