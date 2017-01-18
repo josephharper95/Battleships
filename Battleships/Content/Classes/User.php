@@ -338,15 +338,15 @@ class User {
 
     //Function to execute a query, getting all the medals
    	function getAllMedalsByUserID($userID) {
-        $sql = "SELECT m.medalName, m.medalCategory, CASE um.userID 
+        $sql = "SELECT m1.medalName, m1.medalCategory, CASE um.userID 
 										WHEN ? 
                                         THEN TRUE 
                                         ELSE FALSE 
                                      END AS 'isUnlocked' 
                 FROM usermedals um 
-	                RIGHT JOIN medals m 
-    	                ON um.medalID = m.medalID";
-        $values = array($userID);
+	                RIGHT JOIN medals m1 
+    	                ON um.medalID = m1.medalID AND um.userID = ?";
+        $values = array($userID, $userID);
 		
 		$this->db->query($sql, $values);
 
