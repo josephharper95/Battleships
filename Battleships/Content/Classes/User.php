@@ -345,9 +345,8 @@ class User {
                                      END AS 'isUnlocked' 
                 FROM usermedals um 
 	                RIGHT JOIN medals m 
-    	                ON um.medalID = m.medalID 
-                WHERE um.userID = ? || um.userID is NULL";
-        $values = array($userID, $userID);
+    	                ON um.medalID = m.medalID";
+        $values = array($userID);
 		
 		$this->db->query($sql, $values);
 
