@@ -87,10 +87,10 @@
 	{
 		require("../../Scripts/PHPMailer/class.PHPMailer.php");
 
-		$account="battleshipsonlinetest@outlook.com";
-		$password="captainsinkswithship2017";
+		$account="battleshipsonline@outlook.com";
+		$password="zHU9BaxAeJVPJXhy";
 		$to=$emailAddress;
-		$from="battleshipsonlinetest@outlook.com";
+		$from="battleshipsonline@outlook.com";
 		$from_name="BattleShips Online";
 		$msg="Hello Captain ".$firstName." ".$lastName.", you recently requested a password reset...
 			<br/> Your User ID is: ".$userID.
