@@ -5,6 +5,7 @@
 *   V0.1    Joe    17/01/17    initial creation
 *   V0.2    Joe    18/01/17    updated with queries and email
 *   V0.21   Joe    18/01/17    updated email address
+*   V0.22   Joe    18/01/17    added validation
 *   
 */
 
@@ -48,6 +49,14 @@
                 Session::set("resetPasswordMessage", "No user found with that user ID");
             }
         }
+        else
+        {
+            Session::set("resetPasswordMessage", "Not a valid user");
+        }
+    }
+    else
+    {
+        Session::set("resetPasswordMessage", "Please ensure you have entered a user ID");
     }
 
 
