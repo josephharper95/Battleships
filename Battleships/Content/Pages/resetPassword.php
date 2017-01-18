@@ -3,6 +3,8 @@
 /**
 *
 *   V0.1    Joe    17/01/17    initial creation
+*   V0.2    Joe    18/01/17    updated with queries and email
+*   V0.21   Joe    18/01/17    updated email address
 *   
 */
 
@@ -95,7 +97,7 @@
 		$msg="Hello Captain ".$firstName." ".$lastName.", you recently requested a password reset...
 			<br/> Your User ID is: ".$userID.
             "<br/><br/> Please click the following link to reset your password: 
-            <br/> <a href='https://battleships.online/battleships/Content/Pages/confirmPasswordReset.php?resetCode=".$resetCode."&userID=".$userID."'>RESET PASSWORD</a>"; // HTML message
+            <br/> <a href='https://battleships-preprod.tk/battleships/Content/Pages/confirmPasswordReset.php?resetCode=".$resetCode."&userID=".$userID."'>RESET PASSWORD</a>"; // HTML message
 		$subject="BattlesShips Online Password Reset!";
 
 		$mail = new PHPMailer();
