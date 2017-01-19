@@ -1,4 +1,10 @@
 <?php
+/**
+
+* V0.1      Joe     19/01/17    initial creation, methods moved from resetPassword.php and registration.php
+*
+**/
+
 require_once("../Classes/setup.php");
 
 if(!$argv[0])

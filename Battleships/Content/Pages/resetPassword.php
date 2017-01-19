@@ -6,7 +6,8 @@
 *   V0.2    Joe    18/01/17    updated with queries and email
 *   V0.21   Joe    18/01/17    updated email address
 *   V0.22   Joe    18/01/17    added validation
-*   V0.3    Nick    18/01/17    made it pretty
+*   V0.3    Nick   18/01/17    made it pretty
+*   V0.4    Joe    19/01/17    moved mail method out to mail.php, made call asynchronous
 *   
 */
 

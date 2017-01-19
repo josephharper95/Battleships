@@ -2,9 +2,6 @@
 
 /**
 *
-* Last Modified By: Joe Harper
-* Current Version: 1.13
-*
 * V0.1      Joe  	01/10/16    initial creation
 * V0.2 		Nick 	03/10/16 	added first / last name
 * V0.21     Joe     06/10/16    added comments, moved message to formatted tags
@@ -15,6 +12,7 @@
 * V1.13     Joe     20/12/16    added  email address to registration
 * V1.14     Joe     16/01/17    favicon was loaded in pageRegistration div causing cosmetic bug, now loads after div
 * V1.15 	Nick 	18/01/17 	changed wording
+* V1.2      Joe     19/01/17    moved mail method out to mail.php, made call asynchronous
 *
 **/
 
