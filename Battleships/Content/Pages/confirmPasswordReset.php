@@ -34,7 +34,7 @@ if(Input::itemExists("passwordSetAttempt"))
             // Delete reset code/user id combination from db
             $userQuery->deletePendingPasswordReset($userID);
             $userQuery->updatePasswordByUserID($userID, $newHashedPassword);
-            Session::set("loginMessage", "Password change successful. Please enter your username and password to log in.");
+            Session::set("loginMessage", "Password change successful. Enter your credentials to login.");
             header("Location: login.php");
             exit();
         } else {
