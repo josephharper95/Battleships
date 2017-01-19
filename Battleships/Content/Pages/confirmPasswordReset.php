@@ -3,6 +3,7 @@
 /**
 *
 *   V0.1    Joe    17/01/17    initial creation
+*   V0.2    Joe    18/01/17    added validation and true functionality
 *   
 */
 

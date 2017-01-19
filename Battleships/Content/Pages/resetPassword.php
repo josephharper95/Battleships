@@ -51,11 +51,11 @@ if (Input::itemExists("resetPassword")) {
         }
     } else {
 
-        Session::set("resetPasswordMessage", "Not a valid user");
+        Session::set("resetPasswordMessage", "Enter a valid user");
     }
 } else {
 
-    Session::set("resetPasswordMessage", "Please ensure you have entered a user ID");
+    Session::set("resetPasswordMessage", "Please enter a valid user ID");
 }
 
 ?>
