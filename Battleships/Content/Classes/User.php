@@ -315,14 +315,14 @@ class User {
 
     //Function to execute a query, getting the users total number of wins
    	function getWinsByUserID($userID) {
-        $sql = "SELECT SUM(wins)
+        $sql = "SELECT SUM(wins) as 'wins'
 				FROM userstatistics us
 				WHERE us.userID = ?";
         $values = array($userID);
 		
 		$this->db->query($sql, $values);
 
-        return $this->db->getResults();
+        return $this->db->getResults()[0];
 	}
 
     //Function to execute a query, getting all the medals

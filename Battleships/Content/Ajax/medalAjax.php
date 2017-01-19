@@ -6,6 +6,7 @@
 *
 * V0.1      Dave    16/01/17    initial creation
 * V0.11     Nick    17/01/17    bug fix
+* V0.12     Dave    19/01/17    fixed number of wins medals
 *
 **/
 
@@ -103,7 +104,7 @@ function checkMedalConditions(){
 
             //Check total number of games won
             $numberOfWins = $user->getWinsByUserID($userId);
-            switch($numberOfWins){
+            switch($numberOfWins->wins){
                 case 10:
                     unlockMedal(7);
                     break;
