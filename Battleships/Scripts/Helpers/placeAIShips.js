@@ -9,13 +9,20 @@
  * Function to place AI ships depending on difficulty
  */
 function placeAIShips() {
+
     // initialise AI
-    if (difficulty == "easy") {
+    if (difficulty.toLowerCase() == "easy") {
+
         AI = new AI("AI", opponentBoardClass, playerBoardClass);
-    } else if (difficulty == "medium") {
+
+    } else if (difficulty.toLowerCase() == "medium") {
+
         AI = new AIMedium("AI", opponentBoardClass, playerBoardClass);
-    } else if (difficulty == "hard") {
+
+    } else if (difficulty.toLowerCase() == "hard") {
+
         AI = new AIHard("AI", opponentBoardClass, playerBoardClass);
+        
     }
 
     // invoke the place ships method

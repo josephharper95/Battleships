@@ -8,6 +8,7 @@
  *  V0.6    Nick    17/01/17    initial waves
  *  V0.7    Nick    17/01/17    island warfare added
  *  V0.8    Nick    18/01/17    outro implemented
+ *  V0.81   Nick    20/01/17    final comments added
  * 
  */
 
@@ -43,6 +44,7 @@ var totalShots = 0;
 var totalHits = 0;
 var totalHitsReceived = 0;
 
+// opponent / player ship details - normal
 var opponentShipDetails = [
     {
         name: "Destroyer",
@@ -88,18 +90,27 @@ var playerShipDetails = [
     }
 ];
 
+/**
+ * Function to run when DOM is ready
+ */
 $(document).ready(function () {
 
     runIntro();
     initialise();
 });
 
+/**
+ * Function to initialise the specific mission
+ */
 function initialise() {
 
+    // set the board size
     boardSize = mission.boardSize;
 
+    // check that a mission has been passed
     if (mission != null) {
 
+        // switch the mission and run the specific initialise
         switch (mission.name) {
 
             case "fog-of-war":
@@ -129,6 +140,9 @@ function initialise() {
     }
 }
 
+/**
+ * Function to initialise last stand mission
+ */
 function initLastStand() {
 
     // last stand has one ship
@@ -142,6 +156,9 @@ function initLastStand() {
     ];
 }
 
+/**
+ * Function to initialise hardcore mission
+ */
 function initHardcore() {
 
     // hardcore removes perks
@@ -150,25 +167,39 @@ function initHardcore() {
     $(".perksCont").remove();
     $("#opponentContainer .shipsRemainingCont").remove();
 
+    // get the appropriate script
     $.getScript("../../Scripts/Overrides/playerFireAtComputer.js");
 }
 
+/**
+ * Function to initialise fog of war mission
+ */
 function initFogOfWar() {
 
     // fog of war perk
     // removes the ability of seeing what enemy ships have been sunk
 
     $("#opponentContainer .shipsRemainingCont").remove();
+
+    // get appropriate script
     $.getScript("../../Scripts/Overrides/playerFireAtComputer.js");
 }
 
+/**
+ * Function to initialise against the clock mission
+ */
 function initAgainstTheClock() {
 
+    // load appropriate script
     $.getScript("../../Scripts/Overrides/againstTheClock.js");
 }
 
+/**
+ * Function to initialise pearl harbour mission
+ */
 function initPearlHarbour() {
 
+    // opponent has more ships than normal
     opponentShipDetails = [
         {
             name: "Destroyer",
@@ -211,10 +242,15 @@ function initPearlHarbour() {
     $(opponentContainer + " .shipsRemainingCont").addClass("pearlHarbour");
 }
 
+/**
+ * Function to initialise island warfare
+ */
 function initIslandWarfare() {
 
+    // add class to the player board so that it shows an island
     $(playerContainer + " .mapCont .map").addClass("island");
 
+    // coordinates that are out of bounds
     var landCoords = [
         { x: 8, y: 3 },
         { x: 9, y: 3 },
@@ -251,6 +287,7 @@ function initIslandWarfare() {
         { x: 13, y: 8 }
     ];
 
+    // override existing click handler
     $("#acceptMission").unbind("click").one("click", function () {
 
         $("#intro").fadeOut(500).promise().done(function () {
@@ -269,23 +306,31 @@ function initIslandWarfare() {
     });
 }
 
+/**
+ * Function that runs all intro functions
+ */
 function runIntro() {
 
     runText();
     runButtons();
 }
 
+/**
+ * Function to show text on the intro
+ */
 function runText() {
 
-    mission.text += "<br /><br />Do you accept this mission?";
+    mission.text += "<br/><br/>Do you accept this mission?";
 
     var chars = mission.text.split("");
 
     var text = "";
     var i = 0;
 
+    // set interval to show each character
     var t = setInterval(function () {
 
+        // clear interval when it reaches the end
         if (i >= chars.length - 1) {
             clearInterval(t);
         }
@@ -293,9 +338,13 @@ function runText() {
         text += chars[i];
         $("#intro #message p").html(text);
         i++;
+
     }, 50);
 }
 
+/**
+ * Function to show and handle the buttons
+ */
 function runButtons() {
 
     $("#acceptMission").unbind("click").one("click", function () {
@@ -307,7 +356,7 @@ function runButtons() {
             populateShips();
             initPlaceShips();
 
-            if (difficulty != null) {
+            if (difficulty == null) {
                 difficulty = mission.difficulty.toLowerCase();  
             }
 
@@ -318,6 +367,9 @@ function runButtons() {
     });
 }
 
+/**
+ * Function to populate the remaining ships and ships to place variable
+ */
 function populateShips() {
 
     var remainingShipsHtml = "";
@@ -347,7 +399,11 @@ function populateShips() {
  * 
 ******************************/
 
+/**
+ * Function runs once ships have been placed
+ */
 function shipsPlaced() {
+
     // cleanups
     removeHovers();
     $(window).unbind("keydown");
@@ -368,16 +424,22 @@ function shipsPlaced() {
     });
 }
 
+/**
+ * Function to start game
+ */
 function startGame() {
 
+    // add unload message
     window.onbeforeunload = confirmExit;
 
     // set the variable so other methods know the game has begun
     gameStarted = true;
 
+    // hide reset / undo buttons and remove click handler
     $(resetBoardButton).fadeOut(500).unbind("click");
     $(undoLastShipButton).fadeOut(500).unbind("click");
 
+    // show board extras
     $(boardExtras).fadeIn(500);
 
     // place the ships for the AI
@@ -390,28 +452,44 @@ function startGame() {
     playerMove();
 }
 
+/**
+ * Message when unloading
+ */
 function confirmExit() {
     return "If you leave the page, your game will not be saved";
 }
 
+/**
+ * Function to run when game has ended
+ * 
+ * @param   {string}    winner      player who won the game
+ * @param   {boolean}   finished    whether the game has actually finished
+ */
 function endGame(winner, finished) {
 
+    // just in case there is an end game extra
     finished = endGameExtra(winner, finished);
 
+    // check that the game has actually finished
     if (finished) {
 
+        // remove all clicks, hovers and disable perks
         removeClicks();
         removeHovers();
         disablePerks();
 
+        // run the outro
         runOutro(winner);
 
+        // if the playr has won
         if (winner == "player") {
 
+            // check that the mission isn't null
             if (mission != null) {
 
                 var medalId;
 
+                // find which medal to unlock
                 switch (mission.name) {
 
                     case "fog-of-war":
@@ -433,16 +511,13 @@ function endGame(winner, finished) {
                     case "pearl-harbour":
                         medalId = 17;
                         break;
-                    
-                    // case "waves":
-                    //     medalId = 19;
-                    //     break;
 
                     case "island-warfare":
                         medalId = 18;
                         break;
                 }
 
+                // unlock the medal
                 $.ajax({
                     url: "../../Content/Ajax/medalAjax.php",
                     data: {
@@ -454,34 +529,49 @@ function endGame(winner, finished) {
             }
         } else {
 
+            // if the player lost, show the opponent ships
             showOpponentShips();
         }
     }
 
+    // remove the unload messages
     window.onbeforeunload = null;
 }
 
+/**
+ * Function to run the outro
+ * 
+ * @param   {string}    winner  the player who won the game
+ */
 function runOutro(winner) {
 
+    // reset the intro, and prepare it to be an outro
+    $("#intro #message p").html("");
     $("#introButtons").hide();
     $("#outroButtons").show();
 
+    // fade in the overlay
     $("#introOverlay").fadeIn(200).promise().done(function() {
 
+        // fade in the intro container
         $("#intro").fadeIn(500).promise().done(function () {
 
+            // set the text
             var endText = winner == "player" ?
                 "You Won! <br/><br/> Insert motivational speech about how well you did"
                 :
                 "You Lost! <br/><br/> Insert motivational speech about how to get better";
 
+            // split the string into individual characters
             var chars = endText.split("");
 
             var text = "";
             var i = 0;
 
+            // initialise the interval
             var t = setInterval(function () {
 
+                // clear the interval if characters are exhausted
                 if (i >= chars.length - 1) {
                     clearInterval(t);
                 }
@@ -489,6 +579,7 @@ function runOutro(winner) {
                 text += chars[i];
                 $("#intro #message p").html(text);
                 i++;
+
             }, 50);
         });
     });
@@ -501,45 +592,61 @@ function runOutro(winner) {
  ******************************/
 
 /**
- * 
+ * Function to update the perks for the player
  */
 function updatePerks() {
+
+    // get the available perks from game class
     var perks = game.getPlayerPerksAvailable();
 
+    // initialise the HTML to be an empty string
     var perkHtml = "";
 
+    // iterate through each perk
     $.each(perks, function (i, val) {
 
+        // replace '-' with ' '
         var split = i.split("_");
         split = split.join(" ");
 
+        // open li tag
         perkHtml += "<li>";
 
+        // open button tag
         perkHtml += "<button ";
         perkHtml += "class='button perk' ";
         perkHtml += "data-perk='" + i + "' ";
 
+        // if no uses left, disable the button
         if (val.usesLeft <= 0) {
             perkHtml += "disabled ";
             val.usesLeft = 0;
         }
 
+        // close the opening button tag
         perkHtml += ">";
 
+        // insert name and uses left for button
         perkHtml += split;
         perkHtml += " " + val.usesLeft;
 
+        // close button tag
         perkHtml += "</button>";
 
+        // close li tag
         perkHtml += "</li>";
     });
 
+    // publish the HTML to the perks
     $("#playerContainer .perks").html(perkHtml);
 
+    // add a click handler to enabled perks
     $("#playerContainer .perk:not(:disabled)").off("click").one("click", function () {
+
         var cell = $(this);
         var perk = $(cell).data("perk");
 
+        // run the perk
         runPlayerPerk(perk);
     });
 }
@@ -548,99 +655,156 @@ function updatePerks() {
  * Make buttons look disabled
  */
 function disablePerks() {
+
     $("#playerContainer .perk").attr("disabled", "disabled");
 }
 
 /**
  * Initial function that gets the perk and decides how to respond
+ * 
+ * @param   {string}    perk    the perk that is being used
  */
 function runPlayerPerk(perk) {
 
+    // stop user from using other perks
     disablePerks();
 
+    // find which perk to initialise
     switch (perk) {
+
         case "Sonar":
             initSonarPerk();
             break;
+
         case "Bounce_Bomb":
             initBounceBombPerk();
             break;
+
         case "Mortar":
             initMortarPerk();
             break;
     }
 }
 
+/**
+ * Function that is called at the end of each perk
+ * 
+ * @param   {boolean}   skipTurn    whether the perk should count as a move
+ * @param   {string}    perk        what perk has been used
+ */
 function endPlayerPerk(skipTurn, perk) {
 
+    // update the perks available to decrement
     var x = game.updatePlayerPerks(perk);
 
+    // update the HTML to let the user know how many they have left
     updatePerks();
 
-    if (!skipTurn) {
-        playerMove();
-    } else {
+    if (skipTurn) {
+
         AIMove();
+    } else {
+        
+        playerMove();
     }
 }
 
+/**
+ * Function that runs the functionality of the bounce bomb
+ * 
+ * @param   {int}   x               the x value
+ * @param   {int}   y               the y value
+ * @param   {int}   bbOrientation   the orientation of the bounce bomb
+ */
 function bounceBombAction(x, y, bbOrientation) {
+
+    // put bounce bomb to a variable
     var bounceBomb = new BouncingBomb(opponentBoardClass);
 
+    // number of moves from the bounce bomb
     var num = bounceBomb.action(x, y, bbOrientation);
 
+    // fire at the initial coordinate
     boardFireAtOpponentCoordinate(x, y);
 
+    // if there are 2 valid moves, fire at the appropriate coordinate
     if (num == 2) {
 
         if (bbOrientation == 1) {
-            //opponentBoardClass.fire(x, y - 1);
+            
             boardFireAtOpponentCoordinate(x, y - 1);
         } else {
-            //opponentBoardClass.fire(x + 1, y);
+            
             boardFireAtOpponentCoordinate(x + 1, y);
         }
     }
 
+    // remove any existing hovers
     removeHovers();
+
+    // end the perk
     endPlayerPerk(true, "Bounce_Bomb");
 }
 
+/**
+ * Function that runs the functionality of the sonar
+ * 
+ * @param   {int}   x   the x value
+ * @param   {int}   y   the y value
+ */
 function sonarAction(x, y) {
 
+    // put the sonar class to a variable
     var sonar = new Sonar(opponentBoardClass);
 
+    // get the potential cell that the sonar has found
     var cell = sonar.action(x, y);
 
+    // if it has found a cell
     if (cell) {
 
+        // show the sonar location on the appropriate coordinate
         $(page + " " + opponentBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
 
     } else {
+
+        // alert the player that a move has not been found
         showMessageTimeout("No moves found! Better luck next time...", 2000);
     }
 
-    // allow player to now make a move
+    // end the perk
     endPlayerPerk(true, "Sonar");
 }
 
+/**
+ * Function that runs the functionality of the mortar
+ * 
+ * @param   {int}   x   the x value
+ * @param   {int}   y   the y value
+ */
 function mortarAction(x, y) {
 
+    // put the mortar class to a variable
     var mortar = new Mortar(opponentBoardClass);
-
+    
+    // get the coordinates from the mortar action
     var cells = mortar.action(x, y);
 
-    console.log(cells);
-
+    // check that there are cells, and only 3
     if (cells && cells.length == 3) {
         
+        // interate through the coordinates
         for (var i = 0; i < cells.length; i++) {
 
+            // fire at the individual coordinate
             boardFireAtOpponentCoordinate(cells[i].getX(), cells[i].getY());
         }
     }
 
+    // remove the hover handlers
     removeHovers();
+
+    // end the perk
     endPlayerPerk(true, "Mortar");
 }
 
@@ -650,10 +814,18 @@ function mortarAction(x, y) {
  * 
 ******************************/
 
+/**
+ * Function to show the opponent ships
+ */
 function showOpponentShips() {
+
+    // get the ships that haven't already been shown
     var remainingShips = opponentBoardClass.getFloatingShips();
 
+    // iterate through the ships
     for (var i = 0; i < remainingShips.length; i++) {
+
+        // put the ships on the board
         setShipAttributesOnBoard(opponentBoard, remainingShips[i]);
     }
 }
@@ -664,8 +836,20 @@ function showOpponentShips() {
  * 
 ******************************/
 
+/**
+ * Blank function that can be overriden
+ */
 function startGameExtra() {}
 
+/**
+ * Function designed to be overriden
+ * 
+ * @param   {string}    winner      player who has won
+ * @param   {boolean}   finished    whether the game has actually finished
+ * 
+ * @returns {boolean}               whether the game has actually finished
+ */
 function endGameExtra(winner, finished) {
+
     return finished
 }
