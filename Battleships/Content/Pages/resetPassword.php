@@ -6,7 +6,8 @@
 *   V0.2    Joe    18/01/17    updated with queries and email
 *   V0.21   Joe    18/01/17    updated email address
 *   V0.22   Joe    18/01/17    added validation
-*   V0.3    Nick    18/01/17    made it pretty
+*   V0.3    Nick   18/01/17    made it pretty
+*   V0.4    Joe    19/01/17    moved mail method out to mail.php, made call asynchronous
 *   
 */
 
@@ -42,7 +43,7 @@ if (Input::itemExists("resetPassword")) {
             $resetCode = generateResetCode(8);
             $userQuery->insertPendingPasswordReset($userID, $resetCode);
 
-            passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode);
+            pclose(popen("start /b php mail.php {$userID} {$firstName} {$lastName} {$emailAddress} {$resetCode}", "r"));
             Session::set("resetPasswordMessage", "Please check your emails and click the password reset link");
 
         } else {
@@ -132,49 +133,4 @@ function generateResetCode($numberOfDigits) {
 
     return $resetCode;
 }
-
-function passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode) {
-
-    require("../../Scripts/PHPMailer/class.PHPMailer.php");
-
-    $account="battleshipsonline@outlook.com";
-    $password="zHU9BaxAeJVPJXhy";
-    $to=$emailAddress;
-    $from="battleshipsonline@outlook.com";
-    $from_name="BattleShips Online";
-    $msg="Hello Captain ".$firstName." ".$lastName.", you recently requested a password reset...
-        <br/> Your User ID is: ".$userID.
-        "<br/><br/> Please click the following link to reset your password: 
-        <br/> <a href='https://battleships-preprod.tk/battleships/Content/Pages/confirmPasswordReset.php?resetCode=".$resetCode."&userID=".$userID."'>RESET PASSWORD</a>"; // HTML message
-    $subject="BattlesShips Online Password Reset!";
-
-    $mail = new PHPMailer();
-    $mail->IsSMTP();
-    $mail->SMTPDebug  = 1;
-    $mail->CharSet = 'UTF-8';
-    $mail->Host = "smtp.live.com";
-    $mail->SMTPAuth= true;
-    $mail->Port = 587;
-    $mail->Username= $account;
-    $mail->Password= $password;
-    $mail->SMTPSecure = 'tls';
-    $mail->From = $from;
-    $mail->FromName= $from_name;
-    $mail->isHTML(true);
-    $mail->Subject = $subject;
-    $mail->Body = $msg;
-    $mail->addAddress($to);
-
-    $mail->Send();
-
-    /*if(!$mail->Send())
-    {
-    echo "Message could not be sent. <p>";
-    echo "Mailer Error: " . $mail->ErrorInfo;
-    exit;
-    }
-
-    echo "Message has been sent";*/
-}
-
 ?>

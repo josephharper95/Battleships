@@ -2,9 +2,6 @@
 
 /**
 *
-* Last Modified By: Joe Harper
-* Current Version: 1.13
-*
 * V0.1      Joe  	01/10/16    initial creation
 * V0.2 		Nick 	03/10/16 	added first / last name
 * V0.21     Joe     06/10/16    added comments, moved message to formatted tags
@@ -15,6 +12,7 @@
 * V1.13     Joe     20/12/16    added  email address to registration
 * V1.14     Joe     16/01/17    favicon was loaded in pageRegistration div causing cosmetic bug, now loads after div
 * V1.15 	Nick 	18/01/17 	changed wording
+* V1.2      Joe     19/01/17    moved mail method out to mail.php, made call asynchronous
 *
 **/
 
@@ -54,7 +52,7 @@ if (Input::itemExists("register")) {
 						} else { // No issues with input, user inserted into DB and redirected
 
 							$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName, $emailAddress);
-							confirmationEmail($userID, $firstName, $lastName, $emailAddress);
+							pclose(popen("start /b php mail.php {$userID} {$firstName} {$lastName} {$emailAddress}", "r"));
 							Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
 							header("Location: login.php");
 							exit();
@@ -213,48 +211,6 @@ if (Input::itemExists("register")) {
 	{
         return !!filter_var($email, FILTER_VALIDATE_EMAIL);
     }
-
-	function confirmationEmail($userID, $firstName, $lastName, $emailAddress)
-	{
-		require("../../Scripts/PHPMailer/class.PHPMailer.php");
-
-		$account="battleshipsonline@outlook.com";
-		$password="zHU9BaxAeJVPJXhy";
-		$to=$emailAddress;
-		$from="battleshipsonline@outlook.com";
-		$from_name="BattleShips Online";
-		$msg="Hello Captain ".$firstName." ".$lastName.", and welcome to BattleShips Online, the new and improved online version of the classic board game!
-			<br/> Your User ID is: ".$userID; // HTML message
-		$subject="Welcome to BattleShips Online!";
-
-		$mail = new PHPMailer();
-		$mail->IsSMTP();
-		$mail->SMTPDebug  = 1;
-		$mail->CharSet = 'UTF-8';
-		$mail->Host = "smtp.live.com";
-		$mail->SMTPAuth= true;
-		$mail->Port = 587;
-		$mail->Username= $account;
-		$mail->Password= $password;
-		$mail->SMTPSecure = 'tls';
-		$mail->From = $from;
-		$mail->FromName= $from_name;
-		$mail->isHTML(true);
-		$mail->Subject = $subject;
-		$mail->Body = $msg;
-		$mail->addAddress($to);
-
-		$mail->Send();
-
-		/*if(!$mail->Send())
-		{
-		echo "Message could not be sent. <p>";
-		echo "Mailer Error: " . $mail->ErrorInfo;
-		exit;
-		}
-
-		echo "Message has been sent";*/
-	}
 
 
     Session::delete("registrationMessage");
