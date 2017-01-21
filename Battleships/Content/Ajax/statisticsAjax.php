@@ -15,13 +15,13 @@ $statistics;
 
 require_once("../Classes/setup.php");
 
-if (Input::itemExists("action")) {
+if (Input::itemExists("action")) { // If an action exists...
 
     $statistics = new User();
 
     $action = Input::post("action");
 
-    switch ($action) {
+    switch ($action) { // Based on the user action, perform one of the following code blocks
 
         case "getTopTenUserStatsByUserIdAndDifficulty":
             getTopTenUserStatsByUserIdAndDifficulty();
@@ -69,6 +69,11 @@ if (Input::itemExists("action")) {
     }
 }
 
+/**
+ * Method to return the user statistics by the ID
+ * 
+ * @return JSON $returnVal
+ */
 function getTopTenUserStatsByUserIdAndDifficulty() {
 
     global $statistics;
@@ -84,6 +89,11 @@ function getTopTenUserStatsByUserIdAndDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten users by their score
+* 
+ * @return JSON $returnVal
+ */
 function getTopTenUsersScoresByDifficulty() {
 
     global $statistics;
@@ -97,6 +107,11 @@ function getTopTenUsersScoresByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten users by their high score
+* 
+ * @return JSON $returnVal
+ */
 function getTopTenUsersHighScoresByDifficulty() {
 
     global $statistics;
@@ -110,6 +125,11 @@ function getTopTenUsersHighScoresByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten user number of wins for each difficulty
+* 
+ * @return JSON $returnVal
+ */
 function getTopTenUsersWinsByDifficulty() {
 
     global $statistics;
@@ -123,6 +143,11 @@ function getTopTenUsersWinsByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten user number of games played for each difficulty
+* 
+ * @return JSON $returnVal
+ */
 function getTopTenUsersGamesPlayedByDifficulty() {
 
     global $statistics;
@@ -136,6 +161,11 @@ function getTopTenUsersGamesPlayedByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten user number of shots fired for each difficulty
+* 
+ * @return JSON $returnVal
+ */
 function getTopTenUsersTotalShotsFiredByDifficulty() {
 
     global $statistics;
@@ -149,6 +179,11 @@ function getTopTenUsersTotalShotsFiredByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten user number of shots hit for each difficulty
+* 
+ * @return JSON $returnVal
+ */
 function getTopTenUsersTotalShotsHitByDifficulty() {
 
     global $statistics;
@@ -162,6 +197,11 @@ function getTopTenUsersTotalShotsHitByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten user number of hits received for each difficulty
+* 
+ * @return JSON $returnVal
+ */
 function getTopTenUsersTotalHitsReceivedByDifficulty() {
 
     global $statistics;
@@ -175,6 +215,11 @@ function getTopTenUsersTotalHitsReceivedByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten user number of playing time for each difficulty
+* 
+ * @return JSON $returnVal
+ */
 function getTopTenUsersTotalPlayingTimeByDifficulty() {
 
     global $statistics;
@@ -188,6 +233,11 @@ function getTopTenUsersTotalPlayingTimeByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return top ten user hit accuracy for each difficulty
+* 
+ * @return JSON $returnVal 
+ */
 function getTopTenUsersHitAccuracyByDifficulty() {
 
     global $statistics;
@@ -201,6 +251,11 @@ function getTopTenUsersHitAccuracyByDifficulty() {
     echo json_encode($returnVal);
 }
 
+/**
+ * Method to return multiplayer statistics
+* 
+ * @return JSON $returnVal
+ */
 function getMultiplayersStats() {
 
     global $statistics;
