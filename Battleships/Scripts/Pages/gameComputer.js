@@ -32,6 +32,7 @@
  * V1.31    Nick    10/12/16    updated updatePerks() so if it is zero or less insted of just zero
  * V1.32    Nick    11/12/16    changed page links to ajax files
  * V2.0     Dave    16/01/17    added ajax to check medal unlocks
+ * V2.01    Nick    19/01/17    final comments added
  * 
  */
 
@@ -64,7 +65,7 @@ var totalHits = 0;
 var totalHitsReceived = 0;
 var startTime = new Date();
 
-// hard coded ships for the hack
+// hard coded ships
 var shipDetails = [
     {
         name: "Destroyer",
@@ -124,6 +125,7 @@ function populateShips() {
 
     var remainingShipsHtml = "";
 
+    // recurse through hard coded ships
     for (i = 0; i < shipDetails.length; i++) {
 
         shipsToPlace.push(new Ship(shipDetails[i].name, shipDetails[i].size));
@@ -131,6 +133,7 @@ function populateShips() {
         remainingShipsHtml += "<li class='" + shipDetails[i].name + "'></li>";
     }
 
+    // publish the remaining ships HTML
     $(boardExtras + " ul.remainingShips").html(remainingShipsHtml);
 }
 
@@ -141,45 +144,63 @@ function populateShips() {
  ******************************/
 
 /**
- * 
+ * Function to update the perks that the user has access to
  */
 function updatePerks() {
+
+    // get the perks object from the game class
     var perks = game.getPlayerPerksAvailable();
 
+    // initialise the HTML to be an empty string
     var perkHtml = "";
 
+    // iterative through each of the perks
     $.each(perks, function (i, val) {
 
+        // change any '_' to ' '
         var split = i.split("_");
         split = split.join(" ");
 
+        // open the li tag
         perkHtml += "<li>";
 
+        // add a button
         perkHtml += "<button ";
         perkHtml += "class='button perk' ";
         perkHtml += "data-perk='" + i + "' ";
 
+        // if there aren't any uses left, add a disabled attribute
         if (val.usesLeft <= 0) {
+
             perkHtml += "disabled ";
             val.usesLeft = 0;
         }
 
+        // close the button opening tag
         perkHtml += ">";
 
+        // add the perk name with the # of uses
         perkHtml += split;
         perkHtml += " " + val.usesLeft;
 
+        // close the button off
         perkHtml += "</button>";
 
+        // close the li off
         perkHtml += "</li>";
     });
 
+    // publish the HTML to the ul
     $("#playerContainer .perks").html(perkHtml);
 
+    // for each of the enabled perks, add a click handler
     $("#playerContainer .perk:not(:disabled)").off("click").one("click", function () {
+        
+        // get the perk selected
         var cell = $(this);
         var perk = $(cell).data("perk");
 
+        // run the perk
         runPlayerPerk(perk);
     });
 }
@@ -188,6 +209,7 @@ function updatePerks() {
  * Make buttons look disabled
  */
 function disablePerks() {
+
     $("#playerContainer .perk").attr("disabled", "disabled");
 }
 
@@ -196,91 +218,144 @@ function disablePerks() {
  */
 function runPlayerPerk(perk) {
 
+    // make sure perks are disabled so another one cannot be run
     disablePerks();
 
+    // find the appropriate method to run
     switch (perk) {
+
         case "Sonar":
             initSonarPerk();
             break;
+
         case "Bounce_Bomb":
             initBounceBombPerk();
             break;
+
         case "Mortar":
             initMortarPerk();
             break;
     }
 }
 
+/**
+ * Function that runs at the end of each perk
+ * 
+ * @param   {boolean}   skipTurn    true for if perk counts as a move
+ * @param   {string}    perk        the perk that has been used
+ */
 function endPlayerPerk(skipTurn, perk) {
 
+    // update the player perks to decrement the one just used
     var x = game.updatePlayerPerks(perk);
 
+    // update the HTML now that the class has been updated
     updatePerks();
 
-    if (!skipTurn) {
-        playerMove();
-    } else {
+    // allow the appropriate player to have their turn
+    if (skipTurn) {
         AIMove();
+    } else {
+        playerMove();
     }
 }
 
+/**
+ * Function to actually run the bounce bomb on the board
+ * 
+ * @param   {number}    x               the x value
+ * @param   {number}    y               the y value
+ * @param   {number}    bbOrientation   orientation that the bounce bomb should follow
+ */
 function bounceBombAction(x, y, bbOrientation) {
+
+    // put the bounce bomb class to a variable
     var bounceBomb = new BouncingBomb(opponentBoardClass);
 
+    // get the number of valid moves
     var num = bounceBomb.action(x, y, bbOrientation);
 
+    // fire at the first coordinate
     boardFireAtOpponentCoordinate(x, y);
 
+    // if the number of valid moves is 2, shoot at the next coordinate
     if (num == 2) {
 
         if (bbOrientation == 1) {
-            //opponentBoardClass.fire(x, y - 1);
+            
             boardFireAtOpponentCoordinate(x, y - 1);
         } else {
-            //opponentBoardClass.fire(x + 1, y);
+            
             boardFireAtOpponentCoordinate(x + 1, y);
         }
     }
 
+    // remove any hover handlers
     removeHovers();
+
+    // end the perk
     endPlayerPerk(true, "Bounce_Bomb");
 }
 
+/**
+ * Function to actually run the sonar perk on the board
+ * 
+ * @param   {number}    x   the x value
+ * @param   {number}    y   the y value
+ */
 function sonarAction(x, y) {
 
+    // put the sonar class to a variable
     var sonar = new Sonar(opponentBoardClass);
 
+    // run the sonar action to see if it finds a cell
     var cell = sonar.action(x, y);
 
+    // if it finds a cell
     if (cell) {
 
+        // show the cell on the board that it has found
         $(page + " " + opponentBoard + " tr:eq(" + cell.getY() + ") > td:eq(" + cell.getX() + ")").addClass("sonarShipLocation");
 
     } else {
+
+        // show a message so the user knows it hasn't found anything
         showMessageTimeout("No moves found! Better luck next time...", 2000);
     }
 
-    // allow player to now make a move
+    // end the perk
     endPlayerPerk(true, "Sonar");
 }
 
+/**
+ * Function to actually run the mortar perk
+ * 
+ * @param   {number}    x   the x value
+ * @param   {number}    y   the y value
+ */
 function mortarAction(x, y) {
 
+    // put the morter class to a variable
     var mortar = new Mortar(opponentBoardClass);
 
+    // get the cells it has found to a variable
     var cells = mortar.action(x, y);
 
-    console.log(cells);
-
+    // check that there are cell and there are only 3
     if (cells && cells.length == 3) {
         
+        // iterate through each cell
         for (var i = 0; i < cells.length; i++) {
 
+            // fire at the appropriate coordinate
             boardFireAtOpponentCoordinate(cells[i].getX(), cells[i].getY());
         }
     }
 
+    // remove any hover handlers
     removeHovers();
+
+    // end the perk
     endPlayerPerk(true, "Mortar");
 }
 
@@ -290,8 +365,11 @@ function mortarAction(x, y) {
  * 
 ******************************/
 
-// function to invoke when the game is ready to start playing
+/**
+ * Function to invoke when the game is ready to start playing
+ */
 function shipsPlaced() {
+
     // cleanups
     removeHovers();
     $(window).unbind("keydown");
@@ -312,11 +390,15 @@ function shipsPlaced() {
     });
 }
 
-// function to start the game officially
+/**
+ * Function to start the game officially
+ */
 function startGame() {
 
+    // add a message in case the user wants to leave the page
     window.onbeforeunload = confirmExit;
 
+    // increment the amount of incomplete games the user has, just in case they leave the game
     $.ajax({
         url: "../../Content/Ajax/gameAjax.php",
         data: {
@@ -328,9 +410,11 @@ function startGame() {
     // set the variable so other methods know the game has begun
     gameStarted = true;
 
+    // make sure to hide and remove click handlers from the reset / undo buttons to avoid cheating
     $(resetBoardButton).fadeOut(500).unbind("click");
     $(undoLastShipButton).fadeOut(500).unbind("click");
 
+    // show the board extras (ships remaining, perks)
     $(boardExtras).fadeIn(500);
 
     // place the ships for the AI
@@ -341,74 +425,86 @@ function startGame() {
     playerMove();
 }
 
+/**
+ * Message to display to user onbeforeunload
+ */
 function confirmExit() {
     return "If you leave the page, your game will not be saved";
 }
 
-// function to end game - HACK
+/**
+ * Function to end the game
+ * 
+ * @param   {string}    winner      the person who has won the game
+ * @param   {boolean}   finished    whether the game has actually finished
+ */
 function endGame(winner, finished) {
 
+    // confirm the game has finished
     if (finished) {
 
+        // remove any clicks, hovers, and disable the perks. i.e. close the game
         removeClicks();
         removeHovers();
         disablePerks();
 
+        // set the end time and calculate the playing time for statistics
         var endTime = new Date();
         var playingTime = (endTime.getTime() - startTime.getTime()) / 1000;
        
-        /*** SCORING ***/
+        // scoring multiplier
         var difficultyMultiplier = 0.75;
 
         switch (difficulty) {
-            case "easy":
-                difficultyMultiplier = 0.75;
-                break;
+                
             case "medium":
                 difficultyMultiplier = 1;
                 break;
+
             case "hard":
                 difficultyMultiplier = 1.25;
                 break;
         }
 
+        // board bonus
         var boardSizeBonus = 0;
 
         switch (boardSize) {
-            case 10:
-                boardSizeBonus = 0;
-                break;
+
             case 15:
                 boardSizeBonus = 100;
                 break;
+
             case 20:
                 boardSizeBonus = 200;
                 break;
         }
 
+        // scoring multiplier defaults
         var baseScore = 100;
         var negativeScorePerHitReceived = 5;
         var negativeScorePerShotMissed = 1;
         var positiveScorePerShotHit = 5;
-        var winBonus = 100;
+        var winBonus = winner == "player" ? 100 : 0;
         var timeBonusPerSecond = 2;
 
+        // calculate statistics
         var shotsMissed = totalShots - totalHits;
         var accuracy = (totalHits/totalShots) *100;
         var timeBonus = 0;
 
+        // playing time bonus
         if (playingTime < 120) {
+
             var timeBonus = (120 - playingTime) * timeBonusPerSecond;
         }
 
-        if (winner != "player") {
-            winBonus = 0;
-        }
-
+        // scoring statistics
         var totalHitRScore = (totalHitsReceived * negativeScorePerHitReceived);
         var shotsMissedScore = (shotsMissed * negativeScorePerShotMissed);
         var totalHitScore = (totalHits * positiveScorePerShotHit);
 
+        // calculate total game score
         var gameScore = ((baseScore 
                         - totalHitRScore
                         - shotsMissedScore
@@ -417,12 +513,14 @@ function endGame(winner, finished) {
                         + winBonus)
                         * difficultyMultiplier)
                         + boardSizeBonus;
-        /*** END SCORING ***/
 
+        // show the score modal
         showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, difficultyMultiplier, boardSizeBonus);
 
-        // alert appropriate message
+        // record the win in the database if the player has won
         if (winner == "player") {
+
+            // fire off the ajax
             $.ajax({
                 url: "../../Content/Ajax/gameAjax.php",
                 data: {
@@ -431,10 +529,13 @@ function endGame(winner, finished) {
                 type: "post"
             });
         } else {
+
+            // if the player lost, show the opponent's ships
             showOpponentShips();
         }
     }
 
+    // run the rest of the statistics
     $.ajax({
         url: "../../Content/Ajax/gameAjax.php",
         data: {
@@ -448,9 +549,7 @@ function endGame(winner, finished) {
         type: "post"
     });
 
-    console.log(totalHitsReceived);
-
-    //Check if medal conditions are met
+    // check if medal conditions are met
     $.ajax({
         url: "../../Content/Ajax/medalAjax.php",
         data: {
@@ -464,6 +563,7 @@ function endGame(winner, finished) {
         type: "post"
     });
 
+    // take the message off of the window unload
     window.onbeforeunload = null;
 }
 
@@ -477,20 +577,34 @@ function endGame(winner, finished) {
  * Function to show opponent ships if you lose
  */
 function showOpponentShips() {
+
+    // get the ships that aren't already shown
     var remainingShips = opponentBoardClass.getFloatingShips();
 
+    // iterate through she ships
     for (var i = 0; i < remainingShips.length; i++) {
+
+        // run the function for the individual ship
         setShipAttributesOnBoard(opponentBoard, remainingShips[i]);
     }
 }
 
+/**
+ * Function to show the score at the end
+ * 
+ * @param   {float}     gameScore               the total score
+ * @param   {float}     totalHitRScore          total hits received score
+ * @param   {float}     shotsMissedScore        total shots missed score
+ * @param   {float}     totalHitScore           total shots hit score
+ * @param   {float}     timeBonus               total time bonus
+ * @param   {float}     winBonus                win bonus
+ * @param   {float}     difficultyMultiplier    difficulty multiplier
+ * @param   {float}     boardSizeBonus          bonus for the board size
+ */
 function showScore(gameScore, totalHitRScore, shotsMissedScore, totalHitScore, timeBonus, winBonus, difficultyMultiplier, boardSizeBonus) {
 
-    var won = false;
-
-    if (winBonus != 0) {
-        won = true;
-    }
+    // whether the user won
+    var won = winBonus != 0 ? true : false;
 
     $(scoreModal + " span").hide();
 

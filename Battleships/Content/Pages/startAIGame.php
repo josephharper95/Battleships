@@ -32,9 +32,9 @@ require_once("favicon.html");
 <head>
     <title>BattleShips Online - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/app.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="../Styles/Pages/startAI.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/Pages/startAI.min.css" />
 </head>
 <body>
 

@@ -20,6 +20,7 @@
 * V0.32     Dave                22/12/16    added healShipCoord method
 * V1.0      Dave                17/01/16    added logic to deal with land maps
 * V1.01     Nick                17/01/16    small bug fix to land map code
+* V1.02     Nick                21/01/17    final comments added
 *
 **/
 
@@ -107,7 +108,7 @@ function Board(size, landCoords) {
         return list;
     }
 
-    this.getShipsPlaced = function(){
+    this.getShipsPlaced = function() {
         return _shipsPlaced;
     }
     /**
@@ -249,7 +250,7 @@ Board.prototype.placeShip = function(ship, x, y) {
 /**
  * Function to undo the last ship placement.
  */
-Board.prototype.undoPlaceShip = function(){
+Board.prototype.undoPlaceShip = function() {
     if(!this.getShipsPlaced().length > 0){
         return false;
     }
@@ -282,12 +283,15 @@ Board.prototype.resetBoard = function() {
 /**
  * Moves a ship on the board, if it hasn't been hit.
  */
-Board.prototype.moveShip = function(ship, x, y){
-    if(ship.isPlaced() && ship.getNumberOfHits() == 0){
+Board.prototype.moveShip = function(ship, x, y) {
+
+    if (ship.isPlaced() && ship.getNumberOfHits() == 0) {
+
         var shipSize = ship.getSize();
         var orientation = ship.getOrientation();
         var xCoord = x;
         var yCoord = y;
+
         //Check new placement is valid
         for (i = 0; i < shipSize; i++) {
         
@@ -322,13 +326,22 @@ Board.prototype.moveShip = function(ship, x, y){
 
 /**
  * Heals a single ship coordinate that has been hit
+ * 
+ * @param   {number}    x   the x value
+ * @param   {number}    y   the y value
+ * 
+ * @return  {boolean}       whether it has successfully healed
  */
-Board.prototype.healShipCoord = function(x, y){
+Board.prototype.healShipCoord = function(x, y) {
+
     var coordinate = this.getCoordinateAt(x, y);
-    if(!coordinate.containsShip() || !coordinate.isHit()){
+
+    if (!coordinate.containsShip() || !coordinate.isHit()) {
         return false;
     }
+
     coordinate.healShip();
+
     return true;
 }
 
@@ -346,12 +359,14 @@ Board.prototype.healShipCoord = function(x, y){
  * @return {boolean} whether or not the coordinate is hit
  */
 Board.prototype.canFire = function (x, y) {
-    if(typeof(x)!='number' || typeof(y)!= 'number'){
+
+    if (typeof(x)!='number' || typeof(y)!= 'number') {
         return false;
     }
+
     var coordinate = this.getCoordinateAt(x, y);
-    if(coordinate.isLand()){
-        console.log('land');
+
+    if (coordinate.isLand()) {
         return false;
     }
     
@@ -366,6 +381,7 @@ Board.prototype.canFire = function (x, y) {
  * @return
  */
 Board.prototype.fire = function(x, y) {
+    
     if (this.canFire) {
 
         var coordinate = this.getCoordinateAt(x, y);
@@ -392,7 +408,8 @@ Board.prototype.fire = function(x, y) {
  * @return {Coordinate[]} array of coordinate objects.
  */
 Board.prototype.getAdjacentLocations = function(x, y) {
-    if(typeof(x)!='number' || typeof(y)!= 'number'){
+
+    if (typeof(x)!='number' || typeof(y)!= 'number') {
         return false;
     }
     var locations = new Array();
@@ -424,17 +441,23 @@ Board.prototype.getAdjacentLocations = function(x, y) {
  * @return {Coordinate[]} array of coordinate objects.
  */
 Board.prototype.getMovesAtAdjacentLocations = function(x, y) {
+
     var locations = this.getAdjacentLocations(x, y);
     var availMoveLocations = new Array();
 
     for (i = 0; i < locations.length; i++) {
+
         if (!locations[i].isHit() &&!locations[i].isLand()) {
+
             availMoveLocations.push(locations[i]);
         }
     }
+
     //Shuffle
     var j, x, i;
+
     for (i = availMoveLocations.length; i; i--) {
+
         j = Math.floor(Math.random() * i);
         x = availMoveLocations[i - 1];
         availMoveLocations[i - 1] = availMoveLocations[j];
@@ -449,6 +472,7 @@ Board.prototype.getMovesAtAdjacentLocations = function(x, y) {
  * @return {ships[]}
  */
 Board.prototype.getFloatingShips = function () {
+
     var ships = new Array();
     var allShips = this.getShipsPlaced();
 
@@ -467,15 +491,19 @@ Board.prototype.getFloatingShips = function () {
  * 
  * @return {boolean}
  */
-Board.prototype.isViable = function(){
+Board.prototype.isViable = function() {
+
     var result = 0;
     var ships = this.getShipsPlaced();
-    for(var i = 0; i < ships.length; i++){
-        if(!ships[i].isDestroyed()){
+
+    for (var i = 0; i < ships.length; i++) {
+
+        if (!ships[i].isDestroyed()) {
             result += 1;
         }
     }
-    if (result != 0){
+
+    if (result != 0) {
         return true;
     } else {
         return false;

@@ -24,7 +24,7 @@ require_once("header.php");
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/about.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/about.min.css" />
 
 <div id="pageAboutCont"
         class="pageContainer">

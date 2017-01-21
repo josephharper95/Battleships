@@ -8,9 +8,16 @@
 * V0.3      Nick                15/11/16    added toObject method
 * V0.4      Dave                22/12/16    Added heal ship method
 * V1.0      Dave                17/01/17    Added logic to deal with land maps
+* V1.01     Nick                21/01/17    Final comments added
 *
 **/
 
+/**
+ * Constructor for Coordinate
+ * 
+ * @param   {number}    x   the x value
+ * @param   {number}    y   the y value
+ */
 function Coordinate(x, y) {
     var _x = x;
     var _y = y;
@@ -30,6 +37,7 @@ function Coordinate(x, y) {
 
     /**
      * Returns the value of x
+     * 
      * @return {number}
      */
     this.getX = function() {
@@ -38,6 +46,7 @@ function Coordinate(x, y) {
 
     /**
      * Returns the value of y
+     * 
      * @return {number}
      */
     this.getY = function() {
@@ -68,6 +77,7 @@ function Coordinate(x, y) {
 
     /**
      * Updates this coordinate with the ship to be placed
+     * 
      * @param {Ship}
      */
     this.placeShip = function(ship) {
@@ -77,6 +87,7 @@ function Coordinate(x, y) {
 
     /**
      * Returns true if this coordinate is hit
+     * 
      * @return {boolean}
      */
     this.isHit = function() {
@@ -89,21 +100,28 @@ function Coordinate(x, y) {
 
     /**
      * Heals a single ship coordinate
+     * 
+     * @return  {boolean}   whether the heal has completed successfully
      */
-    this.healShip = function(){
-        if(_isHit && _containsShip){
+    this.healShip = function() {
+
+        if (_isHit && _containsShip) {
+
             _isHit = false;
             _ship.heal();
             return true;
         }
+
         return false;
     }
 
     /**
      * Function to remove the ship placed on this coordinate
      */
-    this.removeShip = function(){
-        if(_containsShip){
+    this.removeShip = function() {
+
+        if (_containsShip) {
+
             _containsShip = false;
             _ship = null;
         }
@@ -114,9 +132,12 @@ function Coordinate(x, y) {
      * @return {boolean}
      */
     this.recordHit = function() {
+
         if (!_isHit) {
             _isHit = true;
-            if(_containsShip){
+
+            if (_containsShip) {
+
                 _ship.recordHit();
 
                 return true;
@@ -126,11 +147,12 @@ function Coordinate(x, y) {
         return false;
     }
 
-    this.markAsLand = function(){
+    this.markAsLand = function() {
         _isLand = true;
     }
 
     this.toObject = function() {
+
         return {
             x: _x,
             y: _y,

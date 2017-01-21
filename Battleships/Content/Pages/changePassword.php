@@ -57,7 +57,7 @@ require_once("header.php");
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/changePassword.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/changePassword.min.css" />
 
 <div id="pageChangePasswordCont"
         class="pageContainer">

@@ -4,17 +4,28 @@
 *
 * Motivation for this algorithm came from the following blog: http://www.datagenetics.com/blog/december32011/
 *
-* V0.1      Dave    17/10/2016    initial creation
-* V0.11     Joe     26/10/2016    renamed methods
-* v0.12     Dave    29/10/2016    renamed methods
-* V1.0      Dave    10/12/1026    Added further comments
-* V1.1      Dave    17/01/17      Added logic to deal with land maps
+* V0.1      Dave    17/10/2016      initial creation
+* V0.11     Joe     26/10/2016      renamed methods
+* v0.12     Dave    29/10/2016      renamed methods
+* V1.0      Dave    10/12/1026      Added further comments
+* V1.1      Dave    17/01/17        Added logic to deal with land maps
+* V1.2      Nick    21/01/17        Final commentes added
 *
 **/
 
-function AIHard(name, board, targetBoard){
+/**
+ * Constructor for AIHard
+ * 
+ * @param   {string}    name        name of the AI
+ * @param   {Board}     board       the AI's board
+ * @param   {Board}     targetBoard the AI's opponent's board
+ */
+function AIHard(name, board, targetBoard) {
+
+    // super call
     AI.call(this, name, board, targetBoard);
 
+    // set up variables
     var opponentBoard = this.getOpponentBoard();
     var opponentBoardCoordinates = opponentBoard.getCoordinates();
     var size = opponentBoardCoordinates.length;
@@ -88,6 +99,11 @@ function AIHard(name, board, targetBoard){
 
     /**
      * Function to update probability density - extracted to method to avoid duplication
+     * 
+     * @param   {Ship}      ship        the given ship
+     * @param   {number}    x           the x value
+     * @param   {number}    y           the y value
+     * @param   {boolean}   targetMode  whether it is in target mode
      */
     this.updateProbabilityDensity = function (ship, x, y, targetMode) {
 
@@ -111,6 +127,10 @@ function AIHard(name, board, targetBoard){
     /**
      * Returns the number of virtualBoardCoordinates passed through that are already hit. The higher the number, 
      * the greater the chance of there being other parts of a ship in the given virtualBoardCoordinates.
+     * 
+     * @param   {Array} shipCoords  the ship coordinates to check
+     * 
+     * @returns {number}            the number of hits
      */
    this.hitCoords = function(shipCoords) {
 
@@ -201,7 +221,7 @@ function AIHard(name, board, targetBoard){
     /**
      * Returns true if there is a ship which has been hit but not sunk
      * 
-     * Returns  {Boolean}   whether or not opponentBoard mode is on or off
+     * @returns  {Boolean}   whether or not opponentBoard mode is on or off
      */
     this.isTargeting = function() {
 
@@ -226,6 +246,13 @@ function AIHard(name, board, targetBoard){
 
     /**
      * Returns the virtualBoardCoordinates for the given ship, given its head coordinate.
+     * 
+     * @param   {Ship}      ship        the ship
+     * @param   {number}    x           the x value
+     * @param   {number}    y           the y value
+     * @param   {boolean}   targetMode  whether it is in target mode
+     * 
+     * @return  {Array}                 the coordinates
      */
     this.calcShipCoords = function(ship, x, y, targetMode) {
 
@@ -262,7 +289,10 @@ function AIHard(name, board, targetBoard){
         // return the coordinates back
         return coords;
     }
-    //Test method to print the probability density grid
+
+    /**
+     * Test method to print the probability density grid
+     */
     this.toString = function(){
         document.write("<table>");
         for (var i = 0; i < probabilityDensity.length; i++) {

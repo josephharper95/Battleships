@@ -23,7 +23,7 @@ require_once("header.php");
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/help.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/help.min.css" />
 
 <div id="pageHelpCont"
         class="pageContainer">

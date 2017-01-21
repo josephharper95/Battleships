@@ -77,4 +77,3 @@ Sonar.prototype.action = function(x, y){
     // if no locations, return false
     return false;
 }
-

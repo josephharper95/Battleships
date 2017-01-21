@@ -94,19 +94,19 @@ require_once("header.php");
 <script src="../../Scripts/Helpers/perkMortar.js" type="text/javascript" ></script>
 
 <!-- Classes -->
-<script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
-<script src="../../Scripts/Classes/ship.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/board.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/coordinate.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/AI.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/AIMedium.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/AIHard.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Perk.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/game.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Classes/ship.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/board.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/coordinate.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AI.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AIMedium.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AIHard.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Perk.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Sonar.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/BouncingBomb.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Mortar.min.js" type="text/javascript" ></script>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.min.css" />
 
     <div id="pageSinglePlayerCont"
             class="pageContainer birdsEyeView">

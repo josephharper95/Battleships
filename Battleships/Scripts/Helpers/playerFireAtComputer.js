@@ -5,6 +5,7 @@
  * V0.2     Nick    10/11/16    update to endGame to add param
  * V0.21    Nick    01/12/16    updated variable
  * V0.22    Nick    02/12/16    bug fix
+ * V0.23    Nick    19/01/17    final comments added
  * 
  */
 
@@ -69,7 +70,9 @@ function playerMove() {
 }
 
 /**
- * Function to handle the firing on the opponent's board
+ * Function to handle the firing on the opponent's board if passed a coordinate
+ * 
+ * @param   {HTMLElement}   $cell   cell to be fired at
  */
 function boardFireAtOpponent($cell) {
 
@@ -81,10 +84,17 @@ function boardFireAtOpponent($cell) {
         var $tr = $cell.closest('tr');
         var y = $tr.index();
 
+        // fire at the coordinate
         boardFireAtOpponentCoordinate(x, y);
     }
 }
 
+/**
+ * Function to handle the firing on the opponent's board if passed separate coordinates
+ * 
+ * @param   {number}    x   the x value
+ * @param   {number}    y   the y value
+ */
 function boardFireAtOpponentCoordinate(x, y) {
     // return boolean of whether player has hit a shit
     var hit = opponentBoardClass.fire(x, y);
@@ -109,6 +119,7 @@ function boardFireAtOpponentCoordinate(x, y) {
             // check whether the ship has been destroyed
             if (ship.isDestroyed()) {
 
+                // set the ship attributes on the board
                 setShipAttributesOnBoard(opponentBoard, ship);
                 
                 // add a class to let the remaining ships container know that the ship has been destroyed

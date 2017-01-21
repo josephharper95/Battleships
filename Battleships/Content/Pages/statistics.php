@@ -54,9 +54,9 @@ function convertPercentage($small, $large) {
 }
 
 ?>
-<script src="../../Scripts/Pages/statistics.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/statistics.min.js" type="text/javascript"></script>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/statistics.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/statistics.min.css" />
 
 <div id="pageStatisticsCont"
         class="pageContainer birdsEyeView">

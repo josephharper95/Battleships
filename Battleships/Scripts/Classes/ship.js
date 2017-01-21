@@ -10,6 +10,12 @@
 * V0.4      Dave                22/12/16    Added heal method
 **/
 
+/**
+ * Constructor
+ * 
+ * @param   {string}    name    name of the ship
+ * @param   {number}    size    size of the ship
+ */
 function Ship(name, size) {
     // set when class is initialised and can't be overriden
     var _size = size;

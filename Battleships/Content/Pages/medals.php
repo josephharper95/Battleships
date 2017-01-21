@@ -27,7 +27,7 @@ $medals = json_decode(json_encode($m), true);
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/medals.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/medals.min.css" />
 
 <div id="pageMedalsCont"
         class="pageContainer">

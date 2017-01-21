@@ -28,7 +28,7 @@ require_once("header.php");
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/missionList.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/missionList.min.css" />
 
 <div id="pageMissionListCont"
         class="pageContainer">

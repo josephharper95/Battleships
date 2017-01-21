@@ -18,12 +18,12 @@ Mortar.prototype.constructor = Mortar;
 
 /**
  * Fires 3 random shots on adjacent locations to the given coordinate.
- * @return {Array[coordinate]}
+ * 
+ * @return {Coordinate[]}
  */
 Mortar.prototype.action = function(x, y){
 
-    if(typeof(x)!='number' || typeof(y)!= 'number')
-    {
+    if (typeof(x)!='number' || typeof(y)!= 'number') {
         return false;
     }
 
@@ -64,8 +64,10 @@ Mortar.prototype.action = function(x, y){
     // guard clause
     if (count > 0) {
        shots = new Array();
+
        //Find 3 shots at random from the given locations.
-        while(shots.length < 3 && count > 0){
+        while (shots.length < 3 && count > 0) {
+
             var shot = Math.floor(Math.random() * count);
             shots.push(locations[shot]);
             locations.splice(shot, 1);

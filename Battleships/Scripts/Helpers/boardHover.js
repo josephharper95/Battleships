@@ -1,17 +1,17 @@
 /**
  * Last Modified By: Nick Holdsworth
  * 
- * V0.1     Nick    Initial creation
- * V0.11    Nick    returning object instead of array
- * V0.2     Nick    update for new rotation functionality
+ * V0.1     Nick                Initial creation
+ * V0.11    Nick                returning object instead of array
+ * V0.2     Nick                update for new rotation functionality
+ * V0.21    Nick    19/01/17    final comments added
  * 
  */
 
 /**
  * Function to hover on the player board when trying to place a ship
  * 
- * @param   {hoverCell}     The table cell that the mouse is hovering on
- * @param   {ship}      The ship that is currently trying to be placed on the ship  
+ * @param   {Ship}  ship    ship that is currently trying to be placed on the ship  
  */
 
 var hoverCell;
@@ -31,23 +31,28 @@ function boardPlaceHover(ship) {
         
         // get the index of the cell to get the x value
         var x = hoverCell.index();
+
         // get the row of the cell to get the y value
         var $tr = hoverCell.closest('tr');
         var y = $tr.index();
 
+        // get the return value from can place ship for the given values
         var obj = playerBoardClass.canPlaceShip(ship, x, y);
     
+        // assign the appropriate values to variables
         var canPlace = obj.canPlace;
         var coords = obj.coordinates;
 
         // for each coordinate returned from the method...
         for (i = 0; i < coords.length; i++) {
+
             // set individual coordinate and class for whether the ship can be placed
             var c = coords[i];
             var hover = canPlace ? "hover" : "noHover";
 
             // validation check to make sure that c is not null
             if (c) {
+
                 // add the relevant class to the player's board
                 $(page + " " + playerBoard + " tr:eq(" + c.getY() + ") > td:eq(" + c.getX() + ")").addClass(hover);
             }
@@ -55,6 +60,7 @@ function boardPlaceHover(ship) {
 
         // if the user can place the ship
         if (canPlace) {
+
             // remove all click handlers from all cells
             $(page + " " + playerBoard + " td").unbind("click");
 
@@ -69,9 +75,9 @@ function boardPlaceHover(ship) {
 /**
  * Function to hover on the opponent's board when trying to fire
  * 
- * @param   {hoverCell}     The table cell that the mouse is hovering on
+ * @param   {HTMLElement}   hoverCell   cell that the mouse is hovering on
  * 
- * @returns {boolean}   Whether the board can be fired on
+ * @returns {boolean}                   Whether the board can be fired on
  */
 function boardFireHover(hoverCell) {
 
@@ -95,9 +101,11 @@ function boardFireHover(hoverCell) {
             // add hover class to the opponent's board
             $(page  + " " + opponentBoard + " tr:eq(" + y + ") > td:eq(" + x + ")").addClass("hover");
 
+            // the cell can be fired on, so return true
             return true;
         }
     }
 
+    // the cell cannot be fired on, so return false
     return false;
 }

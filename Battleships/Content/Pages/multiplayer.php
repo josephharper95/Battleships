@@ -37,33 +37,33 @@ require_once("header.php");
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.css" />
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/multiplayer.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.min.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/multiplayer.min.css" />
 
 <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.0.3.js"></script>
 
-<script src="../../Scripts/Pages/multiplayer.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/multiplayer.min.js" type="text/javascript"></script>
 
-<script src="../../Scripts/Helpers/boardHover.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/boardUndoReset.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/placePlayerShips.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/cleanups.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/perkSonar.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/bounceBomb.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/perkMortar.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/rotateShip.js" type="text/javascript" ></script>
-<script src="../../Scripts/Helpers/setShipAttributes.js" type="text/javascript" ></script>
-<script src="../../Scripts/Helpers/conversions.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/boardHover.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/boardUndoReset.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/placePlayerShips.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/cleanups.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/perkSonar.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/bounceBomb.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/perkMortar.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/rotateShip.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/setShipAttributes.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/conversions.min.js" type="text/javascript" ></script>
 
 <!-- Classes -->
-<script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
-<script src="../../Scripts/Classes/ship.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/board.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/coordinate.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Perk.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/game..min.js" type="text/javascript"></script>
+<script src="../../Scripts/Classes/ship..min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/board..min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/coordinate..min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Perk..min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Sonar..min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/BouncingBomb..min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Mortar..min.js" type="text/javascript" ></script>
 
 <div id="pageMultiplayer"
         class="pageContainer">

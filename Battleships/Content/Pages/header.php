@@ -41,7 +41,7 @@ require_once("../Classes/setup.php");
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
     <script type="text/javascript" src="../../Scripts/app.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/app.min.css" />
 
     <?php
         require_once("favicon.html");
@@ -69,7 +69,7 @@ require_once("../Classes/setup.php");
     <div id="header">
 
         <div class="version">
-            Version: 2.11.1
+            Version: 2.11.2
         </div>
 
         <div id="headerBar">

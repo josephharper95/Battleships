@@ -33,8 +33,8 @@ require_once("favicon.html");
     <title>BattleShips Online - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
-    <link rel="stylesheet" type="text/css" href="../Styles/Pages/home.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/app.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/Pages/home.min.css" />
 </head>
 <body>
 

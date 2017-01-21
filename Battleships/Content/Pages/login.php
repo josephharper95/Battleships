@@ -68,8 +68,8 @@ require_once("favicon.html");
     <title>BattleShips Online - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="../Styles/app.css" />
-    <link rel="stylesheet" type="text/css" href="../Styles/Pages/login.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/app.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/Pages/login.min.css" />
 
     <script type="text/javascript" src="../../Scripts/jquery.min.js"></script>
     <script type="text/javascript" src="../../Scripts/Pages/login.js"></script>

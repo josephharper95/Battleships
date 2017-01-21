@@ -132,36 +132,36 @@ require_once("header.php");
 </script>
 
 <!-- Scripts -->
-<script src="../../Scripts/Helpers/boardHover.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/boardUndoReset.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/placePlayerShips.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/placeAIShips.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/playerFireAtComputer.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/aiFireAtPlayer.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/cleanups.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/perkSonar.js" type="text/javascript"></script>
-<script src="../../Scripts/Helpers/rotateShip.js" type="text/javascript" ></script>
-<script src="../../Scripts/Helpers/setShipAttributes.js" type="text/javascript" ></script>
-<script src="../../Scripts/Helpers/bounceBomb.js" type="text/javascript" ></script>
-<script src="../../Scripts/Helpers/perkMortar.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/boardHover.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/boardUndoReset.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/placePlayerShips.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/placeAIShips.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/playerFireAtComputer.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/aiFireAtPlayer.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/cleanups.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/perkSonar.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Helpers/rotateShip.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/setShipAttributes.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/bounceBomb.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Helpers/perkMortar.min.js" type="text/javascript" ></script>
 
 <!-- Classes -->
-<script src="../../Scripts/Classes/game.js" type="text/javascript"></script>
-<script src="../../Scripts/Classes/ship.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/board.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/coordinate.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/AI.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/AIMedium.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/AIHard.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Perk.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Sonar.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/BouncingBomb.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Mortar.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/game.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Classes/ship.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/board.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/coordinate.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AI.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AIMedium.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/AIHard.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Perk.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Sonar.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/BouncingBomb.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Mortar.min.js" type="text/javascript" ></script>
 
-<script src="../../Scripts/Pages/mission.js" type="text/javascript"></script>
+<script src="../../Scripts/Pages/mission.min.js" type="text/javascript"></script>
 
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.css" />
-<link rel="stylesheet" type="text/css" href="../Styles/Pages/mission.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/game.min.css" />
+<link rel="stylesheet" type="text/css" href="../Styles/Pages/mission.min.css" />
 
 <div id="pageMissionCont"
         class="pageContainer birdsEyeView">

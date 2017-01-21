@@ -168,7 +168,7 @@ function initHardcore() {
     $("#opponentContainer .shipsRemainingCont").remove();
 
     // get the appropriate script
-    $.getScript("../../Scripts/Overrides/playerFireAtComputer.js");
+    $.getScript("../../Scripts/Overrides/playerFireAtComputer.min.js");
 }
 
 /**
@@ -182,7 +182,7 @@ function initFogOfWar() {
     $("#opponentContainer .shipsRemainingCont").remove();
 
     // get appropriate script
-    $.getScript("../../Scripts/Overrides/playerFireAtComputer.js");
+    $.getScript("../../Scripts/Overrides/playerFireAtComputer.min.js");
 }
 
 /**
@@ -191,7 +191,7 @@ function initFogOfWar() {
 function initAgainstTheClock() {
 
     // load appropriate script
-    $.getScript("../../Scripts/Overrides/againstTheClock.js");
+    $.getScript("../../Scripts/Overrides/againstTheClock.min.js");
 }
 
 /**
@@ -712,9 +712,9 @@ function endPlayerPerk(skipTurn, perk) {
 /**
  * Function that runs the functionality of the bounce bomb
  * 
- * @param   {int}   x               the x value
- * @param   {int}   y               the y value
- * @param   {int}   bbOrientation   the orientation of the bounce bomb
+ * @param   {number}    x               the x value
+ * @param   {number}    y               the y value
+ * @param   {number}    bbOrientation   the orientation of the bounce bomb
  */
 function bounceBombAction(x, y, bbOrientation) {
 
@@ -749,8 +749,8 @@ function bounceBombAction(x, y, bbOrientation) {
 /**
  * Function that runs the functionality of the sonar
  * 
- * @param   {int}   x   the x value
- * @param   {int}   y   the y value
+ * @param   {number}    x   the x value
+ * @param   {number}    y   the y value
  */
 function sonarAction(x, y) {
 
@@ -779,8 +779,8 @@ function sonarAction(x, y) {
 /**
  * Function that runs the functionality of the mortar
  * 
- * @param   {int}   x   the x value
- * @param   {int}   y   the y value
+ * @param   {number}    x   the x value
+ * @param   {number}    y   the y value
  */
 function mortarAction(x, y) {
 
