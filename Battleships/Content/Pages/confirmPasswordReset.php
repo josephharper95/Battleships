@@ -2,8 +2,9 @@
 
 /**
 *
-*   V0.1    Joe    17/01/17    initial creation
-*   V0.2    Joe    18/01/17    added validation and true functionality
+*   V0.1    Joe     17/01/17    initial creation
+*   V0.2    Joe     18/01/17    added validation and true functionality
+*   V0.3    Nick    21/01/17    styled
 *   
 */
 
@@ -47,51 +48,74 @@ if(Input::itemExists("passwordSetAttempt"))
     }
 }
 
-if (Input::getItemExists("userID") && Input::getItemExists("resetCode"))
-{
+if (Input::getItemExists("userID") && Input::getItemExists("resetCode")) {
+
     $userID = Input::get("userID");
     $resetCode = Input::get("resetCode");
 
     $userQuery = new User();
 
     $rows = $userQuery->checkForPendingPasswordReset($userID, $resetCode);
-    if($userQuery->db->getRowCount() > 0)
-    {
+
+    if ($userQuery->db->getRowCount() > 0) {
         // Allow user to reset their password
 ?>
-        <h1>Reset Password</h1>
 
-        <form method="post" action="">
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>BattleShips Online - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <ul class="blank">
-                <li>
-                    <input type="password" placeholder="New Password" name="newPassword" />
-                </li>
-                <li>
-                    <input type="password" placeholder="Confirm New Password" name="passwordMatch" />
-                </li>
-                <li>
-                    <button type="submit" name="passwordSetAttempt"> Set New Password </button>
-                </li>
-                <input type="hidden" name="userID" value=<?= $userID?> />
+    <link rel="stylesheet" type="text/css" href="../Styles/app.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/Pages/confirmPasswordReset.min.css" />
+</head>
+<body>
 
-                <li class="confirmPasswordResetError">
-                    <?= Session::get("confirmPasswordResetMessage"); ?>
-                </li>
-            </ul>
-        </form>
+    <div id="pageConfirmPasswordResetCont">
 
+        <div id="pageConfirmPasswordReset"
+
+    <?php
+        if (Session::exists("confirmPasswordResetMessage")) {
+            echo "class='extra'";
+        }
+    ?>
+
+        >
+            <h1>Reset Password</h1>
+
+            <form method="post" action="">
+
+                <ul class="blank">
+                    <li>
+                        <input type="password" placeholder="New Password" name="newPassword" />
+                    </li>
+                    <li>
+                        <input type="password" placeholder="Confirm New Password" name="passwordMatch" />
+                    </li>
+                    <li>
+                        <button type="submit" name="passwordSetAttempt"> Set New Password </button>
+                    </li>
+                    <input type="hidden" name="userID" value=<?= $userID?> />
+
+                    <li class="confirmPasswordResetError">
+                        <?= Session::get("confirmPasswordResetMessage"); ?>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
 
 <?php        
-    }
-    else
-    {
+
+    } else {
         Session::set("loginMessage", "No pending password request found.");
         header("Location: login.php");
     }
-}
-else
-{
+} else {
     Session::set("loginMessage", "No reset code provided.");
     header("Location: login.php");
 }
