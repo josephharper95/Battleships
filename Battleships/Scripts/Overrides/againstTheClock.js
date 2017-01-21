@@ -51,7 +51,9 @@ function startGameExtra() {
 /**
  * Function to override the existing function to clear the interval
  */
-function endGameExtra() {
+function endGameExtra(winner, finished) {
 
     clearInterval(interval);
+
+    return true;
 }
