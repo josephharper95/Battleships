@@ -56,14 +56,14 @@ require_once("header.php");
 <script src="../../Scripts/Helpers/conversions.min.js" type="text/javascript" ></script>
 
 <!-- Classes -->
-<script src="../../Scripts/Classes/game..min.js" type="text/javascript"></script>
-<script src="../../Scripts/Classes/ship..min.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/board..min.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/coordinate..min.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Perk..min.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Sonar..min.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/BouncingBomb..min.js" type="text/javascript" ></script>
-<script src="../../Scripts/Classes/Mortar..min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/game.min.js" type="text/javascript"></script>
+<script src="../../Scripts/Classes/ship.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/board.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/coordinate.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Perk.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Sonar.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/BouncingBomb.min.js" type="text/javascript" ></script>
+<script src="../../Scripts/Classes/Mortar.min.js" type="text/javascript" ></script>
 
 <div id="pageMultiplayer"
         class="pageContainer">
