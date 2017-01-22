@@ -98,7 +98,7 @@ function passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $rese
     $msg="Hello Captain ".$firstName." ".$lastName.", you recently requested a password reset...
         <br/> Your User ID is: ".$userID.
         "<br/><br/> Please click the following link to reset your password: 
-        <br/> <a href='https://battleships-preprod.tk/battleships/Content/Pages/confirmPasswordReset.php?resetCode=".$resetCode."&userID=".$userID."'>RESET PASSWORD</a>"; // HTML message
+        <br/> <a href='https://battleships.online/battleships/Content/Pages/confirmPasswordReset.php?resetCode=".$resetCode."&userID=".$userID."'>RESET PASSWORD</a>"; // HTML message
     $subject="BattlesShips Online Password Reset!";
 
     $mail = new PHPMailer();
