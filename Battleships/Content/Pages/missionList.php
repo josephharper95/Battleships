@@ -37,7 +37,7 @@ require_once("header.php");
 
         <h1>Missions</h1>
 
-        <p>Insert schpiel about what missions are, bit of WW2 style...</p>
+        <p>Are you battle hardened? Are you unbeatable on the battlefield? Prepare to take on the perils of pearl harbour, defeat the enemy before time runs out, survive with only one ship, and much much more</p>
 
         <table id="missions">
 

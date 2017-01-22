@@ -42,7 +42,7 @@ require_once("header.php");
 
             <div class="youtube">
 
-                <iframe src="https://www.youtube.com/embed/FscQZ1LPt48" 
+                <iframe src="https://youtu.be/ASznVtZ_VU8" 
                         frameborder="0" 
                         allowfullscreen
                         style="display: inline-block;"></iframe>

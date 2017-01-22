@@ -558,9 +558,9 @@ function runOutro(winner) {
 
             // set the text
             var endText = winner == "player" ?
-                "You Won! <br/><br/> Insert motivational speech about how well you did"
+                "You Won!<br/><br/>Congratulations Commander, you have defeated the enemy. You have proven your worthiness and received a medal."
                 :
-                "You Lost! <br/><br/> Insert motivational speech about how to get better";
+                "You Lost!<br/><br/>Retreat back to friendly shores, regroup and get ready for the next fight!";
 
             // split the string into individual characters
             var chars = endText.split("");

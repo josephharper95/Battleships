@@ -46,10 +46,8 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Last Stand";
-        $missionText = "Only your destroyer survived the last attack.
-                        You're in the ocean... alone.
-                        A new full wave of enemy ships is fast approaching you.
-                        Position your ship to fend off the enemy.";
+        $missionText = "That last attack hit you had, all you have left is your destroyer. 
+                        Intelligence suggests the enemy fleet is fast approaching… You’re on your own Solider, good luck!";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -59,11 +57,9 @@ switch ($mission) {
 
         $character = "enemy";
         $missionTitle = "Hardcore";
-        $missionText = "You have suffered a tremendous hit.
-                        Only your main cannon works.
-                        On top of this, your sonar ship detection has broken.
-                        You will know you have hit an enemy ship, but you won't know if that ship has been sunk.
-                        Good luck Corporal.";
+        $missionText = "The fleet has taken significant damage. 
+                        All you have left are main cannons and a malfunctioning radar system. 
+                        You will see when you hit them but you have no way of knowing whether the enemy ships have been sunk. Good luck, Commander!";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -74,8 +70,7 @@ switch ($mission) {
         $character = "friendly";
         $missionTitle = "Fog of War";
         $missionText = "You have lost communications with your allies on shore. 
-                        Your sonar system has been damaged by a recent attack so you are unaware if you have sunk your enemy ships.
-                        The fog has limited your ability to fire shots so you can only user your mortar shot.";
+                        Your sonar system has been damaged by a recent attack so you are unaware if you have sunk your enemy ships.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -85,8 +80,9 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Against the Clock";
-        $missionText = "Time is running out.
-                        You need to sink the enemy ships before the countdown finishes.";
+        $missionText = "You are all that stands between the enemy and our merchant navy. 
+                        They are just a few minutes away; you have to sink their ships before they reach them! 
+                        You are our last hope, Commander.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";
@@ -96,8 +92,8 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Pearl Harbour";
-        $missionText = "The enemy has called in a squadron to aid their attack.
-                        You need to defeat the enemy including their squadron.";
+        $missionText = "The enemy came out of nowhere and they’re attacking from land and sea! 
+                        You need to mobilise what ships you have left and fight them off before they destroy the fleet!";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Medium";
@@ -107,8 +103,9 @@ switch ($mission) {
 
         $character = "friendly";
         $missionTitle = "Island Warfare";
-        $missionText = "Your battle field contains islands.
-                        You need to place your ships around these islands and defeat your enemy.";
+        $missionText = "The enemy has you surrounded and trapped against an island and we can’t reach you in time. 
+                        You need to destroy the enemy ships and fight your way out of there before it is too late. 
+                        Good luck, Commander.";
         $sizeClass = "medium";
         $size = 15;
         $difficultyText = "Hard";

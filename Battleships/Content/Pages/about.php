@@ -35,11 +35,33 @@ require_once("header.php");
 
             <h1>About</h1>
 
-            <p>Insert schpiel about what we have created and why we have created it.</p>
+            <p>Battleships.online is a refresh on the well known and loved board game. Challenge in single-player, multiplayer, and in mission mode. Be the best by featuring in the top 10 leaderboards, shown in the statistics page.</p>
 
             <div id="releaseNotes">
 
                 <h2>Release Notes</h2>
+
+                <h3>V3.0.0</h3>
+
+                <p>
+                    Our third release includes the following:
+                    <ul>
+                        <li>
+                            Missions
+                        </li>
+                        <li>
+                            Medals
+                        </li>
+                        <li>
+                            Responsiveness
+                        </li>
+                    </ul>
+
+                    Battle in all new mission mode!
+                    Take on the perils of pearl harbour, or try your luck in last-stand.
+                    Medals now track what you have completed in the game.
+                    You can now play on your mobile device!
+                </p>
 
                 <h3>V2.0.0</h3>
 
