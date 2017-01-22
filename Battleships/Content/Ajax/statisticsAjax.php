@@ -235,7 +235,7 @@ function getTopTenUsersTotalPlayingTimeByDifficulty() {
 
 /**
  * Method to return top ten user hit accuracy for each difficulty
-* 
+ * 
  * @return JSON $returnVal 
  */
 function getTopTenUsersHitAccuracyByDifficulty() {
@@ -253,7 +253,7 @@ function getTopTenUsersHitAccuracyByDifficulty() {
 
 /**
  * Method to return multiplayer statistics
-* 
+ * 
  * @return JSON $returnVal
  */
 function getMultiplayersStats() {

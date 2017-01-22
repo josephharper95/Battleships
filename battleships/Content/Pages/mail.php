@@ -7,7 +7,7 @@
 
 require_once("../Classes/setup.php");
 
-if(!$argv[0])
+if(!$argv[0]) // If user visits page manually
 {
 	if(!Session::get("userID"))
 	{
@@ -16,37 +16,38 @@ if(!$argv[0])
 		exit();
 	}
 	else
-	{
+	{  // redirect to home page is user is logged in
     	header("Location: home.php");
     	exit();
 	}
 }
 
-if(sizeof($argv) == 5)
+if(sizeof($argv) == 5) // If confirmation email required
 {
 	$userID = $argv[1];
 	$firstName = $argv[2];
 	$lastName = $argv[3];
 	$emailAddress = $argv[4];
 
-	confirmationEmail($userID, $firstName, $lastName, $emailAddress);
+	confirmationEmail($userID, $firstName, $lastName, $emailAddress); // send confirmation email
 }
 else
-{
+{ // if password reset email is required
 	$userID = $argv[1];
 	$firstName = $argv[2];
 	$lastName = $argv[3];
 	$emailAddress = $argv[4];
 	$resetCode = $argv[5];
 
-	passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode);
+	passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode); // send password reset email
 }
 
 
 function confirmationEmail($userID, $firstName, $lastName, $emailAddress)
 {
 	require("../../Scripts/PHPMailer/class.PHPMailer.php");
-
+	
+	// Prepare details for email
 	$account="battleshipsonline@outlook.com";
 	$password="zHU9BaxAeJVPJXhy";
 	$to=$emailAddress;
@@ -58,14 +59,14 @@ function confirmationEmail($userID, $firstName, $lastName, $emailAddress)
 
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->SMTPDebug  = 1;
+	$mail->SMTPDebug  = 1; // low debug mode
 	$mail->CharSet = 'UTF-8';
-	$mail->Host = "smtp.live.com";
+	$mail->Host = "smtp.live.com"; // chosen smtp server
 	$mail->SMTPAuth= true;
 	$mail->Port = 587;
 	$mail->Username= $account;
 	$mail->Password= $password;
-	$mail->SMTPSecure = 'tls';
+	$mail->SMTPSecure = 'tls'; // required for authentication
 	$mail->From = $from;
 	$mail->FromName= $from_name;
 	$mail->isHTML(true);
@@ -82,13 +83,13 @@ function confirmationEmail($userID, $firstName, $lastName, $emailAddress)
 	exit;
 	}
 
-	echo "Message has been sent";*/
+	echo "Message has been sent";*/ // Left in place for debug purposes
 }
 
 function passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $resetCode) {
 
     require("../../Scripts/PHPMailer/class.PHPMailer.php");
-
+	// Prepare details for email
     $account="battleshipsonline@outlook.com";
     $password="zHU9BaxAeJVPJXhy";
     $to=$emailAddress;
@@ -102,14 +103,14 @@ function passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $rese
 
     $mail = new PHPMailer();
     $mail->IsSMTP();
-    $mail->SMTPDebug  = 1;
+    $mail->SMTPDebug  = 1; // low debug mode
     $mail->CharSet = 'UTF-8';
-    $mail->Host = "smtp.live.com";
+    $mail->Host = "smtp.live.com"; //chosen smtp server
     $mail->SMTPAuth= true;
     $mail->Port = 587;
     $mail->Username= $account;
     $mail->Password= $password;
-    $mail->SMTPSecure = 'tls';
+    $mail->SMTPSecure = 'tls'; // used for authentication
     $mail->From = $from;
     $mail->FromName= $from_name;
     $mail->isHTML(true);
@@ -126,7 +127,7 @@ function passwordResetEmail($userID, $firstName, $lastName, $emailAddress, $rese
     exit;
     }
 
-    echo "Message has been sent";*/
+    echo "Message has been sent";*/ // Left in for future debug purposes
 }
 
 ?>

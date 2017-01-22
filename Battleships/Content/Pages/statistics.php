@@ -29,7 +29,13 @@ if(!Session::get("userID")) {
 // include the header file if it has not been included before
 require_once("header.php");
 
-function convertPlayingTime($seconds) {
+/**
+ * Function converts playing time in seconds to hh:mm:ss format
+ *
+ * @param int $seconds
+ * @return string/int
+ */
+function convertPlayingTime($seconds) { // Convert playing time to hh:mm:ss format
     $hours = $seconds / 3600  % 24;
     $minutes = $seconds / 60  % 60;
     $seconds = $seconds % 60;
@@ -39,6 +45,13 @@ function convertPlayingTime($seconds) {
     return $result;
 }
 
+/**
+ * Function divides the input to generate a percentage
+ *
+ * @param int $small
+ * @param int $large
+ * @return string/int
+ */
 function convertPercentage($small, $large) {
     if ($large == 0 && $small == 0) {
         return "N/A";

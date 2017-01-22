@@ -23,20 +23,24 @@ class Database
              $results,
              $rowCount;
    
-   //Private constructor to stop more instances being created         
+   /**
+    * Private constructor to stop more instances being created 
+    */        
    private function __construct()
    {
        try 
        {
-            //$this->pdo = new PDO("mysql:host=battleships.cvjpmcwywnha.eu-west-1.rds.amazonaws.com;port=3306;dbname=battleships;", "root", "battleships"); // SERVER
-            $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", "root"); // LOCAL
+            $this->pdo = new PDO("mysql:host=localhost;dbname=battleships;", "root", "root"); // LOCAL DB Server
        } 
        catch(PDOException $e)
        {
            die("Error connecting to database");
        }
    }
-   //Function to return the instance, if one doesn't exit, create one. This ensures only one instance can exist.
+   
+   /**
+    * Function to return the instance, if one doesn't exit, create one. This ensures only one instance can exist.
+    */   
    public static function getInstance()
    {
        if(!isset(self::$instance))
@@ -46,14 +50,18 @@ class Database
        return self::$instance;
    }
 
-   //Function to return the id of the last inserted row.
+   /**
+    * Function to return the id of the last inserted row.
+    */   
    public function lastInsertedId()
    {
        $id =  $this->pdo->lastInsertId();
        return $id;
    }
    
-   //Function to prepare and execute sql queries. Preparing the querys helps to prevent SQL injection
+   /**
+    * Function to prepare and execute sql queries. Preparing the querys helps to prevent SQL injection
+    */   
    public function query($sql, $values = array())
    {
         $this->query = $this->pdo->prepare($sql);//Sql statement sent to database with values replaced with (?);
@@ -73,13 +81,18 @@ class Database
         $this->rowCount = $this->query->rowCount();
         return $this;
    }
-   //Function to return the results of the last query.
+
+   /**
+    * Function to return the results of the last query.
+    */  
    public function getResults()
    {
        return $this->results;
    }
 
-   //Function to return the row count of the last query.
+   /**
+    * Function to return the row count of the last query.
+    */  
    public function getRowCount()
    {
        return $this->rowCount;

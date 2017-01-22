@@ -118,7 +118,13 @@ if (Input::itemExists("resetPassword")) {
 
 Session::delete("resetPasswordMessage");
 
-function generateResetCode($numberOfDigits) {
+/**
+ * Function generates a random number based on your input number of digits
+ *
+ * @param int $numberOfDigits
+ * @return string/int $resetCode
+ */
+function generateResetCode($numberOfDigits) { // Generate reset code based on how many digits you want it to be
 
     $resetCode = '';
     $count = 0;

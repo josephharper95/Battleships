@@ -13,31 +13,41 @@
 //Wrapper to get items from forms using POST/GET.
 class Input
 {
-    //Checks thats input exists
+    /**
+    * Checks that input from a POST request exists
+    */ 
     public static function exists()
     {
         return(!empty($_POST));
     }
 
-    //Checks thats input exists
+    /**
+    * Checks that input from a GET request exists
+    */ 
     public static function getExists()
     {
         return(!empty($_GET));
     }
     
-    //check an item exists
+    /**
+    * Checks that an item from a POST request exists
+    */ 
     public static function itemExists($item)
     {
         return(isset($_POST[$item]));
     }
 
-    //check an item exists
+    /**
+    * Checks that an item from a GET request exists
+    */ 
     public static function getItemExists($item)
     {
         return(isset($_GET[$item]));
     }
     
-    //Gets the submitted item from post if it exists
+    /**
+    * Gets the submitted item from post if it exists
+    */ 
     public static function post($item)
     {
         if(Input::itemExists($item))
@@ -50,7 +60,9 @@ class Input
         }
     }
 
-    //Gets the submitted item from get if it exists
+    /**
+    * Gets the submitted item from get if it exists
+    */ 
     public static function get($item)
     {
         if(Input::getItemExists($item))
