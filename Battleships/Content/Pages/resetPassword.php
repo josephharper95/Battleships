@@ -31,19 +31,19 @@ if (Input::itemExists("resetPassword")) {
         $userQuery = new User();
         $rows = $userQuery->getUserByID($userID);
 
-        if ($userQuery->db->getRowCount() > 0) {
+        if ($userQuery->db->getRowCount() > 0) { // Get the user into an object row
 
-            foreach ($rows as $row) {
+            foreach ($rows as $row) { // set up variables
 
                 $emailAddress = $row->emailAddress;
                 $firstName = $row->firstName;
                 $lastName = $row->lastName;
             }
 
-            $resetCode = generateResetCode(8);
-            $userQuery->insertPendingPasswordReset($userID, $resetCode);
+            $resetCode = generateResetCode(8); // Generate reset code to insert into DB
+            $userQuery->insertPendingPasswordReset($userID, $resetCode); //
 
-            pclose(popen("start /b php mail.php {$userID} {$firstName} {$lastName} {$emailAddress} {$resetCode}", "r"));
+            pclose(popen("start /b php mail.php {$userID} {$firstName} {$lastName} {$emailAddress} {$resetCode}", "r")); // Asynchronously send user email
             Session::set("resetPasswordMessage", "Please check your emails and click the password reset link");
 
         } else {
