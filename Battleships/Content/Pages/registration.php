@@ -33,26 +33,25 @@ if (Input::itemExists("register")) {
 
 			$firstName = Input::post("firstName");
 			$lastName = Input::post("lastName");
-			if(preg_match("/^[a-zA-Z0-9\'\-]{1,50}$/", $firstName) && preg_match("/^[a-zA-Z0-9\'\-]{1,50}$/", $lastName)) {
+			if(preg_match("/^[a-zA-Z0-9\'\-]{1,50}$/", $firstName) && preg_match("/^[a-zA-Z0-9\'\-]{1,50}$/", $lastName)) { // If the characters are allowed in the name
 
 				$emailAddress = Input::post("emailAddress");
 				if(validEmail($emailAddress)) { // If the email address is a valid email address input
 
-					if(Input::post("password") === Input::post("passwordMatch")) {
+					if(Input::post("password") === Input::post("passwordMatch")) { // If the user password inputs match
 
-						$hashedPassword = hash("sha256", Input::post("password"));
+						$hashedPassword = hash("sha256", Input::post("password")); // Hash password
 
 						$userQuery = new User();
 						$userQuery->getUserByID($userID);
 						if($userQuery->db->getRowCount() > 0) { // If the user already exists in the database... error
 
 							Session::set("registrationMessage", "That username is taken, please pick another.");
-							//header("Location: registration.php");
-							//exit();
+
 						} else { // No issues with input, user inserted into DB and redirected
 
-							$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName, $emailAddress);
-							pclose(popen("start /b php mail.php {$userID} {$firstName} {$lastName} {$emailAddress}", "r"));
+							$userQuery->insertNewUser($userID, $hashedPassword, $firstName, $lastName, $emailAddress); // insert new user
+							pclose(popen("start /b php mail.php {$userID} {$firstName} {$lastName} {$emailAddress}", "r")); // asynchronously send email
 							Session::set("loginMessage", "User successfully registered. Enter your credentials to log in.");
 							header("Location: login.php");
 							exit();
@@ -207,7 +206,13 @@ if (Input::itemExists("register")) {
 </html>
 
 <?php 
-	function validEmail($email) 
+	/**
+	* Function generates a random number based on your input number of digits
+	*
+	* @param string $email
+	* @return boolean
+	*/
+	function validEmail($email)  // check if email address appears to be valid
 	{
         return !!filter_var($email, FILTER_VALIDATE_EMAIL);
     }

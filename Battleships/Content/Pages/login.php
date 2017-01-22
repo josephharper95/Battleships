@@ -52,14 +52,11 @@ if(Input::itemExists("userID") && Input::itemExists("password")) { // If user ha
 
     } else { // If username + hashed password combination not found in the DB... redirect back to login page.
         Session::set("loginMessage", "The entered username and password combination could not be found.");
-        //header("Location: login.php");
-        //exit();
     }
 }
 
 require_once("favicon.html");
-//require_once("header.php"); // Runs header.php file
-//Session::set("loginMessage", "The entered username and password combination could not be found.");
+
 ?>
 
 <!DOCTYPE HTML>

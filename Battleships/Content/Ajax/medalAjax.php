@@ -15,7 +15,7 @@ require_once("../Classes/setup.php");
 $user; 
 $userId; 
 
-if (Input::itemExists("action")) {
+if (Input::itemExists("action")) { // If action Input exists
 
     $user = new User();
     
@@ -23,7 +23,7 @@ if (Input::itemExists("action")) {
     $action = Input::post("action");
     
 
-    switch ($action) {
+    switch ($action) { // Based on the action input, perform one set of tasks or another
         case "checkMedalConditions":
             $winner = Input::post("winner");
             $difficulty = Input::post("difficulty");
@@ -40,6 +40,11 @@ if (Input::itemExists("action")) {
 
 }
 
+/**
+ * Function unlocks the medal by its medal ID for the current logged in user 
+ * 
+ * @param int $medalID
+ */
 function unlockMedal($medalId) {
     global $userId, $user;
 
@@ -63,12 +68,15 @@ function unlockMedal($medalId) {
     }
 }
 
+/**
+ * Method checks to see whether a user meets specified criteria to lock a medal, if they do, calls the unlock method
+ */
 function checkMedalConditions(){
     global $userId, $user, $winner, $difficulty, $boardSize, $numberOfHits, $accuracy;
 
     if (isset($userId) && isset($winner) && isset($difficulty)) {
         //Check medals for winning a game
-        if($winner == "player"){
+        if($winner == "player"){ // checks criteria for difficulty medals
             //Check medals for difficulty
             switch($difficulty){
                 case "easy":

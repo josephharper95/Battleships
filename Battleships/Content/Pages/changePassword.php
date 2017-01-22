@@ -17,26 +17,26 @@ if(!Session::get("userID")) {
     exit();
 }
 
-if (Input::itemExists("changePassword"))  {
+if (Input::itemExists("changePassword"))  { // If the user clicked "change password"
 
     if (Input::itemExists("oldPassword") && 
         Input::itemExists("newPassword") && 
         Input::itemExists("passwordMatch") && 
-        Input::post("newPassword")) {
+        Input::post("newPassword")) { // If user has entered data in all the fields
 
-        if (Input::post("newPassword") == Input::post("passwordMatch")) {
+        if (Input::post("newPassword") == Input::post("passwordMatch")) { // If the user passwords entered both match
 
             $userQuery = new User();
             $userID = Session::get("userID");
             $hashedPassword = hash("sha256", Input::post("oldPassword"));
-            $newHashedPassword = hash("sha256", Input::post("newPassword"));
+            $newHashedPassword = hash("sha256", Input::post("newPassword")); // hash the input passwords for safety
 
             $userQuery->checkForUserAndPassword($userID, $hashedPassword); // Check to see if the entered password/username combination exists in the DB
 
             // If the old entered password matches the one in the DB... 
             if ($userQuery->db->getRowCount() > 0) {
 
-                $userQuery->updatePasswordByUserID($userID, $newHashedPassword);
+                $userQuery->updatePasswordByUserID($userID, $newHashedPassword); // Set the new password
                 Session::set("changePasswordMessage", "Password change successful.");
             } else {
 

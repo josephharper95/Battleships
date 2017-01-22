@@ -19,22 +19,22 @@ if(Session::get("userID")) {
     exit();
 }
 
-if(Input::itemExists("passwordSetAttempt"))
+if(Input::itemExists("passwordSetAttempt")) // If user has clicked the "confirm new password" button
 {
     if (Input::itemExists("newPassword") && 
         Input::itemExists("passwordMatch") && 
         Input::post("newPassword") && 
-        Input::itemExists("userID")) {
+        Input::itemExists("userID")) { // If all the required fields are populated
 
-        if (Input::post("newPassword") == Input::post("passwordMatch")) {
+        if (Input::post("newPassword") == Input::post("passwordMatch")) { // If the entered passwords match
 
             $userQuery = new User();
             $userID = Input::post("userID");
-            $newHashedPassword = hash("sha256", Input::post("newPassword"));
+            $newHashedPassword = hash("sha256", Input::post("newPassword")); // Hash the new password for safety
 
             // Delete reset code/user id combination from db
             $userQuery->deletePendingPasswordReset($userID);
-            $userQuery->updatePasswordByUserID($userID, $newHashedPassword);
+            $userQuery->updatePasswordByUserID($userID, $newHashedPassword); // Set new password for user in DB
             Session::set("loginMessage", "Password change successful. Enter your credentials to login.");
             header("Location: login.php");
             exit();
@@ -48,16 +48,16 @@ if(Input::itemExists("passwordSetAttempt"))
     }
 }
 
-if (Input::getItemExists("userID") && Input::getItemExists("resetCode")) {
+if (Input::getItemExists("userID") && Input::getItemExists("resetCode")) { // If the user has clicked the reset link in the email
 
     $userID = Input::get("userID");
     $resetCode = Input::get("resetCode");
 
     $userQuery = new User();
 
-    $rows = $userQuery->checkForPendingPasswordReset($userID, $resetCode);
+    $rows = $userQuery->checkForPendingPasswordReset($userID, $resetCode); // Check to see if user id/reset code combination exists in DB
 
-    if ($userQuery->db->getRowCount() > 0) {
+    if ($userQuery->db->getRowCount() > 0) { // if it does....
         // Allow user to reset their password
 ?>
 

@@ -28,7 +28,12 @@ class User {
         $this->db = Database::getInstance();
     }
 
-    //Function to execute a query checking for a user in the table with the entered userID and hashed password
+    /**
+    * Function to execute a query checking for a user in the table with the entered userID and hashed password
+    * 
+    * @param int $userID
+    * @param string $hashedPassword
+    */
     function checkForUserAndPassword($userID, $hashedPassword) { 
         $sql = "SELECT userID, password
                 FROM users
@@ -39,7 +44,15 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    //Function to insert new user into database
+    /**
+    * Function to insert new user into database
+    * 
+    * @param int $userID
+    * @param string $hashedPassword
+    * @param string $firstName
+    * @param string $lastName
+    * @param string $emailAddress
+    */
     function insertNewUser($userID, $hashedPassword, $firstName, $lastName, $emailAddress) {
         $sql = "INSERT INTO users (userID, password, firstName, lastName, emailAddress)
                 VALUES (?, ?, ?, ?, ?)";
@@ -59,7 +72,12 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    //Function to unlock user medals by adding the userID and medalID into the link table
+    /**
+    * Function to unlock user medals by adding the userID and medalID into the link table
+    * 
+    * @param int $userID
+    * @param int $medalID
+    */
     function unlockMedal($userID, $medalID) {
         $sql = "INSERT INTO usermedals (userID, medalID)
                 VALUES (?, ?)";
@@ -71,7 +89,12 @@ class User {
 
 #region GETTERS
 
-    //Function to execute a query, getting the user details from the database with the entered userID
+    /**
+    * Function to execute a query, getting the user details from the database with the entered userID
+    * 
+    * @param int $userID
+    * @return PDO Object/Rows
+    */
    	function getUserByID($userID) {
         $sql = "SELECT userID, firstName, lastName, emailAddress
 				FROM users 
@@ -84,6 +107,11 @@ class User {
         return $this->db->getResults();
 	}
 
+    /**
+    * Function to get all difficulties from the DB
+    * 
+    * @return PDO Object/Rows
+    */
     function getDifficulties() {
         $sql = "SELECT difficultyID as 'id', difficulty as 'name'
 				FROM difficulties";
@@ -94,7 +122,13 @@ class User {
         return $this->db->getResults();
     }
 
-    //Function to execute a query, getting the user statistics from the database with the entered userID
+    /**
+    * Function to execute a query, getting the user statistics from the database with the entered userID
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getUserStatisticsByUserIDAndDifficulty($userID, $difficulty) {
         $sql = "SELECT score, highScore, wins, gamesPlayed, incompleteGames, totalShotsFired, totalShotsHit, totalHitsReceived, totalPlayingTime
 				FROM userstatistics us
@@ -109,7 +143,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the top ten users and scores by difficulty
+    /**
+    * Function to execute a query, getting the top ten users and scores by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getTopTenUsersScoresByDifficulty($difficulty) {
         $sql = "SELECT u.userID, firstName, lastName, score
                 FROM userstatistics us
@@ -128,7 +167,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the top ten users and high scores by difficulty
+    /**
+    * Function to execute a query, getting the top ten users and high scores by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getTopTenUsersHighScoresByDifficulty($difficulty) {
         $sql = "SELECT u.userID, firstName, lastName, highScore
                 FROM userstatistics us
@@ -147,7 +191,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the top ten users and wins by difficulty
+    /**
+    * Function to execute a query, getting the top ten users and wins by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getTopTenUsersWinsByDifficulty($difficulty)
 	{
         $sql = "SELECT u.userID, firstName, lastName, wins
@@ -167,7 +216,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the top ten users and games played by difficulty
+    /**
+    * Function to execute a query, getting the top ten users and games played by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getTopTenUsersGamesPlayedByDifficulty($difficulty)
 	{
         $sql = "SELECT u.userID, firstName, lastName, gamesPlayed
@@ -187,7 +241,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the top ten users and total shots fired by difficulty
+    /**
+    * Function to execute a query, getting the top ten users and total shots fired by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getTopTenUsersTotalShotsFiredByDifficulty($difficulty)
 	{
         $sql = "SELECT u.userID, firstName, lastName, totalShotsFired
@@ -207,7 +266,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the top ten users and total shots hit by difficulty
+    /**
+    * Function to execute a query, getting the top ten users and total shots hit by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getTopTenUsersTotalShotsHitByDifficulty($difficulty)
 	{
         $sql = "SELECT u.userID, firstName, lastName, totalShotsHit
@@ -227,6 +291,12 @@ class User {
         return $this->db->getResults();
 	}
 
+    /**
+    * Function to execute a query, getting the top ten users accuracy by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
     function getTopTenUsersHitAccuracyByDifficulty($difficulty) {
         $sql = "SELECT u.userID, firstName, lastName, ((totalShotsHit / totalShotsFired) * 100) as 'accuracy'
                 FROM userstatistics us
@@ -246,7 +316,12 @@ class User {
         return $this->db->getResults();
     }
 
-    //Function to execute a query, getting the top ten users and total hits received by difficulty
+    /**
+    * Function to execute a query, getting the top ten users and total hits received by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getTopTenUsersTotalHitsReceivedByDifficulty($difficulty)
 	{
         $sql = "SELECT u.userID, firstName, lastName, totalHitsReceived
@@ -266,7 +341,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the top ten users and total playing time by difficulty
+    /**
+    * Function to execute a query, getting the top ten users and total playing time by difficulty
+    * 
+    * @param int $difficulty
+    * @return PDO Object/Rows
+    */
    	function getTopTenUsersTotalPlayingTimeByDifficulty($difficulty)
 	{
         $sql = "SELECT u.userID, firstName, lastName, totalPlayingTime
@@ -286,7 +366,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the users multiplayer statistics displayed on their room
+    /**
+    * Function to execute a query, getting the users multiplayer statistics displayed on their room
+    * 
+    * @param int $userID
+    * @return PDO Object/Rows
+    */
    	function getMultiplayerDataByUserID($userID) {
         $sql = "SELECT highScore, gamesPlayed, incompleteGames
 				FROM userstatistics us
@@ -299,7 +384,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the users medals
+    /**
+    * Function to execute a query, getting the users medals
+    * 
+    * @param int $userID
+    * @return PDO Object/Rows
+    */
    	function getMedalsByUserID($userID) {
         $sql = "SELECT m.medalID, m.medalName, m.medalCategory
 				FROM usermedals um
@@ -313,7 +403,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting the users total number of wins
+    /**
+    * Function to execute a query, getting the users total number of wins
+    * 
+    * @param int $userID
+    * @return PDO Object/Rows
+    */
    	function getWinsByUserID($userID) {
         $sql = "SELECT SUM(wins) as 'wins'
 				FROM userstatistics us
@@ -325,7 +420,11 @@ class User {
         return $this->db->getResults()[0];
 	}
 
-    //Function to execute a query, getting all the medals
+    /**
+    * Function to execute a query, getting all the medals
+    * 
+    * @return PDO Object/Rows
+    */
    	function getAllMedals() {
         $sql = "SELECT m.medalID, m.medalName, m.medalCategory
 				FROM medals m";
@@ -336,7 +435,12 @@ class User {
         return $this->db->getResults();
 	}
 
-    //Function to execute a query, getting all the medals
+    /**
+    * Function to execute a query, getting all the medals by user ID
+    * 
+    * @param int $userID
+    * @return PDO Object/Rows
+    */
    	function getAllMedalsByUserID($userID) {
         $sql = "SELECT m1.medalName, m1.medalCategory, CASE um.userID 
 										WHEN ? 
@@ -357,7 +461,13 @@ class User {
 
 #region SETTERS
 
-    // Function updates the score of the player with the specified difficulty
+    /**
+    * Function updates the score of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    * @param int $gameScore
+    */
     function updateScore($userID, $difficulty, $gameScore)
 	{
 		$sql = "UPDATE userstatistics
@@ -368,7 +478,13 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function updates the score of the player with the specified difficulty
+    /**
+    * Function updates the high score of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    * @param int $gameScore
+    */
     function updateHighScore($userID, $difficulty, $gameScore)
 	{
 		$sql = "UPDATE userstatistics
@@ -379,7 +495,12 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function adds 1 to the number of wins of the player with the specified difficulty
+    /**
+    * Function adds 1 to the number of wins of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    */
     function incrementWins($userID, $difficulty)
 	{
 		$sql = "UPDATE userstatistics
@@ -390,7 +511,12 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function adds 1 to the number of games played of the player with the specified difficulty
+    /**
+    * Function adds 1 to the number of games played of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    */
     function incrementGamesPlayed($userID, $difficulty)
 	{
 		$sql = "UPDATE userstatistics
@@ -401,7 +527,12 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function adds 1 to the number of incomplete games of the player with the specified difficulty
+    /**
+    * Function adds 1 to the number of incomplete games of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    */
     function incrementIncompleteGames($userID, $difficulty)
 	{
 		$sql = "UPDATE userstatistics
@@ -412,7 +543,12 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function takes 1 from the number of incomplete games of the player with the specified difficulty
+    /**
+    * Function takes 1 from the number of incomplete games of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    */
     function decrementIncompleteGames($userID, $difficulty)
 	{
 		$sql = "UPDATE userstatistics
@@ -423,7 +559,13 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function adds 1 to the number of total shots fired of the player with the specified difficulty
+    /**
+    * Function adds to the number of total shots fired of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    * @param int $shots
+    */
     function incrementTotalShotsFired($userID, $difficulty, $shots)
 	{
 		$sql = "UPDATE userstatistics
@@ -434,7 +576,13 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function adds 1 to the number of total shots fired and hit of the player with the specified difficulty
+    /**
+    * Function adds to the number of total shots fired and hit of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    * @param int $shots
+    */
     function incrementTotalShotsHit($userID, $difficulty, $shots)
 	{
 		$sql = "UPDATE userstatistics
@@ -445,7 +593,13 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function adds 1 to the number of total shots received of the player with the specified difficulty
+    /**
+    * Function adds to the number of total shots received of the player with the specified difficulty
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    * @param int $shots
+    */
     function incrementTotalHitsReceived($userID, $difficulty, $shots)
 	{
 		$sql = "UPDATE userstatistics
@@ -456,7 +610,13 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function adds specified playing time to the previous playing time of the player
+    /**
+    * Function adds specified playing time to the previous playing time of the player
+    * 
+    * @param int $userID
+    * @param int $difficulty
+    * @param int $gameTime
+    */
     function updateTotalPlayingTime($userID, $difficulty, $gameTime)
 	{
 		$sql = "UPDATE userstatistics
@@ -467,7 +627,12 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function sets new password for user with specified ID
+    /**
+    * Function sets new password for user with specified ID
+    * 
+    * @param int $userID
+    * @param string $hashedPassword
+    */
     function updatePasswordByUserID($userID, $hashedPassword)
 	{
 		$sql = "UPDATE users
@@ -480,7 +645,12 @@ class User {
 
 #endregion
     
-    // Function inserts pending reset row into DB
+    /**
+    * Function inserts pending reset row into DB
+    * 
+    * @param int $userID
+    * @param int/string $resetNumber
+    */
     function insertPendingPasswordReset($userID, $resetNumber)
 	{
 		$sql = "INSERT INTO pendingpasswordresets (userID, resetNumber)
@@ -490,7 +660,13 @@ class User {
         $this->db->query($sql, $values);
     }
 
-    // Function checks if pending password reset exists
+    /**
+    * Function checks if pending password reset exists
+    * 
+    * @param int $userID
+    * @param int/string $resetNumber
+    * @return PDO Object/Rows
+    */
     function checkForPendingPasswordReset($userID, $resetNumber)
 	{
 		$sql = "SELECT pendingPasswordResetID, userID, resetNumber
@@ -503,7 +679,11 @@ class User {
         return $this->db->getResults();
     }
 
-    // Function deletes pending reset row from DB
+    /**
+    * Function deletes pending reset row from DB
+    * 
+    * @param int $userID
+    */
     function deletePendingPasswordReset($userID)
 	{
 		$sql = "DELETE FROM pendingpasswordresets

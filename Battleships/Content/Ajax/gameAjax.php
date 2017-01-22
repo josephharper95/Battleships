@@ -20,7 +20,7 @@ $user;
 $userId; 
 $difficultyId;
 
-if (Input::itemExists("action")) {
+if (Input::itemExists("action")) { // If the input "action" exists
 
     $user = new User();
     
@@ -29,7 +29,7 @@ if (Input::itemExists("action")) {
 
     $action = Input::post("action");
 
-    switch ($action) {
+    switch ($action) { // Depending on the action input, call one of the following case blocks
         case "incrementIncompleteGames":
             incrementIncompleteGames();
             break;
@@ -49,42 +49,63 @@ if (Input::itemExists("action")) {
 
 }
 
+/**
+ * Increments the number of games played by 1 for the current user logged in
+ */
 function incrementGamesPlayed() {
     global $userId, $user, $difficultyId;
 
     if (isset($userId) && isset($difficultyId)) {
 
-        $user->incrementGamesPlayed($userId, $difficultyId);
+        $user->incrementGamesPlayed($userId, $difficultyId); // Call from User Class
     }
 }
 
+/**
+ * Increments the number of incomplete games played by 1 for the current user logged in
+ */
 function incrementIncompleteGames() {
     global $userId, $user, $difficultyId;
 
     if (isset($userId) && isset($difficultyId)) {
 
-        $user->incrementIncompleteGames($userId, $difficultyId);
+        $user->incrementIncompleteGames($userId, $difficultyId); // Call from User Class
     }
 }
 
+/**
+ * Decrements the number of incomplete games played by 1 for the current user logged in
+ */
 function decrementIncompleteGames() {
     global $userId, $user, $difficultyId;
 
     if (isset($userId) && isset($difficultyId)) {
 
-        $user->decrementIncompleteGames($userId, $difficultyId);
+        $user->decrementIncompleteGames($userId, $difficultyId); // Call from User Class
     }
 }
 
+/**
+ * Records a win for the current user by incrementing the number of wins
+ */
 function recordWin() {
     global $userId, $user, $difficultyId;
 
     if (isset($userId) && isset($difficultyId)) {
 
-        $user->incrementWins($userId, $difficultyId);
+        $user->incrementWins($userId, $difficultyId); // Call from User Class
     }
 }
 
+/**
+ * Method records key information based on the end game results
+ * 
+ * @param int $totalHits, 
+ * @param int $totalShots
+ * @param int $totalHitsReceived
+ * @param int $playingTime
+ * @param int $gameScore
+ */
 function recordShots($totalHits, $totalShots, $totalHitsReceived, $playingTime, $gameScore){
     global $userId, $user, $difficultyId;
 

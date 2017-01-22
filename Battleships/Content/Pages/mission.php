@@ -40,7 +40,7 @@ $sizeClass;
 $size;
 $difficultyText;
 
-switch ($mission) {
+switch ($mission) { // Based on the chosen mission... set up the variables required accordingly for game prep
 
     case "last-stand":
 
